@@ -14,11 +14,17 @@ An app that lets you turn any subject into a continuous TV stream.
 
 TODOs:
 
-- [ ] Paragraph that describes your app and what it does
-- [ ] Required (core) user stories for your app in a bulleted list
-- [ ] Optional (nice to have) user stories listed separately
+- User can search for a subject and the app will automatically create and autoplay a channel based on that subject
+- User can switch between 2 different modes on a channel: "discovery" or "in-depth"
+- User can edit/save the channel
+    a) for editing, user can choose among a couple of different sources (Youtube/Vimeo to start with)
+    b) for saving, the user would be able to easily view the list of channels he/she current has. When the app launches it will default to auto-playing the channel he/she was watching previously. This fits nicely with the goal of the app which makes consuming content interaction-free and requires as few touches as possible
+- User can share the channels with their friends or on social media
 
-Tip: You can follow a similar format to stories specified for the weekly projects
+Nice-to-haves:
+- User can filter content: prefer specific content producers from sources (like a particular Youtube user, for example).  Or to blacklist certain topics/sources/producers.
+- User can see and watch their friends' public channels
+- User can see all of their 'likes'
 
 # Wireframes
 
