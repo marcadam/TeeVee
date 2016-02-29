@@ -8,7 +8,7 @@ Members:
 - Marc Adam Anderson
 
 # What is it?
-An app that lets you turn any subject into a continuous TV stream.
+An app that lets you turn any subject into a continuous TV stream. A Pandora-for-videos, if you will.
 
 # User stories
 
