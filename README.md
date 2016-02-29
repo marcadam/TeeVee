@@ -12,8 +12,6 @@ An app that lets you turn any subject into a continuous TV stream.
 
 # User stories
 
-TODOs:
-
 - User can search for a subject and the app will automatically create and autoplay a channel based on that subject
 - User can switch between 2 different modes on a channel: "discovery" or "in-depth"
 - User can edit/save the channel
