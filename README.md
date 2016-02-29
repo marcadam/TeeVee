@@ -20,6 +20,7 @@ An app that lets you turn any subject into a continuous TV stream. A Pandora-for
 - User can share the channels with their friends or on social media
 
 Nice-to-haves:
+- User can like/dislike individual content in the channel; disliking something will also skip the channel forward
 - User can filter content: prefer specific content producers / sources,  or to blacklist topics/sources/producers
 - User can see and watch their friends' public channels
 - User can see all of their 'likes'
