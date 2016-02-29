@@ -17,8 +17,8 @@ TODOs:
 - User can search for a subject and the app will automatically create and autoplay a channel based on that subject
 - User can switch between 2 different modes on a channel: "discovery" or "in-depth"
 - User can edit/save the channel
-    -- for editing, user can choose among a couple of different sources (Youtube/Vimeo to start with)
-    -- for saving, the user would be able to easily view the list of channels he/she current has. When the app launches it will default to auto-playing the channel he/she was watching previously. This fits nicely with the goal of the app which makes consuming content interaction-free and requires as few touches as possible
+⋅⋅1. for editing, user can choose among a couple of different sources (Youtube/Vimeo to start with)
+⋅⋅2. for saving, the user would be able to easily view the list of channels he/she current has. When the app launches it will default to auto-playing the channel he/she was watching previously. This fits nicely with the goal of the app which makes consuming content interaction-free and requires as few touches as possible
 - User can share the channels with their friends or on social media
 
 Nice-to-haves:
