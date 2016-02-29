@@ -7,6 +7,9 @@ Members:
 - Jerry Lao
 - Marc Adam Anderson
 
+# What is it?
+An app that lets you turn any subject into a continuous TV stream.
+
 # User stories
 
 TODOs:
