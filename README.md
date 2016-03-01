@@ -27,11 +27,7 @@ Nice-to-haves:
 
 # Wireframes
 
-TODOs:
-
 ![Basic wireframes](/WireframesSmartStream.png?raw=true "Basic wireframes")
-
-- [ ] Create an issue on Github (/cc @codepathreview @codepath) once your stories and wireframes are ready for review.
 
 # Tips
 
