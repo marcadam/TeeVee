@@ -29,9 +29,8 @@ Nice-to-haves:
 
 TODOs:
 
-- [ ] Draw out each screen with key elements (input fields, list item display, data shown)
-- [ ] Be sure to identify the core flow between screens within your app
-- [ ] Add the wireframes to your project repo on Github (either uploading the files or linking to them from the readme)
+![Basic wireframes](/WireframesSmartStream.png?raw=true "Basic wireframes")
+
 - [ ] Create an issue on Github (/cc @codepathreview @codepath) once your stories and wireframes are ready for review.
 
 # Tips
