@@ -87,9 +87,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-SmartStream/AFNetworking.framework"
   install_framework "Pods-SmartStream/BDBOAuth1Manager.framework"
   install_framework "Pods-SmartStream/FXBlurView.framework"
+  install_framework "Pods-SmartStream/Player.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-SmartStream/AFNetworking.framework"
   install_framework "Pods-SmartStream/BDBOAuth1Manager.framework"
   install_framework "Pods-SmartStream/FXBlurView.framework"
+  install_framework "Pods-SmartStream/Player.framework"
 fi

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B2CD8AA1C8844C60055BD50 /* StreamClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8A91C8844C60055BD50 /* StreamClient.swift */; };
+		0B2CD8AD1C8846270055BD50 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AC1C8846270055BD50 /* Stream.swift */; };
+		0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AE1C8846650055BD50 /* StreamItem.swift */; };
 		0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B501C844AD900D4AC57 /* AppDelegate.swift */; };
 		0B597B531C844AD900D4AC57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B521C844AD900D4AC57 /* ViewController.swift */; };
 		0B597B561C844AD900D4AC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B541C844AD900D4AC57 /* Main.storyboard */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B2CD8A91C8844C60055BD50 /* StreamClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamClient.swift; sourceTree = "<group>"; };
+		0B2CD8AC1C8846270055BD50 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
+		0B2CD8AE1C8846650055BD50 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
 		0B597B4D1C844AD900D4AC57 /* SmartStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B597B501C844AD900D4AC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B597B521C844AD900D4AC57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,9 +46,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B2CD8A81C88447F0055BD50 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0B2CD8A91C8844C60055BD50 /* StreamClient.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		0B2CD8AB1C88461B0055BD50 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0B2CD8AC1C8846270055BD50 /* Stream.swift */,
+				0B2CD8AE1C8846650055BD50 /* StreamItem.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		0B597B441C844AD900D4AC57 = {
 			isa = PBXGroup;
 			children = (
+				0B2CD8AB1C88461B0055BD50 /* Models */,
+				0B2CD8A81C88447F0055BD50 /* API */,
 				0B597B4F1C844AD900D4AC57 /* SmartStream */,
 				0B597B4E1C844AD900D4AC57 /* Products */,
 				141DC7F19741DA79AA229EE6 /* Pods */,
@@ -211,8 +236,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B2CD8AA1C8844C60055BD50 /* StreamClient.swift in Sources */,
 				0B597B531C844AD900D4AC57 /* ViewController.swift in Sources */,
+				0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */,
 				0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */,
+				0B2CD8AD1C8846270055BD50 /* Stream.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
