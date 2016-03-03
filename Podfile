@@ -9,7 +9,6 @@ target ’SmartStream’ do
 pod 'AFNetworking'
 pod 'BDBOAuth1Manager'
 pod ‘FXBlurView’
-pod 'Player'
 
 end
 
