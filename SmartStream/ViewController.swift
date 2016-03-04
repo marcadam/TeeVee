@@ -43,11 +43,11 @@ class ViewController: UIViewController {
                     print(url!)
                     let urlAsset = AVURLAsset(URL: NSURL(string: url!)!)
                     let playerItem = AVPlayerItem(asset: urlAsset)
-                    playerItem.addObserver(self, forKeyPath: "status", options: [.New,.Old,.Initial], context: self.myContext)
                     playerItems.append(playerItem)
                 }
                 
                 self.player = AVQueuePlayer(items: playerItems)
+                self.player!.addObserver(self, forKeyPath: "status", options: [.New,.Old,.Initial], context: self.myContext)
                 self.playerLayer = AVPlayerLayer(player: self.player)
                 self.playerLayer!.frame = self.playerView.bounds
                 
@@ -61,22 +61,22 @@ class ViewController: UIViewController {
             return
         }
         
-        let playerItem = object as? AVPlayerItem
-        if (playerItem == nil || self.player == nil || playerItem != self.player!.currentItem) {
+        let player = object as? AVPlayer
+        if (player == nil || self.player == nil) {
             return
         }
         
         if keyPath == "status" {
-            if playerItem!.status == AVPlayerItemStatus.ReadyToPlay {
+            if player!.status == AVPlayerStatus.ReadyToPlay {
                 print("ready to play")
                 loadingLabel.hidden = true
                 playButton.hidden = false
                 stopButton.hidden = false
                 self.player!.play()
-            } else if playerItem!.status == AVPlayerItemStatus.Failed {
+            } else if player!.status == AVPlayerStatus.Failed {
                 print("failed to play")
             } else {
-                print("unhandled playerItem status \(playerItem!.status)")
+                print("unhandled playerItem status \(player!.status)")
             }
         }
     }
