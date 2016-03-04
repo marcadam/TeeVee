@@ -10,23 +10,23 @@ import UIKit
 
 class Stream: NSObject {
     let dictionary: NSDictionary
-    let channelId: String?
+    let streamId: String?
     let items: [StreamItem]
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
         
-        var channelId: String? = ""
+        var streamId: String? = ""
         var items = [StreamItem]()
         
         if let stream = dictionary["stream"] as? NSDictionary {
-            channelId = stream["channel_id"] as? String
+            streamId = stream["stream_id"] as? String
             if let itemsArray = stream["items"] as? [NSDictionary] {
                 items = StreamItem.items(array: itemsArray)
             }
         }
         
-        self.channelId = channelId
+        self.streamId = streamId
         self.items = items
     }
 }

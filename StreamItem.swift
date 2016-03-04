@@ -10,15 +10,11 @@ import UIKit
 
 class StreamItem: NSObject {
     let dictionary: NSDictionary
-    let contentType: String?
-    let source: String?
     let url: String?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
 
-        contentType = dictionary["content_type"] as? String
-        source = dictionary["source"] as? String
         url = dictionary["url"] as? String
     }
     
