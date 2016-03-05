@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--Player View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="PlayerStoryboard" id="BYZ-38-t0r" customClass="PlayerViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeQ-Ok-9nI">
+                                <rect key="frame" x="0.0" y="20" width="600" height="344"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wo-oD-DVQ">
+                                        <rect key="frame" x="263" y="163" width="75" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="9wo-oD-DVQ" firstAttribute="centerY" secondItem="WeQ-Ok-9nI" secondAttribute="centerY" id="5gi-X6-lOY"/>
+                                    <constraint firstItem="9wo-oD-DVQ" firstAttribute="centerX" secondItem="WeQ-Ok-9nI" secondAttribute="centerX" id="QB8-oa-Wyz"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ix1-YS-Lcv">
+                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYb-ml-Hqy">
+                                        <rect key="frame" x="16" y="35" width="30" height="30"/>
+                                        <state key="normal" title="Play"/>
+                                        <connections>
+                                            <action selector="onPlayTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wul-rw-lDb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGe-MH-5Gf">
+                                        <rect key="frame" x="552" y="35" width="32" height="30"/>
+                                        <state key="normal" title="Stop"/>
+                                        <connections>
+                                            <action selector="onStopTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Da8-xN-API"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JmF-Xv-t2P">
+                                        <rect key="frame" x="273" y="35" width="54" height="30"/>
+                                        <state key="normal" title="Dismiss"/>
+                                        <connections>
+                                            <action selector="onDismissTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tGy-Ul-XSM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="MGe-MH-5Gf" secondAttribute="trailing" constant="16" id="Jya-Hf-xZe"/>
+                                    <constraint firstAttribute="height" constant="100" id="PKd-M2-kv8"/>
+                                    <constraint firstItem="QYb-ml-Hqy" firstAttribute="centerY" secondItem="Ix1-YS-Lcv" secondAttribute="centerY" id="ajg-l3-8ch"/>
+                                    <constraint firstItem="JmF-Xv-t2P" firstAttribute="centerY" secondItem="Ix1-YS-Lcv" secondAttribute="centerY" id="dmm-cd-rUH"/>
+                                    <constraint firstItem="QYb-ml-Hqy" firstAttribute="leading" secondItem="Ix1-YS-Lcv" secondAttribute="leading" constant="16" id="jFA-gO-TqX"/>
+                                    <constraint firstItem="JmF-Xv-t2P" firstAttribute="centerX" secondItem="Ix1-YS-Lcv" secondAttribute="centerX" id="kHf-NU-5fb"/>
+                                    <constraint firstItem="MGe-MH-5Gf" firstAttribute="centerY" secondItem="Ix1-YS-Lcv" secondAttribute="centerY" id="o3Z-Os-sZd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WeQ-Ok-9nI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="46P-Gl-MCf"/>
+                            <constraint firstAttribute="trailing" secondItem="Ix1-YS-Lcv" secondAttribute="trailing" id="4LZ-0b-82g"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" constant="236" id="Ds2-g3-sCv"/>
+                            <constraint firstAttribute="trailing" secondItem="WeQ-Ok-9nI" secondAttribute="trailing" id="JcE-aX-9MW"/>
+                            <constraint firstItem="WeQ-Ok-9nI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QfX-Hc-Y6O"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ix1-YS-Lcv" secondAttribute="bottom" id="kY4-pD-4o5"/>
+                            <constraint firstItem="Ix1-YS-Lcv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ns8-t4-cvy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="loadingLabel" destination="9wo-oD-DVQ" id="PMO-jt-hKj"/>
+                        <outlet property="playButton" destination="QYb-ml-Hqy" id="vE6-7r-aEC"/>
+                        <outlet property="playerView" destination="WeQ-Ok-9nI" id="8fE-Wq-d2O"/>
+                        <outlet property="stopButton" destination="MGe-MH-5Gf" id="Brp-HG-Ot1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="655" y="237"/>
+        </scene>
+    </scenes>
+</document>

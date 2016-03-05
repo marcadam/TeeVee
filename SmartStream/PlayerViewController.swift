@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class PlayerViewController: UIViewController {
 
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var playButton: UIButton!
@@ -89,5 +89,10 @@ class ViewController: UIViewController {
         self.player?.pause()
     }
 
+    @IBAction func onDismissTapped(sender: AnyObject) {
+        dismissViewControllerAnimated(true) { () -> Void in
+            //
+        }
+    }
 }
 

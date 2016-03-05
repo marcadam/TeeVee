@@ -11,11 +11,13 @@
 		0B2CD8AD1C8846270055BD50 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AC1C8846270055BD50 /* Stream.swift */; };
 		0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AE1C8846650055BD50 /* StreamItem.swift */; };
 		0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B501C844AD900D4AC57 /* AppDelegate.swift */; };
-		0B597B531C844AD900D4AC57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B521C844AD900D4AC57 /* ViewController.swift */; };
+		0B597B531C844AD900D4AC57 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B521C844AD900D4AC57 /* PlayerViewController.swift */; };
 		0B597B561C844AD900D4AC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B541C844AD900D4AC57 /* Main.storyboard */; };
 		0B597B581C844AD900D4AC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B571C844AD900D4AC57 /* Assets.xcassets */; };
 		0B597B5B1C844AD900D4AC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */; };
 		1A10A6135BA6E045E3AD52AA /* Pods_SmartStream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */; };
+		A2A3A3C41C8ACC7A00D1173C /* Player.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */; };
+		A2A3A3C61C8ACCAF00D1173C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,13 +26,15 @@
 		0B2CD8AE1C8846650055BD50 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
 		0B597B4D1C844AD900D4AC57 /* SmartStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B597B501C844AD900D4AC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0B597B521C844AD900D4AC57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0B597B521C844AD900D4AC57 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		0B597B551C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0B597B571C844AD900D4AC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B597B5A1C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B597B5C1C844AD900D4AC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		156F9CF276441EC104FF90CD /* Pods-SmartStream.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.release.xcconfig"; sourceTree = "<group>"; };
 		28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2A3A3C31C8ACC7A00D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Player.storyboard; sourceTree = "<group>"; };
+		A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A30B156E768D52458EFC335F /* Pods-SmartStream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +70,8 @@
 		0B597B441C844AD900D4AC57 = {
 			isa = PBXGroup;
 			children = (
+				A2A3A3C01C8ACAB800D1173C /* Views */,
+				A2A3A3BF1C8ACAA100D1173C /* ViewControllers */,
 				0B2CD8AB1C88461B0055BD50 /* Models */,
 				0B2CD8A81C88447F0055BD50 /* API */,
 				0B597B4F1C844AD900D4AC57 /* SmartStream */,
@@ -87,10 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				0B597B501C844AD900D4AC57 /* AppDelegate.swift */,
-				0B597B521C844AD900D4AC57 /* ViewController.swift */,
-				0B597B541C844AD900D4AC57 /* Main.storyboard */,
 				0B597B571C844AD900D4AC57 /* Assets.xcassets */,
-				0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */,
 				0B597B5C1C844AD900D4AC57 /* Info.plist */,
 			);
 			path = SmartStream;
@@ -111,6 +114,34 @@
 				28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A2A3A3BF1C8ACAA100D1173C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
+				A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */,
+			);
+			name = ViewControllers;
+			path = SmartStream;
+			sourceTree = "<group>";
+		};
+		A2A3A3C01C8ACAB800D1173C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A2A3A3C11C8ACAC400D1173C /* Storyboards */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		A2A3A3C11C8ACAC400D1173C /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				0B597B541C844AD900D4AC57 /* Main.storyboard */,
+				A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */,
+				0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B597B5B1C844AD900D4AC57 /* LaunchScreen.storyboard in Resources */,
+				A2A3A3C41C8ACC7A00D1173C /* Player.storyboard in Resources */,
 				0B597B581C844AD900D4AC57 /* Assets.xcassets in Resources */,
 				0B597B561C844AD900D4AC57 /* Main.storyboard in Resources */,
 			);
@@ -236,8 +268,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2A3A3C61C8ACCAF00D1173C /* LoginViewController.swift in Sources */,
 				0B2CD8AA1C8844C60055BD50 /* StreamClient.swift in Sources */,
-				0B597B531C844AD900D4AC57 /* ViewController.swift in Sources */,
+				0B597B531C844AD900D4AC57 /* PlayerViewController.swift in Sources */,
 				0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */,
 				0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */,
 				0B2CD8AD1C8846270055BD50 /* Stream.swift in Sources */,
@@ -253,6 +286,7 @@
 				0B597B551C844AD900D4AC57 /* Base */,
 			);
 			name = Main.storyboard;
+			path = SmartStream;
 			sourceTree = "<group>";
 		};
 		0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */ = {
@@ -261,6 +295,15 @@
 				0B597B5A1C844AD900D4AC57 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = SmartStream;
+			sourceTree = "<group>";
+		};
+		A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A2A3A3C31C8ACC7A00D1173C /* Base */,
+			);
+			name = Player.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
