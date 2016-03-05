@@ -97,7 +97,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Create Stream" id="A4O-hG-BGl">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="w2G-Ra-6mu">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="w2G-Ra-6mu">
                             <connections>
                                 <action selector="onBackTapped:" destination="BRQ-9W-LhL" id="W97-uo-WJ4"/>
                             </connections>
