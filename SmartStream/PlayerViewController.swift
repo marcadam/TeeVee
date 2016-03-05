@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-import YTPlayerView
+import youtube_ios_player_helper
 
 class PlayerViewController: UIViewController {
 
@@ -44,6 +44,16 @@ class PlayerViewController: UIViewController {
             //self.setupPlayer(stream)
             self.setupYoutubePlayer(stream)
         }
+    }
+    
+    @IBAction func onPlayTapped(sender: AnyObject) {
+        self.player?.play()
+        self.youtubePlayerView?.playVideo()
+    }
+    
+    @IBAction func onStopTapped(sender: AnyObject) {
+        self.player?.pause()
+        self.youtubePlayerView?.stopVideo()
     }
 }
 
@@ -100,14 +110,6 @@ extension PlayerViewController {
         }
     }
     
-    @IBAction func onPlayTapped(sender: AnyObject) {
-        self.player?.play()
-    }
-    
-    @IBAction func onStopTapped(sender: AnyObject) {
-        self.player?.pause()
-    }
-    
     @IBAction func onDismissTapped(sender: AnyObject) {
         dismissViewControllerAnimated(true) { () -> Void in
             //
@@ -119,9 +121,11 @@ extension PlayerViewController {
 // ==========================================================
 // Option 2: Use web view player
 // ==========================================================
-extension PlayerViewController {
+extension PlayerViewController: YTPlayerViewDelegate {
     
     func setupYoutubePlayer(stream: Stream?) {
+        youtubePlayerView?.delegate = self
+        
         if stream != nil && stream!.items.count > 0 {
             
             var id: String!
@@ -134,7 +138,23 @@ extension PlayerViewController {
                 }
             }
             
-            self.youtubePlayerView?.loadWithVideoId(id)
+            dispatch_async(dispatch_get_main_queue(),{
+                let playerVars : [NSObject : AnyObject] = [ "playsinline": 1 , "autoplay" : 1 ]
+                self.youtubePlayerView?.loadWithVideoId(id, playerVars: playerVars)
+            })
+            
         }
+    }
+    
+    func playerViewDidBecomeReady(playerView: YTPlayerView!) {
+        print("playerViewDidBecomeReady")
+        loadingLabel.hidden = true
+        playButton.hidden = false
+        stopButton.hidden = false
+        self.youtubePlayerView?.playVideo()
+    }
+    
+    func playerView(playerView: YTPlayerView!, didChangeToState state: YTPlayerState) {
+        print("didChangeToState \(state.rawValue)")
     }
 }

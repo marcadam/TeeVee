@@ -35,7 +35,7 @@
 		0B2CD8A91C8844C60055BD50 /* StreamClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamClient.swift; sourceTree = "<group>"; };
 		0B2CD8AC1C8846270055BD50 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		0B2CD8AE1C8846650055BD50 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
-		0B2CD8B01C8AF22B0055BD50 /* SmartStream-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartStream-Bridging-Header.h"; sourceTree = "<group>"; };
+		0B2CD8BB1C8AFC500055BD50 /* SmartStream-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartStream-Bridging-Header.h"; sourceTree = "<group>"; };
 		0B597B4D1C844AD900D4AC57 /* SmartStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B597B501C844AD900D4AC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B597B521C844AD900D4AC57 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -101,7 +101,6 @@
 				0B597B4E1C844AD900D4AC57 /* Products */,
 				141DC7F19741DA79AA229EE6 /* Pods */,
 				49C3DF4B2C371415B33FED6C /* Frameworks */,
-				0B2CD8B01C8AF22B0055BD50 /* SmartStream-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +118,7 @@
 				0B597B501C844AD900D4AC57 /* AppDelegate.swift */,
 				0B597B571C844AD900D4AC57 /* Assets.xcassets */,
 				0B597B5C1C844AD900D4AC57 /* Info.plist */,
+				0B2CD8BB1C8AFC500055BD50 /* SmartStream-Bridging-Header.h */,
 			);
 			path = SmartStream;
 			sourceTree = "<group>";
@@ -472,7 +472,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.SmartStream;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream/SmartStream-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -487,7 +487,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.SmartStream;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream/SmartStream-Bridging-Header.h";
 			};
 			name = Release;
 		};
