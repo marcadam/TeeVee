@@ -17,15 +17,18 @@ PODS:
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
   - FXBlurView (1.6.4)
+  - youtube-ios-player-helper (0.1.5)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
   - FXBlurView
+  - youtube-ios-player-helper (~> 0.1.4)
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  youtube-ios-player-helper: 8706bb155ffee74fbe5f2f5cf41c2dafe60dc155
 
 COCOAPODS: 0.39.0

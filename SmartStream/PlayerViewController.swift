@@ -8,9 +8,11 @@
 
 import UIKit
 import AVFoundation
+import YTPlayerView
 
 class PlayerViewController: UIViewController {
 
+    @IBOutlet weak var youtubePlayerView: YTPlayerView!
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
@@ -39,7 +41,8 @@ class PlayerViewController: UIViewController {
         
         StreamClient.sharedInstance.getStream { (stream, error) -> () in
             self.stream = stream
-            self.setupPlayer(stream)
+            //self.setupPlayer(stream)
+            self.setupYoutubePlayer(stream)
         }
     }
 }
@@ -108,6 +111,30 @@ extension PlayerViewController {
     @IBAction func onDismissTapped(sender: AnyObject) {
         dismissViewControllerAnimated(true) { () -> Void in
             //
+        }
+    }
+}
+
+
+// ==========================================================
+// Option 2: Use web view player
+// ==========================================================
+extension PlayerViewController {
+    
+    func setupYoutubePlayer(stream: Stream?) {
+        if stream != nil && stream!.items.count > 0 {
+            
+            var id: String!
+            for item in stream!.items {
+                if let extractor = item.extractor {
+                    if extractor == "youtube" {
+                        id = item.id
+                        break
+                    }
+                }
+            }
+            
+            self.youtubePlayerView?.loadWithVideoId(id)
         }
     }
 }

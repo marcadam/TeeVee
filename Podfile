@@ -9,6 +9,7 @@ target ’SmartStream’ do
 pod 'AFNetworking'
 pod 'BDBOAuth1Manager'
 pod ‘FXBlurView’
+pod "youtube-ios-player-helper", "~> 0.1.4"
 
 end
 
