@@ -17,11 +17,17 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var loadingLabel: UILabel!
     
     var stream: Stream?
-    var player: AVQueuePlayer?
-    var playerLayer: AVPlayerLayer?
-    
     private static var myContext = 0
     let myContext = UnsafeMutablePointer<()>()
+
+    // Option 1: Use native iOS player
+    var player: AVQueuePlayer?
+    var playerLayer: AVPlayerLayer?
+
+    deinit {
+        self.player?.pause()
+        self.player?.removeObserver(self, forKeyPath: "status")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,26 +39,36 @@ class PlayerViewController: UIViewController {
         
         StreamClient.sharedInstance.getStream { (stream, error) -> () in
             self.stream = stream
+            self.setupPlayer(stream)
+        }
+    }
+}
+
+
+// ==========================================================
+// Option 1: Use native iOS player
+// ==========================================================
+extension PlayerViewController {
+    
+    func setupPlayer(stream: Stream?) {
+        if stream != nil && stream!.items.count > 0 {
             
-            if stream != nil && stream!.items.count > 0 {
-                
-                var playerItems = [AVPlayerItem]()
-                
-                for item in stream!.items {
-                    let url = item.url
-                    print(url!)
-                    let urlAsset = AVURLAsset(URL: NSURL(string: url!)!)
-                    let playerItem = AVPlayerItem(asset: urlAsset)
-                    playerItems.append(playerItem)
-                }
-                
-                self.player = AVQueuePlayer(items: playerItems)
-                self.player!.addObserver(self, forKeyPath: "status", options: [.New,.Old,.Initial], context: self.myContext)
-                self.playerLayer = AVPlayerLayer(player: self.player)
-                self.playerLayer!.frame = self.playerView.bounds
-                
-                self.playerView.layer.addSublayer(self.playerLayer!)
+            var playerItems = [AVPlayerItem]()
+            
+            for item in stream!.items {
+                let url = item.url
+                print(url!)
+                let urlAsset = AVURLAsset(URL: NSURL(string: url!)!)
+                let playerItem = AVPlayerItem(asset: urlAsset)
+                playerItems.append(playerItem)
             }
+            
+            self.player = AVQueuePlayer(items: playerItems)
+            self.player!.addObserver(self, forKeyPath: "status", options: [.New,.Old,.Initial], context: self.myContext)
+            self.playerLayer = AVPlayerLayer(player: self.player)
+            self.playerLayer!.frame = self.playerView.bounds
+            
+            self.playerView.layer.addSublayer(self.playerLayer!)
         }
     }
     
@@ -88,11 +104,10 @@ class PlayerViewController: UIViewController {
     @IBAction func onStopTapped(sender: AnyObject) {
         self.player?.pause()
     }
-
+    
     @IBAction func onDismissTapped(sender: AnyObject) {
         dismissViewControllerAnimated(true) { () -> Void in
             //
         }
     }
 }
-
