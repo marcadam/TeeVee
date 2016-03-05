@@ -24,7 +24,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new stream" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6WB-10-X09">
                                         <rect key="frame" x="227" y="15" width="145" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -42,21 +42,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Pd-Bx-FT7">
                                 <rect key="frame" x="0.0" y="42" width="600" height="558"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyStreamCell" id="nor-0N-brO">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nor-0N-brO" id="YAA-GY-FuP">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="fah-wY-4PS" kind="presentation" id="Niu-uO-R3e"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="XVg-Ae-aKh" id="OnA-na-PHe"/>
+                                    <outlet property="delegate" destination="XVg-Ae-aKh" id="RYj-Em-1IE"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -80,21 +68,25 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="5NM-pz-HeR"/>
+                    <connections>
+                        <outlet property="tableView" destination="9Pd-Bx-FT7" id="wip-vC-i0c"/>
+                        <segue destination="fah-wY-4PS" kind="presentation" identifier="seguePlayerStoryboard" id="sUn-T0-4hU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qz-HK-rYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="EVJ-gu-S83">
                     <connections>
-                        <segue destination="DnV-XE-AfW" kind="show" id="4Gf-2F-Lbj"/>
+                        <segue destination="DnV-XE-AfW" kind="show" identifier="" id="4Gf-2F-Lbj"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2289" y="237"/>
         </scene>
-        <!--PlayerStoryboard-->
+        <!--Player-->
         <scene sceneID="zT7-d4-V04">
             <objects>
-                <viewControllerPlaceholder storyboardName="Player" referencedIdentifier="PlayerStoryboard" id="fah-wY-4PS" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HOB-0t-akP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Player" id="fah-wY-4PS" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="2783" y="212"/>
         </scene>
