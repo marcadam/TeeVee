@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BRQ-9W-LhL">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--Create View Controller-->
+        <scene sceneID="u7x-E5-oD1">
+            <objects>
+                <viewController id="BRQ-9W-LhL" customClass="CreateViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7NR-M9-1tf"/>
+                        <viewControllerLayoutGuide type="bottom" id="ADh-kj-RnR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DCO-82-xiw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ug-65-odw">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iry-pM-F1e">
+                                        <rect key="frame" x="8" y="10" width="539" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCJ-Hy-hqx">
+                                        <rect key="frame" x="562" y="10" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="nhv-xO-9er"/>
+                                        </constraints>
+                                        <state key="normal" title="+"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5Lc-iT-JWg"/>
+                                    <constraint firstAttribute="bottom" secondItem="Iry-pM-F1e" secondAttribute="bottom" constant="10" id="8RH-sm-5Xa"/>
+                                    <constraint firstItem="Iry-pM-F1e" firstAttribute="leading" secondItem="5ug-65-odw" secondAttribute="leading" constant="8" id="Dyf-ba-Z4U"/>
+                                    <constraint firstAttribute="bottom" secondItem="hCJ-Hy-hqx" secondAttribute="bottom" constant="10" id="Ecg-CU-W5l"/>
+                                    <constraint firstAttribute="trailing" secondItem="Iry-pM-F1e" secondAttribute="trailing" constant="8" id="SsQ-PW-yAh"/>
+                                    <constraint firstItem="hCJ-Hy-hqx" firstAttribute="top" secondItem="5ug-65-odw" secondAttribute="top" constant="10" id="Xhr-E5-2v6"/>
+                                    <constraint firstItem="hCJ-Hy-hqx" firstAttribute="leading" secondItem="Iry-pM-F1e" secondAttribute="trailing" constant="15" id="oRO-sf-huT"/>
+                                    <constraint firstAttribute="trailing" secondItem="hCJ-Hy-hqx" secondAttribute="trailing" constant="8" id="oc2-Ma-ohf"/>
+                                    <constraint firstItem="Iry-pM-F1e" firstAttribute="top" secondItem="5ug-65-odw" secondAttribute="top" constant="10" id="wGK-Q5-c8z"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="SsQ-PW-yAh"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ucu-k2-WAx">
+                                <rect key="frame" x="0.0" y="50" width="600" height="484"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="uIs-pV-XDW">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uIs-pV-XDW" id="JHJ-fN-Oe0">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bhh-TE-0lH">
+                                <rect key="frame" x="257" y="550" width="87" height="30"/>
+                                <state key="normal" title="Start Stream"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5ug-65-odw" firstAttribute="top" secondItem="DCO-82-xiw" secondAttribute="top" id="1YZ-pT-hZm"/>
+                            <constraint firstItem="5ug-65-odw" firstAttribute="leading" secondItem="DCO-82-xiw" secondAttribute="leading" id="82W-JC-JiY"/>
+                            <constraint firstItem="Bhh-TE-0lH" firstAttribute="top" secondItem="ucu-k2-WAx" secondAttribute="bottom" constant="16" id="8MI-ue-CVL"/>
+                            <constraint firstAttribute="trailing" secondItem="5ug-65-odw" secondAttribute="trailing" id="9AE-FB-IxU"/>
+                            <constraint firstAttribute="trailing" secondItem="ucu-k2-WAx" secondAttribute="trailing" id="9Ju-Id-Xwl"/>
+                            <constraint firstItem="ucu-k2-WAx" firstAttribute="leading" secondItem="DCO-82-xiw" secondAttribute="leading" id="ATA-xp-3wq"/>
+                            <constraint firstItem="ucu-k2-WAx" firstAttribute="top" secondItem="5ug-65-odw" secondAttribute="bottom" id="aDG-U3-p71"/>
+                            <constraint firstItem="Bhh-TE-0lH" firstAttribute="centerX" secondItem="DCO-82-xiw" secondAttribute="centerX" id="qEx-Ip-fVC"/>
+                            <constraint firstItem="ADh-kj-RnR" firstAttribute="top" secondItem="Bhh-TE-0lH" secondAttribute="bottom" constant="20" id="yss-Dv-lFw"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HG7-sd-E6r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2980" y="237"/>
+        </scene>
+    </scenes>
+</document>
