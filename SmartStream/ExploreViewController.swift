@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExploreViewController: UIViewController {
+class ExploreViewController: UIViewController, UICollectionViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,16 @@ class ExploreViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as! CollectionViewCell
+        cell.imageView.image = UIImage(named: "placeholder")
+        return cell
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--My Stations View Controller-->
+        <!--My Streams View Controller-->
         <scene sceneID="LIq-tX-tte">
             <objects>
-                <viewController id="XVg-Ae-aKh" customClass="MyStationsViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XVg-Ae-aKh" customClass="MyStreamsViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oA4-yX-AvU"/>
                         <viewControllerLayoutGuide type="bottom" id="YAg-VK-nIn"/>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zvu-2i-osg">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="-8" width="600" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new stream" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6WB-10-X09">
                                         <rect key="frame" x="227" y="15" width="145" height="21"/>
@@ -40,18 +40,24 @@
                                 </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Pd-Bx-FT7">
-                                <rect key="frame" x="0.0" y="50" width="600" height="550"/>
+                                <rect key="frame" x="0.0" y="42" width="600" height="558"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nor-0N-brO">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyStreamCell" id="nor-0N-brO">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nor-0N-brO" id="YAA-GY-FuP">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="fah-wY-4PS" kind="presentation" id="Niu-uO-R3e"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="XVg-Ae-aKh" id="OnA-na-PHe"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,7 +70,7 @@
                             <constraint firstItem="9Pd-Bx-FT7" firstAttribute="top" secondItem="zvu-2i-osg" secondAttribute="bottom" id="r9J-RZ-Epc"/>
                             <constraint firstItem="zvu-2i-osg" firstAttribute="leading" secondItem="7j7-QB-XqQ" secondAttribute="leading" id="v6j-TT-F4U"/>
                             <constraint firstItem="9Pd-Bx-FT7" firstAttribute="leading" secondItem="7j7-QB-XqQ" secondAttribute="leading" id="whb-qi-hRU"/>
-                            <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="7j7-QB-XqQ" secondAttribute="topMargin" id="zaW-fO-ajt"/>
+                            <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="7j7-QB-XqQ" secondAttribute="topMargin" constant="-8" id="zaW-fO-ajt"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -76,9 +82,29 @@
                     <navigationItem key="navigationItem" id="5NM-pz-HeR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qz-HK-rYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="EVJ-gu-S83"/>
+                <tapGestureRecognizer id="EVJ-gu-S83">
+                    <connections>
+                        <segue destination="DnV-XE-AfW" kind="show" id="4Gf-2F-Lbj"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2289" y="237"/>
+        </scene>
+        <!--PlayerStoryboard-->
+        <scene sceneID="zT7-d4-V04">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Player" referencedIdentifier="PlayerStoryboard" id="fah-wY-4PS" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HOB-0t-akP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2783" y="212"/>
+        </scene>
+        <!--CreateNavigationController-->
+        <scene sceneID="rdI-bN-h9C">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Create" referencedIdentifier="CreateNavigationController" id="DnV-XE-AfW" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tgW-q3-ULG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2783" y="260"/>
         </scene>
     </scenes>
 </document>

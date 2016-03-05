@@ -16,7 +16,19 @@
                     <view key="view" contentMode="scaleToFill" id="tfr-da-zVB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8I-3F-vLl">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="d8I-3F-vLl" secondAttribute="trailing" id="Buu-5c-XQL"/>
+                            <constraint firstItem="d8I-3F-vLl" firstAttribute="top" secondItem="oFQ-jX-cQ8" secondAttribute="bottom" id="Myx-Zj-woK"/>
+                            <constraint firstItem="d8I-3F-vLl" firstAttribute="leading" secondItem="tfr-da-zVB" secondAttribute="leading" id="Nwz-ub-gFU"/>
+                            <constraint firstItem="EET-5A-dmX" firstAttribute="top" secondItem="d8I-3F-vLl" secondAttribute="bottom" id="pyw-Zd-SaY"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nWn-BT-zqP">
                         <nil key="title"/>
@@ -27,11 +39,14 @@
                                 <segment title="My Streams"/>
                                 <segment title="Explore"/>
                             </segments>
+                            <connections>
+                                <action selector="onValueChanged:" destination="VpU-5g-3Xu" eventType="valueChanged" id="qFz-yA-PaD"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="contentView" destination="tfr-da-zVB" id="heu-aA-j96"/>
+                        <outlet property="contentView" destination="d8I-3F-vLl" id="ihp-Q7-Czx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1k0-hK-VhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

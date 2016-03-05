@@ -22,14 +22,14 @@ class LoginViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        guard let next = segue.destinationViewController as? UINavigationController else {return}
+        guard let destinationViewController = next.topViewController as? StreamsViewController else {return}
+        
+        let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
+        let myStreamsVC = myStreamsStoryboard.instantiateInitialViewController() as! MyStreamsViewController
+        
+        destinationViewController.contentViewController = myStreamsVC
     }
-    */
 
 }

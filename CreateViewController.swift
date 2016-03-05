@@ -21,6 +21,11 @@ class CreateViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onBackTapped(sender: AnyObject) {
+        dismissViewControllerAnimated(true) { () -> Void in
+            //
+        }
+    }
 
     /*
     // MARK: - Navigation

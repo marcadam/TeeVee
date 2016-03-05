@@ -28,6 +28,7 @@
 		A2A3A3D81C8AD9C200D1173C /* Create.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D61C8AD9C200D1173C /* Create.storyboard */; };
 		A2A3A3DB1C8AD9E500D1173C /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D91C8AD9E500D1173C /* Filter.storyboard */; };
 		A2A3A3DD1C8AE1C200D1173C /* Streams.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3DC1C8AE1C200D1173C /* Streams.storyboard */; };
+		A2A3A3DF1C8AF74500D1173C /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		A2A3A3D71C8AD9C200D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Create.storyboard; sourceTree = "<group>"; };
 		A2A3A3DA1C8AD9E500D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Filter.storyboard; sourceTree = "<group>"; };
 		A2A3A3DC1C8AE1C200D1173C /* Streams.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Streams.storyboard; sourceTree = "<group>"; };
+		A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		A30B156E768D52458EFC335F /* Pods-SmartStream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,13 +141,14 @@
 		A2A3A3BF1C8ACAA100D1173C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				A2A3A3CF1C8AD94A00D1173C /* MyStreamsViewController.swift */,
-				A2A3A3C71C8AD50B00D1173C /* StreamsViewController.swift */,
-				A2A3A3CB1C8AD8D600D1173C /* CreateViewController.swift */,
-				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
 				A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */,
+				A2A3A3C71C8AD50B00D1173C /* StreamsViewController.swift */,
+				A2A3A3CF1C8AD94A00D1173C /* MyStreamsViewController.swift */,
+				A2A3A3CB1C8AD8D600D1173C /* CreateViewController.swift */,
 				A2A3A3C91C8AD8B900D1173C /* FilterViewController.swift */,
 				A2A3A3CD1C8AD90400D1173C /* ExploreViewController.swift */,
+				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
+				A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */,
 			);
 			name = ViewControllers;
 			path = SmartStream;
@@ -164,10 +167,10 @@
 			children = (
 				0B597B541C844AD900D4AC57 /* Main.storyboard */,
 				A2A3A3DC1C8AE1C200D1173C /* Streams.storyboard */,
-				A2A3A3D41C8AD9A300D1173C /* Explore.storyboard */,
 				A2A3A3D11C8AD99100D1173C /* MyStreams.storyboard */,
 				A2A3A3D61C8AD9C200D1173C /* Create.storyboard */,
 				A2A3A3D91C8AD9E500D1173C /* Filter.storyboard */,
+				A2A3A3D41C8AD9A300D1173C /* Explore.storyboard */,
 				A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */,
 				0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */,
 			);
@@ -305,6 +308,7 @@
 			files = (
 				A2A3A3D01C8AD94A00D1173C /* MyStreamsViewController.swift in Sources */,
 				A2A3A3C61C8ACCAF00D1173C /* LoginViewController.swift in Sources */,
+				A2A3A3DF1C8AF74500D1173C /* CollectionViewCell.swift in Sources */,
 				0B2CD8AA1C8844C60055BD50 /* StreamClient.swift in Sources */,
 				A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */,
 				A2A3A3CC1C8AD8D600D1173C /* CreateViewController.swift in Sources */,

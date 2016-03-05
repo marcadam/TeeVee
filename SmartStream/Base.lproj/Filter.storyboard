@@ -8,7 +8,7 @@
         <!--Filter View Controller-->
         <scene sceneID="Sps-xb-hXQ">
             <objects>
-                <viewController id="WEb-Ji-Ael" customClass="FilterViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FiltersTableView" id="WEb-Ji-Ael" customClass="FilterViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qWn-Dg-NhY"/>
                         <viewControllerLayoutGuide type="bottom" id="joM-uH-sZh"/>
