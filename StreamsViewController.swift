@@ -1,5 +1,5 @@
 //
-//  StationViewController.swift
+//  StreamsViewController.swift
 //  SmartStream
 //
 //  Created by Jerry on 3/5/16.
@@ -8,12 +8,15 @@
 
 import UIKit
 
-class StationViewController: UIViewController {
+class StreamsViewController: UIViewController {
 
+    @IBOutlet var contentView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {

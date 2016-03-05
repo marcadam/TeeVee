@@ -21,7 +21,7 @@
                                 <rect key="frame" x="281" y="285" width="38" height="30"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
-                                    <segue destination="MiI-k6-kOR" kind="presentation" id="V74-m4-jip"/>
+                                    <segue destination="yuV-Rz-IIf" kind="presentation" id="wKu-BV-Ray"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRf-dt-RAR">
@@ -53,52 +53,15 @@
             </objects>
             <point key="canvasLocation" x="-65" y="639"/>
         </scene>
-        <!--Station View Controller-->
-        <scene sceneID="gfp-Z2-Vut">
+        <!--Streams-->
+        <scene sceneID="hiL-bG-9pV">
             <objects>
-                <viewController id="VpU-5g-3Xu" customClass="StationViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oFQ-jX-cQ8"/>
-                        <viewControllerLayoutGuide type="bottom" id="EET-5A-dmX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tfr-da-zVB">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="nWn-BT-zqP">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="gj2-MR-Nid">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="My Stations"/>
-                                <segment title="Explore"/>
-                            </segments>
-                        </segmentedControl>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1k0-hK-VhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Streams" id="yuV-Rz-IIf" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="rIE-sn-zU3"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iIj-Fb-dBj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1544" y="237"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="nVA-xk-iya">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MiI-k6-kOR" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oen-KB-HQY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="VpU-5g-3Xu" kind="relationship" relationship="rootViewController" id="sKc-vF-pp7"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PAD-fu-fkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="732" y="237"/>
+            <point key="canvasLocation" x="393.5" y="237"/>
         </scene>
     </scenes>
 </document>

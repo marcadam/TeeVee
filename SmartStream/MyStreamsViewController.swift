@@ -1,5 +1,5 @@
 //
-//  MyStationsViewController.swift
+//  MyStreamsViewController.swift
 //  SmartStream
 //
 //  Created by Jerry on 3/5/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyStationsViewController: UIViewController {
+class MyStreamsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
