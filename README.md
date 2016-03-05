@@ -17,12 +17,12 @@ An app that lets you turn any subject into a continuous TV stream. A Pandora-for
 - User can edit/save the channel
   1. for editing, user can choose among a couple of different sources (Youtube/Vimeo to start with)
   2. for saving, the user would be able to easily view the list of channels he/she current has. When the app launches it will default to auto-playing the channel he/she was watching previously. This fits nicely with the goal of the app which makes consuming content interaction-free and requires as few touches as possible
-- User can share the channels with their friends or on social media
 - User can browse for recommended / suggested channels
 
 Nice-to-haves:
 - User can like/dislike individual content in the channel; disliking something will also skip the channel forward
 - User can filter content: prefer specific content producers / sources,  or to blacklist topics/sources/producers
+- User can share the channels with their friends or on social media
 - User can see and watch their friends' public channels
 - User can see all of their 'likes'
 
