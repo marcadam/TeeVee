@@ -20,16 +20,16 @@
 		492D02751C8B5E37000AAF17 /* StreamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02731C8B5E37000AAF17 /* StreamTableViewCell.xib */; };
 		A2A3A3C41C8ACC7A00D1173C /* Player.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */; };
 		A2A3A3C61C8ACCAF00D1173C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */; };
-		A2A3A3C81C8AD50B00D1173C /* StreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3C71C8AD50B00D1173C /* StreamsViewController.swift */; };
-		A2A3A3CA1C8AD8B900D1173C /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3C91C8AD8B900D1173C /* FilterViewController.swift */; };
-		A2A3A3CC1C8AD8D600D1173C /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3CB1C8AD8D600D1173C /* CreateViewController.swift */; };
+		A2A3A3C81C8AD50B00D1173C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3C71C8AD50B00D1173C /* HomeViewController.swift */; };
+		A2A3A3CA1C8AD8B900D1173C /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3C91C8AD8B900D1173C /* FiltersViewController.swift */; };
+		A2A3A3CC1C8AD8D600D1173C /* StreamEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3CB1C8AD8D600D1173C /* StreamEditorViewController.swift */; };
 		A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3CD1C8AD90400D1173C /* ExploreViewController.swift */; };
 		A2A3A3D01C8AD94A00D1173C /* MyStreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3CF1C8AD94A00D1173C /* MyStreamsViewController.swift */; };
 		A2A3A3D31C8AD99100D1173C /* MyStreams.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D11C8AD99100D1173C /* MyStreams.storyboard */; };
 		A2A3A3D51C8AD9A300D1173C /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D41C8AD9A300D1173C /* Explore.storyboard */; };
-		A2A3A3D81C8AD9C200D1173C /* Create.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D61C8AD9C200D1173C /* Create.storyboard */; };
-		A2A3A3DB1C8AD9E500D1173C /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D91C8AD9E500D1173C /* Filter.storyboard */; };
-		A2A3A3DD1C8AE1C200D1173C /* Streams.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3DC1C8AE1C200D1173C /* Streams.storyboard */; };
+		A2A3A3D81C8AD9C200D1173C /* StreamEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D61C8AD9C200D1173C /* StreamEditor.storyboard */; };
+		A2A3A3DB1C8AD9E500D1173C /* Filters.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D91C8AD9E500D1173C /* Filters.storyboard */; };
+		A2A3A3DD1C8AE1C200D1173C /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3DC1C8AE1C200D1173C /* Home.storyboard */; };
 		A2A3A3DF1C8AF74500D1173C /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,28 +40,28 @@
 		0B2CD8BB1C8AFC500055BD50 /* SmartStream-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartStream-Bridging-Header.h"; sourceTree = "<group>"; };
 		0B597B4D1C844AD900D4AC57 /* SmartStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B597B501C844AD900D4AC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0B597B521C844AD900D4AC57 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		0B597B521C844AD900D4AC57 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = SmartStream/PlayerViewController.swift; sourceTree = "<group>"; };
 		0B597B551C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0B597B571C844AD900D4AC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B597B5A1C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B597B5C1C844AD900D4AC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		156F9CF276441EC104FF90CD /* Pods-SmartStream.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.release.xcconfig"; sourceTree = "<group>"; };
 		28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		492D02721C8B5E37000AAF17 /* StreamTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamTableViewCell.swift; path = ../StreamTableViewCell.swift; sourceTree = "<group>"; };
+		492D02721C8B5E37000AAF17 /* StreamTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTableViewCell.swift; sourceTree = "<group>"; };
 		492D02731C8B5E37000AAF17 /* StreamTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamTableViewCell.xib; sourceTree = "<group>"; };
 		A2A3A3C31C8ACC7A00D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Player.storyboard; sourceTree = "<group>"; };
-		A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		A2A3A3C71C8AD50B00D1173C /* StreamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamsViewController.swift; path = ../StreamsViewController.swift; sourceTree = "<group>"; };
-		A2A3A3C91C8AD8B900D1173C /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
-		A2A3A3CB1C8AD8D600D1173C /* CreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateViewController.swift; path = ../CreateViewController.swift; sourceTree = "<group>"; };
-		A2A3A3CD1C8AD90400D1173C /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
-		A2A3A3CF1C8AD94A00D1173C /* MyStreamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStreamsViewController.swift; sourceTree = "<group>"; };
+		A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = SmartStream/LoginViewController.swift; sourceTree = "<group>"; };
+		A2A3A3C71C8AD50B00D1173C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		A2A3A3C91C8AD8B900D1173C /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FiltersViewController.swift; path = SmartStream/FiltersViewController.swift; sourceTree = "<group>"; };
+		A2A3A3CB1C8AD8D600D1173C /* StreamEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamEditorViewController.swift; sourceTree = "<group>"; };
+		A2A3A3CD1C8AD90400D1173C /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExploreViewController.swift; path = SmartStream/ExploreViewController.swift; sourceTree = "<group>"; };
+		A2A3A3CF1C8AD94A00D1173C /* MyStreamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyStreamsViewController.swift; path = SmartStream/MyStreamsViewController.swift; sourceTree = "<group>"; };
 		A2A3A3D21C8AD99100D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/MyStreams.storyboard; sourceTree = "<group>"; };
 		A2A3A3D41C8AD9A300D1173C /* Explore.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Explore.storyboard; sourceTree = "<group>"; };
-		A2A3A3D71C8AD9C200D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Create.storyboard; sourceTree = "<group>"; };
-		A2A3A3DA1C8AD9E500D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Filter.storyboard; sourceTree = "<group>"; };
-		A2A3A3DC1C8AE1C200D1173C /* Streams.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Streams.storyboard; sourceTree = "<group>"; };
-		A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		A2A3A3D71C8AD9C200D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/StreamEditor.storyboard; sourceTree = "<group>"; };
+		A2A3A3DA1C8AD9E500D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Filters.storyboard; sourceTree = "<group>"; };
+		A2A3A3DC1C8AE1C200D1173C /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = SmartStream/CollectionViewCell.swift; sourceTree = "<group>"; };
 		A30B156E768D52458EFC335F /* Pods-SmartStream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +77,89 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B1459581C8BA73E001E6C23 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0B597B541C844AD900D4AC57 /* Main.storyboard */,
+				A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		0B1459591C8BA75B001E6C23 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				0B14595A1C8BA77C001E6C23 /* MyFeed */,
+				0B14595D1C8BA826001E6C23 /* ExploreFeed */,
+				A2A3A3C71C8AD50B00D1173C /* HomeViewController.swift */,
+				A2A3A3DC1C8AE1C200D1173C /* Home.storyboard */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		0B14595A1C8BA77C001E6C23 /* MyFeed */ = {
+			isa = PBXGroup;
+			children = (
+				A2A3A3CF1C8AD94A00D1173C /* MyStreamsViewController.swift */,
+				A2A3A3D11C8AD99100D1173C /* MyStreams.storyboard */,
+			);
+			name = MyFeed;
+			sourceTree = "<group>";
+		};
+		0B14595B1C8BA791001E6C23 /* StreamEditor */ = {
+			isa = PBXGroup;
+			children = (
+				0B14595C1C8BA811001E6C23 /* Filters */,
+				A2A3A3D61C8AD9C200D1173C /* StreamEditor.storyboard */,
+				A2A3A3CB1C8AD8D600D1173C /* StreamEditorViewController.swift */,
+			);
+			name = StreamEditor;
+			sourceTree = "<group>";
+		};
+		0B14595C1C8BA811001E6C23 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				A2A3A3C91C8AD8B900D1173C /* FiltersViewController.swift */,
+				A2A3A3D91C8AD9E500D1173C /* Filters.storyboard */,
+			);
+			name = Filters;
+			sourceTree = "<group>";
+		};
+		0B14595D1C8BA826001E6C23 /* ExploreFeed */ = {
+			isa = PBXGroup;
+			children = (
+				A2A3A3D41C8AD9A300D1173C /* Explore.storyboard */,
+				A2A3A3CD1C8AD90400D1173C /* ExploreViewController.swift */,
+			);
+			name = ExploreFeed;
+			sourceTree = "<group>";
+		};
+		0B14595E1C8BA870001E6C23 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
+				A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
+		0B14595F1C8BA9A0001E6C23 /* StreamTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				492D02731C8B5E37000AAF17 /* StreamTableViewCell.xib */,
+				492D02721C8B5E37000AAF17 /* StreamTableViewCell.swift */,
+			);
+			name = StreamTableViewCell;
+			sourceTree = "<group>";
+		};
+		0B1459601C8BA9B8001E6C23 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */,
+			);
+			name = CollectionViewCell;
+			sourceTree = "<group>";
+		};
 		0B2CD8A81C88447F0055BD50 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,8 +180,11 @@
 		0B597B441C844AD900D4AC57 = {
 			isa = PBXGroup;
 			children = (
-				A2A3A3C01C8ACAB800D1173C /* Views */,
-				A2A3A3BF1C8ACAA100D1173C /* ViewControllers */,
+				0B14595E1C8BA870001E6C23 /* Player */,
+				0B1459591C8BA75B001E6C23 /* Home */,
+				0B14595B1C8BA791001E6C23 /* StreamEditor */,
+				0B1459581C8BA73E001E6C23 /* Login */,
+				A2A3A3C01C8ACAB800D1173C /* CommonViews */,
 				0B2CD8AB1C88461B0055BD50 /* Models */,
 				0B2CD8A81C88447F0055BD50 /* API */,
 				0B597B4F1C844AD900D4AC57 /* SmartStream */,
@@ -136,14 +222,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		492D02761C8B7208000AAF17 /* XIBs */ = {
-			isa = PBXGroup;
-			children = (
-				492D02731C8B5E37000AAF17 /* StreamTableViewCell.xib */,
-			);
-			name = XIBs;
-			sourceTree = "<group>";
-		};
 		49C3DF4B2C371415B33FED6C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,45 +230,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A2A3A3BF1C8ACAA100D1173C /* ViewControllers */ = {
+		A2A3A3C01C8ACAB800D1173C /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
-				A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */,
-				A2A3A3C71C8AD50B00D1173C /* StreamsViewController.swift */,
-				A2A3A3CF1C8AD94A00D1173C /* MyStreamsViewController.swift */,
-				A2A3A3CB1C8AD8D600D1173C /* CreateViewController.swift */,
-				A2A3A3C91C8AD8B900D1173C /* FilterViewController.swift */,
-				A2A3A3CD1C8AD90400D1173C /* ExploreViewController.swift */,
-				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
-				492D02721C8B5E37000AAF17 /* StreamTableViewCell.swift */,
-				A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */,
-			);
-			name = ViewControllers;
-			path = SmartStream;
-			sourceTree = "<group>";
-		};
-		A2A3A3C01C8ACAB800D1173C /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				A2A3A3C11C8ACAC400D1173C /* Storyboards */,
-				492D02761C8B7208000AAF17 /* XIBs */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		A2A3A3C11C8ACAC400D1173C /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				0B597B541C844AD900D4AC57 /* Main.storyboard */,
-				A2A3A3DC1C8AE1C200D1173C /* Streams.storyboard */,
-				A2A3A3D11C8AD99100D1173C /* MyStreams.storyboard */,
-				A2A3A3D61C8AD9C200D1173C /* Create.storyboard */,
-				A2A3A3D91C8AD9E500D1173C /* Filter.storyboard */,
-				A2A3A3D41C8AD9A300D1173C /* Explore.storyboard */,
-				A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */,
+				0B14595F1C8BA9A0001E6C23 /* StreamTableViewCell */,
+				0B1459601C8BA9B8001E6C23 /* CollectionViewCell */,
 				0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */,
 			);
-			name = Storyboards;
+			name = CommonViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,10 +308,10 @@
 				492D02751C8B5E37000AAF17 /* StreamTableViewCell.xib in Resources */,
 				0B597B581C844AD900D4AC57 /* Assets.xcassets in Resources */,
 				A2A3A3D51C8AD9A300D1173C /* Explore.storyboard in Resources */,
-				A2A3A3DD1C8AE1C200D1173C /* Streams.storyboard in Resources */,
+				A2A3A3DD1C8AE1C200D1173C /* Home.storyboard in Resources */,
 				0B597B561C844AD900D4AC57 /* Main.storyboard in Resources */,
-				A2A3A3DB1C8AD9E500D1173C /* Filter.storyboard in Resources */,
-				A2A3A3D81C8AD9C200D1173C /* Create.storyboard in Resources */,
+				A2A3A3DB1C8AD9E500D1173C /* Filters.storyboard in Resources */,
+				A2A3A3D81C8AD9C200D1173C /* StreamEditor.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,11 +376,11 @@
 				A2A3A3DF1C8AF74500D1173C /* CollectionViewCell.swift in Sources */,
 				0B2CD8AA1C8844C60055BD50 /* StreamClient.swift in Sources */,
 				A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */,
-				A2A3A3CC1C8AD8D600D1173C /* CreateViewController.swift in Sources */,
-				A2A3A3CA1C8AD8B900D1173C /* FilterViewController.swift in Sources */,
+				A2A3A3CC1C8AD8D600D1173C /* StreamEditorViewController.swift in Sources */,
+				A2A3A3CA1C8AD8B900D1173C /* FiltersViewController.swift in Sources */,
 				0B597B531C844AD900D4AC57 /* PlayerViewController.swift in Sources */,
 				0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */,
-				A2A3A3C81C8AD50B00D1173C /* StreamsViewController.swift in Sources */,
+				A2A3A3C81C8AD50B00D1173C /* HomeViewController.swift in Sources */,
 				0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */,
 				0B2CD8AD1C8846270055BD50 /* Stream.swift in Sources */,
 			);
@@ -376,20 +423,20 @@
 			name = MyStreams.storyboard;
 			sourceTree = "<group>";
 		};
-		A2A3A3D61C8AD9C200D1173C /* Create.storyboard */ = {
+		A2A3A3D61C8AD9C200D1173C /* StreamEditor.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A2A3A3D71C8AD9C200D1173C /* Base */,
 			);
-			name = Create.storyboard;
+			name = StreamEditor.storyboard;
 			sourceTree = "<group>";
 		};
-		A2A3A3D91C8AD9E500D1173C /* Filter.storyboard */ = {
+		A2A3A3D91C8AD9E500D1173C /* Filters.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A2A3A3DA1C8AD9E500D1173C /* Base */,
 			);
-			name = Filter.storyboard;
+			name = Filters.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

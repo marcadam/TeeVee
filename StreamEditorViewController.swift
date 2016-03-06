@@ -1,5 +1,5 @@
 //
-//  FilterViewController.swift
+//  StreamEditorViewController.swift
 //  SmartStream
 //
 //  Created by Jerry on 3/5/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FilterViewController: UIViewController {
+class StreamEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,11 @@ class FilterViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onBackTapped(sender: AnyObject) {
+        dismissViewControllerAnimated(true) { () -> Void in
+            //
+        }
+    }
 
     /*
     // MARK: - Navigation

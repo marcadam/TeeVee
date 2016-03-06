@@ -1,5 +1,5 @@
 //
-//  StreamsViewController.swift
+//  HomeViewController.swift
 //  SmartStream
 //
 //  Created by Jerry on 3/5/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StreamsViewController: UIViewController {
+class HomeViewController: UIViewController {
 
     @IBOutlet var contentView: UIView!
     private var contentViewControllers: [UIViewController] = []
@@ -34,7 +34,7 @@ class StreamsViewController: UIViewController {
         super.viewDidLoad()
         
         // add mystream view controller
-        guard let myStream = contentViewController as? MyStreamsViewController else {return}
+        guard let myStream = contentViewController as? HomeViewController else {return}
         contentViewControllers.append(myStream)
         
         // Instantiate explore view controller

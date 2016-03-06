@@ -24,10 +24,10 @@ class LoginViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         guard let next = segue.destinationViewController as? UINavigationController else {return}
-        guard let destinationViewController = next.topViewController as? StreamsViewController else {return}
+        guard let destinationViewController = next.topViewController as? HomeViewController else {return}
         
         let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
-        let myStreamsVC = myStreamsStoryboard.instantiateInitialViewController() as! MyStreamsViewController
+        let myStreamsVC = myStreamsStoryboard.instantiateInitialViewController() as! HomeViewController
         
         destinationViewController.contentViewController = myStreamsVC
     }
