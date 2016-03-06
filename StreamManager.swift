@@ -39,9 +39,11 @@ class StreamManager: NSObject {
     
     func playNativeItem(item: StreamItem!) {
         print("playNativeItem")
-        let currItem = nativePlayer?.currentItem
-        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
-        nativePlayer?.advanceToNextItem()
+//        let currItem = nativePlayer?.currentItem
+//        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
+//        nativePlayer?.advanceToNextItem()
+        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
+        nativePlayer?.play()
     }
     
     var nativePlayer: AVQueuePlayer?
@@ -153,7 +155,13 @@ extension StreamManager {
         if keyPath == "status" {
             if nativePlayer!.status == AVPlayerStatus.ReadyToPlay {
                 print("nativePlayer: ready to play")
-                //nativePlayer?.play()
+                
+                let currentPlayerAsset = nativePlayer?.currentItem?.asset as? AVURLAsset
+                if currentPlayerAsset != nil {
+                    if currItem != nil && currItem!.url == currentPlayerAsset?.URL.path {
+                        nativePlayer?.play()
+                    }
+                }
             } else if nativePlayer!.status == AVPlayerStatus.Failed {
                 print("nativePlayer: failed to play")
             } else {
