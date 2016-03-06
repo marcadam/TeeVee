@@ -10,6 +10,7 @@
 		0B2CD8AA1C8844C60055BD50 /* StreamClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8A91C8844C60055BD50 /* StreamClient.swift */; };
 		0B2CD8AD1C8846270055BD50 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AC1C8846270055BD50 /* Stream.swift */; };
 		0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AE1C8846650055BD50 /* StreamItem.swift */; };
+		0B40EE751C8BC05C00E6B65E /* StreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40EE741C8BC05C00E6B65E /* StreamManager.swift */; };
 		0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B501C844AD900D4AC57 /* AppDelegate.swift */; };
 		0B597B531C844AD900D4AC57 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B521C844AD900D4AC57 /* PlayerViewController.swift */; };
 		0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B541C844AD900D4AC57 /* Login.storyboard */; };
@@ -44,6 +45,7 @@
 		0B2CD8AC1C8846270055BD50 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		0B2CD8AE1C8846650055BD50 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
 		0B2CD8BB1C8AFC500055BD50 /* SmartStream-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartStream-Bridging-Header.h"; sourceTree = "<group>"; };
+		0B40EE741C8BC05C00E6B65E /* StreamManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamManager.swift; sourceTree = "<group>"; };
 		0B597B4D1C844AD900D4AC57 /* SmartStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B597B501C844AD900D4AC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B597B521C844AD900D4AC57 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = SmartStream/PlayerViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		0B14595E1C8BA870001E6C23 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				0B40EE741C8BC05C00E6B65E /* StreamManager.swift */,
 				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
 				A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */,
 			);
@@ -418,6 +421,7 @@
 				A2A3A3D01C8AD94A00D1173C /* MyStreamsViewController.swift in Sources */,
 				A2A3A3C61C8ACCAF00D1173C /* LoginViewController.swift in Sources */,
 				492D02741C8B5E37000AAF17 /* StreamTableViewCell.swift in Sources */,
+				0B40EE751C8BC05C00E6B65E /* StreamManager.swift in Sources */,
 				A2A3A3DF1C8AF74500D1173C /* CollectionViewCell.swift in Sources */,
 				0B2CD8AA1C8844C60055BD50 /* StreamClient.swift in Sources */,
 				A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */,

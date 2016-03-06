@@ -19,7 +19,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var loadingLabel: UILabel!
     
     var stream: Stream?
-    private static var myContext = 0
+    var streamManager = StreamManager()
     let myContext = UnsafeMutablePointer<()>()
 
     // Option 1: Use native iOS player
@@ -39,10 +39,11 @@ class PlayerViewController: UIViewController {
         playButton.hidden = true
         stopButton.hidden = true
         
+        youtubePlayerView?.delegate = self
+        
         StreamClient.sharedInstance.getStream { (stream, error) -> () in
             self.stream = stream
-            //self.setupPlayer(stream)
-            self.setupYoutubePlayer(stream)
+            self.setupYoutubePlayer(stream!.items[0])
         }
     }
     
@@ -123,27 +124,21 @@ extension PlayerViewController {
 // ==========================================================
 extension PlayerViewController: YTPlayerViewDelegate {
     
-    func setupYoutubePlayer(stream: Stream?) {
-        youtubePlayerView?.delegate = self
+    func setupYoutubePlayer(item: StreamItem?) {
+        if item == nil {return}
         
-        if stream != nil && stream!.items.count > 0 {
-            
-            var id: String!
-            for item in stream!.items {
-                if let extractor = item.extractor {
-                    if extractor == "youtube" {
-                        id = item.id
-                        break
-                    }
-                }
+        var id: String?
+        if let extractor = item!.extractor {
+            if extractor == "youtube" {
+                id = item!.id
             }
-            
-            dispatch_async(dispatch_get_main_queue(),{
-                let playerVars : [NSObject : AnyObject] = [ "playsinline": 1 , "autoplay" : 1 ]
-                self.youtubePlayerView?.loadWithVideoId(id, playerVars: playerVars)
-            })
-            
         }
+        
+        let playerVars : [NSObject : AnyObject] = [ "playsinline": 1 , "autoplay" : 1 ]
+        dispatch_async(dispatch_get_main_queue(), {
+            self.youtubePlayerView?.loadWithVideoId(id, playerVars: playerVars)
+        })
+        
     }
     
     func playerViewDidBecomeReady(playerView: YTPlayerView!) {
@@ -156,5 +151,8 @@ extension PlayerViewController: YTPlayerViewDelegate {
     
     func playerView(playerView: YTPlayerView!, didChangeToState state: YTPlayerState) {
         print("didChangeToState \(state.rawValue)")
+        if state == .Ended {
+            print("video ended")
+        }
     }
 }
