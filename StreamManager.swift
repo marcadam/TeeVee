@@ -17,31 +17,56 @@ class StreamManager: NSObject {
     var stream: Stream? {
         didSet {
             // Process items, determine which player is needed per item
+            if stream == nil || stream!.items.count == 0 {return}
+            
+            let item = stream!.items[0]
+            let extractor = item.extractor
+            print("extractor = \(extractor!); id = \(item.id!)")
+            
+            if extractor == "youtube" {
+                playYoutubeItem(item)
+            } else {
+                playNativeItem(item)
+            }
         }
     }
     
-    // Option 1: native player
-    var avPlayerView: UIView? {
-        didSet {
-            if avPlayerView == nil {return}
-            self.nativePlayerLayer!.frame = self.avPlayerView!.bounds
-            self.avPlayerView!.layer.addSublayer(self.nativePlayerLayer!)
-        }
+    func playYoutubeItem(item: StreamItem!) {
+        dispatch_async(dispatch_get_main_queue(),{
+            self.youtubePlayerView?.loadWithVideoId(item.id!, playerVars: self.youtubePlayerVars)
+        })
+    }
+    
+    func playNativeItem(item: StreamItem!) {
+        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
     }
     
     var nativePlayer: AVQueuePlayer?
     var nativePlayerLayer: AVPlayerLayer?
-    
-    // Option 2: youtube player
+    var nativePlayerView: UIView?
     var youtubePlayerView: YTPlayerView?
+    var webView: UIView?
     
-    // Option 3: webview
-    var webView: UIWebView?
+    // Option 1: native player
+    var playerContainerView: UIView? {
+        didSet {
+            if playerContainerView == nil {return}
+            nativePlayerView = UIView(frame: playerContainerView!.bounds)
+            nativePlayerView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            nativePlayerLayer!.frame = nativePlayerView!.bounds
+            nativePlayerView!.layer.addSublayer(nativePlayerLayer!)
+            playerContainerView!.addSubview(nativePlayerView!)
+            
+            youtubePlayerView = YTPlayerView(frame: playerContainerView!.bounds)
+            youtubePlayerView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            youtubePlayerView!.delegate = self
+            playerContainerView!.addSubview(youtubePlayerView!)
+        }
+    }
     
     override init() {
         super.init()
         setupAVPlayer()
-        setupYoutubePlayer()
     }
     
     deinit {
@@ -55,8 +80,16 @@ class StreamManager: NSObject {
         self.nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
     }
     
-    func setupYoutubePlayer() {
-        youtubePlayerView?.delegate = self
+    func play() {
+        
+    }
+    
+    func stop() {
+        
+    }
+    
+    func next() {
+        
     }
 }
 
@@ -92,6 +125,7 @@ extension StreamManager: YTPlayerViewDelegate {
     
     func playerViewDidBecomeReady(playerView: YTPlayerView!) {
         print("youtubePlayer: playerViewDidBecomeReady")
+        self.youtubePlayerView?.playVideo()
     }
     
     func playerView(playerView: YTPlayerView!, didChangeToState state: YTPlayerState) {
