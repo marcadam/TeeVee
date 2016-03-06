@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
 
     let contentViewPeakOffset: CGFloat = 44.0
     var originalContentViewLeftMargin: CGFloat!
+    var menuOpen = false
 
     var menuViewController: UIViewController! {
         didSet {
@@ -44,6 +45,7 @@ class HomeViewController: UIViewController {
                 self.contentViewLeadingConstraint.constant = 0
                 self.view.layoutIfNeeded()
             }
+            menuOpen = false
         }
     }
     
@@ -51,15 +53,19 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         // add mystream view controller
-        guard let myStream = contentViewController as? HomeViewController else {return}
+//        guard let myStream = contentViewController as? HomeViewController else {return}
+//        contentViewControllers.append(myStream)
+//
+//        // Instantiate explore view controller
+//        let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
+//
+//        // add explore view controller
+//        guard let explore = exploreStoryboard.instantiateInitialViewController() as? ExploreViewController else {return}
+//        contentViewControllers.append(explore)
+
+        guard let myStream = contentViewController as? UINavigationController else {return}
         contentViewControllers.append(myStream)
-        
-        // Instantiate explore view controller
-        let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
-        
-        // add explore view controller
-        guard let explore = exploreStoryboard.instantiateInitialViewController() as? ExploreViewController else {return}
-        contentViewControllers.append(explore)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,11 +85,40 @@ class HomeViewController: UIViewController {
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 if velocity.x > 0 {
                     self.contentViewLeadingConstraint.constant = self.view.bounds.width - self.contentViewPeakOffset
+                    self.menuOpen = true
                 } else {
                     self.contentViewLeadingConstraint.constant = 0
+                    self.menuOpen = false
                 }
             })
         }
     }
+}
 
+extension HomeViewController: MyStreamsViewControllerDelegate, ProfileViewControllerDelegate, SettingsViewControllerDelegate {
+    private func toggleMenu() {
+        originalContentViewLeftMargin = contentViewLeadingConstraint.constant
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            if self.menuOpen {
+                self.contentViewLeadingConstraint.constant = 0
+                self.menuOpen = false
+            } else {
+                self.contentViewLeadingConstraint.constant = self.view.frame.size.width - self.contentViewPeakOffset
+                self.menuOpen = true
+            }
+            self.view.layoutIfNeeded()
+        })
+    }
+
+    func myStreamsView(streamsView: MyStreamsViewController, didTapMenuButton: UIBarButtonItem) {
+        toggleMenu()
+    }
+
+    func profileView(profileView: ProfileViewController, didTapMenuButton: UIBarButtonItem) {
+        toggleMenu()
+    }
+
+    func settingsView(profileView: SettingsViewController, didTapMenuButton: UIBarButtonItem) {
+        toggleMenu()
+    }
 }

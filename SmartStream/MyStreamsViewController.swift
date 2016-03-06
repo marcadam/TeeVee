@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MyStreamsViewControllerDelegate: class {
+    func myStreamsView(streamsView: MyStreamsViewController, didTapMenuButton: UIBarButtonItem)
+}
+
 class MyStreamsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -15,6 +19,7 @@ class MyStreamsViewController: UIViewController {
     let streamCellID = "com.smartstream.StreamTableViewCell"
 
     var containerViewController: HomeViewController!
+    var delegate: MyStreamsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +35,9 @@ class MyStreamsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func didTapMenu(sender: UIBarButtonItem) {
+        delegate?.myStreamsView(self, didTapMenuButton: sender)
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate

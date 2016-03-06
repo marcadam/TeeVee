@@ -67,7 +67,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="5NM-pz-HeR"/>
+                    <navigationItem key="navigationItem" id="5NM-pz-HeR">
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="qpC-I9-nZP">
+                            <connections>
+                                <action selector="didTapMenu:" destination="XVg-Ae-aKh" id="wRd-nQ-47m"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="9Pd-Bx-FT7" id="wip-vC-i0c"/>
                         <segue destination="fah-wY-4PS" kind="presentation" identifier="seguePlayerStoryboard" id="sUn-T0-4hU"/>
@@ -117,4 +123,7 @@
             <point key="canvasLocation" x="2289" y="237"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Menu" width="21" height="18"/>
+    </resources>
 </document>

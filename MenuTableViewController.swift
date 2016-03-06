@@ -44,18 +44,23 @@ class MenuTableViewController: UITableViewController {
             let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
             let myStreamsNC = myStreamsStoryboard.instantiateViewControllerWithIdentifier("MyStreamsNavigationController") as! UINavigationController
             let myStreamsVC = myStreamsNC.topViewController as! MyStreamsViewController
+            myStreamsVC.delegate = containerViewController
             myStreamsVC.containerViewController = containerViewController
             containerViewController.contentViewController = myStreamsNC
         } else if indexPath.section == 1 {
             let profileStoryboard = UIStoryboard(name: "Profile", bundle: nil)
-            let profileVC = profileStoryboard.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+            let profileNC = profileStoryboard.instantiateViewControllerWithIdentifier("ProfileNavigationController") as! UINavigationController
+            let profileVC = profileNC.topViewController as! ProfileViewController
+            profileVC.delegate = containerViewController
             profileVC.containerViewController = containerViewController
-            containerViewController.contentViewController = profileVC
+            containerViewController.contentViewController = profileNC
         } else if indexPath.section == 2 {
             let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
-            let settingsVC = settingsStoryboard.instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
+            let settingsNC = settingsStoryboard.instantiateViewControllerWithIdentifier("SettingsNavigationController") as! UINavigationController
+            let settingsVC = settingsNC.topViewController as! SettingsViewController
+            settingsVC.delegate = containerViewController
             settingsVC.containerViewController = containerViewController
-            containerViewController.contentViewController = settingsVC
+            containerViewController.contentViewController = settingsNC
         }
     }
 }

@@ -30,10 +30,38 @@
                             <constraint firstItem="7H4-Bw-NnU" firstAttribute="centerY" secondItem="N0w-qD-JRl" secondAttribute="centerY" id="s45-5O-wau"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Ffa-Cr-Ikp">
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="WWi-eU-UoH">
+                            <connections>
+                                <action selector="didTapMenu:" destination="a1I-gw-ZPj" id="7zF-zJ-FD0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t2D-Dd-Y7j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1092" y="372"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Yow-MJ-CBW">
+            <objects>
+                <navigationController storyboardIdentifier="ProfileNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="EHf-sA-Rsm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5VU-UE-LNn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="a1I-gw-ZPj" kind="relationship" relationship="rootViewController" id="3Lg-bZ-lhQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="96v-Te-PnJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="280" y="372"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Menu" width="21" height="18"/>
+    </resources>
 </document>

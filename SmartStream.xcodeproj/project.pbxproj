@@ -114,8 +114,8 @@
 		0B14595A1C8BA77C001E6C23 /* MyFeed */ = {
 			isa = PBXGroup;
 			children = (
-				A2A3A3CF1C8AD94A00D1173C /* MyStreamsViewController.swift */,
 				A2A3A3D11C8AD99100D1173C /* MyStreams.storyboard */,
+				A2A3A3CF1C8AD94A00D1173C /* MyStreamsViewController.swift */,
 			);
 			name = MyFeed;
 			sourceTree = "<group>";

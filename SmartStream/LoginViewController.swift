@@ -20,7 +20,6 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "segueHome" {
@@ -33,11 +32,12 @@ class LoginViewController: UIViewController {
 
             let myStreamsNC = myStreamsStoryboard.instantiateViewControllerWithIdentifier("MyStreamsNavigationController") as! UINavigationController
             let myStreamsVC = myStreamsNC.topViewController as! MyStreamsViewController
+            myStreamsVC.delegate = homeVC
 
             menuVC.containerViewController = homeVC
             myStreamsVC.containerViewController = homeVC
             homeVC.menuViewController = menuNC
-            homeVC.contentViewController = myStreamsVC
+            homeVC.contentViewController = myStreamsNC
         }
     }
 
