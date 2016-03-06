@@ -26,10 +26,10 @@ class LoginViewController: UIViewController {
         guard let next = segue.destinationViewController as? UINavigationController else {return}
         guard let destinationViewController = next.topViewController as? HomeViewController else {return}
         
-        let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
-        let myStreamsVC = myStreamsStoryboard.instantiateInitialViewController() as! HomeViewController
+        let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
+        let homeVC = homeStoryboard.instantiateViewControllerWithIdentifier("HomeViewController")
         
-        destinationViewController.contentViewController = myStreamsVC
+        destinationViewController.contentViewController = homeVC
     }
 
 }
