@@ -8,11 +8,12 @@
 
 import UIKit
 
-class StreamItem: NSObject {
+class StreamItem: NSObject, Comparable {
     let dictionary: NSDictionary
     let url: String?
     let id: String?
     let extractor: String?
+    let timestamp: NSTimeInterval?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -20,6 +21,7 @@ class StreamItem: NSObject {
         url = dictionary["url"] as? String
         id = dictionary["id"] as? String
         extractor = dictionary["extractor"] as? String
+        timestamp = NSDate().timeIntervalSince1970
     }
     
     class func items(array array: [NSDictionary]) -> [StreamItem] {
@@ -30,4 +32,12 @@ class StreamItem: NSObject {
         }
         return items
     }
+}
+
+func < (lhs: StreamItem, rhs: StreamItem) -> Bool {
+    return lhs.timestamp < rhs.timestamp
+}
+
+func == (lhs: StreamItem, rhs: StreamItem) -> Bool {
+    return lhs.timestamp == rhs.timestamp
 }

@@ -17,12 +17,14 @@ PODS:
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
   - FXBlurView (1.6.4)
+  - SwiftPriorityQueue (1.0.3)
   - youtube-ios-player-helper (0.1.5)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
   - FXBlurView
+  - SwiftPriorityQueue
   - youtube-ios-player-helper (from `https://github.com/youtube/youtube-ios-player-helper`,
     commit `head`)
 
@@ -40,6 +42,7 @@ SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  SwiftPriorityQueue: 3c3dd50743f33efa627cbe2ff8e274912b3962d2
   youtube-ios-player-helper: 921da8927a575debc293a94c678c658f38cde150
 
 COCOAPODS: 0.39.0

@@ -8,21 +8,30 @@
 
 import UIKit
 import AVFoundation
+import SwiftPriorityQueue
 import youtube_ios_player_helper
 
 class StreamManager: NSObject {
+    let ItemDidEndNotification = "com.smartu.streammanager.itemDidEnd"
+    let ItemDidEndKey = "com.smartu.streammanager.itemDidEndKey"
+    
     let youtubePlayerVars : [NSObject : AnyObject] = [ "playsinline": 1 , "autoplay" : 1 ]
     let myContext = UnsafeMutablePointer<()>()
     
+    var currItem: StreamItem?
+    var priorityQueue: PriorityQueue<StreamItem>?
     var stream: Stream? {
         didSet {
-            // Process items, determine which player is needed per item
+            // Autoplay the first item
             if stream == nil || stream!.items.count == 0 {return}
             
-            let item = stream!.items[0]
-            let extractor = item.extractor
-            print("extractor = \(extractor!); id = \(item.id!)")
+            priorityQueue = PriorityQueue(ascending: true, startingValues: stream!.items)
             
+            let item = priorityQueue!.pop()
+            let extractor = item!.extractor
+            print("extractor = \(extractor!); id = \(item!.id!)")
+            
+            currItem = item
             if extractor == "youtube" {
                 playYoutubeItem(item)
             } else {
@@ -64,6 +73,15 @@ class StreamManager: NSObject {
         }
     }
     
+    func setupAVPlayer() {
+        self.nativePlayer = AVQueuePlayer()
+        self.nativePlayer!.addObserver(self, forKeyPath: "status", options: [.New,.Old,.Initial], context: self.myContext)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "nativePlayerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
+        self.nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(ItemDidEndNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: processItemEndEvent)
+    }
+    
     override init() {
         super.init()
         setupAVPlayer()
@@ -72,12 +90,6 @@ class StreamManager: NSObject {
     deinit {
         self.nativePlayer?.pause()
         self.nativePlayer?.removeObserver(self, forKeyPath: "status")
-    }
-    
-    func setupAVPlayer() {
-        self.nativePlayer = AVQueuePlayer()
-        self.nativePlayer!.addObserver(self, forKeyPath: "status", options: [.New,.Old,.Initial], context: self.myContext)
-        self.nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
     }
     
     func play() {
@@ -91,6 +103,14 @@ class StreamManager: NSObject {
     func next() {
         
     }
+    
+    func notifyItemDidEnd() {
+        NSNotificationCenter.defaultCenter().postNotificationName(ItemDidEndNotification, object: self, userInfo: nil)
+    }
+    
+    func processItemEndEvent(notification: NSNotification) -> Void {
+        print("processItemEndEvent")
+    }
 }
 
 
@@ -98,6 +118,10 @@ class StreamManager: NSObject {
 // Option 1: Use native iOS player
 // ==========================================================
 extension StreamManager {
+    
+    func nativePlayerDidFinishPlaying(notification: NSNotification) {
+        notifyItemDidEnd()
+    }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if context != myContext {return}
@@ -107,6 +131,7 @@ extension StreamManager {
         if keyPath == "status" {
             if nativePlayer!.status == AVPlayerStatus.ReadyToPlay {
                 print("ready to play")
+                nativePlayer?.play()
             } else if nativePlayer!.status == AVPlayerStatus.Failed {
                 print("failed to play")
             } else {
@@ -132,6 +157,7 @@ extension StreamManager: YTPlayerViewDelegate {
         print("youtubePlayer: didChangeToState \(state.rawValue)")
         if state == .Ended {
             print("youtubePlayer: video ended")
+            notifyItemDidEnd()
         }
     }
 }
