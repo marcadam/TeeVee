@@ -18,6 +18,12 @@
 		1A10A6135BA6E045E3AD52AA /* Pods_SmartStream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */; };
 		492D02741C8B5E37000AAF17 /* StreamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02721C8B5E37000AAF17 /* StreamTableViewCell.swift */; };
 		492D02751C8B5E37000AAF17 /* StreamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02731C8B5E37000AAF17 /* StreamTableViewCell.xib */; };
+		492D02781C8BC656000AAF17 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02771C8BC656000AAF17 /* MenuTableViewController.swift */; };
+		492D027A1C8BC6A6000AAF17 /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492D02791C8BC6A6000AAF17 /* Menu.storyboard */; };
+		492D029B1C8BE100000AAF17 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492D029A1C8BE100000AAF17 /* Settings.storyboard */; };
+		492D029D1C8BE119000AAF17 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D029C1C8BE119000AAF17 /* SettingsViewController.swift */; };
+		492D02A01C8BE961000AAF17 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492D029F1C8BE961000AAF17 /* Profile.storyboard */; };
+		492D02A21C8BE997000AAF17 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02A11C8BE997000AAF17 /* ProfileViewController.swift */; };
 		A2A3A3C41C8ACC7A00D1173C /* Player.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */; };
 		A2A3A3C61C8ACCAF00D1173C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */; };
 		A2A3A3C81C8AD50B00D1173C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3C71C8AD50B00D1173C /* HomeViewController.swift */; };
@@ -49,6 +55,12 @@
 		28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		492D02721C8B5E37000AAF17 /* StreamTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTableViewCell.swift; sourceTree = "<group>"; };
 		492D02731C8B5E37000AAF17 /* StreamTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamTableViewCell.xib; sourceTree = "<group>"; };
+		492D02771C8BC656000AAF17 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		492D02791C8BC6A6000AAF17 /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
+		492D029A1C8BE100000AAF17 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		492D029C1C8BE119000AAF17 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		492D029F1C8BE961000AAF17 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		492D02A11C8BE997000AAF17 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A2A3A3C31C8ACC7A00D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Player.storyboard; sourceTree = "<group>"; };
 		A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = SmartStream/LoginViewController.swift; sourceTree = "<group>"; };
 		A2A3A3C71C8AD50B00D1173C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -91,8 +103,8 @@
 			children = (
 				0B14595A1C8BA77C001E6C23 /* MyFeed */,
 				0B14595D1C8BA826001E6C23 /* ExploreFeed */,
-				A2A3A3C71C8AD50B00D1173C /* HomeViewController.swift */,
 				A2A3A3DC1C8AE1C200D1173C /* Home.storyboard */,
+				A2A3A3C71C8AD50B00D1173C /* HomeViewController.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -181,9 +193,12 @@
 			isa = PBXGroup;
 			children = (
 				0B1459581C8BA73E001E6C23 /* Login */,
+				492D027B1C8BC6B1000AAF17 /* Menu */,
 				0B1459591C8BA75B001E6C23 /* Home */,
 				0B14595B1C8BA791001E6C23 /* StreamEditor */,
 				0B14595E1C8BA870001E6C23 /* Player */,
+				492D02A31C8BE9DD000AAF17 /* Profile */,
+				492D029E1C8BE121000AAF17 /* Settings */,
 				A2A3A3C01C8ACAB800D1173C /* CommonViews */,
 				0B2CD8AB1C88461B0055BD50 /* Models */,
 				0B2CD8A81C88447F0055BD50 /* API */,
@@ -220,6 +235,33 @@
 				156F9CF276441EC104FF90CD /* Pods-SmartStream.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		492D027B1C8BC6B1000AAF17 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				492D02791C8BC6A6000AAF17 /* Menu.storyboard */,
+				492D02771C8BC656000AAF17 /* MenuTableViewController.swift */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		492D029E1C8BE121000AAF17 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				492D029A1C8BE100000AAF17 /* Settings.storyboard */,
+				492D029C1C8BE119000AAF17 /* SettingsViewController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		492D02A31C8BE9DD000AAF17 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				492D029F1C8BE961000AAF17 /* Profile.storyboard */,
+				492D02A11C8BE997000AAF17 /* ProfileViewController.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		49C3DF4B2C371415B33FED6C /* Frameworks */ = {
@@ -305,9 +347,12 @@
 				0B597B5B1C844AD900D4AC57 /* LaunchScreen.storyboard in Resources */,
 				A2A3A3D31C8AD99100D1173C /* MyStreams.storyboard in Resources */,
 				A2A3A3C41C8ACC7A00D1173C /* Player.storyboard in Resources */,
+				492D029B1C8BE100000AAF17 /* Settings.storyboard in Resources */,
 				492D02751C8B5E37000AAF17 /* StreamTableViewCell.xib in Resources */,
+				492D02A01C8BE961000AAF17 /* Profile.storyboard in Resources */,
 				0B597B581C844AD900D4AC57 /* Assets.xcassets in Resources */,
 				A2A3A3D51C8AD9A300D1173C /* Explore.storyboard in Resources */,
+				492D027A1C8BC6A6000AAF17 /* Menu.storyboard in Resources */,
 				A2A3A3DD1C8AE1C200D1173C /* Home.storyboard in Resources */,
 				0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */,
 				A2A3A3DB1C8AD9E500D1173C /* Filters.storyboard in Resources */,
@@ -376,8 +421,11 @@
 				A2A3A3DF1C8AF74500D1173C /* CollectionViewCell.swift in Sources */,
 				0B2CD8AA1C8844C60055BD50 /* StreamClient.swift in Sources */,
 				A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */,
+				492D02A21C8BE997000AAF17 /* ProfileViewController.swift in Sources */,
 				A2A3A3CC1C8AD8D600D1173C /* StreamEditorViewController.swift in Sources */,
 				A2A3A3CA1C8AD8B900D1173C /* FiltersViewController.swift in Sources */,
+				492D029D1C8BE119000AAF17 /* SettingsViewController.swift in Sources */,
+				492D02781C8BC656000AAF17 /* MenuTableViewController.swift in Sources */,
 				0B597B531C844AD900D4AC57 /* PlayerViewController.swift in Sources */,
 				0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */,
 				A2A3A3C81C8AD50B00D1173C /* HomeViewController.swift in Sources */,

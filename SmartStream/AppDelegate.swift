@@ -13,9 +13,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+//    let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
+//    let menuStoryboard = UIStoryboard(name: "Menu", bundle: nil)
+//    let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+
+//        let homeVC = homeStoryboard.instantiateViewControllerWithIdentifier("HomeViewController") as! HomeViewController
+//
+//        let menuNC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuNavigationController") as! UINavigationController
+//        let menuVC = menuNC.topViewController as! MenuTableViewController
+//
+//        let myStreamsNC = myStreamsStoryboard.instantiateViewControllerWithIdentifier("MyStreamsNavigationController") as! UINavigationController
+//        let myStreamsVC = myStreamsNC.topViewController as! MyStreamsViewController
+//
+//        menuVC.containerViewController = homeVC
+//        myStreamsVC.containerViewController = homeVC
+//        homeVC.menuViewController = menuNC
+//        homeVC.contentViewController = myStreamsVC
+//
+//        window?.rootViewController = homeVC
+//        window?.makeKeyAndVisible()
+
         return true
     }
 

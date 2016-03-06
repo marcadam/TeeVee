@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kTk-Lk-Zrm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kTk-Lk-Zrm">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -21,14 +21,14 @@
                                 <rect key="frame" x="281" y="285" width="38" height="30"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
-                                    <segue destination="yuV-Rz-IIf" kind="presentation" id="wKu-BV-Ray"/>
+                                    <segue destination="yuV-Rz-IIf" kind="presentation" identifier="segueHome" modalTransitionStyle="flipHorizontal" id="wKu-BV-Ray"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRf-dt-RAR">
                                 <rect key="frame" x="279" y="378" width="43" height="30"/>
                                 <state key="normal" title="Player"/>
                                 <connections>
-                                    <segue destination="9I0-Hn-w0r" kind="presentation" id="Pnw-0I-kYh"/>
+                                    <segue destination="9I0-Hn-w0r" kind="presentation" identifier="seguePlayer" id="Pnw-0I-kYh"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -14,6 +14,8 @@ class MyStreamsViewController: UIViewController {
 
     let streamCellID = "com.smartstream.StreamTableViewCell"
 
+    var containerViewController: HomeViewController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

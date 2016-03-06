@@ -23,13 +23,22 @@ class LoginViewController: UIViewController {
     
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let next = segue.destinationViewController as? UINavigationController else {return}
-        guard let destinationViewController = next.topViewController as? HomeViewController else {return}
-        
-        let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
-        let homeVC = homeStoryboard.instantiateViewControllerWithIdentifier("HomeViewController")
-        
-        destinationViewController.contentViewController = homeVC
+        if segue.identifier == "segueHome" {
+            let homeVC = segue.destinationViewController as! HomeViewController
+            let menuStoryboard = UIStoryboard(name: "Menu", bundle: nil)
+            let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
+
+            let menuNC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuNavigationController") as! UINavigationController
+            let menuVC = menuNC.topViewController as! MenuTableViewController
+
+            let myStreamsNC = myStreamsStoryboard.instantiateViewControllerWithIdentifier("MyStreamsNavigationController") as! UINavigationController
+            let myStreamsVC = myStreamsNC.topViewController as! MyStreamsViewController
+
+            menuVC.containerViewController = homeVC
+            myStreamsVC.containerViewController = homeVC
+            homeVC.menuViewController = menuNC
+            homeVC.contentViewController = myStreamsVC
+        }
     }
 
 }

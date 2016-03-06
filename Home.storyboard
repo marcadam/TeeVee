@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tAl-xe-JSu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VpU-5g-3Xu">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -17,59 +17,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQj-LS-H9R" userLabel="Menu View">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8I-3F-vLl">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="1qN-bH-j1S" appends="YES" id="UGl-s7-Gf5"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="d8I-3F-vLl" secondAttribute="trailing" id="Buu-5c-XQL"/>
-                            <constraint firstItem="d8I-3F-vLl" firstAttribute="top" secondItem="oFQ-jX-cQ8" secondAttribute="bottom" id="Myx-Zj-woK"/>
-                            <constraint firstItem="d8I-3F-vLl" firstAttribute="leading" secondItem="tfr-da-zVB" secondAttribute="leading" id="Nwz-ub-gFU"/>
-                            <constraint firstItem="EET-5A-dmX" firstAttribute="top" secondItem="d8I-3F-vLl" secondAttribute="bottom" id="pyw-Zd-SaY"/>
+                            <constraint firstItem="EET-5A-dmX" firstAttribute="top" secondItem="d8I-3F-vLl" secondAttribute="bottom" id="Lqz-iN-lR5"/>
+                            <constraint firstItem="d8I-3F-vLl" firstAttribute="width" secondItem="tfr-da-zVB" secondAttribute="width" id="VGm-VJ-bzL"/>
+                            <constraint firstItem="EET-5A-dmX" firstAttribute="top" secondItem="PQj-LS-H9R" secondAttribute="bottom" id="YLn-Be-sKs"/>
+                            <constraint firstItem="d8I-3F-vLl" firstAttribute="top" secondItem="tfr-da-zVB" secondAttribute="top" id="dZ4-5L-Nti"/>
+                            <constraint firstItem="PQj-LS-H9R" firstAttribute="leading" secondItem="tfr-da-zVB" secondAttribute="leading" id="eM1-ho-2Qp"/>
+                            <constraint firstItem="d8I-3F-vLl" firstAttribute="leading" secondItem="tfr-da-zVB" secondAttribute="leading" id="tHC-7a-iHY"/>
+                            <constraint firstItem="PQj-LS-H9R" firstAttribute="top" secondItem="oFQ-jX-cQ8" secondAttribute="bottom" id="xHT-yH-AgS"/>
+                            <constraint firstAttribute="trailing" secondItem="PQj-LS-H9R" secondAttribute="trailing" id="zEY-1a-oQq"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="nWn-BT-zqP">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="gj2-MR-Nid">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="My Streams"/>
-                                <segment title="Explore"/>
-                            </segments>
-                            <connections>
-                                <action selector="onValueChanged:" destination="VpU-5g-3Xu" eventType="valueChanged" id="qFz-yA-PaD"/>
-                            </connections>
-                        </segmentedControl>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="contentView" destination="d8I-3F-vLl" id="ihp-Q7-Czx"/>
+                        <outlet property="contentViewLeadingConstraint" destination="tHC-7a-iHY" id="PD8-yk-Bki"/>
+                        <outlet property="menuView" destination="PQj-LS-H9R" id="zaL-ER-bgQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1k0-hK-VhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="1qN-bH-j1S">
+                    <connections>
+                        <action selector="onPanGesture:" destination="VpU-5g-3Xu" id="2fB-6f-1OY"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2356" y="237"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="7i2-Tu-wbo">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tAl-xe-JSu" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9aJ-5p-xAx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="VpU-5g-3Xu" kind="relationship" relationship="rootViewController" id="5JL-1R-LUC"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8y8-aM-TsQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1544" y="237"/>
         </scene>
     </scenes>
 </document>
