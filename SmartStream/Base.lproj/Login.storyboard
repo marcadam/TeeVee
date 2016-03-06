@@ -53,10 +53,10 @@
             </objects>
             <point key="canvasLocation" x="-65" y="639"/>
         </scene>
-        <!--Streams-->
+        <!--Home-->
         <scene sceneID="hiL-bG-9pV">
             <objects>
-                <viewControllerPlaceholder storyboardName="Streams" id="yuV-Rz-IIf" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Home" id="yuV-Rz-IIf" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="rIE-sn-zU3"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iIj-Fb-dBj" userLabel="First Responder" sceneMemberID="firstResponder"/>

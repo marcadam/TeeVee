@@ -116,7 +116,7 @@
         <!--FiltersTableView-->
         <scene sceneID="ZD7-Mx-fJR">
             <objects>
-                <viewControllerPlaceholder storyboardName="Filter" referencedIdentifier="FiltersTableView" id="r98-P7-qa7" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Filters" referencedIdentifier="FiltersTableView" id="r98-P7-qa7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kdr-rj-qdn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4297.5" y="211"/>
@@ -132,7 +132,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Uza-6f-2wx">
             <objects>
-                <navigationController storyboardIdentifier="CreateNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Saq-Tx-wvM" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="StreamEditorNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Saq-Tx-wvM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5Tx-gJ-R4g">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

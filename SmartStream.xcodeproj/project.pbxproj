@@ -12,7 +12,7 @@
 		0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AE1C8846650055BD50 /* StreamItem.swift */; };
 		0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B501C844AD900D4AC57 /* AppDelegate.swift */; };
 		0B597B531C844AD900D4AC57 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B521C844AD900D4AC57 /* PlayerViewController.swift */; };
-		0B597B561C844AD900D4AC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B541C844AD900D4AC57 /* Main.storyboard */; };
+		0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B541C844AD900D4AC57 /* Login.storyboard */; };
 		0B597B581C844AD900D4AC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B571C844AD900D4AC57 /* Assets.xcassets */; };
 		0B597B5B1C844AD900D4AC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */; };
 		1A10A6135BA6E045E3AD52AA /* Pods_SmartStream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */; };
@@ -41,7 +41,7 @@
 		0B597B4D1C844AD900D4AC57 /* SmartStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B597B501C844AD900D4AC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B597B521C844AD900D4AC57 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = SmartStream/PlayerViewController.swift; sourceTree = "<group>"; };
-		0B597B551C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0B597B551C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		0B597B571C844AD900D4AC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B597B5A1C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B597B5C1C844AD900D4AC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		0B1459581C8BA73E001E6C23 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				0B597B541C844AD900D4AC57 /* Main.storyboard */,
+				0B597B541C844AD900D4AC57 /* Login.storyboard */,
 				A2A3A3C51C8ACCAF00D1173C /* LoginViewController.swift */,
 			);
 			name = Login;
@@ -180,10 +180,10 @@
 		0B597B441C844AD900D4AC57 = {
 			isa = PBXGroup;
 			children = (
-				0B14595E1C8BA870001E6C23 /* Player */,
+				0B1459581C8BA73E001E6C23 /* Login */,
 				0B1459591C8BA75B001E6C23 /* Home */,
 				0B14595B1C8BA791001E6C23 /* StreamEditor */,
-				0B1459581C8BA73E001E6C23 /* Login */,
+				0B14595E1C8BA870001E6C23 /* Player */,
 				A2A3A3C01C8ACAB800D1173C /* CommonViews */,
 				0B2CD8AB1C88461B0055BD50 /* Models */,
 				0B2CD8A81C88447F0055BD50 /* API */,
@@ -309,7 +309,7 @@
 				0B597B581C844AD900D4AC57 /* Assets.xcassets in Resources */,
 				A2A3A3D51C8AD9A300D1173C /* Explore.storyboard in Resources */,
 				A2A3A3DD1C8AE1C200D1173C /* Home.storyboard in Resources */,
-				0B597B561C844AD900D4AC57 /* Main.storyboard in Resources */,
+				0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */,
 				A2A3A3DB1C8AD9E500D1173C /* Filters.storyboard in Resources */,
 				A2A3A3D81C8AD9C200D1173C /* StreamEditor.storyboard in Resources */,
 			);
@@ -389,12 +389,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0B597B541C844AD900D4AC57 /* Main.storyboard */ = {
+		0B597B541C844AD900D4AC57 /* Login.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				0B597B551C844AD900D4AC57 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Login.storyboard;
 			path = SmartStream;
 			sourceTree = "<group>";
 		};

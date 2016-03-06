@@ -90,10 +90,10 @@
             </objects>
             <point key="canvasLocation" x="2783" y="212"/>
         </scene>
-        <!--CreateNavigationController-->
+        <!--StreamEditorNavigationController-->
         <scene sceneID="rdI-bN-h9C">
             <objects>
-                <viewControllerPlaceholder storyboardName="Create" referencedIdentifier="CreateNavigationController" id="DnV-XE-AfW" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="StreamEditor" referencedIdentifier="StreamEditorNavigationController" id="DnV-XE-AfW" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgW-q3-ULG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2783" y="260"/>
