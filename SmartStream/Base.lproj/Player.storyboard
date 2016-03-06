@@ -54,7 +54,7 @@
                                         <rect key="frame" x="273" y="35" width="54" height="30"/>
                                         <state key="normal" title="Dismiss"/>
                                         <connections>
-                                            <action selector="onDismissTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tGy-Ul-XSM"/>
+                                            <action selector="onDismiss:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D5k-cB-qL1"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvf-jH-IFF">

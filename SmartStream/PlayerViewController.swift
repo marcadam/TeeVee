@@ -46,5 +46,8 @@ class PlayerViewController: UIViewController {
         self.streamManager.next()
     }
     
+    @IBAction func onDismiss(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
