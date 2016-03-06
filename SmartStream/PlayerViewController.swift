@@ -15,7 +15,6 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var loadingLabel: UILabel!
     
-    var stream: Stream?
     var streamManager = StreamManager()
     
     override func viewDidLoad() {
@@ -26,9 +25,7 @@ class PlayerViewController: UIViewController {
         streamManager.playerContainerView = self.playerView
         
         StreamClient.sharedInstance.getStream { (stream, error) -> () in
-            //self.setupYoutubePlayer(stream!.items[0])
             if stream != nil {
-                self.stream = stream
                 self.streamManager.stream = stream
             }
         }
