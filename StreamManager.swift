@@ -39,7 +39,9 @@ class StreamManager: NSObject {
     
     func playNativeItem(item: StreamItem!) {
         print("playNativeItem")
-        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
+        let currItem = nativePlayer?.currentItem
+        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
+        nativePlayer?.advanceToNextItem()
     }
     
     var nativePlayer: AVQueuePlayer?
@@ -84,14 +86,29 @@ class StreamManager: NSObject {
         self.nativePlayer?.removeObserver(self, forKeyPath: "status")
     }
     
+    func playNextItem() {
+        let item = priorityQueue!.pop()
+        if item == nil {return}
+        
+        let extractor = item!.extractor
+        print("extractor = \(extractor!); id = \(item!.id!)")
+        
+        currItem = item
+        if extractor == "youtube" {
+            playerContainerView?.bringSubviewToFront(youtubePlayerView!)
+            playYoutubeItem(item)
+        } else {
+            playerContainerView?.bringSubviewToFront(nativePlayerView!)
+            playNativeItem(item)
+        }
+    }
+    
     func play() {
         if currItem == nil {return}
         
         if currItem!.extractor == "youtube" {
-            playerContainerView?.bringSubviewToFront(youtubePlayerView!)
             youtubePlayerView?.playVideo()
         } else {
-            playerContainerView?.bringSubviewToFront(nativePlayerView!)
             nativePlayer?.play()
         }
     }
@@ -102,6 +119,7 @@ class StreamManager: NSObject {
     }
     
     func next() {
+        stop()
         playNextItem()
     }
     
@@ -113,21 +131,6 @@ class StreamManager: NSObject {
         print("processItemEndEvent")
         playNextItem()
     }
-    
-    func playNextItem() {
-        let item = priorityQueue!.pop()
-        if item == nil {return}
-        
-        let extractor = item!.extractor
-        print("extractor = \(extractor!); id = \(item!.id!)")
-        
-        currItem = item
-        if extractor == "youtube" {
-            playYoutubeItem(item)
-        } else {
-            playNativeItem(item)
-        }
-    }
 }
 
 
@@ -137,7 +140,9 @@ class StreamManager: NSObject {
 extension StreamManager {
     
     func nativePlayerDidFinishPlaying(notification: NSNotification) {
-        notifyItemDidEnd()
+        if nativePlayer?.rate != 0 && nativePlayer?.error == nil {
+            notifyItemDidEnd()
+        }
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -147,12 +152,12 @@ extension StreamManager {
         
         if keyPath == "status" {
             if nativePlayer!.status == AVPlayerStatus.ReadyToPlay {
-                print("ready to play")
-                nativePlayer?.play()
+                print("nativePlayer: ready to play")
+                //nativePlayer?.play()
             } else if nativePlayer!.status == AVPlayerStatus.Failed {
-                print("failed to play")
+                print("nativePlayer: failed to play")
             } else {
-                print("unhandled playerItem status \(nativePlayer!.status)")
+                print("nativePlayer: unhandled playerItem status \(nativePlayer!.status)")
             }
         }
     }
