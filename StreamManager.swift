@@ -22,31 +22,23 @@ class StreamManager: NSObject {
     var priorityQueue: PriorityQueue<StreamItem>?
     var stream: Stream? {
         didSet {
-            // Autoplay the first item
             if stream == nil || stream!.items.count == 0 {return}
-            
             priorityQueue = PriorityQueue(ascending: true, startingValues: stream!.items)
             
-            let item = priorityQueue!.pop()
-            let extractor = item!.extractor
-            print("extractor = \(extractor!); id = \(item!.id!)")
-            
-            currItem = item
-            if extractor == "youtube" {
-                playYoutubeItem(item)
-            } else {
-                playNativeItem(item)
-            }
+            // Autoplay
+            playNextItem()
         }
     }
     
     func playYoutubeItem(item: StreamItem!) {
+        print("playYoutubeItem")
         dispatch_async(dispatch_get_main_queue(),{
             self.youtubePlayerView?.loadWithVideoId(item.id!, playerVars: self.youtubePlayerVars)
         })
     }
     
     func playNativeItem(item: StreamItem!) {
+        print("playNativeItem")
         nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
     }
     
@@ -93,15 +85,24 @@ class StreamManager: NSObject {
     }
     
     func play() {
+        if currItem == nil {return}
         
+        if currItem!.extractor == "youtube" {
+            playerContainerView?.bringSubviewToFront(youtubePlayerView!)
+            youtubePlayerView?.playVideo()
+        } else {
+            playerContainerView?.bringSubviewToFront(nativePlayerView!)
+            nativePlayer?.play()
+        }
     }
     
     func stop() {
-        
+        nativePlayer?.pause()
+        youtubePlayerView?.stopVideo()
     }
     
     func next() {
-        
+        playNextItem()
     }
     
     func notifyItemDidEnd() {
@@ -110,6 +111,22 @@ class StreamManager: NSObject {
     
     func processItemEndEvent(notification: NSNotification) -> Void {
         print("processItemEndEvent")
+        playNextItem()
+    }
+    
+    func playNextItem() {
+        let item = priorityQueue!.pop()
+        if item == nil {return}
+        
+        let extractor = item!.extractor
+        print("extractor = \(extractor!); id = \(item!.id!)")
+        
+        currItem = item
+        if extractor == "youtube" {
+            playYoutubeItem(item)
+        } else {
+            playNativeItem(item)
+        }
     }
 }
 
