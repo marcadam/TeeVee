@@ -86,6 +86,7 @@ class StreamManager: NSObject {
                 if self.currItem != nil && self.currItem!.extractor != "youtube" {
                     self.youtubePlayerView?.playVideo()
                 } else {
+                    self.hidePlayerViews()
                     self.youtubePlayerView?.loadVideoById(item.id!, startSeconds: 0.0, suggestedQuality: .Default)
                 }
             }
@@ -175,8 +176,6 @@ class StreamManager: NSObject {
     }
     
     func playNextItem() {
-        hidePlayerViews()
-        
         let item = priorityQueue!.pop()
         if item == nil {return}
         
