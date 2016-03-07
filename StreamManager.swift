@@ -76,15 +76,18 @@ class StreamManager: NSObject {
         print("[MANAGER] play next YoutubeItem")
         if item == currItem {return}
         dispatch_async(dispatch_get_main_queue(),{
-            self.currItem = item
             
             if !self.youtubeWebviewLoaded {
                 self.youtubeWebviewLoaded = true
                 self.youtubePlayerView?.loadWithVideoId(item.id!, playerVars: self.youtubePlayerVars)
             } else {
-                //self.youtubePlayerView?.loadVideoById(item.id!, startSeconds: 0.0, suggestedQuality: .Default)
-                //self.youtubePlayerView?.playVideo()
+                if self.currItem != nil && self.currItem!.extractor != "youtube" {
+                    self.youtubePlayerView?.playVideo()
+                } else {
+                    self.youtubePlayerView?.loadVideoById(item.id!, startSeconds: 0.0, suggestedQuality: .Default)
+                }
             }
+            self.currItem = item
             
         })
     }
@@ -146,6 +149,10 @@ class StreamManager: NSObject {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    func prepareYoutubeVideo() {
+        self.youtubePlayerView?.playVideo()
+    }
+    
     // Pre-buffering to smoothen transition
     var currCueId: String! = ""
     func prepareNextItem() {
@@ -153,19 +160,16 @@ class StreamManager: NSObject {
         if item == nil || currCueId == item!.id! {return}
         
         let extractor = item!.extractor
-        print("[MANAGER] buffering: extractor = \(extractor!); id = \(item!.id!)")
-        
         if extractor == "youtube" {
-            youtubePlayerView?.cueVideoById(item!.id!, startSeconds: 0.0, suggestedQuality: .Default)
-            NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
-            currCueId = item!.id!
+            if currItem != nil && currItem!.extractor != "youtube" {
+                print("[MANAGER] buffering: extractor = \(extractor!); id = \(item!.id!)")
+                youtubePlayerView?.cueVideoById(item!.id!, startSeconds: 0.0, suggestedQuality: .Default)
+                NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
+                currCueId = item!.id!
+            }
         } else {
             // native player buffering
         }
-    }
-    
-    func prepareYoutubeVideo() {
-        self.youtubePlayerView?.playVideo()
     }
     
     func playNextItem() {
