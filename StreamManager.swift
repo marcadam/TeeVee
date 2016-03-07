@@ -24,6 +24,7 @@ class StreamManager: NSObject {
         "modestbranding" : 1
     ]
     let myContext = UnsafeMutablePointer<()>()
+    var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
     
     var nativePlayer: AVQueuePlayer?
     var nativePlayerLayer: AVPlayerLayer?
@@ -98,6 +99,7 @@ class StreamManager: NSObject {
                 self.youtubePlayerView?.loadWithVideoId(item.id!, playerVars: self.youtubePlayerVars)
             } else {
                 if self.currItem != nil && self.currItem!.extractor != "youtube" {
+                    // previous video is not youtube, so the video is already cued in
                     self.youtubePlayerView?.playVideo()
                 } else {
                     self.youtubePlayerView?.loadVideoById(item.id!, startSeconds: 0.0, suggestedQuality: .Default)
@@ -222,10 +224,8 @@ class StreamManager: NSObject {
     
     func hidePlayerViews() {
         print("[MANAGER] hides all players")
-        self.nativePlayerOverlay?.alpha = 1.0
-        self.youtubePlayerOverlay?.alpha = 1.0
-        self.youtubePlayerView?.bringSubviewToFront(self.youtubePlayerOverlay!)
-        self.nativePlayerView?.bringSubviewToFront(self.nativePlayerOverlay!)
+        self.youtubePlayerView?.hidden = true
+        self.nativePlayerView?.hidden = true
     }
     
     func hideYoutubeView() {
@@ -253,6 +253,7 @@ class StreamManager: NSObject {
         UIView.animateWithDuration(2.0) { () -> Void in
             self.youtubePlayerOverlay?.alpha = 0.0
             self.playerContainerView?.bringSubviewToFront(self.youtubePlayerView!)
+            self.youtubePlayerView?.hidden = false
         }
     }
     
@@ -263,6 +264,7 @@ class StreamManager: NSObject {
         UIView.animateWithDuration(2.0) { () -> Void in
             self.nativePlayerOverlay?.alpha = 0.0
             self.playerContainerView?.bringSubviewToFront(self.nativePlayerView!)
+            self.nativePlayerView?.hidden = false
         }
     }
     
