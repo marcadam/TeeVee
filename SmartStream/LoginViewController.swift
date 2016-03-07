@@ -25,20 +25,17 @@ class LoginViewController: UIViewController {
         if segue.identifier == "segueHome" {
             let homeVC = segue.destinationViewController as! HomeViewController
             let menuStoryboard = UIStoryboard(name: "Menu", bundle: nil)
-            let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
-
+            let streamsStoryboard = UIStoryboard(name: "Streams", bundle: nil)
             let menuNC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuNavigationController") as! UINavigationController
             let menuVC = menuNC.topViewController as! MenuTableViewController
 
-            let myStreamsNC = myStreamsStoryboard.instantiateViewControllerWithIdentifier("MyStreamsNavigationController") as! UINavigationController
-            let myStreamsVC = myStreamsNC.topViewController as! MyStreamsViewController
-            myStreamsVC.delegate = homeVC
+            let streamsNC = streamsStoryboard.instantiateViewControllerWithIdentifier("StreamsNavigationController") as! UINavigationController
+            let streamsVC = streamsNC.topViewController as! StreamsViewController
+            streamsVC.delegate = homeVC
 
             menuVC.containerViewController = homeVC
-            myStreamsVC.containerViewController = homeVC
             homeVC.menuViewController = menuNC
-            homeVC.contentViewController = myStreamsNC
+            homeVC.contentViewController = streamsNC
         }
     }
-
 }

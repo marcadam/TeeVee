@@ -41,12 +41,11 @@ class MenuTableViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if indexPath.section == 0 {
-            let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
-            let myStreamsNC = myStreamsStoryboard.instantiateViewControllerWithIdentifier("MyStreamsNavigationController") as! UINavigationController
-            let myStreamsVC = myStreamsNC.topViewController as! MyStreamsViewController
-            myStreamsVC.delegate = containerViewController
-            myStreamsVC.containerViewController = containerViewController
-            containerViewController.contentViewController = myStreamsNC
+            let streamsStoryboard = UIStoryboard(name: "Streams", bundle: nil)
+            let streamsNC = streamsStoryboard.instantiateViewControllerWithIdentifier("StreamsNavigationController") as! UINavigationController
+            let streamsVC = streamsNC.topViewController as! StreamsViewController
+            streamsVC.delegate = containerViewController
+            containerViewController.contentViewController = streamsNC
         } else if indexPath.section == 1 {
             let profileStoryboard = UIStoryboard(name: "Profile", bundle: nil)
             let profileNC = profileStoryboard.instantiateViewControllerWithIdentifier("ProfileNavigationController") as! UINavigationController

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--Streams View Controller-->
+        <scene sceneID="T1W-qu-d6A">
+            <objects>
+                <viewController storyboardIdentifier="StreamsViewController" id="4tl-Gs-C7Q" customClass="StreamsViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cQT-jQ-C6W"/>
+                        <viewControllerLayoutGuide type="bottom" id="JCJ-OZ-djB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nvm-Re-IEP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGk-nV-vlz">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jGk-nV-vlz" firstAttribute="top" secondItem="cQT-jQ-C6W" secondAttribute="bottom" id="JUr-ee-Nu6"/>
+                            <constraint firstItem="JCJ-OZ-djB" firstAttribute="top" secondItem="jGk-nV-vlz" secondAttribute="bottom" id="ZYB-EM-E6Z"/>
+                            <constraint firstAttribute="trailing" secondItem="jGk-nV-vlz" secondAttribute="trailing" id="hPp-lp-cdy"/>
+                            <constraint firstItem="jGk-nV-vlz" firstAttribute="leading" secondItem="nvm-Re-IEP" secondAttribute="leading" id="rYB-mo-dt3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="TUw-bA-NmL">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="Oih-kz-eae">
+                            <connections>
+                                <action selector="didTapMenu:" destination="4tl-Gs-C7Q" id="FkJ-YO-lSk"/>
+                            </connections>
+                        </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="oey-8w-NfT">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="My Streams"/>
+                                <segment title="Explore"/>
+                            </segments>
+                            <connections>
+                                <action selector="onValueChanged:" destination="4tl-Gs-C7Q" eventType="valueChanged" id="Tg8-jI-jp9"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="contentView" destination="jGk-nV-vlz" id="bgS-nl-OBR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hnh-Nl-glh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3320" y="242"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="t1b-bg-pSX">
+            <objects>
+                <navigationController storyboardIdentifier="StreamsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="u0Y-Mo-LYH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="456-Ea-nbe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="4tl-Gs-C7Q" kind="relationship" relationship="rootViewController" id="SJW-1G-rHF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Jw-DE-LdM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2508" y="242"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Menu" width="21" height="18"/>
+    </resources>
+</document>
