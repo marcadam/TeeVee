@@ -38,6 +38,7 @@
 		A2A3A3DB1C8AD9E500D1173C /* Filters.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D91C8AD9E500D1173C /* Filters.storyboard */; };
 		A2A3A3DD1C8AE1C200D1173C /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3DC1C8AE1C200D1173C /* Home.storyboard */; };
 		A2A3A3DF1C8AF74500D1173C /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */; };
+		A2F231E81C8D22060053956D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F231E71C8D22060053956D /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		A2A3A3DA1C8AD9E500D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Filters.storyboard; sourceTree = "<group>"; };
 		A2A3A3DC1C8AE1C200D1173C /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		A2A3A3DE1C8AF74500D1173C /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = SmartStream/CollectionViewCell.swift; sourceTree = "<group>"; };
+		A2F231E71C8D22060053956D /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A30B156E768D52458EFC335F /* Pods-SmartStream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -195,6 +197,7 @@
 		0B597B441C844AD900D4AC57 = {
 			isa = PBXGroup;
 			children = (
+				A2F231E61C8D21EC0053956D /* Themes */,
 				0B1459581C8BA73E001E6C23 /* Login */,
 				492D027B1C8BC6B1000AAF17 /* Menu */,
 				0B1459591C8BA75B001E6C23 /* Home */,
@@ -283,6 +286,14 @@
 				0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */,
 			);
 			name = CommonViews;
+			sourceTree = "<group>";
+		};
+		A2F231E61C8D21EC0053956D /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				A2F231E71C8D22060053956D /* Theme.swift */,
+			);
+			name = Themes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -427,6 +438,7 @@
 				A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */,
 				492D02A21C8BE997000AAF17 /* ProfileViewController.swift in Sources */,
 				A2A3A3CC1C8AD8D600D1173C /* StreamEditorViewController.swift in Sources */,
+				A2F231E81C8D22060053956D /* Theme.swift in Sources */,
 				A2A3A3CA1C8AD8B900D1173C /* FiltersViewController.swift in Sources */,
 				492D029D1C8BE119000AAF17 /* SettingsViewController.swift in Sources */,
 				492D02781C8BC656000AAF17 /* MenuTableViewController.swift in Sources */,
