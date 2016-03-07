@@ -147,7 +147,7 @@ class StreamManager: NSObject {
     }
     
     // Pre-buffering to smoothen transition
-    var currCueId: String!
+    var currCueId: String! = ""
     func prepareNextItem() {
         let item = priorityQueue!.peek()
         if item == nil || currCueId == item!.id! {return}
