@@ -92,9 +92,17 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="Ds2-g3-sCv"/>
                             <constraint firstAttribute="trailing" secondItem="WeQ-Ok-9nI" secondAttribute="trailing" id="JcE-aX-9MW"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QfX-Hc-Y6O"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="bJL-AX-yDL"/>
+                            <constraint firstItem="WeQ-Ok-9nI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ixD-0v-pqv"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ix1-YS-Lcv" secondAttribute="bottom" id="kY4-pD-4o5"/>
                             <constraint firstItem="Ix1-YS-Lcv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ns8-t4-cvy"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="46P-Gl-MCf"/>
+                                <exclude reference="Ds2-g3-sCv"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="loadingLabel" destination="9wo-oD-DVQ" id="PMO-jt-hKj"/>

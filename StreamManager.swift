@@ -38,11 +38,19 @@ class StreamManager: NSObject {
     var playerContainerView: UIView? {
         didSet {
             if playerContainerView == nil {return}
+            playerContainerView!.backgroundColor = UIColor.blackColor()
+            
             nativePlayerView = UIView(frame: playerContainerView!.bounds)
             nativePlayerView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            nativePlayerLayer!.frame = nativePlayerView!.bounds
             nativePlayerView!.backgroundColor = UIColor.blackColor()
+            
+            nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
+            nativePlayerLayer!.videoGravity = AVLayerVideoGravityResizeAspect
+            // TODO : investigate why nativePlayerView!.bounds doesn't work
+            nativePlayerLayer!.frame = UIScreen.mainScreen().bounds
             nativePlayerView!.layer.addSublayer(nativePlayerLayer!)
+            nativePlayerLayer!.needsDisplayOnBoundsChange = true
+            nativePlayerView!.layer.needsDisplayOnBoundsChange = true
             playerContainerView!.addSubview(nativePlayerView!)
             
             youtubePlayerView = YTPlayerView(frame: playerContainerView!.bounds)
@@ -89,13 +97,12 @@ class StreamManager: NSObject {
         
         self.nativePlayer = AVQueuePlayer()
         self.nativePlayer!.addObserver(self, forKeyPath: "status", options: [.New], context: self.myContext)
+        self.nativePlayer!.addObserver(self, forKeyPath: "currentItem", options: [.New], context: self.myContext)
         self.nativePlayer!.addObserver(self, forKeyPath: "duration", options: [.New], context: self.myContext)
         self.nativePlayer!.addObserver(self, forKeyPath: "loadedTimeRanges", options: [.New], context: self.myContext)
         self.nativePlayer!.addObserver(self, forKeyPath: "presentationSize", options: [.New], context: self.myContext)
         self.nativePlayer!.addObserver(self, forKeyPath: "error", options: [.New], context: self.myContext)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "nativePlayerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
-        self.nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
-        self.nativePlayerLayer!.videoGravity = AVLayerVideoGravityResizeAspect
         
         NSNotificationCenter.defaultCenter().addObserverForName(ItemDidEndNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: processItemEndEvent)
         
@@ -115,6 +122,7 @@ class StreamManager: NSObject {
             nativePlayer?.removeTimeObserver(timeObserver!)
         }
         self.nativePlayer?.removeObserver(self, forKeyPath: "status")
+        self.nativePlayer?.removeObserver(self, forKeyPath: "currentItem")
         self.nativePlayer?.removeObserver(self, forKeyPath: "duration")
         self.nativePlayer?.removeObserver(self, forKeyPath: "loadedTimeRanges")
         self.nativePlayer?.removeObserver(self, forKeyPath: "presentationSize")
@@ -197,14 +205,17 @@ extension StreamManager {
         if (nativePlayer == nil || nativePlayer != self.nativePlayer) {return}
         
         if keyPath == "status" {
+            
             if nativePlayer!.status == AVPlayerStatus.ReadyToPlay {
                 print("[NATIVEPLAYER] ready to play")
                 
-                let currentPlayerAsset = nativePlayer!.currentItem?.asset as? AVURLAsset
-                if currentPlayerAsset != nil {
-                    if currItem != nil && currItem!.url == currentPlayerAsset!.URL.absoluteString {
+                if let currentPlayerAsset = nativePlayer!.currentItem?.asset as? AVURLAsset {
+                    if currItem != nil && currItem!.url == currentPlayerAsset.URL.absoluteString {
                         dispatch_async(dispatch_get_main_queue(),{
-                            self.nativePlayerLayer?.layoutIfNeeded()
+                            if let videoTrack = nativePlayer!.currentItem!.asset.tracksWithMediaType(AVMediaTypeVideo).first {
+                                print("naturalSize = \(videoTrack.naturalSize)")
+                                //print("preferredTransform = \(videoTrack.preferredTransform)")
+                            }
                             self.nativePlayer?.play()
                         })
                     }
@@ -214,15 +225,18 @@ extension StreamManager {
             } else {
                 print("[NATIVEPLAYER] unhandled playerItem status \(nativePlayer!.status)")
             }
+            
+        } else if keyPath == "currentItem" {
+            
         } else if keyPath == "duration" {
             
-        } else if keyPath == "loadedTimeRanges" {
             if let timeInterval = nativePlayer!.currentItem?.duration {
                 let totalDuration = CMTimeGetSeconds(timeInterval)
                 print("totalDuration = \(totalDuration)")
             }
-        } else if keyPath == "presentationSize" {
             
+        } else if keyPath == "loadedTimeRanges" {
+        } else if keyPath == "presentationSize" {
         } else if keyPath == "error" {
             
         }
