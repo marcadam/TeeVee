@@ -83,7 +83,7 @@ class StreamManager: NSObject {
                 self.youtubePlayerView?.loadWithVideoId(item.id!, playerVars: self.youtubePlayerVars)
             } else {
                 //self.youtubePlayerView?.loadVideoById(item.id!, startSeconds: 0.0, suggestedQuality: .Default)
-                self.youtubePlayerView?.playVideo()
+                //self.youtubePlayerView?.playVideo()
             }
             
         })
@@ -157,10 +157,15 @@ class StreamManager: NSObject {
         
         if extractor == "youtube" {
             youtubePlayerView?.cueVideoById(item!.id!, startSeconds: 0.0, suggestedQuality: .Default)
+            NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
             currCueId = item!.id!
         } else {
             // native player buffering
         }
+    }
+    
+    func prepareYoutubeVideo() {
+        self.youtubePlayerView?.playVideo()
     }
     
     func playNextItem() {
