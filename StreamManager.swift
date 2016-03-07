@@ -59,6 +59,8 @@ class StreamManager: NSObject {
             youtubePlayerView!.backgroundColor = UIColor.blackColor()
             youtubePlayerView!.delegate = self
             playerContainerView!.addSubview(youtubePlayerView!)
+            
+            hidePlayerViews()
         }
     }
     
@@ -173,6 +175,8 @@ class StreamManager: NSObject {
     }
     
     func playNextItem() {
+        hidePlayerViews()
+        
         let item = priorityQueue!.pop()
         if item == nil {return}
         
@@ -180,16 +184,29 @@ class StreamManager: NSObject {
         print("[MANAGER] extractor = \(extractor!); id = \(item!.id!)")
         
         if extractor == "youtube" {
-            nativePlayerView?.hidden = true
-            youtubePlayerView?.hidden = false
-            playerContainerView?.bringSubviewToFront(youtubePlayerView!)
+            //showYoutubeView()
             playNextYoutubeItem(item)
         } else {
-            nativePlayerView?.hidden = false
-            youtubePlayerView?.hidden = true
-            playerContainerView?.bringSubviewToFront(nativePlayerView!)
+            showNativeView()
             playNextNativeItem(item)
         }
+    }
+    
+    func hidePlayerViews() {
+        nativePlayerView?.hidden = true
+        youtubePlayerView?.hidden = true
+    }
+    
+    func showYoutubeView() {
+        nativePlayerView?.hidden = true
+        youtubePlayerView?.hidden = false
+        playerContainerView?.bringSubviewToFront(youtubePlayerView!)
+    }
+    
+    func showNativeView() {
+        nativePlayerView?.hidden = false
+        youtubePlayerView?.hidden = true
+        playerContainerView?.bringSubviewToFront(nativePlayerView!)
     }
     
     func play() {
@@ -310,6 +327,9 @@ extension StreamManager: YTPlayerViewDelegate {
         if state == .Ended {
             print("[YOUTUBEPLAYER] video ended")
             notifyItemDidEnd()
+        } else if state == .Playing {
+            print("[YOUTUBEPLAYER] video playing")
+            showYoutubeView()
         }
     }
     
