@@ -13,7 +13,7 @@ import youtube_ios_player_helper
 
 class StreamManager: NSObject {
     let ItemDidEndNotification = "com.smartu.streammanager.itemDidEnd"
-    let ItemDidEndKey = "com.smartu.streammanager.itemDidEndKey"
+    let ItemAboutToEndNotification = "com.smartu.streammanager.itemAboutToEnd"
     
     let youtubePlayerVars : [NSObject : AnyObject] = [
         "playsinline": 1 ,
@@ -29,6 +29,7 @@ class StreamManager: NSObject {
     var nativePlayerLayer: AVPlayerLayer?
     var nativePlayerView: UIView?
     var youtubePlayerView: YTPlayerView?
+    var youtubeWebviewLoaded = false
     var webView: UIView?
     
     var priorityQueue: PriorityQueue<StreamItem>?
@@ -71,25 +72,34 @@ class StreamManager: NSObject {
         }
     }
     
-    func playYoutubeItem(item: StreamItem!) {
-        print("[MANAGER] play YoutubeItem")
+    func playNextYoutubeItem(item: StreamItem!) {
+        print("[MANAGER] play next YoutubeItem")
+        if item == currItem {return}
         dispatch_async(dispatch_get_main_queue(),{
             self.currItem = item
-            self.youtubePlayerView?.loadWithVideoId(item.id!, playerVars: self.youtubePlayerVars)
+            
+            if !self.youtubeWebviewLoaded {
+                self.youtubeWebviewLoaded = true
+                self.youtubePlayerView?.loadWithVideoId(item.id!, playerVars: self.youtubePlayerVars)
+            } else {
+                //self.youtubePlayerView?.loadVideoById(item.id!, startSeconds: 0.0, suggestedQuality: .Default)
+                self.youtubePlayerView?.playVideo()
+            }
+            
         })
     }
     
-    func playNativeItem(item: StreamItem!) {
-        print("[MANAGER] play nativeItem")
-        //        let currItem = nativePlayer?.currentItem
+    func playNextNativeItem(item: StreamItem!) {
+        print("[MANAGER] play next nativeItem")
+        if item == currItem {return}
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
         //        nativePlayer?.advanceToNextItem()
-        
-        self.currItem = item
-        //nativePlayer?.removeAllItems()
-        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
-        nativePlayer?.play()
-        
+        dispatch_async(dispatch_get_main_queue(),{
+            self.currItem = item
+            //nativePlayer?.removeAllItems()
+            self.nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
+            self.nativePlayer?.play()
+        })
     }
     
     override init() {
@@ -105,13 +115,19 @@ class StreamManager: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "nativePlayerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserverForName(ItemDidEndNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: processItemEndEvent)
+        NSNotificationCenter.defaultCenter().addObserverForName(ItemAboutToEndNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: processItemAboutToEndEvent)
         
         // an observer for every second playback
         timeObserver = nativePlayer!.addPeriodicTimeObserverForInterval(CMTimeMake(1,1), queue: nil, usingBlock: { (time: CMTime) -> Void in
             if self.nativePlayer != nil && self.nativePlayer!.currentItem != nil {
                 let currentSecond = self.nativePlayer!.currentItem!.currentTime().value / Int64(self.nativePlayer!.currentItem!.currentTime().timescale)
-                let totalDuration = String(format: "%.2f", CMTimeGetSeconds(self.nativePlayer!.currentItem!.duration))
-                print("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDuration) secs")
+                let totalDuration = CMTimeGetSeconds(self.nativePlayer!.currentItem!.duration)
+                let totalDurationStr = String(format: "%.2f", totalDuration)
+                print("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
+                
+                if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == 5 {
+                    self.notifyItemAboutToEnd()
+                }
             }
         })
     }
@@ -130,6 +146,23 @@ class StreamManager: NSObject {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    // Pre-buffering to smoothen transition
+    var currCueId: String!
+    func prepareNextItem() {
+        let item = priorityQueue!.peek()
+        if item == nil || currCueId == item!.id! {return}
+        
+        let extractor = item!.extractor
+        print("[MANAGER] buffering: extractor = \(extractor!); id = \(item!.id!)")
+        
+        if extractor == "youtube" {
+            youtubePlayerView?.cueVideoById(item!.id!, startSeconds: 0.0, suggestedQuality: .Default)
+            currCueId = item!.id!
+        } else {
+            // native player buffering
+        }
+    }
+    
     func playNextItem() {
         let item = priorityQueue!.pop()
         if item == nil {return}
@@ -141,12 +174,12 @@ class StreamManager: NSObject {
             nativePlayerView?.hidden = true
             youtubePlayerView?.hidden = false
             playerContainerView?.bringSubviewToFront(youtubePlayerView!)
-            playYoutubeItem(item)
+            playNextYoutubeItem(item)
         } else {
             nativePlayerView?.hidden = false
             youtubePlayerView?.hidden = true
             playerContainerView?.bringSubviewToFront(nativePlayerView!)
-            playNativeItem(item)
+            playNextNativeItem(item)
         }
     }
     
@@ -176,15 +209,23 @@ class StreamManager: NSObject {
         playNextItem()
     }
     
+    func notifyItemAboutToEnd() {
+        NSNotificationCenter.defaultCenter().postNotificationName(ItemAboutToEndNotification, object: self, userInfo: nil)
+    }
+    
     func notifyItemDidEnd() {
         NSNotificationCenter.defaultCenter().postNotificationName(ItemDidEndNotification, object: self, userInfo: nil)
+    }
+    
+    func processItemAboutToEndEvent(notification: NSNotification) -> Void {
+        print("[MANAGER] processItemAboutToEndEvent")
+        prepareNextItem()
     }
     
     func processItemEndEvent(notification: NSNotification) -> Void {
         print("[MANAGER] processItemEndEvent")
         playNextItem()
     }
-    
 }
 
 
@@ -269,8 +310,12 @@ extension StreamManager: YTPlayerViewDelegate {
     
     func playerView(playerView: YTPlayerView!, didPlayTime playTime: Float) {
         let currentSecond = String(format: "%.2f", playTime)
-        let totalDuration = String(format: "%.2f", playerView.duration())
-        print("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDuration) secs")
+        let totalDuration = playerView.duration()
+        let totalDurationStr = String(format: "%.2f", playerView.duration())
+        print("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
+        if Int(totalDuration) - Int(playTime) == 5 {
+            notifyItemAboutToEnd()
+        }
     }
     
     func playerView(playerView: YTPlayerView!, receivedError error: YTPlayerError) {
