@@ -13,7 +13,6 @@ import youtube_ios_player_helper
 class PlayerViewController: UIViewController {
 
     @IBOutlet weak var playerView: UIView!
-    @IBOutlet weak var loadingLabel: UILabel!
     
     var streamManager = StreamManager()
     
@@ -21,7 +20,6 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-        loadingLabel.hidden = false
         streamManager.playerContainerView = self.playerView
         
         StreamClient.sharedInstance.getStream { (stream, error) -> () in

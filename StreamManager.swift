@@ -24,7 +24,7 @@ class StreamManager: NSObject {
         "modestbranding" : 1
     ]
     let myContext = UnsafeMutablePointer<()>()
-    var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+    var spinner: SpinnerView?
     
     var nativePlayer: AVQueuePlayer?
     var nativePlayerLayer: AVPlayerLayer?
@@ -76,11 +76,22 @@ class StreamManager: NSObject {
             youtubePlayerView!.addSubview(youtubePlayerOverlay!)
             
             hidePlayerViews()
+            
+            spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
+            spinner!.hidden = false
+            spinner!.startAnimating()
+            playerContainerView!.addSubview(spinner!)
+            playerContainerView!.bringSubviewToFront(spinner!)
         }
     }
     
     var stream: Stream? {
         didSet {
+            dispatch_async(dispatch_get_main_queue(),{
+                self.spinner?.stopAnimating()
+                self.spinner?.removeFromSuperview()
+            })
+            
             if stream == nil || stream!.items.count == 0 {return}
             priorityQueue = PriorityQueue(ascending: true, startingValues: stream!.items)
             

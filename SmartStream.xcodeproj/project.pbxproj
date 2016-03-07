@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B11DD251C8E43B300012E85 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11DD241C8E43B300012E85 /* SpinnerView.swift */; };
 		0B2CD8AA1C8844C60055BD50 /* StreamClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8A91C8844C60055BD50 /* StreamClient.swift */; };
 		0B2CD8AD1C8846270055BD50 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AC1C8846270055BD50 /* Stream.swift */; };
 		0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AE1C8846650055BD50 /* StreamItem.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B11DD241C8E43B300012E85 /* SpinnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		0B2CD8A91C8844C60055BD50 /* StreamClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamClient.swift; sourceTree = "<group>"; };
 		0B2CD8AC1C8846270055BD50 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		0B2CD8AE1C8846650055BD50 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				0B40EE741C8BC05C00E6B65E /* StreamManager.swift */,
 				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
 				A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */,
+				0B11DD241C8E43B300012E85 /* SpinnerView.swift */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				0B2CD8AF1C8846650055BD50 /* StreamItem.swift in Sources */,
 				A2A3A3C81C8AD50B00D1173C /* HomeViewController.swift in Sources */,
 				0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */,
+				0B11DD251C8E43B300012E85 /* SpinnerView.swift in Sources */,
 				0B2CD8AD1C8846270055BD50 /* Stream.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
