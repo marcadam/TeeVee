@@ -28,7 +28,9 @@ class StreamManager: NSObject {
     var nativePlayer: AVQueuePlayer?
     var nativePlayerLayer: AVPlayerLayer?
     var nativePlayerView: UIView?
+    var nativePlayerOverlay: UIView?
     var youtubePlayerView: YTPlayerView?
+    var youtubePlayerOverlay: UIView?
     var youtubeWebviewLoaded = false
     var webView: UIView?
     
@@ -54,11 +56,23 @@ class StreamManager: NSObject {
             nativePlayerView!.layer.needsDisplayOnBoundsChange = true
             playerContainerView!.addSubview(nativePlayerView!)
             
+            nativePlayerOverlay = UIView(frame: nativePlayerView!.frame)
+            nativePlayerOverlay!.backgroundColor = UIColor.blackColor()
+            nativePlayerOverlay!.alpha = 0.0
+            nativePlayerOverlay!.userInteractionEnabled = false
+            nativePlayerView!.addSubview(nativePlayerOverlay!)
+            
             youtubePlayerView = YTPlayerView(frame: playerContainerView!.bounds)
             youtubePlayerView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
             youtubePlayerView!.backgroundColor = UIColor.blackColor()
             youtubePlayerView!.delegate = self
             playerContainerView!.addSubview(youtubePlayerView!)
+            
+            youtubePlayerOverlay = UIView(frame: youtubePlayerView!.frame)
+            youtubePlayerOverlay!.backgroundColor = UIColor.blackColor()
+            youtubePlayerOverlay!.alpha = 0.0
+            youtubePlayerOverlay!.userInteractionEnabled = false
+            youtubePlayerView!.addSubview(youtubePlayerOverlay!)
             
             hidePlayerViews()
         }
@@ -86,7 +100,6 @@ class StreamManager: NSObject {
                 if self.currItem != nil && self.currItem!.extractor != "youtube" {
                     self.youtubePlayerView?.playVideo()
                 } else {
-                    self.hidePlayerViews()
                     self.youtubePlayerView?.loadVideoById(item.id!, startSeconds: 0.0, suggestedQuality: .Default)
                 }
             }
@@ -129,7 +142,7 @@ class StreamManager: NSObject {
                 let currentSecond = self.nativePlayer!.currentItem!.currentTime().value / Int64(self.nativePlayer!.currentItem!.currentTime().timescale)
                 let totalDuration = CMTimeGetSeconds(self.nativePlayer!.currentItem!.duration)
                 let totalDurationStr = String(format: "%.2f", totalDuration)
-                print("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
+                //print("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
                 
                 if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == 5 {
                     self.notifyItemAboutToEnd()
@@ -156,11 +169,26 @@ class StreamManager: NSObject {
         self.youtubePlayerView?.playVideo()
     }
     
+    func fadeOutVideo(timer: NSTimer) {
+        print("[MANAGER] fadeOutVideo()")
+        let userInfo: [String : AnyObject] = timer.userInfo! as! [String : AnyObject]
+        let item: StreamItem! = userInfo["nextItem"] as! StreamItem
+        
+        if self.currItem != nil {
+            if self.currItem!.extractor == "youtube" {
+                hideYoutubeView()
+            } else {
+                hideNativeView()
+            }
+        }
+    }
+    
     // Pre-buffering to smoothen transition
     var currCueId: String! = ""
     func prepareNextItem() {
         let item = priorityQueue!.peek()
         if item == nil || currCueId == item!.id! {return}
+        currCueId = item!.id!
         
         let extractor = item!.extractor
         if extractor == "youtube" {
@@ -168,11 +196,13 @@ class StreamManager: NSObject {
                 print("[MANAGER] buffering: extractor = \(extractor!); id = \(item!.id!)")
                 youtubePlayerView?.cueVideoById(item!.id!, startSeconds: 0.0, suggestedQuality: .Default)
                 NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
-                currCueId = item!.id!
             }
         } else {
             // native player buffering
         }
+        
+        let userInfo: [String : AnyObject] = ["nextItem" : item!]
+        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "fadeOutVideo:", userInfo: userInfo, repeats: false)
     }
     
     func playNextItem() {
@@ -183,7 +213,6 @@ class StreamManager: NSObject {
         print("[MANAGER] extractor = \(extractor!); id = \(item!.id!)")
         
         if extractor == "youtube" {
-            //showYoutubeView()
             playNextYoutubeItem(item)
         } else {
             showNativeView()
@@ -192,20 +221,49 @@ class StreamManager: NSObject {
     }
     
     func hidePlayerViews() {
-        nativePlayerView?.hidden = true
-        youtubePlayerView?.hidden = true
+        print("[MANAGER] hides all players")
+        self.nativePlayerOverlay?.alpha = 1.0
+        self.youtubePlayerOverlay?.alpha = 1.0
+        self.youtubePlayerView?.bringSubviewToFront(self.youtubePlayerOverlay!)
+        self.nativePlayerView?.bringSubviewToFront(self.nativePlayerOverlay!)
+    }
+    
+    func hideYoutubeView() {
+        print("[MANAGER] fades out youtube player")
+        self.youtubePlayerOverlay?.alpha = 0.0
+        self.youtubePlayerView?.bringSubviewToFront(self.youtubePlayerOverlay!)
+        UIView.animateWithDuration(3.0) { () -> Void in
+            self.youtubePlayerOverlay?.alpha = 1.0
+        }
+    }
+    
+    func hideNativeView() {
+        print("[MANAGER] fades out native player")
+        self.nativePlayerOverlay?.alpha = 0.0
+        self.nativePlayerView?.bringSubviewToFront(self.nativePlayerOverlay!)
+        UIView.animateWithDuration(3.0) { () -> Void in
+            self.nativePlayerOverlay?.alpha = 1.0
+        }
     }
     
     func showYoutubeView() {
-        nativePlayerView?.hidden = true
-        youtubePlayerView?.hidden = false
-        playerContainerView?.bringSubviewToFront(youtubePlayerView!)
+        print("[MANAGER] fades in youtube player")
+        self.youtubePlayerOverlay?.alpha = 1.0
+        self.youtubePlayerView?.bringSubviewToFront(self.youtubePlayerOverlay!)
+        UIView.animateWithDuration(2.0) { () -> Void in
+            self.youtubePlayerOverlay?.alpha = 0.0
+            self.playerContainerView?.bringSubviewToFront(self.youtubePlayerView!)
+        }
     }
     
     func showNativeView() {
-        nativePlayerView?.hidden = false
-        youtubePlayerView?.hidden = true
-        playerContainerView?.bringSubviewToFront(nativePlayerView!)
+        print("[MANAGER] fades in native player")
+        self.nativePlayerOverlay?.alpha = 1.0
+        self.nativePlayerView?.bringSubviewToFront(self.nativePlayerOverlay!)
+        UIView.animateWithDuration(2.0) { () -> Void in
+            self.nativePlayerOverlay?.alpha = 0.0
+            self.playerContainerView?.bringSubviewToFront(self.nativePlayerView!)
+        }
     }
     
     func play() {
@@ -340,7 +398,7 @@ extension StreamManager: YTPlayerViewDelegate {
         let currentSecond = String(format: "%.2f", playTime)
         let totalDuration = playerView.duration()
         let totalDurationStr = String(format: "%.2f", playerView.duration())
-        print("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
+//        print("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
         if Int(totalDuration) - Int(playTime) == 5 {
             notifyItemAboutToEnd()
         }
