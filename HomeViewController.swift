@@ -25,7 +25,7 @@ class HomeViewController: UIViewController {
             menuView.addSubview(menuViewController.view)
         }
     }
-    private var contentViewControllers: [UIViewController] = []
+
     var contentViewController: UIViewController! {
         didSet(oldContentViewController) {
             view.layoutIfNeeded()
@@ -51,21 +51,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // add mystream view controller
-//        guard let myStream = contentViewController as? HomeViewController else {return}
-//        contentViewControllers.append(myStream)
-//
-//        // Instantiate explore view controller
-//        let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
-//
-//        // add explore view controller
-//        guard let explore = exploreStoryboard.instantiateInitialViewController() as? ExploreViewController else {return}
-//        contentViewControllers.append(explore)
-
-        guard let myStream = contentViewController as? UINavigationController else {return}
-        contentViewControllers.append(myStream)
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -95,7 +80,7 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: MyStreamsViewControllerDelegate, ProfileViewControllerDelegate, SettingsViewControllerDelegate {
+extension HomeViewController: StreamsViewControllerDelegate, ProfileViewControllerDelegate, SettingsViewControllerDelegate {
     private func toggleMenu() {
         originalContentViewLeftMargin = contentViewLeadingConstraint.constant
         UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -110,7 +95,7 @@ extension HomeViewController: MyStreamsViewControllerDelegate, ProfileViewContro
         })
     }
 
-    func myStreamsView(streamsView: MyStreamsViewController, didTapMenuButton: UIBarButtonItem) {
+    func streamsView(streamsView: StreamsViewController, didTapMenuButton: UIBarButtonItem) {
         toggleMenu()
     }
 
