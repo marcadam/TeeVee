@@ -73,9 +73,9 @@ class StreamManager: NSObject {
     
     func playNativeItem(item: StreamItem!) {
         print("[MANAGER] play nativeItem")
-//        let currItem = nativePlayer?.currentItem
-//        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
-//        nativePlayer?.advanceToNextItem()
+        //        let currItem = nativePlayer?.currentItem
+        //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
+        //        nativePlayer?.advanceToNextItem()
         
         self.currItem = item
         //nativePlayer?.removeAllItems()
@@ -120,6 +120,23 @@ class StreamManager: NSObject {
         self.nativePlayer?.removeObserver(self, forKeyPath: "presentationSize")
         self.nativePlayer?.removeObserver(self, forKeyPath: "error")
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    
+    func playYoutubeItem(item: StreamItem!) {
+        print("playYoutubeItem")
+        dispatch_async(dispatch_get_main_queue(),{
+            self.youtubePlayerView?.loadWithVideoId(item.id!, playerVars: self.youtubePlayerVars)
+        })
+    }
+    
+    func playNativeItem(item: StreamItem!) {
+        print("playNativeItem")
+        //        let currItem = nativePlayer?.currentItem
+        //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
+        //        nativePlayer?.advanceToNextItem()
+        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
+        nativePlayer?.play()
     }
     
     func playNextItem() {
@@ -186,8 +203,10 @@ class StreamManager: NSObject {
 extension StreamManager {
     
     func nativePlayerDidFinishPlaying(notification: NSNotification) {
-        if nativePlayer?.rate != 0 && nativePlayer?.error == nil {
-            notifyItemDidEnd()
+        if let nativePlayer = self.nativePlayer {
+            if nativePlayer.rate != 0 && nativePlayer.error == nil {
+                notifyItemDidEnd()
+            }
         }
     }
     
