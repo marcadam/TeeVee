@@ -41,11 +41,13 @@ class StreamManager: NSObject {
             nativePlayerView = UIView(frame: playerContainerView!.bounds)
             nativePlayerView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
             nativePlayerLayer!.frame = nativePlayerView!.bounds
+            nativePlayerView!.backgroundColor = UIColor.blackColor()
             nativePlayerView!.layer.addSublayer(nativePlayerLayer!)
             playerContainerView!.addSubview(nativePlayerView!)
             
             youtubePlayerView = YTPlayerView(frame: playerContainerView!.bounds)
             youtubePlayerView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            youtubePlayerView!.backgroundColor = UIColor.blackColor()
             youtubePlayerView!.delegate = self
             playerContainerView!.addSubview(youtubePlayerView!)
         }
@@ -128,9 +130,13 @@ class StreamManager: NSObject {
         print("[MANAGER] extractor = \(extractor!); id = \(item!.id!)")
         
         if extractor == "youtube" {
+            nativePlayerView?.hidden = true
+            youtubePlayerView?.hidden = false
             playerContainerView?.bringSubviewToFront(youtubePlayerView!)
             playYoutubeItem(item)
         } else {
+            nativePlayerView?.hidden = false
+            youtubePlayerView?.hidden = true
             playerContainerView?.bringSubviewToFront(nativePlayerView!)
             playNativeItem(item)
         }
