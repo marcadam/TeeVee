@@ -69,7 +69,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="tableView" destination="9Pd-Bx-FT7" id="wip-vC-i0c"/>
-                        <segue destination="fah-wY-4PS" kind="presentation" identifier="seguePlayerStoryboard" id="sUn-T0-4hU"/>
+                        <segue destination="fah-wY-4PS" kind="presentation" identifier="seguePlayerStoryboard" modalPresentationStyle="overFullScreen" id="sUn-T0-4hU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qz-HK-rYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
