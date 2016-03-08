@@ -1,36 +1,36 @@
 //
-//  StreamClient.swift
-//  SmartStream
+//  ChannelClient.swift
+//  SmartChannel
 //
 //  Created by Hieu Nguyen on 3/3/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
 
-let streamBaseUrl = "http://smartu.herokuapp.com/api/"
-class StreamClient {
+let channelBaseUrl = "http://smartu.herokuapp.com/api/"
+class ChannelClient {
     var baseURL: String!
     
-    static let sharedInstance = StreamClient(baseURL: streamBaseUrl)
+    static let sharedInstance = ChannelClient(baseURL: channelBaseUrl)
     
     private init(baseURL: String!) {
         self.baseURL = baseURL
     }
     
-    func getStream(completion: (stream: Stream?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "stream.json")
+    func getChannel(completion: (channel: Channel?, error: NSError?) -> ()) {
+        let endpoint = NSURL(string: baseURL + "channel.json")
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(endpoint!) {(data: NSData?, response: NSURLResponse?, apiError: NSError?) in
             
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
                 //print(json!)
-                let stream = Stream(dictionary: json!)
-                completion(stream: stream, error: nil)
+                let channel = Channel(dictionary: json!)
+                completion(channel: channel, error: nil)
             } catch {
                 print(error)
-                completion(stream: nil, error: apiError)
+                completion(channel: nil, error: apiError)
             }
         }
         

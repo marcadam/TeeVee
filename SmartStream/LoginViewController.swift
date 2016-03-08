@@ -1,9 +1,9 @@
 //
 //  LoginViewController.swift
-//  SmartStream
+//  SmartChannel
 //
 //  Created by Jerry on 3/5/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
@@ -25,17 +25,17 @@ class LoginViewController: UIViewController {
         if segue.identifier == "segueHome" {
             let homeVC = segue.destinationViewController as! HomeViewController
             let menuStoryboard = UIStoryboard(name: "Menu", bundle: nil)
-            let streamsStoryboard = UIStoryboard(name: "Streams", bundle: nil)
+            let channelsStoryboard = UIStoryboard(name: "Channels", bundle: nil)
             let menuNC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuNavigationController") as! UINavigationController
             let menuVC = menuNC.topViewController as! MenuTableViewController
 
-            let streamsNC = streamsStoryboard.instantiateViewControllerWithIdentifier("StreamsNavigationController") as! UINavigationController
-            let streamsVC = streamsNC.topViewController as! StreamsViewController
-            streamsVC.delegate = homeVC
+            let channelsNC = channelsStoryboard.instantiateViewControllerWithIdentifier("ChannelsNavigationController") as! UINavigationController
+            let channelsVC = channelsNC.topViewController as! ChannelsViewController
+            channelsVC.delegate = homeVC
 
             menuVC.containerViewController = homeVC
             homeVC.menuViewController = menuNC
-            homeVC.contentViewController = streamsNC
+            homeVC.contentViewController = channelsNC
         }
     }
 }

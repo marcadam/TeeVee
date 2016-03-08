@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Saq-Tx-wvM">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Create Stream-->
+        <!--Create Channel-->
         <scene sceneID="u7x-E5-oD1">
             <objects>
-                <viewController storyboardIdentifier="CreateStream" id="BRQ-9W-LhL" customClass="StreamEditorViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateChannel" id="BRQ-9W-LhL" customClass="ChannelEditorViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7NR-M9-1tf"/>
                         <viewControllerLayoutGuide type="bottom" id="ADh-kj-RnR"/>
@@ -54,9 +53,9 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bhh-TE-0lH">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bhh-TE-0lH">
                                 <rect key="frame" x="257" y="550" width="87" height="30"/>
-                                <state key="normal" title="Start Stream"/>
+                                <state key="normal" title="Start Channel"/>
                                 <connections>
                                     <segue destination="UM3-pZ-hxC" kind="presentation" id="lUt-Od-ltU"/>
                                 </connections>
@@ -65,11 +64,11 @@
                                 <rect key="frame" x="0.0" y="114" width="600" height="420"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StreamEditorCell" id="uIs-pV-XDW">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChannelEditorCell" id="uIs-pV-XDW">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uIs-pV-XDW" id="JHJ-fN-Oe0">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
@@ -104,7 +103,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Stream" id="A4O-hG-BGl">
+                    <navigationItem key="navigationItem" title="Create Channel" id="A4O-hG-BGl">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="w2G-Ra-6mu">
                             <connections>
                                 <action selector="onBackTapped:" destination="BRQ-9W-LhL" id="W97-uo-WJ4"/>
@@ -145,7 +144,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Uza-6f-2wx">
             <objects>
-                <navigationController storyboardIdentifier="StreamEditorNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Saq-Tx-wvM" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ChannelEditorNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Saq-Tx-wvM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5Tx-gJ-R4g">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

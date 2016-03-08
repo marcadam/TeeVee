@@ -1,9 +1,9 @@
 //
 //  SettingsViewController.swift
-//  SmartStream
+//  SmartChannel
 //
 //  Created by Marc Anderson on 3/5/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit

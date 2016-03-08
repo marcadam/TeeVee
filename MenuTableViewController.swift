@@ -1,9 +1,9 @@
 //
 //  MenuTableViewController.swift
-//  SmartStream
+//  SmartChannel
 //
 //  Created by Marc Anderson on 3/5/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
@@ -41,11 +41,11 @@ class MenuTableViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if indexPath.section == 0 {
-            let streamsStoryboard = UIStoryboard(name: "Streams", bundle: nil)
-            let streamsNC = streamsStoryboard.instantiateViewControllerWithIdentifier("StreamsNavigationController") as! UINavigationController
-            let streamsVC = streamsNC.topViewController as! StreamsViewController
-            streamsVC.delegate = containerViewController
-            containerViewController.contentViewController = streamsNC
+            let channelsStoryboard = UIStoryboard(name: "Channels", bundle: nil)
+            let channelsNC = channelsStoryboard.instantiateViewControllerWithIdentifier("ChannelsNavigationController") as! UINavigationController
+            let channelsVC = channelsNC.topViewController as! ChannelsViewController
+            channelsVC.delegate = containerViewController
+            containerViewController.contentViewController = channelsNC
         } else if indexPath.section == 1 {
             let profileStoryboard = UIStoryboard(name: "Profile", bundle: nil)
             let profileNC = profileStoryboard.instantiateViewControllerWithIdentifier("ProfileNavigationController") as! UINavigationController

@@ -1,32 +1,32 @@
 //
-//  MyStreamsViewController.swift
-//  SmartStream
+//  MyChannelsViewController.swift
+//  SmartChannel
 //
 //  Created by Jerry on 3/5/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
 
-protocol MyStreamsViewControllerDelegate: class {
-    func myStreamsView(streamsView: MyStreamsViewController, didTapMenuButton: UIBarButtonItem)
+protocol MyChannelsViewControllerDelegate: class {
+    func myChannelsView(channelsView: MyChannelsViewController, didTapMenuButton: UIBarButtonItem)
 }
 
-class MyStreamsViewController: UIViewController {
+class MyChannelsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    let streamCellID = "com.smartstream.StreamTableViewCell"
+    let channelCellID = "com.smartchannel.ChannelTableViewCell"
 
     var containerViewController: HomeViewController!
-    var delegate: MyStreamsViewControllerDelegate?
+    var delegate: MyChannelsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let streamCellNib = UINib(nibName: "StreamTableViewCell", bundle: NSBundle.mainBundle())
-        tableView.registerNib(streamCellNib, forCellReuseIdentifier: streamCellID)
+        let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
+        tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
 
     }
 
@@ -36,19 +36,19 @@ class MyStreamsViewController: UIViewController {
     }
 
     @IBAction func didTapMenu(sender: UIBarButtonItem) {
-        delegate?.myStreamsView(self, didTapMenuButton: sender)
+        delegate?.myChannelsView(self, didTapMenuButton: sender)
     }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension MyStreamsViewController: UITableViewDataSource, UITableViewDelegate {
+extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(streamCellID, forIndexPath: indexPath) as! StreamTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelTableViewCell
         return cell
     }
 

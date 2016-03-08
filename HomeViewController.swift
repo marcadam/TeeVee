@@ -1,9 +1,9 @@
 //
 //  HomeViewController.swift
-//  SmartStream
+//  SmartChannel
 //
 //  Created by Jerry on 3/5/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
@@ -80,7 +80,7 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: StreamsViewControllerDelegate, ProfileViewControllerDelegate, SettingsViewControllerDelegate {
+extension HomeViewController: ChannelsViewControllerDelegate, ProfileViewControllerDelegate, SettingsViewControllerDelegate {
     private func toggleMenu() {
         originalContentViewLeftMargin = contentViewLeadingConstraint.constant
         UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -95,7 +95,7 @@ extension HomeViewController: StreamsViewControllerDelegate, ProfileViewControll
         })
     }
 
-    func streamsView(streamsView: StreamsViewController, didTapMenuButton: UIBarButtonItem) {
+    func channelsView(channelsView: ChannelsViewController, didTapMenuButton: UIBarButtonItem) {
         toggleMenu()
     }
 

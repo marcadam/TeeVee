@@ -1,9 +1,9 @@
 //
 //  FiltersViewController.swift
-//  SmartStream
+//  SmartChannel
 //
 //  Created by Jerry on 3/5/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
@@ -12,8 +12,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet var tableView: UITableView!
     
-    private let filterCellID = "com.smartstream.FilterSwitchCell"
-    private let filterSelectCellID = "com.smartstream.FilterSelectCell"
+    private let filterCellID = "com.smartchannel.FilterSwitchCell"
+    private let filterSelectCellID = "com.smartchannel.FilterSelectCell"
     private let filterData = ["Source" : ["YouTube", "Vimeo"], "Max Duration": ["Short < 1 min","Medium < 5 min","Long > 5 min"]]
     private var titles = []
     private var durationSelected = 2

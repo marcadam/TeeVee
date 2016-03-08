@@ -1,18 +1,18 @@
 //
-//  StreamsViewController.swift
-//  SmartStream
+//  ChannelsViewController.swift
+//  SmartChannel
 //
 //  Created by Marc Anderson on 3/6/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
 
-protocol StreamsViewControllerDelegate: class {
-    func streamsView(streamsView: StreamsViewController, didTapMenuButton: UIBarButtonItem)
+protocol ChannelsViewControllerDelegate: class {
+    func channelsView(channelsView: ChannelsViewController, didTapMenuButton: UIBarButtonItem)
 }
 
-class StreamsViewController: UIViewController {
+class ChannelsViewController: UIViewController {
 
     @IBOutlet var contentView: UIView!
 
@@ -34,22 +34,22 @@ class StreamsViewController: UIViewController {
         }
     }
 
-    var delegate: StreamsViewControllerDelegate?
+    var delegate: ChannelsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Instantiate and add myStreams view controller
-        let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
-        let myStreamsVC = myStreamsStoryboard.instantiateViewControllerWithIdentifier("MyStreamsViewController") as! MyStreamsViewController
-        contentViewControllers.append(myStreamsVC)
+        // Instantiate and add myChannels view controller
+        let myChannelsStoryboard = UIStoryboard(name: "MyChannels", bundle: nil)
+        let myChannelsVC = myChannelsStoryboard.instantiateViewControllerWithIdentifier("MyChannelsViewController") as! MyChannelsViewController
+        contentViewControllers.append(myChannelsVC)
 
         // Instantiate and add Explore view controller
         let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
         let exploreVC = exploreStoryboard.instantiateInitialViewController() as! ExploreViewController
         contentViewControllers.append(exploreVC)
 
-        contentViewController = myStreamsVC
+        contentViewController = myChannelsVC
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,7 +58,7 @@ class StreamsViewController: UIViewController {
     }
     
     @IBAction func didTapMenu(sender: UIBarButtonItem) {
-        delegate?.streamsView(self, didTapMenuButton: sender)
+        delegate?.channelsView(self, didTapMenuButton: sender)
     }
 
     @IBAction func onValueChanged(sender: UISegmentedControl) {

@@ -1,18 +1,18 @@
 //
-//  StreamEditorViewController.swift
-//  SmartStream
+//  ChannelEditorViewController.swift
+//  SmartChannel
 //
 //  Created by Jerry on 3/5/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
 
-protocol StreamEditorDelegate: class {
-    func didSetStreamKeywords(keywords:[String])
+protocol ChannelEditorDelegate: class {
+    func didSetChannelKeywords(keywords:[String])
 }
 
-class StreamEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var searchWrapperView: UIView!
     @IBOutlet var searchTextField: UITextField!
@@ -20,7 +20,7 @@ class StreamEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     private var keywords:[String] = []
     
-    weak var delegate: StreamEditorDelegate?
+    weak var delegate: ChannelEditorDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class StreamEditorViewController: UIViewController, UITableViewDataSource, UITab
         searchWrapperView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         searchTextField.font = Theme.Fonts.TitleThinTypeFace.font
         searchTextField.textColor = Theme.Colors.HighlightColor.color
-        searchTextField.attributedPlaceholder = NSAttributedString(string: "Create Stream", attributes: [NSForegroundColorAttributeName: Theme.Colors.HighlightLightColor.color])
+        searchTextField.attributedPlaceholder = NSAttributedString(string: "Create Channel", attributes: [NSForegroundColorAttributeName: Theme.Colors.HighlightLightColor.color])
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
     }
     
@@ -48,7 +48,7 @@ class StreamEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let longpressGesture = UILongPressGestureRecognizer(target: self, action: "onLongPress:")
-        let cell = tableView.dequeueReusableCellWithIdentifier("StreamEditorCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("ChannelEditorCell", forIndexPath: indexPath)
         cell.textLabel?.text = keywords[indexPath.row]
         cell.textLabel?.font = Theme.Fonts.LightNormalTypeFace.font
         cell.textLabel?.textColor = Theme.Colors.HighlightColor.color
@@ -86,7 +86,7 @@ class StreamEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func onBackTapped(sender: AnyObject) {
-        delegate?.didSetStreamKeywords(self.keywords)
+        delegate?.didSetChannelKeywords(self.keywords)
         dismissViewControllerAnimated(true) { () -> Void in
         }
     }

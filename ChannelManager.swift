@@ -1,9 +1,9 @@
 //
-//  StreamManager.swift
-//  SmartStream
+//  ChannelManager.swift
+//  SmartChannel
 //
 //  Created by Hieu Nguyen on 3/5/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
@@ -11,9 +11,9 @@ import AVFoundation
 import SwiftPriorityQueue
 import youtube_ios_player_helper
 
-class StreamManager: NSObject {
-    let ItemDidEndNotification = "com.smartu.streammanager.itemDidEnd"
-    let ItemAboutToEndNotification = "com.smartu.streammanager.itemAboutToEnd"
+class ChannelManager: NSObject {
+    let ItemDidEndNotification = "com.smartu.channelmanager.itemDidEnd"
+    let ItemAboutToEndNotification = "com.smartu.channelmanager.itemAboutToEnd"
     let bufferTimeConstant = 5
     let fadeInTimeConstant = 2.0
     let fadeOutItmeConstant = 3.0
@@ -38,8 +38,8 @@ class StreamManager: NSObject {
     var youtubeWebviewLoaded = false
     var webView: UIView?
     
-    var priorityQueue: PriorityQueue<StreamItem>?
-    var currItem: StreamItem?
+    var priorityQueue: PriorityQueue<ChannelItem>?
+    var currItem: ChannelItem?
     var timeObserver: AnyObject?
     
     func updateBounds(containerView: UIView!) {
@@ -92,22 +92,22 @@ class StreamManager: NSObject {
         }
     }
     
-    var stream: Stream? {
+    var channel: Channel? {
         didSet {
             dispatch_async(dispatch_get_main_queue(),{
                 self.spinner?.stopAnimating()
                 self.spinner?.removeFromSuperview()
             })
             
-            if stream == nil || stream!.items.count == 0 {return}
-            priorityQueue = PriorityQueue(ascending: true, startingValues: stream!.items)
+            if channel == nil || channel!.items.count == 0 {return}
+            priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items)
             
             // Autoplay
             playNextItem()
         }
     }
     
-    func playNextYoutubeItem(item: StreamItem!) {
+    func playNextYoutubeItem(item: ChannelItem!) {
         print("[MANAGER] play next YoutubeItem")
         if item == currItem {return}
         dispatch_async(dispatch_get_main_queue(),{
@@ -128,7 +128,7 @@ class StreamManager: NSObject {
         })
     }
     
-    func playNextNativeItem(item: StreamItem!) {
+    func playNextNativeItem(item: ChannelItem!) {
         print("[MANAGER] play next nativeItem")
         if item == currItem {return}
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
@@ -192,7 +192,7 @@ class StreamManager: NSObject {
     func fadeOutVideo(timer: NSTimer) {
         print("[MANAGER] fadeOutVideo()")
         let userInfo: [String : AnyObject] = timer.userInfo! as! [String : AnyObject]
-        let item: StreamItem! = userInfo["nextItem"] as! StreamItem
+        let item: ChannelItem! = userInfo["nextItem"] as! ChannelItem
         
         if self.currItem != nil {
             if self.currItem!.extractor == "youtube" {
@@ -335,7 +335,7 @@ class StreamManager: NSObject {
 // ==========================================================
 // Option 1: Use native iOS player
 // ==========================================================
-extension StreamManager {
+extension ChannelManager {
     
     func nativePlayerDidFinishPlaying(notification: NSNotification) {
         if nativePlayer?.rate != 0 && nativePlayer?.error == nil {
@@ -392,7 +392,7 @@ extension StreamManager {
 // ==========================================================
 // Option 2: Use youtube player
 // ==========================================================
-extension StreamManager: YTPlayerViewDelegate {
+extension ChannelManager: YTPlayerViewDelegate {
     
     func playerViewDidBecomeReady(playerView: YTPlayerView!) {
         print("[YOUTUBEPLAYER] playerViewDidBecomeReady")
@@ -437,6 +437,6 @@ extension StreamManager: YTPlayerViewDelegate {
 // ==========================================================
 // Option 3: Use web view player
 // ==========================================================
-extension StreamManager {
+extension ChannelManager {
     
 }

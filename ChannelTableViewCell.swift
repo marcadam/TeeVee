@@ -1,24 +1,25 @@
 //
-//  FilterSelectCell.swift
+//  ChannelTableViewCell.swift
 //  SmartChannel
 //
-//  Created by Jerry on 3/7/16.
+//  Created by Marc Anderson on 3/5/16.
 //  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
 
-class FilterSelectCell: UITableViewCell {
+class ChannelTableViewCell: UITableViewCell {
 
-    @IBOutlet var filterLabel: UILabel!
-    @IBOutlet var filterCheckImageView: UIImageView!
-    
+    @IBOutlet weak var channelImageView: UIImageView!
+    @IBOutlet weak var channelName: UILabel!
+
+    var channel: Channel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        backgroundColor = UIColor.clearColor()
-        filterLabel.font = Theme.Fonts.LightNormalTypeFace.font
-        filterLabel.textColor = Theme.Colors.HighlightColor.color
+        channelImageView.image = UIImage(named: "placeholder")
+        channelName.text = "Nature Channel"
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -26,5 +27,5 @@ class FilterSelectCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }

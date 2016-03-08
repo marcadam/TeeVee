@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  SmartStream
+//  SmartChannel
 //
 //  Created by Hieu Nguyen on 2/29/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //    let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
 //    let menuStoryboard = UIStoryboard(name: "Menu", bundle: nil)
-//    let myStreamsStoryboard = UIStoryboard(name: "MyStreams", bundle: nil)
+//    let myChannelsStoryboard = UIStoryboard(name: "MyChannels", bundle: nil)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,13 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let menuNC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuNavigationController") as! UINavigationController
 //        let menuVC = menuNC.topViewController as! MenuTableViewController
 //
-//        let myStreamsNC = myStreamsStoryboard.instantiateViewControllerWithIdentifier("MyStreamsNavigationController") as! UINavigationController
-//        let myStreamsVC = myStreamsNC.topViewController as! MyStreamsViewController
+//        let myChannelsNC = myChannelsStoryboard.instantiateViewControllerWithIdentifier("MyChannelsNavigationController") as! UINavigationController
+//        let myChannelsVC = myChannelsNC.topViewController as! MyChannelsViewController
 //
 //        menuVC.containerViewController = homeVC
-//        myStreamsVC.containerViewController = homeVC
+//        myChannelsVC.containerViewController = homeVC
 //        homeVC.menuViewController = menuNC
-//        homeVC.contentViewController = myStreamsVC
+//        homeVC.contentViewController = myChannelsVC
 //
 //        window?.rootViewController = homeVC
 //        window?.makeKeyAndVisible()

@@ -1,9 +1,9 @@
 //
 //  FilterSwitchCell.swift
-//  SmartStream
+//  SmartChannel
 //
 //  Created by Jerry on 3/6/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit

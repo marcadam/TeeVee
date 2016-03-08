@@ -1,14 +1,14 @@
 //
-//  StreamItem.swift
-//  SmartStream
+//  ChannelItem.swift
+//  SmartChannel
 //
 //  Created by Hieu Nguyen on 3/3/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 
 import UIKit
 
-class StreamItem: NSObject, Comparable {
+class ChannelItem: NSObject, Comparable {
     let dictionary: NSDictionary
     let url: String?
     let id: String?
@@ -24,10 +24,10 @@ class StreamItem: NSObject, Comparable {
         timestamp = NSDate().timeIntervalSince1970
     }
     
-    class func items(array array: [NSDictionary]) -> [StreamItem] {
-        var items = [StreamItem]()
+    class func items(array array: [NSDictionary]) -> [ChannelItem] {
+        var items = [ChannelItem]()
         for dictionary in array {
-            let item = StreamItem(dictionary: dictionary)
+            let item = ChannelItem(dictionary: dictionary)
             items.append(item)
         }
         return items
@@ -41,10 +41,10 @@ class StreamItem: NSObject, Comparable {
 //       would be ordered based on priorities. And only look
 //       at the timestamp for tie-breaker.
 // ==========================================================
-func < (lhs: StreamItem, rhs: StreamItem) -> Bool {
+func < (lhs: ChannelItem, rhs: ChannelItem) -> Bool {
     return lhs.timestamp < rhs.timestamp
 }
 
-func == (lhs: StreamItem, rhs: StreamItem) -> Bool {
+func == (lhs: ChannelItem, rhs: ChannelItem) -> Bool {
     return lhs.timestamp == rhs.timestamp
 }

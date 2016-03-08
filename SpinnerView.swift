@@ -1,9 +1,9 @@
 //
 //  SpinnerView.swift
-//  SmartStream
+//  SmartChannel
 //
 //  Created by Hieu Nguyen on 3/7/16.
-//  Copyright © 2016 SmartStream. All rights reserved.
+//  Copyright © 2016 SmartChannel. All rights reserved.
 //
 import UIKit
 
