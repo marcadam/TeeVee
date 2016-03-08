@@ -9,11 +9,11 @@ Members:
 - Marc Adam Anderson
 
 # What is it?
-An app that lets you turn any subject into a personalized, 24/7 TV channel. A Pandora-for-videos, if you will.
+An app that lets you turn any topic into a personalized, 24/7 TV channel. A Pandora-for-videos, if you will.
 
 # User stories
 
-- User can search for a topic and the app will automatically create and autoplay a channel based on that subject
+- User can search for a topic and the app will automatically create and autoplay a channel based on that topic
 - User can add more than one topic to his/her channel
 - User can switch between 2 different modes on a channel: "discovery" or "in-depth"
 - User can edit/save the channel
