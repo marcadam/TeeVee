@@ -75,7 +75,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qz-HK-rYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="EVJ-gu-S83">
                     <connections>
-                        <segue destination="DnV-XE-AfW" kind="show" identifier="" id="4Gf-2F-Lbj"/>
+                        <segue destination="DnV-XE-AfW" kind="presentation" identifier="" modalPresentationStyle="overFullScreen" id="4Gf-2F-Lbj"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
