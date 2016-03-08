@@ -48,5 +48,24 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+    <key>Fabric</key>
+    <dict>
+        <key>APIKey</key>
+        <string>061fb4d7ee4226639f930ab14c81b7512639e650</string>
+        <key>Kits</key>
+        <array>
+            <dict>
+                <key>KitInfo</key>
+                <dict>
+                    <key>consumerKey</key>
+                    <string>S8CX7LE0QmhrdtDTXP1OMPdIj</string>
+                    <key>consumerSecret</key>
+                    <string>UzXgIpxjZAd1dNVZT0Q9U5h3sS7TdODtxm60J8CnjgaZgadS1e</string>
+                </dict>
+                <key>KitName</key>
+                <string>Twitter</string>
+            </dict>
+        </array>
+    </dict>
 </dict>
 </plist>

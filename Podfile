@@ -9,7 +9,9 @@ target 'SmartStream' do
 pod 'AFNetworking'
 pod 'BDBOAuth1Manager'
 pod 'FXBlurView'
-pod 'SwiftPriorityQueue' 
+pod 'SwiftPriorityQueue'
+pod 'Fabric'
+pod 'TwitterKit'
 pod 'youtube-ios-player-helper', :git=>'https://github.com/youtube/youtube-ios-player-helper', :commit=>'head'
 
 end

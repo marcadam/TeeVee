@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = homeVC
 //        window?.makeKeyAndVisible()
 
+        Fabric.with([Twitter.self])
         return true
     }
 

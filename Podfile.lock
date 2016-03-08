@@ -16,15 +16,22 @@ PODS:
     - AFNetworking/NSURLSession
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
+  - Fabric (1.6.6)
   - FXBlurView (1.6.4)
   - SwiftPriorityQueue (1.0.3)
+  - TwitterCore (1.15.1):
+    - Fabric
+  - TwitterKit (1.15.1):
+    - TwitterCore (= 1.15.1)
   - youtube-ios-player-helper (0.1.5)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
+  - Fabric
   - FXBlurView
   - SwiftPriorityQueue
+  - TwitterKit
   - youtube-ios-player-helper (from `https://github.com/youtube/youtube-ios-player-helper`,
     commit `head`)
 
@@ -41,8 +48,11 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
+  Fabric: 1abc1e59f11fa39ede6f690ef7309d8563e3ec59
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   SwiftPriorityQueue: 3c3dd50743f33efa627cbe2ff8e274912b3962d2
+  TwitterCore: 12983a7464e34afbbf18881347898a9db526ac71
+  TwitterKit: b5821570887ec2d77650fa232eaec175665dc443
   youtube-ios-player-helper: 921da8927a575debc293a94c678c658f38cde150
 
 COCOAPODS: 0.39.0
