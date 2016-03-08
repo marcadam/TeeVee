@@ -30,6 +30,14 @@ Nice-to-haves:
 
 ![Basic wireframes](/WireframesSmartStream.png?raw=true "Basic wireframes")
 
+# Walkthrough
+
+![SmartStream Walkthrough](SmartWalkthrough.gif "SmartStream Walkthrough")
+
+# Trello Task Board
+
+![Trello Board](Trello.png "Trello Board")
+
 # Tips
 
 Evaluating Ideas
