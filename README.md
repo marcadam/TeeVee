@@ -25,7 +25,7 @@ Nice-to-haves:
 
 - User can like/dislike individual content in the channel; disliking something will also skip the channel forward
 - User can filter content: prefer specific content producers / sources,  or to blacklist topics/sources/producers
-- User can themes (predefined) for their channels
+- User can choose a theme, among possibly a set of predefined themes, for their channels
 - User can link their Youtube / Twitter / Facebook / Vimeo accounts for better personalization
 - User can share the channels with their friends or on social media
 - User can see and watch their friends' public channels
