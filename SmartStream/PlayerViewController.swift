@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import AVFoundation
-import youtube_ios_player_helper
 
 class PlayerViewController: UIViewController {
 
