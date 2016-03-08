@@ -14,6 +14,9 @@ import youtube_ios_player_helper
 class StreamManager: NSObject {
     let ItemDidEndNotification = "com.smartu.streammanager.itemDidEnd"
     let ItemAboutToEndNotification = "com.smartu.streammanager.itemAboutToEnd"
+    let bufferTimeConstant = 5
+    let fadeInTimeConstant = 2.0
+    let fadeOutItmeConstant = 3.0
     
     let youtubePlayerVars : [NSObject : AnyObject] = [
         "playsinline": 1 ,
@@ -161,7 +164,7 @@ class StreamManager: NSObject {
                 let totalDurationStr = String(format: "%.2f", totalDuration)
                 //print("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
                 
-                if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == 5 {
+                if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == self.bufferTimeConstant {
                     self.notifyItemAboutToEnd()
                 }
             }
@@ -247,7 +250,7 @@ class StreamManager: NSObject {
         print("[MANAGER] fades out youtube player")
         self.youtubePlayerOverlay?.alpha = 0.0
         self.youtubePlayerView?.bringSubviewToFront(self.youtubePlayerOverlay!)
-        UIView.animateWithDuration(3.0) { () -> Void in
+        UIView.animateWithDuration(fadeOutItmeConstant) { () -> Void in
             self.youtubePlayerOverlay?.alpha = 1.0
         }
     }
@@ -256,7 +259,7 @@ class StreamManager: NSObject {
         print("[MANAGER] fades out native player")
         self.nativePlayerOverlay?.alpha = 0.0
         self.nativePlayerView?.bringSubviewToFront(self.nativePlayerOverlay!)
-        UIView.animateWithDuration(3.0) { () -> Void in
+        UIView.animateWithDuration(fadeOutItmeConstant) { () -> Void in
             self.nativePlayerOverlay?.alpha = 1.0
         }
     }
@@ -265,7 +268,7 @@ class StreamManager: NSObject {
         print("[MANAGER] fades in youtube player")
         self.youtubePlayerOverlay?.alpha = 1.0
         self.youtubePlayerView?.bringSubviewToFront(self.youtubePlayerOverlay!)
-        UIView.animateWithDuration(2.0) { () -> Void in
+        UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
             self.youtubePlayerOverlay?.alpha = 0.0
             self.playerContainerView?.bringSubviewToFront(self.youtubePlayerView!)
             self.youtubePlayerView?.hidden = false
@@ -276,7 +279,7 @@ class StreamManager: NSObject {
         print("[MANAGER] fades in native player")
         self.nativePlayerOverlay?.alpha = 1.0
         self.nativePlayerView?.bringSubviewToFront(self.nativePlayerOverlay!)
-        UIView.animateWithDuration(2.0) { () -> Void in
+        UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
             self.nativePlayerOverlay?.alpha = 0.0
             self.playerContainerView?.bringSubviewToFront(self.nativePlayerView!)
             self.nativePlayerView?.hidden = false
@@ -416,7 +419,7 @@ extension StreamManager: YTPlayerViewDelegate {
         let totalDuration = playerView.duration()
         let totalDurationStr = String(format: "%.2f", playerView.duration())
 //        print("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
-        if Int(totalDuration) - Int(playTime) == 5 {
+        if Int(totalDuration) - Int(playTime) == bufferTimeConstant {
             notifyItemAboutToEnd()
         }
     }
