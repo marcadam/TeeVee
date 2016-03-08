@@ -13,7 +13,8 @@ An app that lets you turn any subject into a personalized, 24/7 TV channel. A Pa
 
 # User stories
 
-- User can search for a subject and the app will automatically create and autoplay a channel based on that subject
+- User can search for a topic and the app will automatically create and autoplay a channel based on that subject
+- User can add more than one topic to his/her channel
 - User can switch between 2 different modes on a channel: "discovery" or "in-depth"
 - User can edit/save the channel
   1. for editing, user can choose among a couple of different sources (Youtube/Vimeo to start with)
