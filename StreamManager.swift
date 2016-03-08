@@ -64,7 +64,7 @@ class StreamManager: NSObject {
             nativePlayerView!.layer.needsDisplayOnBoundsChange = true
             playerContainerView!.addSubview(nativePlayerView!)
             
-            nativePlayerOverlay = UIView(frame: nativePlayerView!.frame)
+            nativePlayerOverlay = UIView(frame: nativePlayerView!.bounds)
             nativePlayerOverlay!.backgroundColor = UIColor.blackColor()
             nativePlayerOverlay!.alpha = 0.0
             nativePlayerOverlay!.userInteractionEnabled = false
@@ -76,7 +76,7 @@ class StreamManager: NSObject {
             youtubePlayerView!.delegate = self
             playerContainerView!.addSubview(youtubePlayerView!)
             
-            youtubePlayerOverlay = UIView(frame: youtubePlayerView!.frame)
+            youtubePlayerOverlay = UIView(frame: youtubePlayerView!.bounds)
             youtubePlayerOverlay!.backgroundColor = UIColor.blackColor()
             youtubePlayerOverlay!.alpha = 0.0
             youtubePlayerOverlay!.userInteractionEnabled = false
