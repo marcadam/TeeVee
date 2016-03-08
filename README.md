@@ -17,6 +17,7 @@ An app that lets you turn any topic into a personalized, 24/7 TV channel. A Pand
 - User can add more than one topic to his/her channel
 - User can switch between 2 different modes on a channel: "discovery" or "in-depth"
 - User can edit/save the channel
+
   1. for editing, user can choose among a couple of different sources (Youtube/Vimeo to start with)
   2. for saving, the user would be able to easily view the list of channels he/she current has. When the app launches it will default to auto-playing the channel he/she was watching previously. This fits nicely with the goal of the app which makes consuming content interaction-free and requires as few touches as possible
 - User can browse for recommended / suggested channels
