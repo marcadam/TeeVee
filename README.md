@@ -30,6 +30,10 @@ Nice-to-haves:
 
 ![Basic wireframes](/WireframesSmartStream.png?raw=true "Basic wireframes")
 
+# Initial UI Designs
+
+![Stream Design](Streams.png "Stream Design") ![Explore Design](ExploreSF.png "Explore Design")
+
 # Walkthrough
 
 ![SmartStream Walkthrough](SmartWalkthrough.gif "SmartStream Walkthrough")
