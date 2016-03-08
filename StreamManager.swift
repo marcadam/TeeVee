@@ -39,6 +39,11 @@ class StreamManager: NSObject {
     var currItem: StreamItem?
     var timeObserver: AnyObject?
     
+    func updateBounds(containerView: UIView!) {
+        playerContainerView?.bounds = containerView.bounds
+        nativePlayerLayer!.frame = containerView.bounds
+    }
+    
     var playerContainerView: UIView? {
         didSet {
             if playerContainerView == nil {return}
@@ -50,8 +55,7 @@ class StreamManager: NSObject {
             
             nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
             nativePlayerLayer!.videoGravity = AVLayerVideoGravityResizeAspect
-            // TODO : investigate why nativePlayerView!.bounds doesn't work
-            nativePlayerLayer!.frame = UIScreen.mainScreen().bounds
+            nativePlayerLayer!.frame = nativePlayerView!.bounds
             nativePlayerView!.layer.addSublayer(nativePlayerLayer!)
             nativePlayerLayer!.needsDisplayOnBoundsChange = true
             nativePlayerView!.layer.needsDisplayOnBoundsChange = true

@@ -29,6 +29,10 @@ class PlayerViewController: UIViewController {
         }
     }
     
+    override func viewWillLayoutSubviews() {
+        streamManager.updateBounds(self.playerView)
+    }
+    
     @IBAction func onPlayTapped(sender: AnyObject) {
         self.streamManager.play()
     }
