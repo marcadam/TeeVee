@@ -8,22 +8,25 @@ Members:
 - Marc Adam Anderson
 
 # What is it?
-An app that lets you turn any subject into a continuous 24/7 TV stream. A Pandora-for-videos, if you will.
+An app that lets you turn any subject into a personalized, 24/7 TV channel. A Pandora-for-videos, if you will.
 
 # User stories
 
-- User can search for a subject and the app will automatically create and autoplay a stream based on that subject
-- User can switch between 2 different modes on a stream: "discovery" or "in-depth"
-- User can edit/save the stream
+- User can search for a subject and the app will automatically create and autoplay a channel based on that subject
+- User can switch between 2 different modes on a channel: "discovery" or "in-depth"
+- User can edit/save the channel
   1. for editing, user can choose among a couple of different sources (Youtube/Vimeo to start with)
-  2. for saving, the user would be able to easily view the list of streams he/she current has. When the app launches it will default to auto-playing the stream he/she was watching previously. This fits nicely with the goal of the app which makes consuming content interaction-free and requires as few touches as possible
-- User can browse for recommended / suggested streams
+  2. for saving, the user would be able to easily view the list of channels he/she current has. When the app launches it will default to auto-playing the channel he/she was watching previously. This fits nicely with the goal of the app which makes consuming content interaction-free and requires as few touches as possible
+- User can browse for recommended / suggested channels
 
 Nice-to-haves:
-- User can like/dislike individual content in the stream; disliking something will also skip the stream forward
+
+- User can like/dislike individual content in the channel; disliking something will also skip the channel forward
 - User can filter content: prefer specific content producers / sources,  or to blacklist topics/sources/producers
-- User can share the streams with their friends or on social media
-- User can see and watch their friends' public streams
+- User can themes (predefined) for their channels
+- User can link their Youtube / Twitter / Facebook / Vimeo accounts for better personalization
+- User can share the channels with their friends or on social media
+- User can see and watch their friends' public channels
 - User can see all of their 'likes'
 
 # Wireframes
