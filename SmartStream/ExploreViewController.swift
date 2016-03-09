@@ -8,37 +8,35 @@
 
 import UIKit
 
-class ExploreViewController: UIViewController, UICollectionViewDataSource {
+class ExploreViewController: UIViewController {
+
+    @IBOutlet weak var collectionView: UICollectionView!
+
+    let channelCellID = "com.smartchannel.ChannelCollectionViewCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let channelCellNIB = UINib(nibName: "ChannelCollectionViewCell", bundle: NSBundle.mainBundle())
+            collectionView.registerNib(channelCellNIB, forCellWithReuseIdentifier: channelCellID)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+}
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegate
+
+extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 4
     }
-    
+
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as! CollectionViewCell
-        cell.imageView.image = UIImage(named: "placeholder")
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelCollectionViewCell
         return cell
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
