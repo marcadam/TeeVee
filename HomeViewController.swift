@@ -106,4 +106,11 @@ extension HomeViewController: ChannelsViewControllerDelegate, ProfileViewControl
     func settingsView(profileView: SettingsViewController, didTapMenuButton: UIBarButtonItem) {
         toggleMenu()
     }
+
+    func shouldPresentPlayerViewController(sender: ChannelsViewController) {
+        let playerStoryboard = UIStoryboard(name: "Player", bundle: nil)
+        let playerVC = playerStoryboard.instantiateViewControllerWithIdentifier("PlayerStoryboard") as! PlayerViewController
+        presentViewController(playerVC, animated: true, completion: nil)
+    }
+
 }

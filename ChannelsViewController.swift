@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChannelsViewControllerDelegate: class {
     func channelsView(channelsView: ChannelsViewController, didTapMenuButton: UIBarButtonItem)
+    func shouldPresentPlayerViewController(sender: ChannelsViewController)
 }
 
 class ChannelsViewController: UIViewController {
@@ -42,6 +43,7 @@ class ChannelsViewController: UIViewController {
         // Instantiate and add myChannels view controller
         let myChannelsStoryboard = UIStoryboard(name: "MyChannels", bundle: nil)
         let myChannelsVC = myChannelsStoryboard.instantiateViewControllerWithIdentifier("MyChannelsViewController") as! MyChannelsViewController
+        myChannelsVC.delegate = self
         contentViewControllers.append(myChannelsVC)
 
         // Instantiate and add Explore view controller
@@ -63,5 +65,11 @@ class ChannelsViewController: UIViewController {
 
     @IBAction func onValueChanged(sender: UISegmentedControl) {
         contentViewController = contentViewControllers[sender.selectedSegmentIndex]
+    }
+}
+
+extension ChannelsViewController: MyChannelsViewControllerDelegate {
+    func shouldPresentPlayerViewController(sender: MyChannelsViewController) {
+        delegate?.shouldPresentPlayerViewController(self)
     }
 }

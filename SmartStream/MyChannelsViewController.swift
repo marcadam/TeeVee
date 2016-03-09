@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MyChannelsViewControllerDelegate: class {
+    func shouldPresentPlayerViewController(sender: MyChannelsViewController)
+}
+
 class MyChannelsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -15,6 +19,8 @@ class MyChannelsViewController: UIViewController {
     let channelCellID = "com.smartchannel.ChannelTableViewCell"
 
     var containerViewController: HomeViewController!
+
+    var delegate: MyChannelsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +51,6 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        performSegueWithIdentifier("seguePlayerStoryboard", sender: self)
+        delegate?.shouldPresentPlayerViewController(self)
     }
 }
