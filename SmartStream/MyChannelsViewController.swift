@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol MyChannelsViewControllerDelegate: class {
-    func myChannelsView(channelsView: MyChannelsViewController, didTapMenuButton: UIBarButtonItem)
-}
-
 class MyChannelsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -19,7 +15,6 @@ class MyChannelsViewController: UIViewController {
     let channelCellID = "com.smartchannel.ChannelTableViewCell"
 
     var containerViewController: HomeViewController!
-    var delegate: MyChannelsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +28,6 @@ class MyChannelsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func didTapMenu(sender: UIBarButtonItem) {
-        delegate?.myChannelsView(self, didTapMenuButton: sender)
     }
 }
 
