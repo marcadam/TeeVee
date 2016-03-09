@@ -27,6 +27,7 @@ class ExploreViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
+
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
 extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDelegate {
