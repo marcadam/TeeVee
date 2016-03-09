@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol MyChannelsViewControllerDelegate: class {
+    func shouldPresentEditorViewController(sender: MyChannelsViewController)
+    func shouldPresentPlayerViewController(sender: MyChannelsViewController)
+}
+
 class MyChannelsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -15,6 +20,8 @@ class MyChannelsViewController: UIViewController {
     let channelCellID = "com.smartchannel.ChannelTableViewCell"
 
     var containerViewController: HomeViewController!
+
+    var delegate: MyChannelsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +35,9 @@ class MyChannelsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
+        delegate?.shouldPresentEditorViewController(self)
     }
 }
 
@@ -45,6 +55,6 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        performSegueWithIdentifier("seguePlayerStoryboard", sender: self)
+        delegate?.shouldPresentPlayerViewController(self)
     }
 }
