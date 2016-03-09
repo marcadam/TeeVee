@@ -13,7 +13,7 @@ class ChannelItem: NSObject, Comparable {
     let url: String?
     let id: String?
     let extractor: String?
-    let timestamp: NSTimeInterval?
+    var timestamp: NSTimeInterval?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
