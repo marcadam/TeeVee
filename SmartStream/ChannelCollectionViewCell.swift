@@ -19,6 +19,9 @@ class ChannelCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        backgroundColor = Theme.Colors.LightBackgroundColor.color
+        infoContainerView.backgroundColor = Theme.Colors.BackgroundColor.color
+
         channelImageView.image = UIImage(named: "placeholder")
         channelNameLabel.text = "Nature Channel"
     }

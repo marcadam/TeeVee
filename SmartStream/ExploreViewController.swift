@@ -20,6 +20,8 @@ class ExploreViewController: UIViewController {
         // Do any additional setup after loading the view.
         let channelCellNIB = UINib(nibName: "ChannelCollectionViewCell", bundle: NSBundle.mainBundle())
         collectionView.registerNib(channelCellNIB, forCellWithReuseIdentifier: channelCellID)
+
+        collectionView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
     }
 
     override func didReceiveMemoryWarning() {
