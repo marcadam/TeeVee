@@ -19,12 +19,8 @@ class DataLayer: NSObject {
     }
     
     static func generateID() -> String {
-        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let letterArray = Array(arrayLiteral: letters)
-        var uniqueID = ""
-        for _ in 0..<5 {
-            uniqueID += letterArray[Int(arc4random()) % letterArray.count] as String
-        }
+        let date = NSDate()
+        let uniqueID = String(UInt64(floor(date.timeIntervalSince1970)))
         return uniqueID
     }
     
