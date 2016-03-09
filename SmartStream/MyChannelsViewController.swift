@@ -22,6 +22,8 @@ class MyChannelsViewController: UIViewController {
     var containerViewController: HomeViewController!
 
     var delegate: MyChannelsViewControllerDelegate?
+    
+    private var channelsArray: [Channel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +41,14 @@ class MyChannelsViewController: UIViewController {
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
         delegate?.shouldPresentEditorViewController(self)
     }
+
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
+extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, ChannelEditorDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return channelsArray.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -56,5 +59,10 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         delegate?.shouldPresentPlayerViewController(self)
+    }
+    
+    func didSetChannel(channel: Channel) {
+        channelsArray.append(channel)
+        tableView.reloadData()
     }
 }

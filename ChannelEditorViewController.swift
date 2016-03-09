@@ -47,12 +47,10 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let longpressGesture = UILongPressGestureRecognizer(target: self, action: "onLongPress:")
         let cell = tableView.dequeueReusableCellWithIdentifier("ChannelEditorCell", forIndexPath: indexPath)
         cell.textLabel?.text = keywords[indexPath.row]
         cell.textLabel?.font = Theme.Fonts.LightNormalTypeFace.font
         cell.textLabel?.textColor = Theme.Colors.HighlightColor.color
-        cell.addGestureRecognizer(longpressGesture)
         cell.backgroundColor = UIColor.clearColor()
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
@@ -62,27 +60,11 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
         searchTextField.resignFirstResponder()
     }
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.None
-    }
-    
-    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-    
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         let moveItem = keywords[sourceIndexPath.row]
         keywords.removeAtIndex(sourceIndexPath.row)
         keywords.insert(moveItem, atIndex: destinationIndexPath.row)
         tableView.setEditing(false, animated: true)
-    }
-    
-    func onLongPress(sender: UILongPressGestureRecognizer) {
-        tableView.setEditing(true, animated: true)
     }
     
     @IBAction func onSaveTapped(sender: UIButton) {

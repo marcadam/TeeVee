@@ -110,6 +110,10 @@ extension HomeViewController: ChannelsViewControllerDelegate, ProfileViewControl
     func shouldPresentEditorViewController(sender: ChannelsViewController) {
         let editorStoryboard = UIStoryboard(name: "ChannelEditor", bundle: nil)
         let editorNC = editorStoryboard.instantiateViewControllerWithIdentifier("ChannelEditorNavigationController") as! UINavigationController
+        let editorVC = editorNC.topViewController as! ChannelEditorViewController
+        if let myChannelVC = sender.contentViewController as? MyChannelsViewController {
+            editorVC.delegate = myChannelVC
+        }
         presentViewController(editorNC, animated: true, completion: nil)
     }
 
