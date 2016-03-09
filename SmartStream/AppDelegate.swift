@@ -38,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = homeVC
 //        window?.makeKeyAndVisible()
 
+        Theme.applyTheme()
+
         Fabric.with([Twitter.self])
         return true
     }

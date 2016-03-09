@@ -42,4 +42,11 @@ struct Theme {
             }
         }
     }
+
+    static func applyTheme() {
+        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().barTintColor = Colors.DarkBackgroundColor.color
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+    }
 }
