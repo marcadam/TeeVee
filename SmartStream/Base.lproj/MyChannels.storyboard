@@ -74,19 +74,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qz-HK-rYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="EVJ-gu-S83">
                     <connections>
-                        <segue destination="DnV-XE-AfW" kind="presentation" identifier="" modalPresentationStyle="overFullScreen" id="4Gf-2F-Lbj"/>
+                        <action selector="didTapCreateNewChannel:" destination="XVg-Ae-aKh" id="s5o-o1-oxQ"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3101" y="237"/>
-        </scene>
-        <!--ChannelEditorNavigationController-->
-        <scene sceneID="rdI-bN-h9C">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ChannelEditor" referencedIdentifier="ChannelEditorNavigationController" id="DnV-XE-AfW" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tgW-q3-ULG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3595" y="260"/>
         </scene>
     </scenes>
 </document>

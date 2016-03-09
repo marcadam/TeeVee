@@ -9,6 +9,7 @@
 import UIKit
 
 protocol MyChannelsViewControllerDelegate: class {
+    func shouldPresentEditorViewController(sender: MyChannelsViewController)
     func shouldPresentPlayerViewController(sender: MyChannelsViewController)
 }
 
@@ -34,6 +35,9 @@ class MyChannelsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
+        delegate?.shouldPresentEditorViewController(self)
     }
 }
 
