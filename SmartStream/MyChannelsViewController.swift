@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MyChannelsViewControllerDelegate: class {
-    func shouldPresentEditorViewController(sender: MyChannelsViewController)
+    func shouldPresentEditor(sender: MyChannelsViewController)
     func shouldPresentPlayerViewController(sender: MyChannelsViewController)
 }
 
@@ -39,7 +39,7 @@ class MyChannelsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
-        delegate?.shouldPresentEditorViewController(self)
+        delegate?.shouldPresentEditor(self)
     }
 
 }

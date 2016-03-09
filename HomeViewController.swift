@@ -107,7 +107,7 @@ extension HomeViewController: ChannelsViewControllerDelegate, ProfileViewControl
         toggleMenu()
     }
 
-    func shouldPresentEditorViewController(sender: ChannelsViewController) {
+    func shouldPresentEditor(sender: ChannelsViewController) {
         let editorStoryboard = UIStoryboard(name: "ChannelEditor", bundle: nil)
         let editorNC = editorStoryboard.instantiateViewControllerWithIdentifier("ChannelEditorNavigationController") as! UINavigationController
         let editorVC = editorNC.topViewController as! ChannelEditorViewController
