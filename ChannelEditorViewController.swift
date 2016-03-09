@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ChannelEditorDelegate: class {
-    func didSetChannel(channel: Channel)
+    func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel)
 }
 
 class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -69,7 +69,7 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBAction func onSaveTapped(sender: UIButton) {
         DataLayer.createChannel(keywords) { (channel) -> () in
-            self.delegate?.didSetChannel(channel)
+            self.delegate?.channelEditor(self, didSetChannel: channel)
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 //
             })

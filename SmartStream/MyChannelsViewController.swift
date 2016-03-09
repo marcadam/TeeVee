@@ -61,7 +61,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         delegate?.shouldPresentPlayerViewController(self)
     }
     
-    func didSetChannel(channel: Channel) {
+    func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel) {
         channelsArray.append(channel)
         tableView.reloadData()
     }
