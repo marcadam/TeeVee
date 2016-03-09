@@ -104,41 +104,46 @@ class ChannelManager: NSObject {
             if channel == nil || channel!.items.count == 0 {return}
             priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items)
             
-            let tweetDict = ["url": "https://twitter.com/elonmusk/status/705917924972736512", "id": "705917924972736512", "extractor": "twitter"]
-            let tweetItem = ChannelItem(dictionary: tweetDict)
-            tweetItem.timestamp = 0.0
-            priorityQueue?.push(tweetItem)
-            
             // Autoplay
             playNextItem()
         }
     }
     
+    func aboutToEndTweet() {
+        print("[MANAGER] aboutToEndTweet()")
+        notifyItemAboutToEnd()
+        NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "endTweet", userInfo: nil, repeats: false)
+    }
+    
     func endTweet() {
+        print("[MANAGER] endTweet()")
         tweetView?.removeFromSuperview()
         notifyItemDidEnd()
     }
     
     var tweetView: TWTRTweetView?
-    func playTweet(item: ChannelItem!) {
+    func playNextTweet(item: ChannelItem!) {
         print("[MANAGER] play next TweetItem")
 
         dispatch_async(dispatch_get_main_queue(),{
             self.twitterClient.loadTweetWithID(item.id!) { tweet, error in
                 if let t = tweet {
                     self.tweetView = TWTRTweetView(tweet: t)
-                    //self.tweetView!.frame = self.playerContainerView!.bounds
-                    self.tweetView!.theme = .Dark
+                    self.tweetView!.center = CGPointMake(self.playerContainerView!.bounds.size.width  / 2,
+                        self.playerContainerView!.bounds.size.height / 2)
+                    self.tweetView!.theme = .Light
                     self.showTweetView()
                     
                     self.playerContainerView?.addSubview(self.tweetView!)
                     self.playerContainerView?.bringSubviewToFront(self.tweetView!)
-                    NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "endTweet", userInfo: nil, repeats: false)
+                    NSTimer.scheduledTimerWithTimeInterval(8.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
                     
                 } else {
                     print("Failed to load Tweet: \(error!.localizedDescription) ; \(error!.debugDescription)")
                 }
             }
+            
+            self.currItem = item
         })
     }
     
@@ -171,6 +176,7 @@ class ChannelManager: NSObject {
         dispatch_async(dispatch_get_main_queue(),{
             self.currItem = item
             //nativePlayer?.removeAllItems()
+            print(item.url!)
             self.nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
             self.nativePlayer?.play()
         })
@@ -272,7 +278,7 @@ class ChannelManager: NSObject {
         if extractor == "youtube" {
             playNextYoutubeItem(item)
         } else if extractor == "twitter" {
-            playTweet(item)
+            playNextTweet(item)
         } else {
             showNativeView()
             playNextNativeItem(item)
