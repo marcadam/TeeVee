@@ -69,7 +69,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="tableView" destination="9Pd-Bx-FT7" id="wip-vC-i0c"/>
-                        <segue destination="fah-wY-4PS" kind="presentation" identifier="seguePlayerStoryboard" modalPresentationStyle="overFullScreen" id="sUn-T0-4hU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qz-HK-rYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -80,14 +79,6 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3101" y="237"/>
-        </scene>
-        <!--Player-->
-        <scene sceneID="zT7-d4-V04">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Player" id="fah-wY-4PS" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HOB-0t-akP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3595" y="212"/>
         </scene>
         <!--ChannelEditorNavigationController-->
         <scene sceneID="rdI-bN-h9C">
