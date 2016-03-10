@@ -13,9 +13,8 @@ class DataLayer: NSObject {
         let channelID = generateID()
         let itemDictionary = generateItemDictionary(keywordsArray)
         let filters = filters
-        let channelDictionary = ["channel_id": channelID, "items": itemDictionary, "filters": filters]
-        let channelDict = ["channel": channelDictionary] as NSDictionary
-        let channel = Channel(dictionary: channelDict)
+        let channelDictionary = ["channel_id": channelID, "items": itemDictionary, "filters": filters] as NSDictionary
+        let channel = Channel(dictionary: channelDictionary)
         completion(channel: channel)
     }
     

@@ -12,7 +12,7 @@ protocol ChannelEditorDelegate: class {
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel)
 }
 
-class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FilterViewDelegate {
+class ChannelEditorViewController: UIViewController {
     
     @IBOutlet var searchWrapperView: UIView!
     @IBOutlet var searchTextField: UITextField!
@@ -53,6 +53,47 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onSaveTapped(sender: UIButton) {
+        DataLayer.createChannel(keywords, withFilters: filters!) { (channel) -> () in
+            self.delegate?.channelEditor(self, didSetChannel: channel)
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                //
+            })
+        }
+    }
+    
+    @IBAction func onBackTapped(sender: AnyObject) {
+        dismissViewControllerAnimated(true) { () -> Void in
+            //
+        }
+    }
+    
+    @IBAction func onKeywordTapped(sender: AnyObject) {
+        if let keyword = searchTextField.text {
+            if keyword != "" {
+                keywords.insert(keyword, atIndex: 0)
+                searchTextField.text = ""
+                tableView.reloadData()
+            }
+        }
+    }
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+        print(segue.identifier!)
+        if segue.identifier == "filterSegue" {
+            let destination = segue.destinationViewController as! FilterViewController
+            destination.delegate = self
+            destination.filters = filters
+        } else if segue.identifier == "playerSegue" {
+            let destination = segue.destinationViewController as! PlayerViewController
+            destination.channelId = "0" // substitue with actual channelId
+        }
+    }
+}
+
+extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, FilterViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return keywords.count
     }
@@ -81,47 +122,4 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     func filterView(filterView: FilterViewController, didSetFilters filters: Filter) {
         self.filters = filters
     }
-    
-    @IBAction func onSaveTapped(sender: UIButton) {
-        DataLayer.createChannel(keywords, withFilters: filters!) { (channel) -> () in
-            self.delegate?.channelEditor(self, didSetChannel: channel)
-            self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                //
-            })
-        }
-    }
-    
-    @IBAction func onBackTapped(sender: AnyObject) {
-        dismissViewControllerAnimated(true) { () -> Void in
-            //
-        }
-    }
-    
-    @IBAction func onKeywordTapped(sender: AnyObject) {
-        if let keyword = searchTextField.text {
-            if keyword != "" {
-                keywords.insert(keyword, atIndex: 0)
-                searchTextField.text = ""
-                tableView.reloadData()
-            }
-        }
-    }
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-
-        print(segue.identifier!)
-        if segue.identifier == "filterSegue" {
-            let destination = segue.destinationViewController as! FilterViewController
-            destination.delegate = self
-            destination.filters = filters
-        } else if segue.identifier == "playerSegue" {
-            let destination = segue.destinationViewController as! PlayerViewController
-            destination.channelId = "0" // substitue with actual channelId
-        }
-    }
-    
 }
