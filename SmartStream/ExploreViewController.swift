@@ -25,6 +25,7 @@ class ExploreViewController: UIViewController {
         let channelCellNIB = UINib(nibName: "ChannelCollectionViewCell", bundle: NSBundle.mainBundle())
         collectionView.registerNib(channelCellNIB, forCellWithReuseIdentifier: channelCellID)
 
+        // Theming
         collectionView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
     }
 
@@ -60,6 +61,8 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
         }
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension ExploreViewController: UICollectionViewDelegateFlowLayout {
     var cellInset: CGFloat { return 14.0 }
