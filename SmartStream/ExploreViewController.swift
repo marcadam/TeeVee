@@ -67,7 +67,8 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: collectionView.bounds.width, height: 200.0)
         } else {
             let cellWidth = (collectionView.bounds.width - 42.0) / 2.0
-            return CGSize(width: cellWidth, height: 180.0)
+            let cellHeight = cellWidth + 33.0
+            return CGSize(width: cellWidth, height: cellHeight)
         }
     }
 
