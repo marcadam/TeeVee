@@ -1,5 +1,5 @@
 //
-//  FilterViewController.swift
+//  FiltersViewController.swift
 //  SmartChannel
 //
 //  Created by Jerry on 3/5/16.
@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol FilterViewDelegate: class {
-    func filterView(filterView: FilterViewController, didSetFilters filters: Filter)
+protocol FiltersViewDelegate: class {
+    func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters)
 }
 
-class FilterViewController: UIViewController {
+class FiltersViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     
-    var filters: Filter! {
+    var filters: Filters! {
         didSet {
             durationSelected = filters.max_duration
             sourcesSelected = filters.sources
@@ -24,7 +24,7 @@ class FilterViewController: UIViewController {
         }
     }
     
-    weak var delegate: FilterViewDelegate?
+    weak var delegate: FiltersViewDelegate?
     private let filterCellID = "com.smartchannel.FilterSwitchCell"
     private let filterSelectCellID = "com.smartchannel.FilterSelectCell"
     private let filterData = ["Source" : ["YouTube", "Vimeo", "Twitter"], "Max Duration": ["Short < 1 min","Medium < 5 min","Long > 5 min"]]
@@ -53,7 +53,7 @@ class FilterViewController: UIViewController {
         
         filters.sources = sourcesSelected
         filters.max_duration = durationSelected
-        self.delegate?.filterView(self, didSetFilters: filters)
+        self.delegate?.filtersView(self, didSetFilters: filters)
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,7 +72,7 @@ class FilterViewController: UIViewController {
     }
 }
 
-extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
+extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return titles[section] as? String
@@ -169,7 +169,7 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
-extension FilterViewController: FilterSwitchCellDelegate {
+extension FiltersViewController: FilterSwitchCellDelegate {
     func filterSwitchCell(filterSwitchCell: FilterSwitchCell, didSwitchOn: Bool) {
         let sourceString = filterSwitchCell.filterLabel.text!.lowercaseString
         if didSwitchOn == false {

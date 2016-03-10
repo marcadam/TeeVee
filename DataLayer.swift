@@ -13,7 +13,7 @@ class DataLayer: NSObject {
         let channelID = generateID()
         let topics = dictionary["topics"] as! [String]
         let itemDictionary = generateItemDictionary(topics)
-        let filters = dictionary["filters"] as! Filter
+        let filters = dictionary["filters"] as! Filters
         let channelDictionary = ["channel_id": channelID, "items": itemDictionary, "filters": filters, "topics": topics] as NSDictionary
         let channel = Channel(dictionary: channelDictionary)
         completion(channel: channel)

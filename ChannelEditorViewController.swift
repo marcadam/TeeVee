@@ -19,7 +19,7 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     private var topics:[String] = []
-    private var filters: Filter!
+    private var filters: Filters!
     
     weak var delegate: ChannelEditorDelegate?
     
@@ -46,11 +46,11 @@ class ChannelEditorViewController: UIViewController {
     
     func setDefaults() {
         // TODO : if this is a new channel, fetch available filters from server
-        // ChannelClient.sharedInstance.getAvailableFilter()
+        // ChannelClient.sharedInstance.getAvailableFilters()
         
         // else if this is an existing channel, populate screen/filters using its data
-        let filterDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300]
-        filters = Filter(dictionary: filterDict)
+        let filtersDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300]
+        filters = Filters(dictionary: filtersDict)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,8 +92,8 @@ class ChannelEditorViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         print(segue.identifier!)
-        if segue.identifier == "filterSegue" {
-            let destination = segue.destinationViewController as! FilterViewController
+        if segue.identifier == "filtersSegue" {
+            let destination = segue.destinationViewController as! FiltersViewController
             destination.delegate = self
             destination.filters = filters
         } else if segue.identifier == "playerSegue" {
@@ -103,7 +103,7 @@ class ChannelEditorViewController: UIViewController {
     }
 }
 
-extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, FilterViewDelegate {
+extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, FiltersViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return topics.count
     }
@@ -129,7 +129,7 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
         tableView.setEditing(false, animated: true)
     }
     
-    func filterView(filterView: FilterViewController, didSetFilters filters: Filter) {
+    func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
         self.filters = filters
     }
 }

@@ -168,19 +168,19 @@ class ChannelClient {
         task.resume()
     }
     
-    func getAvailableFilter(completion: (filter: Filter?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "filter")!
+    func getAvailableFilters(completion: (filters: Filters?, error: NSError?) -> ()) {
+        let endpoint = NSURL(string: baseURL + "filters")!
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(endpoint) {(data: NSData?, response: NSURLResponse?, apiError: NSError?) in
             
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
                 //print(json!)
-                let filter = Filter(dictionary: json!)
-                completion(filter: filter, error: nil)
+                let filters = Filters(dictionary: json!)
+                completion(filters: filters, error: nil)
             } catch {
                 print(error)
-                completion(filter: nil, error: apiError)
+                completion(filters: nil, error: apiError)
             }
         }
         
