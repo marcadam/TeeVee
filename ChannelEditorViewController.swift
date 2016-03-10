@@ -40,6 +40,10 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func setDefaults() {
+        // TODO : if this is a new channel, fetch available filters from server
+        // ChannelClient.sharedInstance.getAvailableFilter()
+        
+        // else if this is an existing channel, populate screen/filters using its data
         let filterDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300]
         filters = Filter(dictionary: filterDict)
     }
@@ -108,9 +112,16 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using segue.destinationViewController.
     // Pass the selected object to the new view controller.
-        let destination = segue.destinationViewController as! FilterViewController
-        destination.delegate = self
-        destination.filters = filters
+
+        print(segue.identifier!)
+        if segue.identifier == "filterSegue" {
+            let destination = segue.destinationViewController as! FilterViewController
+            destination.delegate = self
+            destination.filters = filters
+        } else if segue.identifier == "playerSegue" {
+            let destination = segue.destinationViewController as! PlayerViewController
+            destination.channelId = "0" // substitue with actual channelId
+        }
     }
     
 }

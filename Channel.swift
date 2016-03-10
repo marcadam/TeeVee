@@ -9,6 +9,7 @@
 import UIKit
 
 class Channel: NSObject {
+
     let dictionary: NSDictionary?
     let channel_id: String?
     let name: String?
@@ -20,7 +21,6 @@ class Channel: NSObject {
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
-
         channel_id = dictionary["id"] as? String
         name = dictionary["name"] as? String
         thumbnail_url = dictionary["thumbnail_url"] as? String
@@ -30,6 +30,17 @@ class Channel: NSObject {
         
         filters = dictionary["filters"] as? Filter
         topics = dictionary["topics"] as? [String]
+    }
+    
+    
+    class func channelsWithArray(array: [NSDictionary]) -> [Channel] {
+        var channels = [Channel]()
+        
+        for dictionary in array {
+            channels.append(Channel(dictionary: dictionary))
+        }
+        
+        return channels
     }
 }
 

@@ -12,15 +12,17 @@ class PlayerViewController: UIViewController {
 
     @IBOutlet weak var playerView: UIView!
     
-    var channelManager = ChannelManager()
+    var channelManager: ChannelManager!
+    var channelId: String! = "0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
+        channelManager = ChannelManager(channelId: channelId)
         channelManager.playerContainerView = self.playerView
         
-        ChannelClient.sharedInstance.getChannel { (channel, error) -> () in
+        ChannelClient.sharedInstance.getChannel(channelId) { (channel, error) -> () in
             if channel != nil {
                 self.channelManager.channel = channel
             }
