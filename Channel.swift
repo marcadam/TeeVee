@@ -43,5 +43,16 @@ class Channel: NSObject {
         self.name = name
         self.thumbnail_url = thumbnail_url
     }
+    
+    
+    class func channelsWithArray(array: [NSDictionary]) -> [Channel] {
+        var channels = [Channel]()
+        
+        for dictionary in array {
+            channels.append(Channel(dictionary: dictionary))
+        }
+        
+        return channels
+    }
 }
 

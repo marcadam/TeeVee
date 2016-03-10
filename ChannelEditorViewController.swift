@@ -40,6 +40,10 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func setDefaults() {
+        // TODO : if this is a new channel, fetch available filters from server
+        // ChannelClient.sharedInstance.getAvailableFilter()
+        
+        // else if this is an existing channel, populate screen/filters using its data
         let filterDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300]
         filter = Filter(dictionary: filterDict)
     }

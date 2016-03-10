@@ -15,6 +15,7 @@ import TwitterKit
 class ChannelManager: NSObject {
     let ItemDidEndNotification = "com.smartu.channelmanager.itemDidEnd"
     let ItemAboutToEndNotification = "com.smartu.channelmanager.itemAboutToEnd"
+    let numItemsBeforeFetch = 3
     let bufferTimeConstant = 5
     let fadeInTimeConstant = 2.0
     let fadeOutItmeConstant = 3.0
@@ -40,6 +41,7 @@ class ChannelManager: NSObject {
     var youtubeWebviewLoaded = false
     var webView: UIView?
     
+    var channelId: String!
     var priorityQueue: PriorityQueue<ChannelItem>?
     var currItem: ChannelItem?
     var timeObserver: AnyObject?
@@ -182,9 +184,10 @@ class ChannelManager: NSObject {
         })
     }
     
-    override init() {
+    init(channelId: String!) {
         super.init()
         
+        self.channelId = channelId
         self.nativePlayer = AVQueuePlayer()
         self.nativePlayer!.addObserver(self, forKeyPath: "status", options: [.New], context: self.myContext)
         self.nativePlayer!.addObserver(self, forKeyPath: "currentItem", options: [.New], context: self.myContext)
@@ -282,6 +285,19 @@ class ChannelManager: NSObject {
         } else {
             showNativeView()
             playNextNativeItem(item)
+        }
+        
+        // Auto-fetch
+        if priorityQueue!.count <= numItemsBeforeFetch {
+            print("[MANAGER] fetching more data for channel: \(channelId!)")
+            ChannelClient.sharedInstance.streamChannel(channelId) { (channel, error) -> () in
+                if channel != nil && channel!.items.count > 0 {
+                    print("[MANAGER] adding item (\(item!.extractor): \(item!.native_id)) to channel")
+                    for item in channel!.items {
+                        self.priorityQueue!.push(item)
+                    }
+                }
+            }
         }
     }
     
