@@ -16,6 +16,8 @@ protocol MyChannelsViewControllerDelegate: class {
 class MyChannelsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var createChannelView: UIView!
+    @IBOutlet var createChannelLabel: UILabel!
 
     let channelCellID = "com.smartchannel.ChannelTableViewCell"
 
@@ -31,13 +33,20 @@ class MyChannelsViewController: UIViewController {
         // Do any additional setup after loading the view.
         let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
-
+        setupUI()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func setupUI() {
+        tableView.backgroundColor = Theme.Colors.BackgroundColor.color
+        createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+        createChannelLabel.textColor = Theme.Colors.HighlightColor.color
+    }
+    
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
         delegate?.shouldPresentEditor(self)
     }

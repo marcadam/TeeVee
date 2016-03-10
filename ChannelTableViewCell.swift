@@ -20,6 +20,8 @@ class ChannelTableViewCell: UITableViewCell {
         // Initialization code
         channelImageView.image = UIImage(named: "placeholder")
         channelName.text = "Nature Channel"
+        backgroundColor = UIColor.clearColor()
+        channelName.textColor = Theme.Colors.HighlightColor.color
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

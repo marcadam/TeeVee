@@ -68,6 +68,8 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="createChannelLabel" destination="6WB-10-X09" id="Oku-al-JGL"/>
+                        <outlet property="createChannelView" destination="zvu-2i-osg" id="HQW-qu-NzS"/>
                         <outlet property="tableView" destination="9Pd-Bx-FT7" id="wip-vC-i0c"/>
                     </connections>
                 </viewController>
