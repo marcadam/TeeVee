@@ -5,7 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChannelCollectionPageView" customModule="SmartStream" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChannelCollectionPageView" customModule="SmartStream" customModuleProvider="target">
+            <connections>
+                <outlet property="channelNameContainerView" destination="PU5-W8-9O7" id="jKd-cJ-hte"/>
+                <outlet property="channelNameLabel" destination="yAz-tB-d5f" id="caS-dW-hu9"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="ft8-Xh-tLC"/>
+                <outlet property="pageImageView" destination="LEv-ff-jmj" id="oPh-s1-j2z"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>

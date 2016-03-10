@@ -10,12 +10,37 @@ import UIKit
 
 class ChannelCollectionPageView: UIView {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    @IBOutlet var contentView: UIView!
+
+    @IBOutlet weak var pageImageView: UIImageView!
+    @IBOutlet weak var channelNameContainerView: UIView!
+    @IBOutlet weak var channelNameLabel: UILabel!
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+        initSubviews()
     }
-    */
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initSubviews()
+    }
+
+    func initSubviews() {
+        // standard initialization logic
+        let nib = UINib(nibName: "ChannelCollectionPageView", bundle: nil)
+        nib.instantiateWithOwner(self, options: nil)
+        contentView.frame = bounds
+        addSubview(contentView)
+
+        // custom initialization logic
+        channelNameContainerView.layer.cornerRadius = 4.0
+        channelNameContainerView.clipsToBounds = true
+        channelNameContainerView.layer.borderColor = UIColor.whiteColor().CGColor
+        channelNameContainerView.layer.borderWidth = 1.0
+
+        pageImageView.image = UIImage(named: "placeholder")
+        channelNameLabel.text = "Nature Channel"
+    }
 
 }
