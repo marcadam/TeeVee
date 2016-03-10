@@ -21,7 +21,7 @@ class Channel: NSObject {
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
-        channel_id = dictionary["id"] as? String
+        channel_id = dictionary["channel_id"] as? String
         name = dictionary["name"] as? String
         thumbnail_url = dictionary["thumbnail_url"] as? String
         

@@ -18,7 +18,7 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var tableView: UITableView!
     
-    private var keywords:[String] = []
+    private var topics:[String] = []
     private var filters: Filter!
     
     weak var delegate: ChannelEditorDelegate?
@@ -29,6 +29,11 @@ class ChannelEditorViewController: UIViewController {
         // Do any additional setup after loading the view.
         uiSetup()
         setDefaults()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
     }
     
     func uiSetup() {
@@ -54,11 +59,16 @@ class ChannelEditorViewController: UIViewController {
     }
     
     @IBAction func onSaveTapped(sender: UIButton) {
-        DataLayer.createChannel(keywords, withFilters: filters!) { (channel) -> () in
-            self.delegate?.channelEditor(self, didSetChannel: channel)
-            self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                //
-            })
+        if topics.count > 0 {
+            let channelDictionary = ["topics": topics, "filters": filters] as NSDictionary
+            DataLayer.createChannel(withDictionary: channelDictionary) { (channel) -> () in
+                // Show latest added channel on MyFeed using delegate pattern
+                self.delegate?.channelEditor(self, didSetChannel: channel)
+                
+                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    //
+                })
+            }
         }
     }
     
@@ -69,9 +79,9 @@ class ChannelEditorViewController: UIViewController {
     }
     
     @IBAction func onKeywordTapped(sender: AnyObject) {
-        if let keyword = searchTextField.text {
-            if keyword != "" {
-                keywords.insert(keyword, atIndex: 0)
+        if let topic = searchTextField.text {
+            if topic != "" {
+                topics.insert(topic, atIndex: 0)
                 searchTextField.text = ""
                 tableView.reloadData()
             }
@@ -80,7 +90,7 @@ class ChannelEditorViewController: UIViewController {
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
+        
         print(segue.identifier!)
         if segue.identifier == "filterSegue" {
             let destination = segue.destinationViewController as! FilterViewController
@@ -95,12 +105,12 @@ class ChannelEditorViewController: UIViewController {
 
 extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, FilterViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return keywords.count
+        return topics.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ChannelEditorCell", forIndexPath: indexPath)
-        cell.textLabel?.text = keywords[indexPath.row]
+        cell.textLabel?.text = topics[indexPath.row]
         cell.textLabel?.font = Theme.Fonts.LightNormalTypeFace.font
         cell.textLabel?.textColor = Theme.Colors.HighlightColor.color
         cell.backgroundColor = UIColor.clearColor()
@@ -113,9 +123,9 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        let moveItem = keywords[sourceIndexPath.row]
-        keywords.removeAtIndex(sourceIndexPath.row)
-        keywords.insert(moveItem, atIndex: destinationIndexPath.row)
+        let moveItem = topics[sourceIndexPath.row]
+        topics.removeAtIndex(sourceIndexPath.row)
+        topics.insert(moveItem, atIndex: destinationIndexPath.row)
         tableView.setEditing(false, animated: true)
     }
     
