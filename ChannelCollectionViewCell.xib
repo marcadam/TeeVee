@@ -30,6 +30,7 @@
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="height" constant="33" id="5xb-IN-0Js"/>
                         <constraint firstItem="eqg-LU-gwk" firstAttribute="centerX" secondItem="4BA-Yg-fN7" secondAttribute="centerX" id="KQp-1y-BUa"/>
                         <constraint firstItem="eqg-LU-gwk" firstAttribute="centerY" secondItem="4BA-Yg-fN7" secondAttribute="centerY" id="zaO-pl-oW8"/>
                     </constraints>
