@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Saq-Tx-wvM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Saq-Tx-wvM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -69,7 +69,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uIs-pV-XDW" id="JHJ-fN-Oe0">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
@@ -119,7 +119,7 @@
                                 <action selector="onBackTapped:" destination="BRQ-9W-LhL" id="W97-uo-WJ4"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Filters" id="qt7-yT-A6T">
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="qt7-yT-A6T" userLabel="Filter">
                             <connections>
                                 <segue destination="r98-P7-qa7" kind="show" id="gkP-Yk-RSD"/>
                             </connections>
@@ -135,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="3792" y="237"/>
         </scene>
-        <!--FiltersTableView-->
+        <!--FilterTableView-->
         <scene sceneID="ZD7-Mx-fJR">
             <objects>
-                <viewControllerPlaceholder storyboardName="Filters" referencedIdentifier="FiltersTableView" id="r98-P7-qa7" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Filter" referencedIdentifier="FilterTableView" id="r98-P7-qa7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kdr-rj-qdn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4297.5" y="211"/>

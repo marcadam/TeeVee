@@ -12,7 +12,7 @@ protocol ChannelEditorDelegate: class {
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel)
 }
 
-class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewDelegate {
+class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FilterViewDelegate {
     
     @IBOutlet var searchWrapperView: UIView!
     @IBOutlet var searchTextField: UITextField!
@@ -74,12 +74,12 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
         tableView.setEditing(false, animated: true)
     }
     
-    func filtersView(filtersView: FiltersViewController, didSetFilter filter: Filter) {
+    func filterView(filterView: FilterViewController, didSetFilter filter: Filter) {
         self.filter = filter
     }
     
     @IBAction func onSaveTapped(sender: UIButton) {
-        DataLayer.createChannel(keywords, withFilters: filter!) { (channel) -> () in
+        DataLayer.createChannel(keywords, withFilter: filter!) { (channel) -> () in
             self.delegate?.channelEditor(self, didSetChannel: channel)
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 //
@@ -108,7 +108,7 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using segue.destinationViewController.
     // Pass the selected object to the new view controller.
-        let destination = segue.destinationViewController as! FiltersViewController
+        let destination = segue.destinationViewController as! FilterViewController
         destination.delegate = self
         destination.filter = filter
     }

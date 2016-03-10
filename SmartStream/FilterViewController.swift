@@ -1,5 +1,5 @@
 //
-//  FiltersViewController.swift
+//  FilterViewController.swift
 //  SmartChannel
 //
 //  Created by Jerry on 3/5/16.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol FiltersViewDelegate: class {
-    func filtersView(filtersView: FiltersViewController, didSetFilter filter: Filter)
+protocol FilterViewDelegate: class {
+    func filterView(filterView: FilterViewController, didSetFilter filter: Filter)
 }
 
-class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tableView: UITableView!
     
@@ -23,7 +23,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    weak var delegate: FiltersViewDelegate?
+    weak var delegate: FilterViewDelegate?
     private let filterCellID = "com.smartchannel.FilterSwitchCell"
     private let filterSelectCellID = "com.smartchannel.FilterSelectCell"
     private let filterData = ["Source" : ["YouTube", "Vimeo", "Twitter"], "Max Duration": ["Short < 1 min","Medium < 5 min","Long > 5 min"]]
@@ -51,7 +51,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         filter.sources = sourcesSelected
         filter.max_duration = durationSelected
-        self.delegate?.filtersView(self, didSetFilter: filter)
+        self.delegate?.filterView(self, didSetFilter: filter)
     }
 
     override func didReceiveMemoryWarning() {
@@ -141,7 +141,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
 
 }
 
-extension FiltersViewController: FilterSwitchCellDelegate {
+extension FilterViewController: FilterSwitchCellDelegate {
     func filterSwitchCell(filterSwitchCell: FilterSwitchCell, didSwitchOn: Bool) {
         if didSwitchOn == false {
             for (index, source) in sourcesSelected.enumerate() {
