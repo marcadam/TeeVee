@@ -16,17 +16,13 @@ class Channel: NSObject {
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
         
-        var channelId: String? = ""
         var items = [ChannelItem]()
         
-        if let channel = dictionary["channel"] as? NSDictionary {
-            channelId = channel["channel_id"] as? String
-            if let itemsArray = channel["items"] as? [NSDictionary] {
-                items = ChannelItem.items(array: itemsArray)
-            }
+        if let itemsArray = dictionary["items"] as? [NSDictionary] {
+            items = ChannelItem.items(array: itemsArray)
         }
         
-        self.channelId = channelId
+        self.channelId = dictionary["id"] as? String
         self.items = items
     }
 }
