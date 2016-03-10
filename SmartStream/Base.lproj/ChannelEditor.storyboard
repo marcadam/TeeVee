@@ -69,7 +69,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uIs-pV-XDW" id="JHJ-fN-Oe0">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
@@ -87,6 +87,11 @@
                                     <action selector="onSaveTapped:" destination="BRQ-9W-LhL" eventType="touchUpInside" id="dg5-Iy-EeE"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Channel Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xS4-Ee-q25">
+                                <rect key="frame" x="20" y="550" width="213" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -97,11 +102,14 @@
                             <constraint firstAttribute="trailing" secondItem="ucu-k2-WAx" secondAttribute="trailing" id="9Ju-Id-Xwl"/>
                             <constraint firstItem="ucu-k2-WAx" firstAttribute="leading" secondItem="DCO-82-xiw" secondAttribute="leading" id="ATA-xp-3wq"/>
                             <constraint firstItem="ucu-k2-WAx" firstAttribute="top" secondItem="5ug-65-odw" secondAttribute="bottom" id="D3d-Uk-odv"/>
+                            <constraint firstItem="xS4-Ee-q25" firstAttribute="centerY" secondItem="Bhh-TE-0lH" secondAttribute="centerY" id="IEJ-hS-plM"/>
                             <constraint firstAttribute="trailing" secondItem="6Pk-ps-F8r" secondAttribute="trailing" constant="20" id="SP4-xv-cEo"/>
                             <constraint firstItem="ucu-k2-WAx" firstAttribute="top" secondItem="7NR-M9-1tf" secondAttribute="bottom" id="Z1a-3t-QyC"/>
                             <constraint firstItem="ucu-k2-WAx" firstAttribute="top" secondItem="5ug-65-odw" secondAttribute="bottom" id="aDG-U3-p71"/>
                             <constraint firstItem="5ug-65-odw" firstAttribute="top" secondItem="7NR-M9-1tf" secondAttribute="bottom" id="aU2-DO-Otf"/>
                             <constraint firstItem="6Pk-ps-F8r" firstAttribute="centerY" secondItem="Bhh-TE-0lH" secondAttribute="centerY" id="di0-4c-Ohm"/>
+                            <constraint firstItem="Bhh-TE-0lH" firstAttribute="leading" secondItem="xS4-Ee-q25" secondAttribute="trailing" constant="20" id="hZl-5a-gvy"/>
+                            <constraint firstItem="xS4-Ee-q25" firstAttribute="leading" secondItem="DCO-82-xiw" secondAttribute="leading" constant="20" id="q3l-L3-PqU"/>
                             <constraint firstItem="Bhh-TE-0lH" firstAttribute="centerX" secondItem="DCO-82-xiw" secondAttribute="centerX" id="qEx-Ip-fVC"/>
                             <constraint firstItem="ADh-kj-RnR" firstAttribute="top" secondItem="Bhh-TE-0lH" secondAttribute="bottom" constant="20" id="yss-Dv-lFw"/>
                         </constraints>
@@ -129,6 +137,7 @@
                         <outlet property="searchTextField" destination="Iry-pM-F1e" id="BJc-Sl-e3X"/>
                         <outlet property="searchWrapperView" destination="5ug-65-odw" id="kbO-r2-eYt"/>
                         <outlet property="tableView" destination="ucu-k2-WAx" id="Xa0-sO-8rs"/>
+                        <outlet property="titleTextField" destination="xS4-Ee-q25" id="wHn-cV-UMk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HG7-sd-E6r" userLabel="First Responder" sceneMemberID="firstResponder"/>

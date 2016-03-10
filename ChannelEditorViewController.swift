@@ -17,6 +17,7 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet var searchWrapperView: UIView!
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var titleTextField: UITextField!
     
     private var topics:[String] = []
     private var filters: Filters!
@@ -60,7 +61,7 @@ class ChannelEditorViewController: UIViewController {
     
     @IBAction func onSaveTapped(sender: UIButton) {
         if topics.count > 0 {
-            let filtersDictionary = ["topics": topics, "filters": filters] as NSDictionary
+            let filtersDictionary = ["title": titleTextField.text!, "topics": topics, "filters": filters] as NSDictionary
             DataLayer.createChannel(withDictionary: filtersDictionary) { (channel) -> () in
                 // Show latest added channel on MyFeed using delegate pattern
                 self.delegate?.channelEditor(self, didSetChannel: channel)

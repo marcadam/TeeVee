@@ -34,6 +34,7 @@ class MyChannelsViewController: UIViewController {
         let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
         setupUI()
+        getChannels()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,6 +46,15 @@ class MyChannelsViewController: UIViewController {
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         createChannelLabel.textColor = Theme.Colors.HighlightColor.color
+    }
+    func getChannels() {
+        ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
+            if error != nil {
+                self.channelsArray.appendContentsOf(channels!)
+            } else {
+                print(error)
+            }
+        }
     }
     
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {

@@ -17,7 +17,6 @@
 		0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B541C844AD900D4AC57 /* Login.storyboard */; };
 		0B597B581C844AD900D4AC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B571C844AD900D4AC57 /* Assets.xcassets */; };
 		0B597B5B1C844AD900D4AC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */; };
-		1A10A6135BA6E045E3AD52AA /* Pods_SmartStream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */; };
 		492D02741C8B5E37000AAF17 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02721C8B5E37000AAF17 /* ChannelTableViewCell.swift */; };
 		492D02751C8B5E37000AAF17 /* ChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02731C8B5E37000AAF17 /* ChannelTableViewCell.xib */; };
 		492D02781C8BC656000AAF17 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02771C8BC656000AAF17 /* MenuTableViewController.swift */; };
@@ -51,6 +50,7 @@
 		A2F231F01C8D6AB20053956D /* FilterSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F231EF1C8D6AB20053956D /* FilterSwitchCell.swift */; };
 		A2F231F31C8D7A590053956D /* FilterSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F231F21C8D7A590053956D /* FilterSelectCell.swift */; };
 		A2F231F51C8D7A670053956D /* FilterSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F231F41C8D7A670053956D /* FilterSelectCell.xib */; };
+		C9E3D48B04934B609D4EBA78 /* Pods_SmartStream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60ACCFF50C60CCC4519D3769 /* Pods_SmartStream.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,8 +67,6 @@
 		0B597B571C844AD900D4AC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B597B5A1C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B597B5C1C844AD900D4AC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		156F9CF276441EC104FF90CD /* Pods-SmartStream.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.release.xcconfig"; sourceTree = "<group>"; };
-		28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		492D02721C8B5E37000AAF17 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		492D02731C8B5E37000AAF17 /* ChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelTableViewCell.xib; sourceTree = "<group>"; };
 		492D02771C8BC656000AAF17 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +78,7 @@
 		492D02A41C8D1866000AAF17 /* Channels.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Channels.storyboard; sourceTree = "<group>"; };
 		492D02A61C8D188F000AAF17 /* ChannelsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChannelsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		492D02A91C8FD7BD000AAF17 /* ChannelCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCollectionViewCell.xib; sourceTree = "<group>"; };
+		60ACCFF50C60CCC4519D3769 /* Pods_SmartStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A29BA4941C900D8200ED13A5 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
 		A29BA4961C9120FD00ED13A5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A29BA4981C91235400ED13A5 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
@@ -102,7 +101,8 @@
 		A2F231EF1C8D6AB20053956D /* FilterSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSwitchCell.swift; sourceTree = "<group>"; };
 		A2F231F21C8D7A590053956D /* FilterSelectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSelectCell.swift; sourceTree = "<group>"; };
 		A2F231F41C8D7A670053956D /* FilterSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterSelectCell.xib; sourceTree = "<group>"; };
-		A30B156E768D52458EFC335F /* Pods-SmartStream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.debug.xcconfig"; sourceTree = "<group>"; };
+		E0DC4BD47051E71BBC37FC60 /* Pods-SmartStream.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.release.xcconfig"; sourceTree = "<group>"; };
+		FF526339D509361611EFB68C /* Pods-SmartStream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A10A6135BA6E045E3AD52AA /* Pods_SmartStream.framework in Frameworks */,
+				C9E3D48B04934B609D4EBA78 /* Pods_SmartStream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,8 +239,8 @@
 				0B2CD8A81C88447F0055BD50 /* API */,
 				0B597B4F1C844AD900D4AC57 /* SmartChannel */,
 				0B597B4E1C844AD900D4AC57 /* Products */,
-				141DC7F19741DA79AA229EE6 /* Pods */,
-				49C3DF4B2C371415B33FED6C /* Frameworks */,
+				F2E6AD5CEA5DC7BB6768D908 /* Pods */,
+				5C4BB3A47471187CBA70ED90 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -262,15 +262,6 @@
 			);
 			name = SmartChannel;
 			path = SmartStream;
-			sourceTree = "<group>";
-		};
-		141DC7F19741DA79AA229EE6 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A30B156E768D52458EFC335F /* Pods-SmartStream.debug.xcconfig */,
-				156F9CF276441EC104FF90CD /* Pods-SmartStream.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		492D027B1C8BC6B1000AAF17 /* Menu */ = {
@@ -311,10 +302,10 @@
 			name = Channels;
 			sourceTree = "<group>";
 		};
-		49C3DF4B2C371415B33FED6C /* Frameworks */ = {
+		5C4BB3A47471187CBA70ED90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				28FF4AB5ACD94CD26BA670CD /* Pods_SmartStream.framework */,
+				60ACCFF50C60CCC4519D3769 /* Pods_SmartStream.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -365,6 +356,15 @@
 			name = FilterSelectCell;
 			sourceTree = "<group>";
 		};
+		F2E6AD5CEA5DC7BB6768D908 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FF526339D509361611EFB68C /* Pods-SmartStream.debug.xcconfig */,
+				E0DC4BD47051E71BBC37FC60 /* Pods-SmartStream.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -372,13 +372,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0B597B5F1C844AD900D4AC57 /* Build configuration list for PBXNativeTarget "SmartStream" */;
 			buildPhases = (
-				88A96F3A784190DACA29047E /* Check Pods Manifest.lock */,
+				C8C9B1B5814EABE0FAE3542D /* Check Pods Manifest.lock */,
 				0B597B491C844AD900D4AC57 /* Sources */,
 				0B597B4A1C844AD900D4AC57 /* Frameworks */,
 				0B597B4B1C844AD900D4AC57 /* Resources */,
-				A427FD14B26C6A2797B37843 /* Embed Pods Frameworks */,
-				B76A1DBA577DC06EB546974A /* Copy Pods Resources */,
 				0B11DD261C8ED34600012E85 /* ShellScript */,
+				ADC2E3A204F20946D90DCF31 /* Embed Pods Frameworks */,
+				6DE69C775F2B9EE3BEF39FF8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -464,22 +464,22 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 061fb4d7ee4226639f930ab14c81b7512639e650 a2a9b20787f94efdbe1fda02b4ba0780f4d02dc6b4e3ae8229ef0611a69cc3b1";
 		};
-		88A96F3A784190DACA29047E /* Check Pods Manifest.lock */ = {
+		6DE69C775F2B9EE3BEF39FF8 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A427FD14B26C6A2797B37843 /* Embed Pods Frameworks */ = {
+		ADC2E3A204F20946D90DCF31 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -494,19 +494,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B76A1DBA577DC06EB546974A /* Copy Pods Resources */ = {
+		C8C9B1B5814EABE0FAE3542D /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -686,7 +686,7 @@
 		};
 		0B597B601C844AD900D4AC57 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A30B156E768D52458EFC335F /* Pods-SmartStream.debug.xcconfig */;
+			baseConfigurationReference = FF526339D509361611EFB68C /* Pods-SmartStream.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -701,7 +701,7 @@
 		};
 		0B597B611C844AD900D4AC57 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 156F9CF276441EC104FF90CD /* Pods-SmartStream.release.xcconfig */;
+			baseConfigurationReference = E0DC4BD47051E71BBC37FC60 /* Pods-SmartStream.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

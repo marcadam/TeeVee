@@ -10,23 +10,29 @@ import UIKit
 
 class DataLayer: NSObject {
     class func createChannel(withDictionary dictionary: NSDictionary, completion: (channel: Channel)->()) {
-        let channelID = generateID()
+//        let channelID = generateID()
         let topics = dictionary["topics"] as! [String]
-        let filters = dictionary["filters"] as! Filter
+        let filters = dictionary["filters"] as! Filters
+        let filtersDict = filters.dictionary 
+        let title = dictionary["title"] as! String
         
-        let itemDictionary = Mock.NewChannelItem.init(topics: topics).items
-        let owner = Mock.NewUser().user
+//        let itemDictionary = Mock.NewChannelItem.init(topics: topics).items
+//        let owner = Mock.NewUser().user
         
-        let channelDictionary = ["owner": owner,"channel_id": channelID, "items": itemDictionary, "filters": filters, "topics": topics] as NSDictionary
-        let channel = Channel(dictionary: channelDictionary)
-        
-        completion(channel: channel)
+        let channelDictionary = ["title": title, "filters": filtersDict, "topics": topics] as NSDictionary
+        ChannelClient.sharedInstance.createChannel(channelDictionary) { (channel, error) -> () in
+            if error != nil {
+               print(error)
+            } else {
+               completion(channel: channel!)
+            }
+        }
     }
     
-    static func generateID() -> String {
-        let date = NSDate()
-        let uniqueID = String(UInt64(floor(date.timeIntervalSince1970)))
-        return uniqueID
-    }
-    
+//    static func generateID() -> String {
+//        let date = NSDate()
+//        let uniqueID = String(UInt64(floor(date.timeIntervalSince1970)))
+//        return uniqueID
+//    }
+
 }
