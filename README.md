@@ -23,6 +23,7 @@ An app that lets you turn any topic into a personalized, 24/7 TV channel. A Pand
 
 Nice-to-haves:
 
+- User can control the channel via Siri or the Apple Watch
 - User can like/dislike individual content in the channel; disliking something will also skip the channel forward
 - User can filter content: prefer specific content producers / sources,  or to blacklist topics/sources/producers
 - User can choose a theme, among possibly a set of predefined themes, for their channels

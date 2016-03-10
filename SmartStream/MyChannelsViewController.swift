@@ -9,8 +9,8 @@
 import UIKit
 
 protocol MyChannelsViewControllerDelegate: class {
-    func shouldPresentEditorViewController(sender: MyChannelsViewController)
-    func shouldPresentPlayerViewController(sender: MyChannelsViewController)
+    func shouldPresentEditor(sender: MyChannelsViewController)
+    func shouldPresentPlayer(sender: MyChannelsViewController)
 }
 
 class MyChannelsViewController: UIViewController {
@@ -39,7 +39,7 @@ class MyChannelsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
-        delegate?.shouldPresentEditorViewController(self)
+        delegate?.shouldPresentEditor(self)
     }
 
 }
@@ -58,7 +58,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        delegate?.shouldPresentPlayerViewController(self)
+        delegate?.shouldPresentPlayer(self)
     }
     
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel) {

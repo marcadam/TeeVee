@@ -37,9 +37,15 @@ class Channel: NSObject {
         }
         
         self.channel_id = channel_id
+        if let itemsArray = dictionary["items"] as? [NSDictionary] {
+            items = ChannelItem.items(array: itemsArray)
+        }
+        
+        self.channelId = dictionary["id"] as? String
         self.items = items
         self.filters = filters
         self.name = name
         self.thumbnail_url = thumbnail_url
     }
 }
+

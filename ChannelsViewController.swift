@@ -10,8 +10,8 @@ import UIKit
 
 protocol ChannelsViewControllerDelegate: class {
     func channelsView(channelsView: ChannelsViewController, didTapMenuButton: UIBarButtonItem)
-    func shouldPresentEditorViewController(sender: ChannelsViewController)
-    func shouldPresentPlayerViewController(sender: ChannelsViewController)
+    func shouldPresentEditor(sender: ChannelsViewController)
+    func shouldPresentPlayer(sender: ChannelsViewController)
 }
 
 class ChannelsViewController: UIViewController {
@@ -72,11 +72,11 @@ class ChannelsViewController: UIViewController {
 // MARK: - MyChannelsViewControllerDelegate
 
 extension ChannelsViewController: MyChannelsViewControllerDelegate {
-    func shouldPresentEditorViewController(sender: MyChannelsViewController) {
-        delegate?.shouldPresentEditorViewController(self)
+    func shouldPresentEditor(sender: MyChannelsViewController) {
+        delegate?.shouldPresentEditor(self)
     }
 
-    func shouldPresentPlayerViewController(sender: MyChannelsViewController) {
-        delegate?.shouldPresentPlayerViewController(self)
+    func shouldPresentPlayer(sender: MyChannelsViewController) {
+        delegate?.shouldPresentPlayer(self)
     }
 }
