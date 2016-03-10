@@ -26,22 +26,18 @@ class Channel: NSObject {
         var items = [ChannelItem]()
         var filters: Filter?
         
-        if let channel = dictionary["channel"] as? NSDictionary {
-            name = channel["name"] as? String
-            channel_id = channel["channel_id"] as? String
-            filters = channel["filters"] as? Filter
-            thumbnail_url = channel["thumbnail_url"] as? String
-            if let itemsArray = channel["items"] as? [NSDictionary] {
-                items = ChannelItem.items(array: itemsArray)
-            }
-        }
-        
-        self.channel_id = channel_id
+        name = dictionary["name"] as? String
+        filters = dictionary["filters"] as? Filter
+        thumbnail_url = dictionary["thumbnail_url"] as? String
         if let itemsArray = dictionary["items"] as? [NSDictionary] {
             items = ChannelItem.items(array: itemsArray)
         }
         
-        self.channelId = dictionary["id"] as? String
+        if let itemsArray = dictionary["items"] as? [NSDictionary] {
+            items = ChannelItem.items(array: itemsArray)
+        }
+        
+        self.channel_id = dictionary["id"] as? String
         self.items = items
         self.filters = filters
         self.name = name
