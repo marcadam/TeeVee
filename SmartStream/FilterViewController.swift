@@ -9,17 +9,18 @@
 import UIKit
 
 protocol FilterViewDelegate: class {
-    func filterView(filterView: FilterViewController, didSetFilter filter: Filter)
+    func filterView(filterView: FilterViewController, didSetFilters filters: Filter)
 }
 
-class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FilterViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     
-    var filter: Filter! {
+    var filters: Filter! {
         didSet {
-            durationSelected = filter.max_duration
-            sourcesSelected = filter.sources
+            durationSelected = filters.max_duration
+            sourcesSelected = filters.sources
+            setDurationSelectIndex(durationSelected)
         }
     }
     
@@ -30,6 +31,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private var titles = []
     private var durationSelected: Int!
     private var sourcesSelected: [String]!
+    private var durationSelectedIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,15 +51,28 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        filter.sources = sourcesSelected
-        filter.max_duration = durationSelected
-        self.delegate?.filterView(self, didSetFilter: filter)
+        filters.sources = sourcesSelected
+        filters.max_duration = durationSelected
+        self.delegate?.filterView(self, didSetFilters: filters)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func setDurationSelectIndex(duration: Int) {
+        if duration <= 60 {
+            durationSelectedIndex = 0
+        } else if duration <= 300 {
+            durationSelectedIndex = 1
+        } else {
+            durationSelectedIndex = 2
+        }
+    }
+}
+
+extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return titles[section] as? String
@@ -95,7 +110,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let cell = tableView.dequeueReusableCellWithIdentifier(filterSelectCellID, forIndexPath: indexPath) as! FilterSelectCell
             cell.filterCheckImageView.hidden = true
             cell.filterCheckImageView.alpha = 0
-            if durationSelected == indexPath.row {
+            if durationSelectedIndex == indexPath.row {
                 UIView.animateWithDuration(1, animations: { () -> Void in
                     cell.filterCheckImageView.hidden = false
                     cell.filterCheckImageView.alpha = 1
@@ -113,7 +128,20 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 {
-            durationSelected = indexPath.row
+            switch indexPath.row {
+            case 0:
+                durationSelected = 60
+                durationSelectedIndex = 0
+            case 1:
+                durationSelected = 300
+                durationSelectedIndex = 1
+            case 2:
+                durationSelected = 10000
+                durationSelectedIndex = 2
+            default:
+                durationSelected = 300
+                durationSelectedIndex = 1
+            }
             tableView.reloadData()
         }
     }
@@ -143,15 +171,18 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 extension FilterViewController: FilterSwitchCellDelegate {
     func filterSwitchCell(filterSwitchCell: FilterSwitchCell, didSwitchOn: Bool) {
+        let sourceString = filterSwitchCell.filterLabel.text!.lowercaseString
         if didSwitchOn == false {
             for (index, source) in sourcesSelected.enumerate() {
-                if source == filterSwitchCell.filterLabel.text?.lowercaseString {
+                if source == sourceString {
                     sourcesSelected.removeAtIndex(index)
                     break
                 }
             }
         } else {
-            
+            if !sourcesSelected.contains(sourceString) {
+                sourcesSelected.append(sourceString)
+            }
         }
     }
 }

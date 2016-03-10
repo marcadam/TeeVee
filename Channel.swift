@@ -9,39 +9,27 @@
 import UIKit
 
 class Channel: NSObject {
-    let thumbnail_url: String?
-    let name: String?
-    let dictionary: NSDictionary
+    let dictionary: NSDictionary?
     let channel_id: String?
-    let items: [ChannelItem]
-    let filter: Filter?
+    let name: String?
+    let thumbnail_url: String?
+    let items: [ChannelItem]?
+    let filters: Filter?
+    let topics: [String]?
 
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
-        
-        var thumbnail_url: String? = "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"
-        var name: String? = ""
-        var channel_id: String? = ""
-        var items = [ChannelItem]()
-        var filter: Filter?
-        
+
+        channel_id = dictionary["id"] as? String
         name = dictionary["name"] as? String
-        filter = dictionary["filter"] as? Filter
         thumbnail_url = dictionary["thumbnail_url"] as? String
-        if let itemsArray = dictionary["items"] as? [NSDictionary] {
-            items = ChannelItem.items(array: itemsArray)
-        }
         
-        if let itemsArray = dictionary["items"] as? [NSDictionary] {
-            items = ChannelItem.items(array: itemsArray)
-        }
+        let itemsArray = dictionary["items"] as? [NSDictionary]
+        items = ChannelItem.items(array: itemsArray!)
         
-        self.channel_id = dictionary["id"] as? String
-        self.items = items
-        self.filter = filter
-        self.name = name
-        self.thumbnail_url = thumbnail_url
+        filters = dictionary["filters"] as? Filter
+        topics = dictionary["topics"] as? [String]
     }
 }
 

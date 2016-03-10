@@ -101,8 +101,8 @@ class ChannelManager: NSObject {
                 self.spinner?.removeFromSuperview()
             })
             
-            if channel == nil || channel!.items.count == 0 {return}
-            priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items)
+            if channel == nil || channel!.items!.count == 0 {return}
+            priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
             
             // Autoplay
             playNextItem()

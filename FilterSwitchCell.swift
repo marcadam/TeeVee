@@ -34,7 +34,7 @@ class FilterSwitchCell: UITableViewCell {
     }
     
     @IBAction func onSwitchChange(sender: UISwitch) {
-        self.delegate?.filterSwitchCell(self, didSwitchOn: sender.selected)
+        self.delegate?.filterSwitchCell(self, didSwitchOn: sender.on)
     }
     
 }

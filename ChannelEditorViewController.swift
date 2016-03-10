@@ -19,7 +19,7 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet var tableView: UITableView!
     
     private var keywords:[String] = []
-    private var filter: Filter!
+    private var filters: Filter!
     
     weak var delegate: ChannelEditorDelegate?
     
@@ -41,7 +41,7 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     
     func setDefaults() {
         let filterDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300]
-        filter = Filter(dictionary: filterDict)
+        filters = Filter(dictionary: filterDict)
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,12 +74,12 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
         tableView.setEditing(false, animated: true)
     }
     
-    func filterView(filterView: FilterViewController, didSetFilter filter: Filter) {
-        self.filter = filter
+    func filterView(filterView: FilterViewController, didSetFilters filters: Filter) {
+        self.filters = filters
     }
     
     @IBAction func onSaveTapped(sender: UIButton) {
-        DataLayer.createChannel(keywords, withFilter: filter!) { (channel) -> () in
+        DataLayer.createChannel(keywords, withFilters: filters!) { (channel) -> () in
             self.delegate?.channelEditor(self, didSetChannel: channel)
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 //
@@ -110,7 +110,7 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     // Pass the selected object to the new view controller.
         let destination = segue.destinationViewController as! FilterViewController
         destination.delegate = self
-        destination.filter = filter
+        destination.filters = filters
     }
     
 }

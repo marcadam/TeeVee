@@ -9,11 +9,11 @@
 import UIKit
 
 class DataLayer: NSObject {
-    class func createChannel(keywordsArray:[String], withFilter filter: Filter, completion: (channel: Channel)->()) {
+    class func createChannel(keywordsArray:[String], withFilters filters: Filter, completion: (channel: Channel)->()) {
         let channelID = generateID()
         let itemDictionary = generateItemDictionary(keywordsArray)
-        let filter = filter
-        let channelDictionary = ["channel_id": channelID, "items": itemDictionary, "filter":filter]
+        let filters = filters
+        let channelDictionary = ["channel_id": channelID, "items": itemDictionary, "filters": filters]
         let channelDict = ["channel": channelDictionary] as NSDictionary
         let channel = Channel(dictionary: channelDict)
         completion(channel: channel)
