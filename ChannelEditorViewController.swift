@@ -12,13 +12,14 @@ protocol ChannelEditorDelegate: class {
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel)
 }
 
-class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewDelegate {
     
     @IBOutlet var searchWrapperView: UIView!
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var tableView: UITableView!
     
     private var keywords:[String] = []
+    private var filter: Filter!
     
     weak var delegate: ChannelEditorDelegate?
     
@@ -27,6 +28,7 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
         
         // Do any additional setup after loading the view.
         uiSetup()
+        setDefaults()
     }
     
     func uiSetup() {
@@ -35,6 +37,11 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
         searchTextField.textColor = Theme.Colors.HighlightColor.color
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Create Channel", attributes: [NSForegroundColorAttributeName: Theme.Colors.HighlightLightColor.color])
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
+    }
+    
+    func setDefaults() {
+        let filterDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300]
+        filter = Filter(dictionary: filterDict)
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,8 +74,12 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
         tableView.setEditing(false, animated: true)
     }
     
+    func filtersView(filtersView: FiltersViewController, didSetFilter filter: Filter) {
+        self.filter = filter
+    }
+    
     @IBAction func onSaveTapped(sender: UIButton) {
-        DataLayer.createChannel(keywords) { (channel) -> () in
+        DataLayer.createChannel(keywords, withFilters: filter!) { (channel) -> () in
             self.delegate?.channelEditor(self, didSetChannel: channel)
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 //
@@ -91,14 +102,15 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
-    /*
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using segue.destinationViewController.
     // Pass the selected object to the new view controller.
+        let destination = segue.destinationViewController as! FiltersViewController
+        destination.delegate = self
+        destination.filter = filter
     }
-    */
     
 }

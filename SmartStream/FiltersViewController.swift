@@ -8,15 +8,28 @@
 
 import UIKit
 
+protocol FiltersViewDelegate: class {
+    func filtersView(filtersView: FiltersViewController, didSetFilter filter: Filter)
+}
+
 class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tableView: UITableView!
     
+    var filter: Filter! {
+        didSet {
+            durationSelected = filter.max_duration
+            sourcesSelected = filter.sources
+        }
+    }
+    
+    weak var delegate: FiltersViewDelegate?
     private let filterCellID = "com.smartchannel.FilterSwitchCell"
     private let filterSelectCellID = "com.smartchannel.FilterSelectCell"
-    private let filterData = ["Source" : ["YouTube", "Vimeo"], "Max Duration": ["Short < 1 min","Medium < 5 min","Long > 5 min"]]
+    private let filterData = ["Source" : ["YouTube", "Vimeo", "Twitter"], "Max Duration": ["Short < 1 min","Medium < 5 min","Long > 5 min"]]
     private var titles = []
-    private var durationSelected = 2
+    private var durationSelected: Int!
+    private var sourcesSelected: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +44,14 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.registerNib(filterSelectCellNib, forCellReuseIdentifier: filterSelectCellID)
         
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        filter.sources = sourcesSelected
+        filter.max_duration = durationSelected
+        self.delegate?.filtersView(self, didSetFilter: filter)
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,7 +79,16 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier(filterCellID, forIndexPath: indexPath) as! FilterSwitchCell
+            cell.delegate = self
             cell.filterLabel.text = filterData["Source"]![indexPath.row]
+            if let cellLabel = cell.filterLabel.text?.lowercaseString {
+                if sourcesSelected.contains(cellLabel) {
+                    cell.filterSwitch.setOn(true, animated: true)
+                } else {
+                    cell.filterSwitch.setOn(false, animated: true)
+                }
+            }
+        
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             return cell
         case 1:
@@ -109,4 +139,19 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     */
 
+}
+
+extension FiltersViewController: FilterSwitchCellDelegate {
+    func filterSwitchCell(filterSwitchCell: FilterSwitchCell, didSwitchOn: Bool) {
+        if didSwitchOn == false {
+            for (index, source) in sourcesSelected.enumerate() {
+                if source == filterSwitchCell.filterLabel.text?.lowercaseString {
+                    sourcesSelected.removeAtIndex(index)
+                    break
+                }
+            }
+        } else {
+            
+        }
+    }
 }

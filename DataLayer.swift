@@ -9,10 +9,11 @@
 import UIKit
 
 class DataLayer: NSObject {
-    class func createChannel(keywordsArray:[String], completion: (channel: Channel)->()) {
+    class func createChannel(keywordsArray:[String], withFilters filter: Filter, completion: (channel: Channel)->()) {
         let channelID = generateID()
         let itemDictionary = generateItemDictionary(keywordsArray)
-        let channelDictionary = ["channel_id": channelID, "items": itemDictionary]
+        let filters = filter
+        let channelDictionary = ["channel_id": channelID, "items": itemDictionary, "filters":filters]
         let channelDict = ["channel": channelDictionary] as NSDictionary
         let channel = Channel(dictionary: channelDict)
         completion(channel: channel)
@@ -28,9 +29,9 @@ class DataLayer: NSObject {
         var itemArray = [NSDictionary]()
         for _ in keywords {
             let url: String = "https://www.youtube.com/watch?v=tntOCGkgt98"
-            let id: String = "tntOCGkgt98"
+            let native_id: String = "tntOCGkgt98"
             let extractor: String = "youtube"
-            itemArray.append(["url": url, "id": id, "extractor": extractor] as NSDictionary)
+            itemArray.append(["url": url, "native_id": native_id, "extractor": extractor] as NSDictionary)
         }
         return itemArray
     }

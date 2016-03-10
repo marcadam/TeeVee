@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol FilterSwitchCellDelegate: class {
+    func filterSwitchCell(filterSwitchCell: FilterSwitchCell, didSwitchOn: Bool)
+}
+
 class FilterSwitchCell: UITableViewCell {
 
     @IBOutlet var filterLabel: UILabel!
     @IBOutlet var filterSwitch: UISwitch!
+    weak var delegate: FilterSwitchCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,5 +32,9 @@ class FilterSwitchCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func onSwitchChange(sender: UISwitch) {
+        self.delegate?.filterSwitchCell(self, didSwitchOn: sender.selected)
+    }
+    
 }

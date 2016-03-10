@@ -11,7 +11,7 @@ import UIKit
 class ChannelItem: NSObject, Comparable {
     let dictionary: NSDictionary
     let url: String?
-    let id: String?
+    let native_id: String?
     let extractor: String?
     var timestamp: NSTimeInterval?
     
@@ -19,7 +19,7 @@ class ChannelItem: NSObject, Comparable {
         self.dictionary = dictionary
 
         url = dictionary["url"] as? String
-        id = dictionary["id"] as? String
+        native_id = dictionary["native_id"] as? String
         extractor = dictionary["extractor"] as? String
         timestamp = NSDate().timeIntervalSince1970
     }

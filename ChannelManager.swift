@@ -126,7 +126,7 @@ class ChannelManager: NSObject {
         print("[MANAGER] play next TweetItem")
 
         dispatch_async(dispatch_get_main_queue(),{
-            self.twitterClient.loadTweetWithID(item.id!) { tweet, error in
+            self.twitterClient.loadTweetWithID(item.native_id!) { tweet, error in
                 if let t = tweet {
                     self.tweetView = TWTRTweetView(tweet: t)
                     self.tweetView!.center = CGPointMake(self.playerContainerView!.bounds.size.width  / 2,
@@ -154,13 +154,13 @@ class ChannelManager: NSObject {
             
             if !self.youtubeWebviewLoaded {
                 self.youtubeWebviewLoaded = true
-                self.youtubePlayerView?.loadWithVideoId(item.id!, playerVars: self.youtubePlayerVars)
+                self.youtubePlayerView?.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
             } else {
                 if self.currItem != nil && self.currItem!.extractor != "youtube" {
                     // previous video is not youtube, so the video is already cued in
                     self.youtubePlayerView?.playVideo()
                 } else {
-                    self.youtubePlayerView?.loadVideoById(item.id!, startSeconds: 0.0, suggestedQuality: .Default)
+                    self.youtubePlayerView?.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
                 }
             }
             self.currItem = item
@@ -250,14 +250,14 @@ class ChannelManager: NSObject {
     var currCueId: String! = ""
     func prepareNextItem() {
         let item = priorityQueue!.peek()
-        if item == nil || currCueId == item!.id! {return}
-        currCueId = item!.id!
+        if item == nil || currCueId == item!.native_id! {return}
+        currCueId = item!.native_id!
         
         let extractor = item!.extractor
         if extractor == "youtube" {
             if currItem != nil && currItem!.extractor != "youtube" {
-                print("[MANAGER] buffering: extractor = \(extractor!); id = \(item!.id!)")
-                youtubePlayerView?.cueVideoById(item!.id!, startSeconds: 0.0, suggestedQuality: .Default)
+                print("[MANAGER] buffering: extractor = \(extractor!); id = \(item!.native_id!)")
+                youtubePlayerView?.cueVideoById(item!.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
                 NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
             }
         } else {
@@ -273,7 +273,7 @@ class ChannelManager: NSObject {
         if item == nil {return}
         
         let extractor = item!.extractor
-        print("[MANAGER] extractor = \(extractor!); id = \(item!.id!)")
+        print("[MANAGER] extractor = \(extractor!); id = \(item!.native_id!)")
         
         if extractor == "youtube" {
             playNextYoutubeItem(item)
