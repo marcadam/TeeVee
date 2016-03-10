@@ -1,5 +1,5 @@
 //
-//  Filter.swift
+//  Filters.swift
 //  SmartStream
 //
 //  Created by Jerry on 3/9/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Filter: NSObject {
+class Filters: NSObject {
     let dictionary: NSDictionary
     var sources: [String]?
     var max_duration: Int?

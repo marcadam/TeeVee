@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Filter View Controller-->
+        <!--Filters View Controller-->
         <scene sceneID="Sps-xb-hXQ">
             <objects>
-                <viewController storyboardIdentifier="FilterTableView" id="WEb-Ji-Ael" userLabel="Filter View Controller" customClass="FilterViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FiltersTableView" id="WEb-Ji-Ael" customClass="FiltersViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qWn-Dg-NhY"/>
                         <viewControllerLayoutGuide type="bottom" id="joM-uH-sZh"/>
