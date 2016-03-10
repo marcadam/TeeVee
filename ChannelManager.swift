@@ -291,9 +291,9 @@ class ChannelManager: NSObject {
         if priorityQueue!.count <= numItemsBeforeFetch {
             print("[MANAGER] fetching more data for channel: \(channelId!)")
             ChannelClient.sharedInstance.streamChannel(channelId) { (channel, error) -> () in
-                if channel != nil && channel!.items.count > 0 {
+                if channel != nil && channel!.items!.count > 0 {
                     print("[MANAGER] adding item (\(item!.extractor): \(item!.native_id)) to channel")
-                    for item in channel!.items {
+                    for item in channel!.items! {
                         self.priorityQueue!.push(item)
                     }
                 }
