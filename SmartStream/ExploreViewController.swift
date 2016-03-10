@@ -62,12 +62,16 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
 }
 
 extension ExploreViewController: UICollectionViewDelegateFlowLayout {
+    var cellInset: CGFloat { return 14.0 }
+    var infoViewHeight: CGFloat { return 33.0 }
+    var pagingViewHeight: CGFloat { return 200.00 }
+
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         if indexPath.section == 0 {
-            return CGSize(width: collectionView.bounds.width, height: 200.0)
+            return CGSize(width: collectionView.bounds.width, height: pagingViewHeight)
         } else {
-            let cellWidth = (collectionView.bounds.width - 42.0) / 2.0
-            let cellHeight = cellWidth + 33.0
+            let cellWidth = (collectionView.bounds.width - (cellInset * 3.0)) / 2.0
+            let cellHeight = cellWidth + infoViewHeight
             return CGSize(width: cellWidth, height: cellHeight)
         }
     }
@@ -76,7 +80,7 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
         if section == 0 {
             return UIEdgeInsetsMake(0,0,0,0)
         } else {
-            return UIEdgeInsetsMake(14,14,14,14)
+            return UIEdgeInsetsMake(cellInset, cellInset, cellInset, cellInset)
         }
     }
 
@@ -84,7 +88,7 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
         if section == 0 {
             return 0
         } else {
-            return 14
+            return cellInset
         }
     }
 
@@ -92,7 +96,7 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
         if section == 0 {
             return 0
         } else {
-            return 14
+            return cellInset
         }
     }
 }
