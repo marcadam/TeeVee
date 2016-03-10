@@ -60,8 +60,8 @@ class ChannelEditorViewController: UIViewController {
     
     @IBAction func onSaveTapped(sender: UIButton) {
         if topics.count > 0 {
-            let channelDictionary = ["topics": topics, "filters": filters] as NSDictionary
-            DataLayer.createChannel(withDictionary: channelDictionary) { (channel) -> () in
+            let filtersDictionary = ["topics": topics, "filters": filters] as NSDictionary
+            DataLayer.createChannel(withDictionary: filtersDictionary) { (channel) -> () in
                 // Show latest added channel on MyFeed using delegate pattern
                 self.delegate?.channelEditor(self, didSetChannel: channel)
                 

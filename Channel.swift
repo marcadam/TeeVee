@@ -11,6 +11,7 @@ import UIKit
 class Channel: NSObject {
 
     let dictionary: NSDictionary?
+    let owner: User?
     let channel_id: String?
     let name: String?
     let thumbnail_url: String?
@@ -30,6 +31,7 @@ class Channel: NSObject {
         
         filters = dictionary["filters"] as? Filter
         topics = dictionary["topics"] as? [String]
+        owner = dictionary["owner"] as? User
     }
     
     
