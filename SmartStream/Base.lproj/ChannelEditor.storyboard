@@ -58,7 +58,7 @@
                                 <rect key="frame" x="253" y="550" width="94" height="30"/>
                                 <state key="normal" title="Start Channel"/>
                                 <connections>
-                                    <segue destination="UM3-pZ-hxC" kind="presentation" id="lUt-Od-ltU"/>
+                                    <segue destination="UM3-pZ-hxC" kind="presentation" identifier="playerSegue" id="lUt-Od-ltU"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ucu-k2-WAx">
@@ -121,7 +121,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="qt7-yT-A6T" userLabel="Filter">
                             <connections>
-                                <segue destination="r98-P7-qa7" kind="show" id="gkP-Yk-RSD"/>
+                                <segue destination="r98-P7-qa7" kind="show" identifier="filterSegue" id="gkP-Yk-RSD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

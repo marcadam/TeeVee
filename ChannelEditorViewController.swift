@@ -112,9 +112,15 @@ class ChannelEditorViewController: UIViewController, UITableViewDataSource, UITa
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using segue.destinationViewController.
     // Pass the selected object to the new view controller.
-        let destination = segue.destinationViewController as! FilterViewController
-        destination.delegate = self
-        destination.filter = filter
+        print(segue.identifier!)
+        if segue.identifier == "filterSegue" {
+            let destination = segue.destinationViewController as! FilterViewController
+            destination.delegate = self
+            destination.filter = filter
+        } else if segue.identifier == "playerSegue" {
+            let destination = segue.destinationViewController as! PlayerViewController
+            destination.channelId = "0" // substitue with actual channelId
+        }
     }
     
 }
