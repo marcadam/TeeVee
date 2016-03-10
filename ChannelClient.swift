@@ -19,7 +19,7 @@ class ChannelClient {
     }
     
     func getChannel(completion: (channel: Channel?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "channel.json")
+        let endpoint = NSURL(string: baseURL + "channels/1")
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(endpoint!) {(data: NSData?, response: NSURLResponse?, apiError: NSError?) in
             
