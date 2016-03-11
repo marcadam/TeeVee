@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 protocol MyChannelsViewControllerDelegate: class {
     func shouldPresentEditor(sender: MyChannelsViewController)
@@ -49,8 +50,9 @@ class MyChannelsViewController: UIViewController {
     }
     func getChannels() {
         ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
-            if error != nil {
+            if error == nil {
                 self.channelsArray.appendContentsOf(channels!)
+                self.tableView.reloadData()
             } else {
                 print(error)
             }
@@ -72,6 +74,11 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelTableViewCell
+        let channel = channelsArray[indexPath.row]
+        cell.channelName.text = channel.title
+        if let thumbnail = channel.thumbnail_url {
+            cell.channelImageView.setImageWithURL(NSURL(string: thumbnail)!, placeholderImage: UIImage(named: "placeholder"))
+        }
         return cell
     }
 
