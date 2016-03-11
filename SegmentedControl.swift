@@ -32,7 +32,7 @@ import UIKit
 
     var selectedSegmentIndex = 0 {
         didSet {
-            displayNewSelectedSegmentIndex()
+            displayNewSelectedSegment()
         }
     }
 
@@ -122,7 +122,7 @@ import UIKit
         return false
     }
 
-    func displayNewSelectedSegmentIndex() {
+    func displayNewSelectedSegment() {
         for label in labels {
             label.textColor = offTextColor
         }
