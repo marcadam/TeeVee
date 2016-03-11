@@ -50,7 +50,7 @@ class ChannelEditorViewController: UIViewController {
         // ChannelClient.sharedInstance.getAvailableFilters()
         
         // else if this is an existing channel, populate screen/filters using its data
-        let filtersDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300]
+        let filtersDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300] as NSMutableDictionary
         filters = Filters(dictionary: filtersDict)
     }
     

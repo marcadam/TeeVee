@@ -53,6 +53,8 @@ class FiltersViewController: UIViewController {
         
         filters.sources = sourcesSelected
         filters.max_duration = durationSelected
+        filters.updateDictionary(ofKey: "sources", withValue: sourcesSelected)
+        filters.updateDictionary(ofKey: "max_duration", withValue: durationSelected)
         self.delegate?.filtersView(self, didSetFilters: filters)
     }
 
