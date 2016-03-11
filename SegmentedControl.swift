@@ -25,9 +25,9 @@ import UIKit
         }
     }
 
-    var selectedIndex = 0 {
+    var selectedSegmentIndex = 0 {
         didSet {
-            displayNewSelectedIndex()
+            displayNewSelectedSegmentIndex()
         }
     }
 
@@ -108,15 +108,15 @@ import UIKit
         }
 
         if calculatedIndex != nil {
-            selectedIndex = calculatedIndex!
+            selectedSegmentIndex = calculatedIndex!
             sendActionsForControlEvents(.ValueChanged)
         }
 
         return false
     }
 
-    func displayNewSelectedIndex() {
-        let label = labels[selectedIndex]
+    func displayNewSelectedSegmentIndex() {
+        let label = labels[selectedSegmentIndex]
         self.thumbView.frame = label.frame
     }
 }
