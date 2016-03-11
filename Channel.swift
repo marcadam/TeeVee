@@ -22,13 +22,17 @@ class Channel: NSObject {
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
+        
+        var items = [ChannelItem]()
         channel_id = dictionary["_id"] as? String
         title = dictionary["title"] as? String
         thumbnail_url = dictionary["thumbnail_url"] as? String
         
-        let itemsArray = dictionary["items"] as? [NSDictionary]
-        items = ChannelItem.items(array: itemsArray!)
+        if let itemsArray = dictionary["items"] as? [NSDictionary] {
+            items = ChannelItem.items(array: itemsArray)
+        }
         
+        self.items = items
         filters = dictionary["filters"] as? Filters
         topics = dictionary["topics"] as? [String]
         owner = dictionary["owner"] as? User
