@@ -32,6 +32,7 @@
 		492D02B21C916D3A000AAF17 /* ChannelCollectionPagingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02B01C916D3A000AAF17 /* ChannelCollectionPagingViewCell.xib */; };
 		492D02B51C916F54000AAF17 /* ChannelCollectionPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02B41C916F54000AAF17 /* ChannelCollectionPageView.xib */; };
 		492D02B71C916F7E000AAF17 /* ChannelCollectionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02B61C916F7E000AAF17 /* ChannelCollectionPageView.swift */; };
+		495B34551C937AC4002A4ADD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B34541C937AC4002A4ADD /* SegmentedControl.swift */; };
 		A29BA4951C900D8200ED13A5 /* DataLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4941C900D8200ED13A5 /* DataLayer.swift */; };
 		A29BA4971C9120FD00ED13A5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4961C9120FD00ED13A5 /* User.swift */; };
 		A29BA4991C91235400ED13A5 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4981C91235400ED13A5 /* Filters.swift */; };
@@ -82,11 +83,12 @@
 		492D02A41C8D1866000AAF17 /* Channels.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Channels.storyboard; sourceTree = "<group>"; };
 		492D02A61C8D188F000AAF17 /* ChannelsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChannelsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		492D02A91C8FD7BD000AAF17 /* ChannelCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCollectionViewCell.xib; sourceTree = "<group>"; };
-		60ACCFF50C60CCC4519D3769 /* Pods_SmartStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		492D02AF1C916D3A000AAF17 /* ChannelCollectionPagingViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCollectionPagingViewCell.swift; sourceTree = "<group>"; };
 		492D02B01C916D3A000AAF17 /* ChannelCollectionPagingViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCollectionPagingViewCell.xib; sourceTree = "<group>"; };
 		492D02B41C916F54000AAF17 /* ChannelCollectionPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCollectionPageView.xib; sourceTree = "<group>"; };
 		492D02B61C916F7E000AAF17 /* ChannelCollectionPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCollectionPageView.swift; sourceTree = "<group>"; };
+		495B34541C937AC4002A4ADD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
+		60ACCFF50C60CCC4519D3769 /* Pods_SmartStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A29BA4941C900D8200ED13A5 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
 		A29BA4961C9120FD00ED13A5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A29BA4981C91235400ED13A5 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
@@ -321,6 +323,14 @@
 			name = ExploreCollectionPagingViewCell;
 			sourceTree = "<group>";
 		};
+		495B34531C937A8B002A4ADD /* Custom Controlls */ = {
+			isa = PBXGroup;
+			children = (
+				495B34541C937AC4002A4ADD /* SegmentedControl.swift */,
+			);
+			name = "Custom Controlls";
+			sourceTree = "<group>";
+		};
 		5C4BB3A47471187CBA70ED90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +342,7 @@
 		A2A3A3C01C8ACAB800D1173C /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				495B34531C937A8B002A4ADD /* Custom Controlls */,
 				A2F231E91C8D69730053956D /* FilterTableViewCell */,
 				0B14595F1C8BA9A0001E6C23 /* ChannelTableViewCell */,
 				492D02B31C916D41000AAF17 /* ExploreCollectionPagingViewCell */,
@@ -549,6 +560,7 @@
 				A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */,
 				492D02A21C8BE997000AAF17 /* ProfileViewController.swift in Sources */,
 				A29BA4951C900D8200ED13A5 /* DataLayer.swift in Sources */,
+				495B34551C937AC4002A4ADD /* SegmentedControl.swift in Sources */,
 				492D02B11C916D3A000AAF17 /* ChannelCollectionPagingViewCell.swift in Sources */,
 				A2F231F31C8D7A590053956D /* FilterSelectCell.swift in Sources */,
 				A29BA49B1C9124FD00ED13A5 /* Mock.swift in Sources */,
