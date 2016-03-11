@@ -33,12 +33,15 @@ class ChannelCollectionPageView: UIView {
         contentView.frame = bounds
         addSubview(contentView)
 
-        // custom initialization logic
+        // Theming
         channelNameContainerView.layer.cornerRadius = 4.0
         channelNameContainerView.clipsToBounds = true
-        channelNameContainerView.layer.borderColor = UIColor.whiteColor().CGColor
+        channelNameContainerView.backgroundColor = Theme.Colors.DarkBackgroundColor.color.colorWithAlphaComponent(0.7)
+        channelNameContainerView.layer.borderColor = Theme.Colors.LightBackgroundColor.color.CGColor
         channelNameContainerView.layer.borderWidth = 1.0
+        channelNameLabel.textColor = Theme.Colors.HighlightColor.color
 
+        // custom initialization logic
         pageImageView.image = UIImage(named: "placeholder")
         channelNameLabel.text = "Nature Channel"
     }
