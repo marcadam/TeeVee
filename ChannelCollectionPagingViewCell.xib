@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                     </scrollView>
                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="NbO-YJ-eKe">
-                        <rect key="frame" x="280.5" y="169" width="39" height="37"/>
+                        <rect key="frame" x="281" y="169" width="39" height="37"/>
                         <connections>
                             <action selector="pageControlDidPage:" destination="gTV-IL-0wX" eventType="valueChanged" id="jIt-ON-OdR"/>
                         </connections>
