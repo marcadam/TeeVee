@@ -13,13 +13,12 @@ protocol FiltersViewDelegate: class {
 }
 
 class FiltersViewController: UIViewController {
-
+    
     @IBOutlet var tableView: UITableView!
     
     var filters: Filters! {
         didSet {
             durationSelected = filters.max_duration
-            sourcesSelected = filters.sources
             setDurationSelectIndex(durationSelected)
         }
     }
@@ -27,20 +26,16 @@ class FiltersViewController: UIViewController {
     weak var delegate: FiltersViewDelegate?
     private let filterCellID = "com.smartchannel.FilterSwitchCell"
     private let filterSelectCellID = "com.smartchannel.FilterSelectCell"
-    private let filterData = ["Source" : ["YouTube", "Vimeo", "Twitter"], "Max Duration": ["Short < 1 min","Medium < 5 min","Long > 5 min"]]
+    private let filterData = ["Max Duration": ["Short < 1 min","Medium < 5 min","Long > 5 min"]]
     private var titles = []
     private var durationSelected: Int!
-    private var sourcesSelected: [String]!
     private var durationSelectedIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         titles = Array(filterData.keys)
-        
-        let filterCellNib = UINib(nibName: "FilterSwitchCell", bundle: NSBundle.mainBundle())
-        tableView.registerNib(filterCellNib, forCellReuseIdentifier: filterCellID)
         
         let filterSelectCellNib = UINib(nibName: "FilterSelectCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(filterSelectCellNib, forCellReuseIdentifier: filterSelectCellID)
@@ -50,14 +45,12 @@ class FiltersViewController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        filters.sources = sourcesSelected
+    
         filters.max_duration = durationSelected
-        filters.updateDictionary(ofKey: "sources", withValue: sourcesSelected)
         filters.updateDictionary(ofKey: "max_duration", withValue: durationSelected)
         self.delegate?.filtersView(self, didSetFilters: filters)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -81,71 +74,46 @@ extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return filterData["Source"]!.count
-        case 1: return filterData["Max Duration"]!.count
-        default: return 0
-        }
+        return filterData["Max Duration"]!.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier(filterCellID, forIndexPath: indexPath) as! FilterSwitchCell
-            cell.delegate = self
-            cell.filterLabel.text = filterData["Source"]![indexPath.row]
-            if let cellLabel = cell.filterLabel.text?.lowercaseString {
-                if sourcesSelected.contains(cellLabel) {
-                    cell.filterSwitch.setOn(true, animated: true)
-                } else {
-                    cell.filterSwitch.setOn(false, animated: true)
-                }
-            }
-        
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier(filterSelectCellID, forIndexPath: indexPath) as! FilterSelectCell
-            cell.filterCheckImageView.hidden = true
-            cell.filterCheckImageView.alpha = 0
-            if durationSelectedIndex == indexPath.row {
-                UIView.animateWithDuration(1, animations: { () -> Void in
-                    cell.filterCheckImageView.hidden = false
-                    cell.filterCheckImageView.alpha = 1
-                })
-            }
-            cell.filterLabel.text = filterData["Max Duration"]![indexPath.row]
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
-            return cell
-        default:
-            let cell = tableView.dequeueReusableCellWithIdentifier(filterCellID, forIndexPath: indexPath) as! FilterSwitchCell
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
-            return cell
+        let cell = tableView.dequeueReusableCellWithIdentifier(filterSelectCellID, forIndexPath: indexPath) as! FilterSelectCell
+        cell.filterCheckImageView.hidden = true
+        cell.filterCheckImageView.alpha = 0
+        if durationSelectedIndex == indexPath.row {
+            UIView.animateWithDuration(1, animations: { () -> Void in
+                cell.filterCheckImageView.hidden = false
+                cell.filterCheckImageView.alpha = 1
+            })
         }
+        cell.filterLabel.text = filterData["Max Duration"]![indexPath.row]
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 {
-            switch indexPath.row {
-            case 0:
-                durationSelected = 60
-                durationSelectedIndex = 0
-            case 1:
-                durationSelected = 300
-                durationSelectedIndex = 1
-            case 2:
-                durationSelected = 10000
-                durationSelectedIndex = 2
-            default:
-                durationSelected = 300
-                durationSelectedIndex = 1
-            }
-            tableView.reloadData()
+        
+        switch indexPath.row {
+        case 0:
+            durationSelected = 60
+            durationSelectedIndex = 0
+        case 1:
+            durationSelected = 300
+            durationSelectedIndex = 1
+        case 2:
+            durationSelected = 10000
+            durationSelectedIndex = 2
+        default:
+            durationSelected = 300
+            durationSelectedIndex = 1
         }
+        tableView.reloadData()
+        
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -158,33 +126,15 @@ extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
         header.textLabel?.font = Theme.Fonts.NormalTypeFace.font
         header.textLabel?.textColor = Theme.Colors.HighlightColor.color
     }
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
-}
-
-extension FiltersViewController: FilterSwitchCellDelegate {
-    func filterSwitchCell(filterSwitchCell: FilterSwitchCell, didSwitchOn: Bool) {
-        let sourceString = filterSwitchCell.filterLabel.text!.lowercaseString
-        if didSwitchOn == false {
-            for (index, source) in sourcesSelected.enumerate() {
-                if source == sourceString {
-                    sourcesSelected.removeAtIndex(index)
-                    break
-                }
-            }
-        } else {
-            if !sourcesSelected.contains(sourceString) {
-                sourcesSelected.append(sourceString)
-            }
-        }
-    }
+    
 }

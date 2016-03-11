@@ -51,15 +51,15 @@ class ChannelEditorViewController: UIViewController {
         
         // else if this is an existing channel, populate screen/filters using its data
         if filters == nil {
-            let filtersDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300] as NSMutableDictionary
+            let filtersDict = ["max_duration": 300] as NSMutableDictionary
             filters = Filters(dictionary: filtersDict)
         }
     }
     
     func createChannel(completion: (channel: Channel)->()) {
         if topics.count > 0 {
-            let filtersDictionary = ["title": titleTextField.text!, "topics": topics, "filters": filters!] as NSDictionary
-            DataLayer.createChannel(withDictionary: filtersDictionary) { (channel) -> () in
+            let channelDictionary = ["title": titleTextField.text!, "topics": topics, "filters": filters!] as NSDictionary
+            DataLayer.createChannel(withDictionary: channelDictionary) { (channel) -> () in
                 completion(channel: channel)
             }
         }
@@ -139,13 +139,6 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
     func scrollViewDidScroll(scrollView: UIScrollView) {
         searchTextField.resignFirstResponder()
     }
-    
-//    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-//        let moveItem = topics[sourceIndexPath.row]
-//        topics.removeAtIndex(sourceIndexPath.row)
-//        topics.insert(moveItem, atIndex: destinationIndexPath.row)
-//        tableView.setEditing(false, animated: true)
-//    }
     
     func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
         self.filters = filters
