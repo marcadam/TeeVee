@@ -7,183 +7,162 @@
 //
 
 import UIKit
+import AFNetworking
 
 let channelBaseUrl = "http://smartu.herokuapp.com/api/"
 class ChannelClient {
     var baseURL: String!
     
     static let sharedInstance = ChannelClient(baseURL: channelBaseUrl)
-    
+    var manager: AFHTTPSessionManager!
     private init(baseURL: String!) {
         self.baseURL = baseURL
+        self.manager = AFHTTPSessionManager(baseURL: NSURL(string: channelBaseUrl))
+        self.manager.requestSerializer = AFJSONRequestSerializer()
+        self.manager.responseSerializer = AFJSONResponseSerializer()
+        self.manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/plain") as! Set<String>
     }
     
     
     func createChannel(channelDict: NSDictionary!, completion: (channel: Channel?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "channels")!
         
-        do {
-            let data = try NSJSONSerialization.dataWithJSONObject(channelDict, options: [])
-            let request = NSMutableURLRequest(URL: endpoint)
-            request.HTTPMethod = "POST"
+        manager.POST("channels", parameters: channelDict, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //print(response)
+            if let json = response as? NSDictionary {
+                let channel = Channel(dictionary: json)
+                completion(channel: channel, error: nil)
+            } else {
+                completion(channel: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
+            }
             
-            let task = NSURLSession.sharedSession().uploadTaskWithRequest(request, fromData: data, completionHandler: { (responseData: NSData?, response: NSURLResponse?, apiError: NSError?) -> Void in
-                
-                do {
-                    let json = try NSJSONSerialization.JSONObjectWithData(responseData!, options: []) as? NSDictionary
-                    //print(json!)
-                    let channel = Channel(dictionary: json!)
-                    completion(channel: channel, error: nil)
-                } catch {
-                    print(error)
-                    completion(channel: nil, error: apiError)
-                }
-            })
-            
-            task.resume()
-        } catch {
-            completion(channel: nil, error: NSError(domain: "serialization failed", code: 0, userInfo: nil))
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error \(error.debugDescription)")
+                completion(channel: nil, error: error)
         }
+        
     }
     
     
     func updateChannel(channelId: String!, channelDict: NSDictionary!, completion: (channel: Channel?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "channels/" + channelId)!
         
-        do {
-            let data = try NSJSONSerialization.dataWithJSONObject(channelDict, options: [])
-            let request = NSMutableURLRequest(URL: endpoint)
-            request.HTTPMethod = "PUT"
+        manager.PUT(String("channels/" + channelId), parameters: channelDict, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //print(response)
+            if let json = response as? NSDictionary {
+                let channel = Channel(dictionary: json)
+                completion(channel: channel, error: nil)
+            } else {
+                completion(channel: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
+            }
             
-            let task = NSURLSession.sharedSession().uploadTaskWithRequest(request, fromData: data, completionHandler: { (responseData: NSData?, response: NSURLResponse?, apiError: NSError?) -> Void in
-                
-                do {
-                    let json = try NSJSONSerialization.JSONObjectWithData(responseData!, options: []) as? NSDictionary
-                    //print(json!)
-                    let channel = Channel(dictionary: json!)
-                    completion(channel: channel, error: nil)
-                } catch {
-                    print(error)
-                    completion(channel: nil, error: apiError)
-                }
-            })
-            
-            task.resume()
-        } catch {
-            completion(channel: nil, error: NSError(domain: "serialization failed", code: 0, userInfo: nil))
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error \(error.debugDescription)")
+                completion(channel: nil, error: error)
         }
+        
     }
     
     
     func deleteChannel(channelId: String!, completion: (channelId: String!, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "channels/" + channelId)!
         
-        let request = NSMutableURLRequest(URL: endpoint)
-        request.HTTPMethod = "DELETE"
-        
-        let task = NSURLSession.sharedSession().uploadTaskWithRequest(request, fromData: nil, completionHandler: { (responseData: NSData?, response: NSURLResponse?, apiError: NSError?) -> Void in
+        manager.DELETE(String("channels/" + channelId), parameters: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            completion(channelId: channelId, error: nil)
             
-            completion(channelId: channelId, error: apiError)
-        })
+            }) { (dataTask: NSURLSessionDataTask?, apiError: NSError) -> Void in
+                completion(channelId: channelId, error: apiError)
+        }
         
-        task.resume()
     }
     
     
     func getChannel(channelId: String!, completion: (channel: Channel?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "channels/" + channelId)!
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(endpoint) {(data: NSData?, response: NSURLResponse?, apiError: NSError?) in
-            
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
-                //print(json!)
-                let channel = Channel(dictionary: json!)
+        manager.GET(String("channels/" + channelId), parameters: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //print(response)
+            if let json = response as? NSDictionary {
+                let channel = Channel(dictionary: json)
                 completion(channel: channel, error: nil)
-            } catch {
-                print(error)
-                completion(channel: nil, error: apiError)
+            } else {
+                completion(channel: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
             }
+            
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error \(error.debugDescription)")
+                completion(channel: nil, error: error)
         }
         
-        task.resume()
     }
     
     
     func streamChannel(channelId: String!, completion: (channel: Channel?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "stream/" + channelId)!
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(endpoint) {(data: NSData?, response: NSURLResponse?, apiError: NSError?) in
-            
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
-                //print(json!)
-                let channel = Channel(dictionary: json!)
+        manager.GET(String("stream/" + channelId), parameters: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //print(response)
+            if let json = response as? NSDictionary {
+                let channel = Channel(dictionary: json)
                 completion(channel: channel, error: nil)
-            } catch {
-                print(error)
-                completion(channel: nil, error: apiError)
+            } else {
+                completion(channel: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
             }
+            
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error \(error.debugDescription)")
+                completion(channel: nil, error: error)
         }
         
-        task.resume()
     }
     
     
     func getMyChannels(completion: (channels: [Channel]?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "channels")!
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(endpoint) {(data: NSData?, response: NSURLResponse?, apiError: NSError?) in
-            
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [NSDictionary]
-                //print(json!)
-                let channels = Channel.channelsWithArray(json!)
+        manager.GET("channels", parameters: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //print(response)
+            if let json = response as? [NSDictionary] {
+                let channels = Channel.channelsWithArray(json)
                 completion(channels: channels, error: nil)
-            } catch {
-                print(error)
-                completion(channels: nil, error: apiError)
+            } else {
+                completion(channels: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
             }
+            
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error \(error.debugDescription)")
+                completion(channels: nil, error: error)
         }
         
-        task.resume()
     }
     
     func getBrowseChannels(completion: (channels: [Channel]?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "browse")!
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(endpoint) {(data: NSData?, response: NSURLResponse?, apiError: NSError?) in
-            
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [NSDictionary]
-                //print(json!)
-                let channels = Channel.channelsWithArray(json!)
+        manager.GET("browse", parameters: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //print(response)
+            if let json = response as? [NSDictionary] {
+                let channels = Channel.channelsWithArray(json)
                 completion(channels: channels, error: nil)
-            } catch {
-                print(error)
-                completion(channels: nil, error: apiError)
+            } else {
+                completion(channels: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
             }
+            
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error \(error.debugDescription)")
+                completion(channels: nil, error: error)
         }
         
-        task.resume()
     }
     
     func getAvailableFilters(completion: (filters: Filters?, error: NSError?) -> ()) {
-        let endpoint = NSURL(string: baseURL + "filters")!
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(endpoint) {(data: NSData?, response: NSURLResponse?, apiError: NSError?) in
-            
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
-                //print(json!)
-                let filters = Filters(dictionary: json!)
+        manager.GET("filters", parameters: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //print(response)
+            if let json = response as? NSDictionary {
+                let filters = Filters(dictionary: json)
                 completion(filters: filters, error: nil)
-            } catch {
-                print(error)
-                completion(filters: nil, error: apiError)
+            } else {
+                completion(filters: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
             }
+            
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error \(error.debugDescription)")
+                completion(filters: nil, error: error)
         }
         
-        task.resume()
     }
 }

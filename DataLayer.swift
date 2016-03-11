@@ -19,7 +19,14 @@ class DataLayer: NSObject {
 //        let itemDictionary = Mock.NewChannelItem.init(topics: topics).items
 //        let owner = Mock.NewUser().user
         
-        let channelDictionary = ["title": title, "filters": filtersDict, "topics": topics] as NSDictionary
+        let channelDictionary =
+            ["channel": [
+                "title": title,
+                "filters": filtersDict,
+                "topics": topics
+                ]
+            ] as NSDictionary
+        
         ChannelClient.sharedInstance.createChannel(channelDictionary) { (channel, error) -> () in
             if error != nil {
                print(error)

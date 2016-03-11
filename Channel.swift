@@ -13,7 +13,7 @@ class Channel: NSObject {
     let dictionary: NSDictionary?
     let owner: User?
     let channel_id: String?
-    let name: String?
+    let title: String?
     let thumbnail_url: String?
     let items: [ChannelItem]?
     let filters: Filters?
@@ -22,8 +22,8 @@ class Channel: NSObject {
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
-        channel_id = dictionary["channel_id"] as? String
-        name = dictionary["name"] as? String
+        channel_id = dictionary["_id"] as? String
+        title = dictionary["title"] as? String
         thumbnail_url = dictionary["thumbnail_url"] as? String
         
         let itemsArray = dictionary["items"] as? [NSDictionary]
