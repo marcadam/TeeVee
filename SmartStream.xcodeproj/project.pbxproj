@@ -28,6 +28,10 @@
 		492D02A51C8D1866000AAF17 /* Channels.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492D02A41C8D1866000AAF17 /* Channels.storyboard */; };
 		492D02A71C8D188F000AAF17 /* ChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02A61C8D188F000AAF17 /* ChannelsViewController.swift */; };
 		492D02AA1C8FD7BD000AAF17 /* ChannelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02A91C8FD7BD000AAF17 /* ChannelCollectionViewCell.xib */; };
+		492D02B11C916D3A000AAF17 /* ChannelCollectionPagingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02AF1C916D3A000AAF17 /* ChannelCollectionPagingViewCell.swift */; };
+		492D02B21C916D3A000AAF17 /* ChannelCollectionPagingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02B01C916D3A000AAF17 /* ChannelCollectionPagingViewCell.xib */; };
+		492D02B51C916F54000AAF17 /* ChannelCollectionPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02B41C916F54000AAF17 /* ChannelCollectionPageView.xib */; };
+		492D02B71C916F7E000AAF17 /* ChannelCollectionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02B61C916F7E000AAF17 /* ChannelCollectionPageView.swift */; };
 		A29BA4951C900D8200ED13A5 /* DataLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4941C900D8200ED13A5 /* DataLayer.swift */; };
 		A29BA4971C9120FD00ED13A5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4961C9120FD00ED13A5 /* User.swift */; };
 		A29BA4991C91235400ED13A5 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4981C91235400ED13A5 /* Filters.swift */; };
@@ -79,6 +83,10 @@
 		492D02A61C8D188F000AAF17 /* ChannelsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChannelsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		492D02A91C8FD7BD000AAF17 /* ChannelCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCollectionViewCell.xib; sourceTree = "<group>"; };
 		60ACCFF50C60CCC4519D3769 /* Pods_SmartStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		492D02AF1C916D3A000AAF17 /* ChannelCollectionPagingViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCollectionPagingViewCell.swift; sourceTree = "<group>"; };
+		492D02B01C916D3A000AAF17 /* ChannelCollectionPagingViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCollectionPagingViewCell.xib; sourceTree = "<group>"; };
+		492D02B41C916F54000AAF17 /* ChannelCollectionPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCollectionPageView.xib; sourceTree = "<group>"; };
+		492D02B61C916F7E000AAF17 /* ChannelCollectionPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCollectionPageView.swift; sourceTree = "<group>"; };
 		A29BA4941C900D8200ED13A5 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
 		A29BA4961C9120FD00ED13A5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A29BA4981C91235400ED13A5 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
@@ -302,6 +310,17 @@
 			name = Channels;
 			sourceTree = "<group>";
 		};
+		492D02B31C916D41000AAF17 /* ExploreCollectionPagingViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				492D02B01C916D3A000AAF17 /* ChannelCollectionPagingViewCell.xib */,
+				492D02AF1C916D3A000AAF17 /* ChannelCollectionPagingViewCell.swift */,
+				492D02B41C916F54000AAF17 /* ChannelCollectionPageView.xib */,
+				492D02B61C916F7E000AAF17 /* ChannelCollectionPageView.swift */,
+			);
+			name = ExploreCollectionPagingViewCell;
+			sourceTree = "<group>";
+		};
 		5C4BB3A47471187CBA70ED90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,6 +334,7 @@
 			children = (
 				A2F231E91C8D69730053956D /* FilterTableViewCell */,
 				0B14595F1C8BA9A0001E6C23 /* ChannelTableViewCell */,
+				492D02B31C916D41000AAF17 /* ExploreCollectionPagingViewCell */,
 				0B1459601C8BA9B8001E6C23 /* ExploreCollectionViewCell */,
 				0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */,
 			);
@@ -430,11 +450,13 @@
 			files = (
 				492D02A51C8D1866000AAF17 /* Channels.storyboard in Resources */,
 				0B597B5B1C844AD900D4AC57 /* LaunchScreen.storyboard in Resources */,
+				492D02B21C916D3A000AAF17 /* ChannelCollectionPagingViewCell.xib in Resources */,
 				A2A3A3D31C8AD99100D1173C /* MyChannels.storyboard in Resources */,
 				A2A3A3C41C8ACC7A00D1173C /* Player.storyboard in Resources */,
 				492D029B1C8BE100000AAF17 /* Settings.storyboard in Resources */,
 				492D02751C8B5E37000AAF17 /* ChannelTableViewCell.xib in Resources */,
 				492D02A01C8BE961000AAF17 /* Profile.storyboard in Resources */,
+				492D02B51C916F54000AAF17 /* ChannelCollectionPageView.xib in Resources */,
 				0B597B581C844AD900D4AC57 /* Assets.xcassets in Resources */,
 				A2A3A3D51C8AD9A300D1173C /* Explore.storyboard in Resources */,
 				A2F231EE1C8D69D10053956D /* FilterSwitchCell.xib in Resources */,
@@ -523,9 +545,11 @@
 				0B40EE751C8BC05C00E6B65E /* ChannelManager.swift in Sources */,
 				A2A3A3DF1C8AF74500D1173C /* ChannelCollectionViewCell.swift in Sources */,
 				0B2CD8AA1C8844C60055BD50 /* ChannelClient.swift in Sources */,
+				492D02B71C916F7E000AAF17 /* ChannelCollectionPageView.swift in Sources */,
 				A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */,
 				492D02A21C8BE997000AAF17 /* ProfileViewController.swift in Sources */,
 				A29BA4951C900D8200ED13A5 /* DataLayer.swift in Sources */,
+				492D02B11C916D3A000AAF17 /* ChannelCollectionPagingViewCell.swift in Sources */,
 				A2F231F31C8D7A590053956D /* FilterSelectCell.swift in Sources */,
 				A29BA49B1C9124FD00ED13A5 /* Mock.swift in Sources */,
 				A2A3A3CC1C8AD8D600D1173C /* ChannelEditorViewController.swift in Sources */,
