@@ -313,7 +313,9 @@ class ChannelManager: NSObject {
             playNextNativeItem(item)
         }
         
-        fetchMoreItems(false)
+        if priorityQueue!.count <= numItemsBeforeFetch {
+            fetchMoreItems(false)
+        }
     }
     
     func hidePlayerViews() {
