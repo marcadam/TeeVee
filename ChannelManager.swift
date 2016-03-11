@@ -98,21 +98,27 @@ class ChannelManager: NSObject {
     
     var channel: Channel? {
         didSet {
-            dispatch_async(dispatch_get_main_queue(),{
-                self.spinner?.stopAnimating()
-                self.spinner?.removeFromSuperview()
-            })
             
             if channel == nil || channel!.items!.count == 0 {
                 priorityQueue = PriorityQueue()
                 fetchMoreItems(true)
             } else {
+                removeSpinner()
                 priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
                 playNextItem()
             }
+            
         }
     }
     
+    func removeSpinner() {
+        if self.spinner != nil && self.spinner!.isDescendantOfView(self.playerContainerView!) {
+            dispatch_async(dispatch_get_main_queue(),{
+                self.spinner?.stopAnimating()
+                self.spinner?.removeFromSuperview()
+            })
+        }
+    }
     func fetchMoreItems(autoplay: Bool) {
         print("[MANAGER] fetchMoreItems()")
         ChannelClient.sharedInstance.streamChannel(channelId) { (channel, error) -> () in
@@ -123,6 +129,7 @@ class ChannelManager: NSObject {
                 
                 if autoplay {
                     dispatch_async(dispatch_get_main_queue(),{
+                        self.removeSpinner()
                         self.playNextItem()
                     })
                 }
