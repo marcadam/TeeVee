@@ -302,7 +302,7 @@ class ChannelManager: NSObject {
         if item == nil {return}
         
         let extractor = item!.extractor
-        print("[MANAGER] extractor = \(extractor!); id = \(item!.native_id!)")
+        print("[MANAGER] extractor = \(item!.extractor); id = \(item!.native_id)")
         
         if extractor == "youtube" {
             playNextYoutubeItem(item)
