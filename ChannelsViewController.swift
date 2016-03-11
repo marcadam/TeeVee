@@ -64,8 +64,9 @@ class ChannelsViewController: UIViewController {
         delegate?.channelsView(self, didTapMenuButton: sender)
     }
 
-    @IBAction func onValueChanged(sender: UISegmentedControl) {
+    @IBAction func onValueChanged(sender: SegmentedControl) {
         contentViewController = contentViewControllers[sender.selectedSegmentIndex]
+
     }
 }
 
