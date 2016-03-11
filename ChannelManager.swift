@@ -103,11 +103,30 @@ class ChannelManager: NSObject {
                 self.spinner?.removeFromSuperview()
             })
             
-            if channel == nil || channel!.items!.count == 0 {return}
-            priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
-            
-            // Autoplay
-            playNextItem()
+            if channel == nil || channel!.items!.count == 0 {
+                priorityQueue = PriorityQueue()
+                fetchMoreItems(true)
+            } else {
+                priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
+                playNextItem()
+            }
+        }
+    }
+    
+    func fetchMoreItems(autoplay: Bool) {
+        print("[MANAGER] fetchMoreItems()")
+        ChannelClient.sharedInstance.streamChannel(channelId) { (channel, error) -> () in
+            if channel != nil && channel!.items!.count > 0 {
+                for item in channel!.items! {
+                    self.priorityQueue!.push(item)
+                }
+                
+                if autoplay {
+                    dispatch_async(dispatch_get_main_queue(),{
+                        self.playNextItem()
+                    })
+                }
+            }
         }
     }
     
@@ -287,18 +306,7 @@ class ChannelManager: NSObject {
             playNextNativeItem(item)
         }
         
-        // Auto-fetch
-        if priorityQueue!.count <= numItemsBeforeFetch {
-            print("[MANAGER] fetching more data for channel: \(channelId!)")
-            ChannelClient.sharedInstance.streamChannel(channelId) { (channel, error) -> () in
-                if channel != nil && channel!.items!.count > 0 {
-                    print("[MANAGER] adding item (\(item!.extractor): \(item!.native_id)) to channel")
-                    for item in channel!.items! {
-                        self.priorityQueue!.push(item)
-                    }
-                }
-            }
-        }
+        fetchMoreItems(false)
     }
     
     func hidePlayerViews() {
