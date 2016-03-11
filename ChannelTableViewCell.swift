@@ -19,7 +19,6 @@ class ChannelTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         channelImageView.image = UIImage(named: "placeholder")
-        channelName.text = "Nature Channel"
         backgroundColor = UIColor.clearColor()
         channelName.textColor = Theme.Colors.HighlightColor.color
     }
