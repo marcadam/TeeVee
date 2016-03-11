@@ -17,6 +17,7 @@ protocol ChannelsViewControllerDelegate: class {
 class ChannelsViewController: UIViewController {
 
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var segmentedControl: SegmentedControl!
 
     private var contentViewControllers: [UIViewController] = []
     var contentViewController: UIViewController! {
@@ -41,6 +42,8 @@ class ChannelsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        segmentedControl.items = ["Streams", "Explore"]
+
         // Instantiate and add myChannels view controller
         let myChannelsStoryboard = UIStoryboard(name: "MyChannels", bundle: nil)
         let myChannelsVC = myChannelsStoryboard.instantiateViewControllerWithIdentifier("MyChannelsViewController") as! MyChannelsViewController
@@ -64,8 +67,9 @@ class ChannelsViewController: UIViewController {
         delegate?.channelsView(self, didTapMenuButton: sender)
     }
 
-    @IBAction func onValueChanged(sender: UISegmentedControl) {
+    @IBAction func onValueChanged(sender: SegmentedControl) {
         contentViewController = contentViewControllers[sender.selectedSegmentIndex]
+
     }
 }
 

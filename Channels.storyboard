@@ -37,20 +37,18 @@
                                 <action selector="didTapMenu:" destination="4tl-Gs-C7Q" id="FkJ-YO-lSk"/>
                             </connections>
                         </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="oey-8w-NfT">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                        <view key="titleView" contentMode="scaleToFill" id="a72-io-0gg" customClass="SegmentedControl" customModule="SmartStream" customModuleProvider="target">
+                            <rect key="frame" x="210" y="5.5" width="180" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="My Channels"/>
-                                <segment title="Explore"/>
-                            </segments>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="onValueChanged:" destination="4tl-Gs-C7Q" eventType="valueChanged" id="Tg8-jI-jp9"/>
+                                <action selector="onValueChanged:" destination="4tl-Gs-C7Q" eventType="valueChanged" id="tJ9-4p-bXg"/>
                             </connections>
-                        </segmentedControl>
+                        </view>
                     </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="jGk-nV-vlz" id="bgS-nl-OBR"/>
+                        <outlet property="segmentedControl" destination="a72-io-0gg" id="w4V-7d-Iaa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hnh-Nl-glh" userLabel="First Responder" sceneMemberID="firstResponder"/>
