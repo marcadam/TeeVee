@@ -279,7 +279,7 @@ class ChannelManager: NSObject {
     var currCueId: String! = ""
     func prepareNextItem() {
         let item = priorityQueue!.peek()
-        if item == nil || currCueId == item!.native_id! {return}
+        if item == nil || item!.native_id == nil || currCueId == item!.native_id! {return}
         currCueId = item!.native_id!
         
         let extractor = item!.extractor
@@ -298,8 +298,14 @@ class ChannelManager: NSObject {
     }
     
     func playNextItem() {
-        let item = priorityQueue!.pop()
-        if item == nil {return}
+        var item: ChannelItem? = nil
+        while (item == nil || item!.native_id == nil) && priorityQueue!.count > 0 {
+            item = priorityQueue!.pop()
+        }
+        if item == nil {
+            stop()
+            return
+        }
         
         let extractor = item!.extractor
         print("[MANAGER] extractor = \(item!.extractor); id = \(item!.native_id)")
