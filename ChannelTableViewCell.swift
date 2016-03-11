@@ -13,7 +13,14 @@ class ChannelTableViewCell: UITableViewCell {
     @IBOutlet weak var channelImageView: UIImageView!
     @IBOutlet weak var channelName: UILabel!
 
-    var channel: Channel!
+    var channel: Channel! {
+        didSet {
+            channelName.text = channel.title
+            if let thumbnail = channel.thumbnail_url {
+                channelImageView.setImageWithURL(NSURL(string: thumbnail)!, placeholderImage: UIImage(named: "placeholder"))
+            }
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

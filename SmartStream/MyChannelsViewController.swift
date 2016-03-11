@@ -75,10 +75,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelTableViewCell
         let channel = channelsArray[indexPath.row]
-        cell.channelName.text = channel.title
-        if let thumbnail = channel.thumbnail_url {
-            cell.channelImageView.setImageWithURL(NSURL(string: thumbnail)!, placeholderImage: UIImage(named: "placeholder"))
-        }
+        cell.channel = channel
         return cell
     }
 
