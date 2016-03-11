@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                     </scrollView>
                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="NbO-YJ-eKe">
-                        <rect key="frame" x="280.5" y="155" width="39" height="37"/>
+                        <rect key="frame" x="280.5" y="169" width="39" height="37"/>
                         <connections>
                             <action selector="pageControlDidPage:" destination="gTV-IL-0wX" eventType="valueChanged" id="jIt-ON-OdR"/>
                         </connections>
@@ -31,7 +31,7 @@
                 <constraint firstItem="NbO-YJ-eKe" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="RVg-KV-tVy"/>
                 <constraint firstAttribute="bottom" secondItem="7kY-2Q-Mp7" secondAttribute="bottom" id="Y99-FW-Kxn"/>
                 <constraint firstItem="7kY-2Q-Mp7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="mJi-Bd-bxt"/>
-                <constraint firstAttribute="bottom" secondItem="NbO-YJ-eKe" secondAttribute="bottom" constant="8" id="yft-NR-oI9"/>
+                <constraint firstAttribute="bottom" secondItem="NbO-YJ-eKe" secondAttribute="bottom" constant="-6" id="yft-NR-oI9"/>
             </constraints>
             <connections>
                 <outlet property="pageControl" destination="NbO-YJ-eKe" id="WJX-YH-tbp"/>

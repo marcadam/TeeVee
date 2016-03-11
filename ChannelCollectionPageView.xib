@@ -22,11 +22,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PU5-W8-9O7">
-                    <rect key="frame" x="271" y="123" width="58" height="37"/>
+                    <rect key="frame" x="271" y="147" width="58" height="28"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAz-tB-d5f">
-                            <rect key="frame" x="8" y="8" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <rect key="frame" x="8" y="8" width="42" height="12"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -35,7 +35,7 @@
                     <constraints>
                         <constraint firstItem="yAz-tB-d5f" firstAttribute="centerX" secondItem="PU5-W8-9O7" secondAttribute="centerX" id="PZc-DB-9T7"/>
                         <constraint firstAttribute="bottom" secondItem="yAz-tB-d5f" secondAttribute="bottom" constant="8" id="krj-NJ-Tx5"/>
-                        <constraint firstAttribute="height" constant="37" id="sa1-uo-rQY"/>
+                        <constraint firstAttribute="height" constant="28" id="sa1-uo-rQY"/>
                         <constraint firstItem="yAz-tB-d5f" firstAttribute="top" secondItem="PU5-W8-9O7" secondAttribute="top" constant="8" id="swB-bw-og5"/>
                         <constraint firstAttribute="width" secondItem="yAz-tB-d5f" secondAttribute="width" constant="16" id="wXp-ul-fW2"/>
                     </constraints>
@@ -47,7 +47,7 @@
                 <constraint firstAttribute="bottom" secondItem="LEv-ff-jmj" secondAttribute="bottom" id="b3p-4H-Upq"/>
                 <constraint firstItem="LEv-ff-jmj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dYV-tk-4ng"/>
                 <constraint firstItem="LEv-ff-jmj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="h1k-uq-vVD"/>
-                <constraint firstItem="PU5-W8-9O7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="123" id="mAr-qZ-ulD"/>
+                <constraint firstItem="PU5-W8-9O7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="147" id="mAr-qZ-ulD"/>
                 <constraint firstAttribute="trailing" secondItem="LEv-ff-jmj" secondAttribute="trailing" id="ygP-3d-lfS"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
