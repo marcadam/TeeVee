@@ -10,6 +10,11 @@ import UIKit
 
 @IBDesignable class SegmentedControl: UIControl {
 
+    private let controllerBackgroundColor = Theme.Colors.LightBackgroundColor.color
+    private let buttonBackgroundColor = Theme.Colors.BackgroundColor.color
+    private let offTextColor = Theme.Colors.HighlightLightColor.color
+    private let onTextColor = Theme.Colors.HighlightColor.color
+
     private var labels = [UILabel]()
     var thumbView = UIView()
 
@@ -46,8 +51,8 @@ import UIKit
     func setupView() {
         layer.cornerRadius = frame.height / 2
         layer.borderWidth = 2
-        layer.borderColor = UIColor.darkGrayColor().CGColor
-        backgroundColor = UIColor.darkGrayColor()
+        layer.borderColor = controllerBackgroundColor.CGColor
+        backgroundColor = controllerBackgroundColor
 
         setupLabels()
 
@@ -66,7 +71,7 @@ import UIKit
             label.font = UIFont.systemFontOfSize(fontSize)
             label.text = items[index]
             label.textAlignment = .Center
-            label.textColor = UIColor(white: 0.5, alpha: 1.0)
+            label.textColor = index == selectedSegmentIndex ? onTextColor : offTextColor
             self.addSubview(label)
             labels.append(label)
         }
@@ -75,15 +80,17 @@ import UIKit
     override func layoutSubviews() {
         super.layoutSubviews()
 
+        let inset: CGFloat = 2.0
+
         var selectedFrame = self.bounds
         let newWidth = CGRectGetWidth(selectedFrame) / CGFloat(items.count)
         selectedFrame.size.width = newWidth
         thumbView.frame = selectedFrame
-        thumbView.frame = CGRectInset(selectedFrame, 2.0, 2.0)
-        thumbView.backgroundColor = UIColor.blackColor()
+        thumbView.frame = CGRectInset(selectedFrame, inset, inset)
+        thumbView.backgroundColor = buttonBackgroundColor
         thumbView.layer.cornerRadius = thumbView.frame.height / 2.0
         thumbView.layer.borderWidth = 1
-        thumbView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        thumbView.layer.borderColor = offTextColor.CGColor
 
         let labelWidth = self.bounds.width / CGFloat(labels.count)
         let labelHeight = self.bounds.height
@@ -92,7 +99,7 @@ import UIKit
             let label = labels[index]
             let xPosition = CGFloat(index) * labelWidth
             label.frame = CGRectMake(xPosition, 0, labelWidth, labelHeight)
-            label.frame = CGRectInset(label.frame, 2.0, 2.0)
+            label.frame = CGRectInset(label.frame, inset, inset)
         }
     }
 
@@ -116,7 +123,11 @@ import UIKit
     }
 
     func displayNewSelectedSegmentIndex() {
+        for label in labels {
+            label.textColor = offTextColor
+        }
         let label = labels[selectedSegmentIndex]
+        label.textColor = onTextColor
         self.thumbView.frame = label.frame
     }
 }
