@@ -16,6 +16,9 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+
+        scrollView.delegate = self
+
         let scrollViewWidth = UIScreen.mainScreen().bounds.width
         scrollView.frame = CGRect(x: 0, y: 0, width: scrollViewWidth, height: 200)
 
@@ -27,5 +30,16 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
             let pageView = ChannelCollectionPageView(frame: CGRect(x: (pageWidth * CGFloat(index)), y: 0, width: pageWidth, height: pageHeight))
             scrollView.addSubview(pageView)
         }
+    }
+
+    @IBAction func pageControlDidPage(sender: UIPageControl) {
+        let xOffset = scrollView.bounds.width * CGFloat(pageControl.currentPage)
+        scrollView.setContentOffset(CGPointMake(xOffset, 0) , animated: true)
+    }
+}
+
+extension ChannelCollectionPagingViewCell: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
     }
 }
