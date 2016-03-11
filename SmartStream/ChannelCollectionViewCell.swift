@@ -21,6 +21,7 @@ class ChannelCollectionViewCell: UICollectionViewCell {
         // Initialization code
         backgroundColor = Theme.Colors.LightBackgroundColor.color
         infoContainerView.backgroundColor = Theme.Colors.BackgroundColor.color
+        channelNameLabel.textColor = Theme.Colors.HighlightColor.color
 
         channelImageView.image = UIImage(named: "placeholder")
         channelNameLabel.text = "Nature Channel"
