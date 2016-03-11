@@ -119,22 +119,22 @@ class ChannelManager: NSObject {
             })
         }
     }
+    
+    let qualityOfServiceClass = QOS_CLASS_BACKGROUND
     func fetchMoreItems(autoplay: Bool) {
         print("[MANAGER] fetchMoreItems()")
-        ChannelClient.sharedInstance.streamChannel(channelId) { (channel, error) -> () in
-            if channel != nil && channel!.items!.count > 0 {
-                for item in channel!.items! {
-                    self.priorityQueue!.push(item)
-                }
-                
-                if autoplay {
-                    dispatch_async(dispatch_get_main_queue(),{
-                        self.removeSpinner()
-                        self.playNextItem()
-                    })
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            ChannelClient.sharedInstance.streamChannel(self.channelId) { (channel, error) -> () in
+                if channel != nil && channel!.items!.count > 0 {
+                    for item in channel!.items! {
+                        self.priorityQueue!.push(item)
+                    }
+                    
+                    // check if currently playing, if not, restart
                 }
             }
-        }
+        })
     }
     
     func aboutToEndTweet() {
