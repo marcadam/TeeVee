@@ -17,6 +17,7 @@ protocol ChannelsViewControllerDelegate: class {
 class ChannelsViewController: UIViewController {
 
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var segmentedControl: SegmentedControl!
 
     private var contentViewControllers: [UIViewController] = []
     var contentViewController: UIViewController! {
@@ -40,6 +41,8 @@ class ChannelsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        segmentedControl.items = ["Streams", "Explore"]
 
         // Instantiate and add myChannels view controller
         let myChannelsStoryboard = UIStoryboard(name: "MyChannels", bundle: nil)

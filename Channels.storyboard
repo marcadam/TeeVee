@@ -38,7 +38,7 @@
                             </connections>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="a72-io-0gg" customClass="SegmentedControl" customModule="SmartStream" customModuleProvider="target">
-                            <rect key="frame" x="180" y="5.5" width="240" height="33"/>
+                            <rect key="frame" x="210" y="5.5" width="180" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -48,6 +48,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="jGk-nV-vlz" id="bgS-nl-OBR"/>
+                        <outlet property="segmentedControl" destination="a72-io-0gg" id="w4V-7d-Iaa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hnh-Nl-glh" userLabel="First Responder" sceneMemberID="firstResponder"/>
