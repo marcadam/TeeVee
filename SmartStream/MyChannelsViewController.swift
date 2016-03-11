@@ -11,7 +11,7 @@ import AFNetworking
 
 protocol MyChannelsViewControllerDelegate: class {
     func shouldPresentEditor(sender: MyChannelsViewController)
-    func shouldPresentPlayer(sender: MyChannelsViewController)
+    func shouldPresentPlayer(sender: MyChannelsViewController, withChannel channel: Channel)
 }
 
 class MyChannelsViewController: UIViewController {
@@ -84,7 +84,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        delegate?.shouldPresentPlayer(self)
+        delegate?.shouldPresentPlayer(self, withChannel: channelsArray[indexPath.row])
     }
     
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel) {

@@ -20,7 +20,7 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet var titleTextField: UITextField!
     
     private var topics:[String] = []
-    private var filters: Filters!
+    private var filters: Filters?
     
     weak var delegate: ChannelEditorDelegate?
     
@@ -50,8 +50,19 @@ class ChannelEditorViewController: UIViewController {
         // ChannelClient.sharedInstance.getAvailableFilters()
         
         // else if this is an existing channel, populate screen/filters using its data
-        let filtersDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300] as NSMutableDictionary
-        filters = Filters(dictionary: filtersDict)
+        if filters == nil {
+            let filtersDict = ["sources": ["youtube", "vimeo", "twitter"], "max_duration": 300] as NSMutableDictionary
+            filters = Filters(dictionary: filtersDict)
+        }
+    }
+    
+    func createChannel(completion: (channel: Channel)->()) {
+        if topics.count > 0 {
+            let filtersDictionary = ["title": titleTextField.text!, "topics": topics, "filters": filters!] as NSDictionary
+            DataLayer.createChannel(withDictionary: filtersDictionary) { (channel) -> () in
+                completion(channel: channel)
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,16 +71,21 @@ class ChannelEditorViewController: UIViewController {
     }
     
     @IBAction func onSaveTapped(sender: UIButton) {
+        createChannel { (channel) -> () in
+            
+            // Show latest added channel on MyFeed using delegate pattern
+            self.delegate?.channelEditor(self, didSetChannel: channel)
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                //
+            })
+        }
+    }
+    
+    @IBAction func onStartChannelTapped(sender: AnyObject) {
         if topics.count > 0 {
-            let filtersDictionary = ["title": titleTextField.text!, "topics": topics, "filters": filters] as NSDictionary
-            DataLayer.createChannel(withDictionary: filtersDictionary) { (channel) -> () in
-                // Show latest added channel on MyFeed using delegate pattern
-                self.delegate?.channelEditor(self, didSetChannel: channel)
-                
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    //
-                })
-            }
+            createChannel({ (channel) -> () in
+                self.performSegueWithIdentifier("playerSegue", sender: channel)
+            })
         }
     }
     
@@ -99,7 +115,8 @@ class ChannelEditorViewController: UIViewController {
             destination.filters = filters
         } else if segue.identifier == "playerSegue" {
             let destination = segue.destinationViewController as! PlayerViewController
-            destination.channelId = "0" // substitue with actual channelId
+            let channel = sender as! Channel
+            destination.channelId = channel.channel_id // substitue with actual channelId
         }
     }
 }
@@ -123,12 +140,12 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
         searchTextField.resignFirstResponder()
     }
     
-    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        let moveItem = topics[sourceIndexPath.row]
-        topics.removeAtIndex(sourceIndexPath.row)
-        topics.insert(moveItem, atIndex: destinationIndexPath.row)
-        tableView.setEditing(false, animated: true)
-    }
+//    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+//        let moveItem = topics[sourceIndexPath.row]
+//        topics.removeAtIndex(sourceIndexPath.row)
+//        topics.insert(moveItem, atIndex: destinationIndexPath.row)
+//        tableView.setEditing(false, animated: true)
+//    }
     
     func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
         self.filters = filters

@@ -58,7 +58,7 @@
                                 <rect key="frame" x="253" y="550" width="94" height="30"/>
                                 <state key="normal" title="Start Channel"/>
                                 <connections>
-                                    <segue destination="UM3-pZ-hxC" kind="presentation" identifier="playerSegue" id="lUt-Od-ltU"/>
+                                    <action selector="onStartChannelTapped:" destination="BRQ-9W-LhL" eventType="touchUpInside" id="f7i-mE-wAj"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ucu-k2-WAx">
@@ -138,6 +138,7 @@
                         <outlet property="searchWrapperView" destination="5ug-65-odw" id="kbO-r2-eYt"/>
                         <outlet property="tableView" destination="ucu-k2-WAx" id="Xa0-sO-8rs"/>
                         <outlet property="titleTextField" destination="xS4-Ee-q25" id="wHn-cV-UMk"/>
+                        <segue destination="UM3-pZ-hxC" kind="presentation" identifier="playerSegue" id="ylm-cK-Rl9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HG7-sd-E6r" userLabel="First Responder" sceneMemberID="firstResponder"/>

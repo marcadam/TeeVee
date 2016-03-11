@@ -116,10 +116,11 @@ extension HomeViewController: ChannelsViewControllerDelegate, ProfileViewControl
         }
         presentViewController(editorNC, animated: true, completion: nil)
     }
-
-    func shouldPresentPlayer(sender: ChannelsViewController) {
+    
+    func shouldPresentPlayer(sender: ChannelsViewController, withChannel channel: Channel) {
         let playerStoryboard = UIStoryboard(name: "Player", bundle: nil)
         let playerVC = playerStoryboard.instantiateViewControllerWithIdentifier("PlayerStoryboard") as! PlayerViewController
+        playerVC.channelId = channel.channel_id
         presentViewController(playerVC, animated: true, completion: nil)
     }
 
