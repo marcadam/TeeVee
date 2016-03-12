@@ -308,7 +308,7 @@ class ChannelManager: NSObject {
         }
         
         let extractor = item!.extractor
-        print("[MANAGER] extractor = \(item!.extractor); id = \(item!.native_id)")
+        print("[MANAGER] extractor = \(item!.extractor); id = \(item!.native_id); url = \(item!.url)")
         
         if extractor == "youtube" {
             playNextYoutubeItem(item)
@@ -458,9 +458,11 @@ extension ChannelManager {
                 if let currentPlayerAsset = nativePlayer!.currentItem?.asset as? AVURLAsset {
                     if currItem != nil && currItem!.url == currentPlayerAsset.URL.absoluteString {
                         dispatch_async(dispatch_get_main_queue(),{
-                            if let videoTrack = nativePlayer!.currentItem!.asset.tracksWithMediaType(AVMediaTypeVideo).first {
-                                print("naturalSize = \(videoTrack.naturalSize)")
-                                //print("preferredTransform = \(videoTrack.preferredTransform)")
+                            if nativePlayer!.currentItem != nil {
+                                if let videoTrack = nativePlayer!.currentItem!.asset.tracksWithMediaType(AVMediaTypeVideo).first {
+                                    print("naturalSize = \(videoTrack.naturalSize)")
+                                    //print("preferredTransform = \(videoTrack.preferredTransform)")
+                                }
                             }
                             self.nativePlayer?.play()
                         })
