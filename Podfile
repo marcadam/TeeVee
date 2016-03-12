@@ -5,14 +5,13 @@ use_frameworks!
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'SmartStream' do
-
-pod 'AFNetworking'
-pod 'BDBOAuth1Manager'
-pod 'FXBlurView'
-pod 'SwiftPriorityQueue'
-pod 'Fabric'
-pod 'TwitterKit'
-pod 'youtube-ios-player-helper', :git=>'https://github.com/youtube/youtube-ios-player-helper', :commit=>'head'
-
+    pod 'AFNetworking'
+    pod 'BDBOAuth1Manager'
+    pod 'FXBlurView'
+    pod 'SwiftPriorityQueue'
+    pod 'Fabric'
+    pod 'TwitterKit'
+    pod 'youtube-ios-player-helper', :git=>'https://github.com/youtube/youtube-ios-player-helper', :commit=>'head'
+    pod 'MBProgressHUD'
 end
 

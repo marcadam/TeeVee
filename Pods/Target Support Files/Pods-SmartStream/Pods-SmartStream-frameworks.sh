@@ -84,16 +84,18 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-SmartStream/AFNetworking.framework"
-  install_framework "Pods-SmartStream/BDBOAuth1Manager.framework"
-  install_framework "Pods-SmartStream/FXBlurView.framework"
-  install_framework "Pods-SmartStream/SwiftPriorityQueue.framework"
-  install_framework "Pods-SmartStream/youtube_ios_player_helper.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/AFNetworking/AFNetworking.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/BDBOAuth1Manager/BDBOAuth1Manager.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/FXBlurView/FXBlurView.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/MBProgressHUD/MBProgressHUD.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/SwiftPriorityQueue/SwiftPriorityQueue.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/youtube-ios-player-helper/youtube_ios_player_helper.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-SmartStream/AFNetworking.framework"
-  install_framework "Pods-SmartStream/BDBOAuth1Manager.framework"
-  install_framework "Pods-SmartStream/FXBlurView.framework"
-  install_framework "Pods-SmartStream/SwiftPriorityQueue.framework"
-  install_framework "Pods-SmartStream/youtube_ios_player_helper.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/AFNetworking/AFNetworking.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/BDBOAuth1Manager/BDBOAuth1Manager.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/FXBlurView/FXBlurView.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/MBProgressHUD/MBProgressHUD.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/SwiftPriorityQueue/SwiftPriorityQueue.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/youtube-ios-player-helper/youtube_ios_player_helper.framework"
 fi
