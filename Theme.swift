@@ -44,6 +44,7 @@ struct Theme {
     }
 
     static func applyTheme() {
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
         UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().barTintColor = Colors.BackgroundColor.color
         UINavigationBar.appearance().tintColor = Colors.HighlightColor.color

@@ -48,24 +48,26 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-    <key>Fabric</key>
-    <dict>
-        <key>APIKey</key>
-        <string>061fb4d7ee4226639f930ab14c81b7512639e650</string>
-        <key>Kits</key>
-        <array>
-            <dict>
-                <key>KitInfo</key>
-                <dict>
-                    <key>consumerKey</key>
-                    <string>FQIk7DyQzhDvgX4K7tU8lY8Yn</string>
-                    <key>consumerSecret</key>
-                    <string>SezPu6XCYhShEMYJQaG1LlauzHwVEy6UiLO1tTNPcj73DvyaeY</string>
-                </dict>
-                <key>KitName</key>
-                <string>Twitter</string>
-            </dict>
-        </array>
-    </dict>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>061fb4d7ee4226639f930ab14c81b7512639e650</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict>
+					<key>consumerKey</key>
+					<string>FQIk7DyQzhDvgX4K7tU8lY8Yn</string>
+					<key>consumerSecret</key>
+					<string>SezPu6XCYhShEMYJQaG1LlauzHwVEy6UiLO1tTNPcj73DvyaeY</string>
+				</dict>
+				<key>KitName</key>
+				<string>Twitter</string>
+			</dict>
+		</array>
+	</dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>
