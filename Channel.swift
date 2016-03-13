@@ -39,7 +39,7 @@ class Channel: NSObject {
         }
         
         self.items = items
-        self.curatedInfo = curatedInfo
+        self.curatedInfo = curated
         filters = dictionary["filters"] as? Filters
         topics = dictionary["topics"] as? [String]
         owner = dictionary["owner"] as? User
