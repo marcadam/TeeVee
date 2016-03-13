@@ -38,7 +38,20 @@ class DataLayer: NSObject {
     }
     
     class func updateChannel(withChannel channel: Channel, completion: (error: NSError?, channel: Channel?) -> ()) {
-        ChannelClient.sharedInstance.updateChannel(channel.channel_id, channelDict: channel.dictionary) { (channel, error) -> () in
+        
+        let topics = channel.dictionary!["topics"] as! [String]
+        let filters = channel.dictionary!["filters"] as! NSDictionary
+        let title = channel.dictionary!["title"] as! String
+        
+        let channelDictionary =
+        ["channel": [
+            "title": title,
+            "filters": filters,
+            "topics": topics
+            ]
+        ] as NSDictionary
+        
+        ChannelClient.sharedInstance.updateChannel(channel.channel_id, channelDict: channelDictionary) { (channel, error) -> () in
             if error != nil {
                 completion(error: error!, channel: nil)
             } else {
@@ -47,12 +60,12 @@ class DataLayer: NSObject {
         }
     }
     
-    class func deleteChannel(withChannel channel: Channel, completion: (error: NSError?, channel: Channel?) -> ()) {
+    class func deleteChannel(withChannel channel: Channel, completion: (error: NSError?, channelId: String?) -> ()) {
         ChannelClient.sharedInstance.deleteChannel(channel.channel_id) { (channelId, error) -> () in
             if error != nil {
-                completion(error: error!, channel: nil)
+                completion(error: error!, channelId: nil)
             } else {
-                completion(error: nil, channel: channel)
+                completion(error: nil, channelId: channelId)
             }
         }
     }
