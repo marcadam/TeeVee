@@ -10,18 +10,45 @@ import UIKit
 
 class Channel: NSObject {
 
-    let dictionary: NSDictionary?
+    var dictionary: NSMutableDictionary?
     let owner: User?
     let channel_id: String?
-    let title: String?
-    let thumbnail_url: String?
-    let items: [ChannelItem]?
-    let filters: Filters?
-    let topics: [String]?
-    let curated: CuratedInfo?
+    var title: String? {
+        didSet {
+            self.dictionary?.setValue(title!, forKey: "title")
+        }
+    }
+    var thumbnail_url: String? {
+        didSet {
+            self.dictionary?.setValue(thumbnail_url!, forKey: "thumbnail_url")
+        }
+    }
+    var items: [ChannelItem]? {
+        didSet {
+            self.dictionary?.setValue(items, forKey: "items")
+        }
+    }
+    var filters: Filters? {
+        didSet {
+            let max_duration = filters!.max_duration
+            let dict = ["max_duration": max_duration!]
+            self.dictionary?.setValue(dict, forKey: "filters")
+        }
+    }
+    var topics: [String]? {
+        didSet {
+            self.dictionary?.setValue(topics, forKey: "topics")
+        }
+    }
+    var curated: CuratedInfo? {
+        didSet {
+            dictionary?.setValue(curated, forKey: "curated")
+        }
+    }
     
     init(dictionary: NSDictionary) {
-        self.dictionary = dictionary
+        let dict = dictionary
+        self.dictionary = dict.mutableCopy() as? NSMutableDictionary
         
         var items = [ChannelItem]()
         var curated: CuratedInfo? = nil
@@ -45,6 +72,9 @@ class Channel: NSObject {
         owner = dictionary["owner"] as? User
     }
     
+    private func filterToDictionary() {
+        
+    }
     
     class func channelsWithArray(array: [NSDictionary]) -> [Channel] {
         var channels = [Channel]()

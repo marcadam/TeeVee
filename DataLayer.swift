@@ -9,7 +9,7 @@
 import UIKit
 
 class DataLayer: NSObject {
-    class func createChannel(withDictionary dictionary: NSDictionary, completion: (channel: Channel)->()) {
+    class func createChannel(withDictionary dictionary: NSDictionary, completion: (error: NSError?, channel: Channel?) -> ()) {
 //        let channelID = generateID()
         let topics = dictionary["topics"] as! [String]
         let filters = dictionary["filters"] as! Filters
@@ -30,8 +30,29 @@ class DataLayer: NSObject {
         ChannelClient.sharedInstance.createChannel(channelDictionary) { (channel, error) -> () in
             if error != nil {
                print(error)
+                completion(error: error!, channel: nil)
             } else {
-               completion(channel: channel!)
+                completion(error: nil, channel: channel!)
+            }
+        }
+    }
+    
+    class func updateChannel(withChannel channel: Channel, completion: (error: NSError?, channel: Channel?) -> ()) {
+        ChannelClient.sharedInstance.updateChannel(channel.channel_id, channelDict: channel.dictionary) { (channel, error) -> () in
+            if error != nil {
+                completion(error: error!, channel: nil)
+            } else {
+                completion(error: nil, channel: channel!)
+            }
+        }
+    }
+    
+    class func deleteChannel(withChannel channel: Channel, completion: (error: NSError?, channel: Channel?) -> ()) {
+        ChannelClient.sharedInstance.deleteChannel(channel.channel_id) { (channelId, error) -> () in
+            if error != nil {
+                completion(error: error!, channel: nil)
+            } else {
+                completion(error: nil, channel: channel)
             }
         }
     }
