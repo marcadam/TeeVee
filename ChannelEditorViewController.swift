@@ -21,7 +21,22 @@ class ChannelEditorViewController: UIViewController {
     
     private var topics:[String] = []
     private var filters: Filters?
-    var channel: Channel?
+    private var isEdit = false
+    
+    var channel: Channel? {
+        didSet {
+            if let setChannel = channel {
+                isEdit = true
+                topics = setChannel.topics!
+                view.layoutIfNeeded()
+                titleTextField.text = setChannel.title ?? nil
+                if let filters = setChannel.filters {
+                    self.filters = filters
+                }
+            }
+        }
+    }
+    
     weak var delegate: ChannelEditorDelegate?
     
     override func viewDidLoad() {
@@ -43,6 +58,7 @@ class ChannelEditorViewController: UIViewController {
         searchTextField.textColor = Theme.Colors.HighlightColor.color
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Create Channel", attributes: [NSForegroundColorAttributeName: Theme.Colors.HighlightLightColor.color])
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
+        tableView.rowHeight = 100
     }
     
     func setDefaults() {
@@ -53,6 +69,8 @@ class ChannelEditorViewController: UIViewController {
         if filters == nil {
             let filtersDict = ["max_duration": 300] as NSMutableDictionary
             filters = Filters(dictionary: filtersDict)
+        } else {
+            filters = channel?.filters
         }
     }
     
@@ -134,6 +152,16 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
         cell.backgroundColor = UIColor.clearColor()
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            self.topics.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+        deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
+        
+        return [deleteAction]
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
