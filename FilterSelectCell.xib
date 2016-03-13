@@ -11,15 +11,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lyB-3K-67I" id="wfX-V3-EvF">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Short &lt; 1 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8H-Ou-El6">
-                        <rect key="frame" x="8" y="11" width="102" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="hkw-nF-6wa">
                         <rect key="frame" x="285" y="8" width="27" height="27"/>
                         <constraints>
@@ -27,17 +21,50 @@
                             <constraint firstAttribute="width" constant="27" id="st0-tu-x9D"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8H-Ou-El6">
+                        <rect key="frame" x="8" y="11.5" width="80" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="gIb-5t-5mR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGL-sg-cd1">
+                        <rect key="frame" x="103" y="11" width="25" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="R5x-z5-ROX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8W8-na-Ubc">
+                        <rect key="frame" x="153" y="11" width="60" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="coR-mT-fSu"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="c8H-Ou-El6" firstAttribute="leading" secondItem="wfX-V3-EvF" secondAttribute="leading" constant="8" id="2Pz-17-Qnb"/>
+                    <constraint firstItem="WGL-sg-cd1" firstAttribute="leading" secondItem="c8H-Ou-El6" secondAttribute="trailing" constant="15" id="5oC-uX-cop"/>
+                    <constraint firstItem="8W8-na-Ubc" firstAttribute="leading" secondItem="WGL-sg-cd1" secondAttribute="trailing" constant="25" id="G1b-1a-Rv2"/>
                     <constraint firstAttribute="trailing" secondItem="hkw-nF-6wa" secondAttribute="trailing" constant="8" id="IJ6-Zm-oAG"/>
-                    <constraint firstItem="c8H-Ou-El6" firstAttribute="centerY" secondItem="wfX-V3-EvF" secondAttribute="centerY" id="tdH-Xy-ywA"/>
+                    <constraint firstItem="c8H-Ou-El6" firstAttribute="centerY" secondItem="wfX-V3-EvF" secondAttribute="centerY" id="SEr-VA-eb6"/>
+                    <constraint firstItem="c8H-Ou-El6" firstAttribute="leading" secondItem="wfX-V3-EvF" secondAttribute="leading" constant="8" id="UQu-kF-dov"/>
+                    <constraint firstItem="WGL-sg-cd1" firstAttribute="centerY" secondItem="wfX-V3-EvF" secondAttribute="centerY" id="V36-4T-fCc"/>
+                    <constraint firstItem="8W8-na-Ubc" firstAttribute="centerY" secondItem="wfX-V3-EvF" secondAttribute="centerY" id="pCS-HD-w7k"/>
                     <constraint firstItem="hkw-nF-6wa" firstAttribute="centerY" secondItem="wfX-V3-EvF" secondAttribute="centerY" id="wiC-tn-Niq"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="filterCheckImageView" destination="hkw-nF-6wa" id="Zc7-Uc-nrT"/>
-                <outlet property="filterLabel" destination="c8H-Ou-El6" id="e6n-08-U0U"/>
+                <outlet property="filterMinuteLabel" destination="8W8-na-Ubc" id="7K9-mu-RiU"/>
+                <outlet property="filterSymbolLabel" destination="WGL-sg-cd1" id="FZr-ve-Mux"/>
+                <outlet property="filterTextLabel" destination="c8H-Ou-El6" id="Rd0-Cc-TDU"/>
             </connections>
             <point key="canvasLocation" x="733" y="312"/>
         </tableViewCell>

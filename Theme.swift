@@ -32,13 +32,13 @@ struct Theme {
         case TitleThinTypeFace
         case NormalTypeFace
         case LightNormalTypeFace
-        
+
         var font: UIFont {
             switch self {
-            case .TitleThinTypeFace: return UIFont.systemFontOfSize(30, weight: UIFontWeightThin)
-            case .TitleTypeFace: return UIFont.systemFontOfSize(30, weight: UIFontWeightRegular)
-            case .NormalTypeFace: return UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
-            case .LightNormalTypeFace: return UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+            case .TitleThinTypeFace: return UIFont.systemFontOfSize(24, weight: UIFontWeightThin)
+            case .TitleTypeFace: return UIFont.systemFontOfSize(24, weight: UIFontWeightRegular)
+            case .NormalTypeFace: return UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
+            case .LightNormalTypeFace: return UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
             }
         }
     }
