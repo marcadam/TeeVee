@@ -55,13 +55,5 @@
             </objects>
             <point key="canvasLocation" x="2289" y="922"/>
         </scene>
-        <!--PlayerStoryboard-->
-        <scene sceneID="yCR-qX-rKZ">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Player" referencedIdentifier="PlayerStoryboard" id="nlp-Jr-atD" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YNv-O0-2MM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2803.5" y="922"/>
-        </scene>
     </scenes>
 </document>

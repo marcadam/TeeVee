@@ -34,11 +34,11 @@ Nice-to-haves:
 
 # Wireframes
 
-![Basic wireframes](/WireframesSmartStream.png?raw=true "Basic wireframes")
+![Basic wireframes](Design/WireframesSmartStream.png?raw=true "Basic wireframes")
 
 # Initial UI Designs
 
-![Stream Design](Streams.png "Stream Design") ![Explore Design](ExploreSF.png "Explore Design")
+![Stream Design](Design/Streams.png?raw=true "Stream Design") ![Explore Design](Design/ExploreSF.png?raw=true "Explore Design")
 
 # Walkthrough
 

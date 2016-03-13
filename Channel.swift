@@ -51,7 +51,6 @@ class Channel: NSObject {
         self.dictionary = dict.mutableCopy() as? NSMutableDictionary
         
         var items = [ChannelItem]()
-        var curated: CuratedInfo? = nil
         
         channel_id = dictionary["_id"] as? String
         title = dictionary["title"] as? String
@@ -61,12 +60,7 @@ class Channel: NSObject {
             items = ChannelItem.items(array: itemsArray)
         }
         
-        if let curatedInfo = dictionary["curated"] as? NSDictionary {
-            curated = CuratedInfo(dictionary: curatedInfo)
-        }
-        
         self.items = items
-        self.curated = curated
         filters = dictionary["filters"] as? Filters
         topics = dictionary["topics"] as? [String]
         owner = dictionary["owner"] as? User
