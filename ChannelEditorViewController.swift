@@ -121,13 +121,15 @@ class ChannelEditorViewController: UIViewController {
     
     @IBAction func onSaveTapped(sender: UIButton) {
         if isEdit {
-            updateChannel({ (error, channel) -> () in
-                if error != nil {
-                    print(error)
-                } else {
-                    
-                }
-            })
+            if topics.count > 0 {
+                updateChannel({ (error, channel) -> () in
+                    if error != nil {
+                        print(error)
+                    } else {
+                        
+                    }
+                })
+            }
         } else {
             createChannel { (error, channel) -> () in
                 if error != nil {

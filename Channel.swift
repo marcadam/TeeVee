@@ -40,11 +40,6 @@ class Channel: NSObject {
             self.dictionary?.setValue(topics, forKey: "topics")
         }
     }
-    var curated: CuratedInfo? {
-        didSet {
-            dictionary?.setValue(curated, forKey: "curated")
-        }
-    }
     
     init(dictionary: NSDictionary) {
         let dict = dictionary
