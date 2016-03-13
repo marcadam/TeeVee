@@ -10,7 +10,7 @@ import UIKit
 import AFNetworking
 
 protocol MyChannelsViewControllerDelegate: class {
-    func shouldPresentEditor(sender: MyChannelsViewController)
+    func shouldPresentEditor(sender: MyChannelsViewController, withChannel channel: Channel?)
     func shouldPresentPlayer(sender: MyChannelsViewController, withChannel channel: Channel)
 }
 
@@ -47,6 +47,8 @@ class MyChannelsViewController: UIViewController {
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         createChannelLabel.textColor = Theme.Colors.HighlightColor.color
+        
+        tableView.rowHeight = 100
     }
     func getChannels() {
         ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
@@ -60,7 +62,7 @@ class MyChannelsViewController: UIViewController {
     }
     
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
-        delegate?.shouldPresentEditor(self)
+        delegate?.shouldPresentEditor(self, withChannel: nil)
     }
 
 }
@@ -76,12 +78,30 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         let cell = tableView.dequeueReusableCellWithIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelTableViewCell
         let channel = channelsArray[indexPath.row]
         cell.channel = channel
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         delegate?.shouldPresentPlayer(self, withChannel: channelsArray[indexPath.row])
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            self.delegate?.shouldPresentEditor(self, withChannel: self.channelsArray[indexPath.row])
+            self.tableView.editing = false
+        }
+        editAction.backgroundColor = UIColor(red: 164/255, green: 179/255, blue: 112/255, alpha: 1)
+        
+        
+        let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            self.channelsArray.removeAtIndex(indexPath.row)
+            tableView.reloadData()
+        }
+        deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
+        
+        return [editAction,deleteAction]
     }
     
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel) {

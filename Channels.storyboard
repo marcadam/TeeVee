@@ -38,7 +38,7 @@
                             </connections>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="a72-io-0gg" customClass="SegmentedControl" customModule="SmartStream" customModuleProvider="target">
-                            <rect key="frame" x="210" y="5.5" width="180" height="33"/>
+                            <rect key="frame" x="210" y="6" width="180" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>

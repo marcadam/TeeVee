@@ -59,24 +59,24 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func onPanGesture(sender: UIPanGestureRecognizer) {
-        let translation = sender.translationInView(view)
-        let velocity = sender.velocityInView(view)
+//        let translation = sender.translationInView(view)
+//        let velocity = sender.velocityInView(view)
 
-        if sender.state == .Began {
-            originalContentViewLeftMargin = contentViewLeadingConstraint.constant
-        } else if sender.state == .Changed {
-            contentViewLeadingConstraint.constant = originalContentViewLeftMargin + translation.x
-        } else if sender.state == .Ended {
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                if velocity.x > 0 {
-                    self.contentViewLeadingConstraint.constant = self.view.bounds.width - self.contentViewPeakOffset
-                    self.menuOpen = true
-                } else {
-                    self.contentViewLeadingConstraint.constant = 0
-                    self.menuOpen = false
-                }
-            })
-        }
+//        if sender.state == .Began {
+//            originalContentViewLeftMargin = contentViewLeadingConstraint.constant
+//        } else if sender.state == .Changed {
+//            contentViewLeadingConstraint.constant = originalContentViewLeftMargin + translation.x
+//        } else if sender.state == .Ended {
+//            UIView.animateWithDuration(0.3, animations: { () -> Void in
+//                if velocity.x > 0 {
+//                    self.contentViewLeadingConstraint.constant = self.view.bounds.width - self.contentViewPeakOffset
+//                    self.menuOpen = true
+//                } else {
+//                    self.contentViewLeadingConstraint.constant = 0
+//                    self.menuOpen = false
+//                }
+//            })
+//        }
     }
 }
 
@@ -107,11 +107,16 @@ extension HomeViewController: ChannelsViewControllerDelegate, ProfileViewControl
         toggleMenu()
     }
 
-    func shouldPresentEditor(sender: ChannelsViewController) {
+    func shouldPresentEditor(sender: ChannelsViewController, withChannel channel: Channel?) {
         let editorStoryboard = UIStoryboard(name: "ChannelEditor", bundle: nil)
         let editorNC = editorStoryboard.instantiateViewControllerWithIdentifier("ChannelEditorNavigationController") as! UINavigationController
         let editorVC = editorNC.topViewController as! ChannelEditorViewController
         if let myChannelVC = sender.contentViewController as? MyChannelsViewController {
+            if let checkChannel = channel {
+                editorVC.channel = checkChannel
+            } else {
+                editorVC.channel = nil
+            }
             editorVC.delegate = myChannelVC
         }
         presentViewController(editorNC, animated: true, completion: nil)

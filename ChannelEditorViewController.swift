@@ -21,7 +21,7 @@ class ChannelEditorViewController: UIViewController {
     
     private var topics:[String] = []
     private var filters: Filters?
-    
+    var channel: Channel?
     weak var delegate: ChannelEditorDelegate?
     
     override func viewDidLoad() {
