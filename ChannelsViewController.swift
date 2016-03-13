@@ -42,7 +42,7 @@ class ChannelsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        segmentedControl.items = ["Streams", "Explore"]
+        segmentedControl.items = ["My Streams", "Explore"]
 
         // Instantiate and add myChannels view controller
         let myChannelsStoryboard = UIStoryboard(name: "MyChannels", bundle: nil)
