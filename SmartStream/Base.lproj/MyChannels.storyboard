@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Pd-Bx-FT7">
-                                <rect key="frame" x="0.0" y="48" width="600" height="488"/>
+                                <rect key="frame" x="0.0" y="50" width="600" height="486"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="XVg-Ae-aKh" id="OnA-na-PHe"/>
@@ -54,7 +54,7 @@
                             <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="oA4-yX-AvU" secondAttribute="bottom" id="hql-Rj-xi0"/>
                             <constraint firstAttribute="trailing" secondItem="zvu-2i-osg" secondAttribute="trailing" id="lNI-ka-VA1"/>
                             <constraint firstItem="YAg-VK-nIn" firstAttribute="top" secondItem="9Pd-Bx-FT7" secondAttribute="bottom" id="mt7-nI-r4P"/>
-                            <constraint firstItem="9Pd-Bx-FT7" firstAttribute="top" secondItem="zvu-2i-osg" secondAttribute="bottom" constant="-2" id="r9J-RZ-Epc"/>
+                            <constraint firstItem="9Pd-Bx-FT7" firstAttribute="top" secondItem="zvu-2i-osg" secondAttribute="bottom" id="r9J-RZ-Epc"/>
                             <constraint firstItem="zvu-2i-osg" firstAttribute="leading" secondItem="7j7-QB-XqQ" secondAttribute="leading" id="v6j-TT-F4U"/>
                             <constraint firstItem="9Pd-Bx-FT7" firstAttribute="leading" secondItem="7j7-QB-XqQ" secondAttribute="leading" id="whb-qi-hRU"/>
                             <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="7j7-QB-XqQ" secondAttribute="top" id="zaW-fO-ajt"/>

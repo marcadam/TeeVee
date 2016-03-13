@@ -48,7 +48,8 @@ class MyChannelsViewController: UIViewController {
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         createChannelLabel.textColor = Theme.Colors.HighlightColor.color
         
-        tableView.rowHeight = 100
+        tableView.rowHeight = 90
+        tableView.separatorStyle = .None
     }
     func getChannels() {
         ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
@@ -78,7 +79,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         let cell = tableView.dequeueReusableCellWithIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelTableViewCell
         let channel = channelsArray[indexPath.row]
         cell.channel = channel
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.selectionStyle = .None
         return cell
     }
 

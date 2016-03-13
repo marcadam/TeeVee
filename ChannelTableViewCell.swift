@@ -28,6 +28,7 @@ class ChannelTableViewCell: UITableViewCell {
         channelImageView.image = UIImage(named: "placeholder")
         backgroundColor = UIColor.clearColor()
         channelName.textColor = Theme.Colors.HighlightColor.color
+        channelImageView.layer.cornerRadius = channelImageView.frame.height / 2
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
