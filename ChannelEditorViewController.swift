@@ -56,7 +56,7 @@ class ChannelEditorViewController: UIViewController {
         searchWrapperView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         searchTextField.font = Theme.Fonts.TitleThinTypeFace.font
         searchTextField.textColor = Theme.Colors.HighlightColor.color
-        searchTextField.attributedPlaceholder = NSAttributedString(string: "Create Channel", attributes: [NSForegroundColorAttributeName: Theme.Colors.HighlightLightColor.color])
+        searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a new topic", attributes: [NSForegroundColorAttributeName: Theme.Colors.HighlightLightColor.color])
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.rowHeight = 100
     }
@@ -188,7 +188,7 @@ class ChannelEditorViewController: UIViewController {
     }
 }
 
-extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, FiltersViewDelegate {
+extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, FiltersViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return topics.count
     }
@@ -219,5 +219,18 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
     
     func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
         self.filters = filters
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField.tag == 0 {
+            if let topic = searchTextField.text {
+                if topic != "" {
+                    topics.insert(topic, atIndex: 0)
+                    searchTextField.text = ""
+                    tableView.reloadData()
+                }
+            }
+        }
+        return true
     }
 }
