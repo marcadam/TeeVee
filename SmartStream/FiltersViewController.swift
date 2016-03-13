@@ -26,7 +26,13 @@ class FiltersViewController: UIViewController {
     weak var delegate: FiltersViewDelegate?
     private let filterCellID = "com.smartchannel.FilterSwitchCell"
     private let filterSelectCellID = "com.smartchannel.FilterSelectCell"
-    private let filterData = ["Max Duration": ["Short < 1 min","Medium < 5 min","Long > 5 min"]]
+    private let filterData = [
+        "Max Duration": [
+            ["Short",  "<", "1 min"],
+            ["Medium", "<", "5 min"],
+            ["Long",   ">", "5 min"],
+        ]
+    ]
     private var titles = []
     private var durationSelected: Int!
     private var durationSelectedIndex: Int!
@@ -94,7 +100,9 @@ extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.filterCheckImageView.alpha = 1
             })
         }
-        cell.filterLabel.text = filterData["Max Duration"]![indexPath.row]
+        cell.filterTextLabel.text = filterData["Max Duration"]![indexPath.row][0]
+        cell.filterSymbolLabel.text = filterData["Max Duration"]![indexPath.row][1]
+        cell.filterMinuteLabel.text = filterData["Max Duration"]![indexPath.row][2]
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
     }
@@ -129,15 +137,4 @@ extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
         header.textLabel?.font = Theme.Fonts.NormalTypeFace.font
         header.textLabel?.textColor = Theme.Colors.HighlightColor.color
     }
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }
