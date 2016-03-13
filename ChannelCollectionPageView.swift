@@ -16,6 +16,15 @@ class ChannelCollectionPageView: UIView {
     @IBOutlet weak var channelNameContainerView: UIView!
     @IBOutlet weak var channelNameLabel: UILabel!
 
+    var channel: Channel! {
+        didSet {
+            channelNameLabel.text = channel.title
+            if let coverURL = channel.curated?.cover_url {
+                pageImageView.setImageWithURL(NSURL(string: coverURL)!, placeholderImage: UIImage(named: "placeholder"))
+            }
+        }
+    }
+
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         initSubviews()
@@ -40,10 +49,5 @@ class ChannelCollectionPageView: UIView {
         channelNameContainerView.layer.borderColor = Theme.Colors.LightBackgroundColor.color.CGColor
         channelNameContainerView.layer.borderWidth = 1.0
         channelNameLabel.textColor = Theme.Colors.HighlightColor.color
-
-        // custom initialization logic
-        pageImageView.image = UIImage(named: "placeholder")
-        channelNameLabel.text = "Nature Channel"
     }
-
 }

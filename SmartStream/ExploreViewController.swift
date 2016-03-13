@@ -91,6 +91,7 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(channelPagingCellID, forIndexPath: indexPath) as! ChannelCollectionPagingViewCell
+            cell.featuredChannels = featuredChannels
             return cell
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelCollectionViewCell
