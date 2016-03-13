@@ -10,19 +10,44 @@ import UIKit
 
 class Channel: NSObject {
 
-    let dictionary: NSDictionary?
+    var dictionary: NSMutableDictionary?
     let owner: User?
     let channel_id: String?
-    let title: String?
-    let thumbnail_url: String?
-    let items: [ChannelItem]?
-    let filters: Filters?
-    let topics: [String]?
+    var title: String? {
+        didSet {
+            self.dictionary?.setValue(title!, forKey: "title")
+        }
+    }
+    var thumbnail_url: String? {
+        didSet {
+            self.dictionary?.setValue(thumbnail_url!, forKey: "thumbnail_url")
+        }
+    }
+    var items: [ChannelItem]? {
+        didSet {
+            self.dictionary?.setValue(items, forKey: "items")
+        }
+    }
+    var filters: Filters? {
+        didSet {
+            let max_duration = filters!.max_duration
+            let dict = ["max_duration": max_duration!]
+            self.dictionary?.setValue(dict, forKey: "filters")
+        }
+    }
+    var topics: [String]? {
+        didSet {
+            self.dictionary?.setValue(topics, forKey: "topics")
+        }
+    }
+    let curated: CuratedInfo?
     
     init(dictionary: NSDictionary) {
-        self.dictionary = dictionary
+        let dict = dictionary
+        self.dictionary = dict.mutableCopy() as? NSMutableDictionary
         
         var items = [ChannelItem]()
+        var curated: CuratedInfo? = nil
         
         channel_id = dictionary["_id"] as? String
         title = dictionary["title"] as? String
@@ -32,12 +57,20 @@ class Channel: NSObject {
             items = ChannelItem.items(array: itemsArray)
         }
         
+        if let curatedInfo = dictionary["curated"] as? NSDictionary {
+            curated = CuratedInfo(dictionary: curatedInfo)
+        }
+        
         self.items = items
+        self.curated = curated
         filters = dictionary["filters"] as? Filters
         topics = dictionary["topics"] as? [String]
         owner = dictionary["owner"] as? User
     }
     
+    private func filterToDictionary() {
+        
+    }
     
     class func channelsWithArray(array: [NSDictionary]) -> [Channel] {
         var channels = [Channel]()

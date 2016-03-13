@@ -74,11 +74,42 @@ class ChannelEditorViewController: UIViewController {
         }
     }
     
-    func createChannel(completion: (channel: Channel)->()) {
+    func createChannel(completion: (error: NSError?, channel: Channel?)->()) {
         if topics.count > 0 {
             let channelDictionary = ["title": titleTextField.text!, "topics": topics, "filters": filters!] as NSDictionary
-            DataLayer.createChannel(withDictionary: channelDictionary) { (channel) -> () in
-                completion(channel: channel)
+            DataLayer.createChannel(withDictionary: channelDictionary, completion: { (error, channel) -> () in
+                if error != nil {
+                    completion(error: error!, channel: nil)
+                } else {
+                    completion(error: nil, channel: channel!)
+                }
+            })
+        }
+    }
+    
+    func updateChannel(completion: (error: NSError?, channel: Channel?)->()) {
+        if let channel = channel {
+            var count = 0
+            if topics != channel.topics! {
+                channel.topics = topics
+                count++
+            }
+            if titleTextField.text != channel.title && titleTextField.text != "" {
+                channel.title = titleTextField.text
+                count++
+            }
+            if filters != channel.filters {
+                channel.filters = filters
+                count++
+            }
+            if count > 0 {
+                DataLayer.updateChannel(withChannel: channel, completion: { (error, channel) -> () in
+                    if error != nil {
+                        completion(error: error, channel: nil)
+                    } else {
+                        completion(error: nil, channel: channel)
+                    }
+                })
             }
         }
     }
@@ -89,20 +120,35 @@ class ChannelEditorViewController: UIViewController {
     }
     
     @IBAction func onSaveTapped(sender: UIButton) {
-        createChannel { (channel) -> () in
-            
-            // Show latest added channel on MyFeed using delegate pattern
-            self.delegate?.channelEditor(self, didSetChannel: channel)
-            self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                //
-            })
+        if isEdit {
+            if topics.count > 0 {
+                updateChannel({ (error, channel) -> () in
+                    if error != nil {
+                        print(error)
+                    } else {
+                        
+                    }
+                })
+            }
+        } else {
+            createChannel { (error, channel) -> () in
+                if error != nil {
+                    print(error)
+                } else {
+                    // Show latest added channel on MyFeed using delegate pattern
+                    self.delegate?.channelEditor(self, didSetChannel: channel!)
+                    self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                        //
+                    })
+                }
+            }
         }
     }
     
     @IBAction func onStartChannelTapped(sender: AnyObject) {
         if topics.count > 0 {
-            createChannel({ (channel) -> () in
-                self.performSegueWithIdentifier("playerSegue", sender: channel)
+            createChannel({ (error, channel) -> () in
+                self.performSegueWithIdentifier("playerSegue", sender: channel!)
             })
         }
     }

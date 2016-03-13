@@ -10,17 +10,14 @@ import UIKit
 
 class CuratedInfo: NSObject {
     let dictionary: NSDictionary
+    let group: Int?
     let type: String?
-    let carousel_items: [CarouselItem]?
+    let cover_url: String?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
+        self.group = dictionary["group"] as? Int
         self.type = dictionary["type"] as? String
-        
-        var carousel_items = [CarouselItem]()
-        if let carouselItems = dictionary["carousel_items"] as? [NSDictionary] {
-            carousel_items = CarouselItem.carouselItemsWithArray(carouselItems)
-        }
-        self.carousel_items = carousel_items
+        self.cover_url = dictionary["cover_url"] as? String
     }
 }

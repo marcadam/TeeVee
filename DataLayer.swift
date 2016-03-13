@@ -9,7 +9,7 @@
 import UIKit
 
 class DataLayer: NSObject {
-    class func createChannel(withDictionary dictionary: NSDictionary, completion: (channel: Channel)->()) {
+    class func createChannel(withDictionary dictionary: NSDictionary, completion: (error: NSError?, channel: Channel?) -> ()) {
 //        let channelID = generateID()
         let topics = dictionary["topics"] as! [String]
         let filters = dictionary["filters"] as! Filters
@@ -30,8 +30,42 @@ class DataLayer: NSObject {
         ChannelClient.sharedInstance.createChannel(channelDictionary) { (channel, error) -> () in
             if error != nil {
                print(error)
+                completion(error: error!, channel: nil)
             } else {
-               completion(channel: channel!)
+                completion(error: nil, channel: channel!)
+            }
+        }
+    }
+    
+    class func updateChannel(withChannel channel: Channel, completion: (error: NSError?, channel: Channel?) -> ()) {
+        
+        let topics = channel.dictionary!["topics"] as! [String]
+        let filters = channel.dictionary!["filters"] as! NSDictionary
+        let title = channel.dictionary!["title"] as! String
+        
+        let channelDictionary =
+        ["channel": [
+            "title": title,
+            "filters": filters,
+            "topics": topics
+            ]
+        ] as NSDictionary
+        
+        ChannelClient.sharedInstance.updateChannel(channel.channel_id, channelDict: channelDictionary) { (channel, error) -> () in
+            if error != nil {
+                completion(error: error!, channel: nil)
+            } else {
+                completion(error: nil, channel: channel!)
+            }
+        }
+    }
+    
+    class func deleteChannel(withChannel channel: Channel, completion: (error: NSError?, channelId: String?) -> ()) {
+        ChannelClient.sharedInstance.deleteChannel(channel.channel_id) { (channelId, error) -> () in
+            if error != nil {
+                completion(error: error!, channelId: nil)
+            } else {
+                completion(error: nil, channelId: channelId)
             }
         }
     }

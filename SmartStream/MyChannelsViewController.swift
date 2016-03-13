@@ -97,9 +97,12 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         
         let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             let channel = self.channelsArray[indexPath.row]
-            ChannelClient.sharedInstance.deleteChannel(channel.channel_id, completion: { (channelId, error) -> () in
+            DataLayer.deleteChannel(withChannel: channel, completion: { (error, channelId) -> () in
                 self.channelsArray.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    //
+                })
             })
         }
         deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
