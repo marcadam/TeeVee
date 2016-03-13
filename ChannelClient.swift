@@ -130,9 +130,9 @@ class ChannelClient {
         
     }
     
-    func getBrowseChannels(completion: (channels: [Channel]?, error: NSError?) -> ()) {
+    func getExploreChannels(completion: (channels: [Channel]?, error: NSError?) -> ()) {
         
-        manager.GET("browse", parameters: nil, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+        manager.GET("explore", parameters: nil, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
             //print(response)
             if let json = response as? [NSDictionary] {
                 let channels = Channel.channelsWithArray(json)
