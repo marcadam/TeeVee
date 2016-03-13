@@ -111,7 +111,9 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     }
     
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel) {
-        channelsArray.append(channel)
+        if !channelsArray.contains(channel) {
+            channelsArray.append(channel)
+        }
         tableView.reloadData()
     }
 }
