@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class ExploreViewController: UIViewController {
 
@@ -14,6 +15,9 @@ class ExploreViewController: UIViewController {
 
     let channelPagingCellID = "com.smartchannel.ChannelCollectionPagingViewCell"
     let channelCellID = "com.smartchannel.ChannelCollectionViewCell"
+
+    private var channels: [Channel] = []
+    private var featuredChannels: [Channel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +31,40 @@ class ExploreViewController: UIViewController {
 
         // Theming
         collectionView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+
+        getChannels()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func getChannels() {
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        ChannelClient.sharedInstance.getExploreChannels { (channels, error) -> () in
+            if let channels = channels {
+                self.channels = channels
+                self.featuredChannels = self.getFeaturedChannels(channels)
+                self.collectionView.reloadData()
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            } else {
+                print(error)
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            }
+        }
+    }
+
+    func getFeaturedChannels(channels: [Channel]) -> [Channel] {
+        var featuredChannels = [Channel]()
+
+        for channel in channels {
+            if channel.curated?.type == "featured" {
+                featuredChannels.append(channel)
+            }
+        }
+
+        return featuredChannels
     }
 }
 
@@ -47,7 +80,11 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
         if section == 0 {
             return 1
         } else {
-            return 8
+            if channels.count > 0 {
+                return channels.count
+            } else {
+                return 0
+            }
         }
     }
 
@@ -57,6 +94,7 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
             return cell
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelCollectionViewCell
+            cell.channel = channels[indexPath.row]
             return cell
         }
     }
