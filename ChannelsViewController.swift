@@ -76,15 +76,14 @@ class ChannelsViewController: UIViewController {
 // MARK: - MyChannelsViewControllerDelegate
 
 extension ChannelsViewController: MyChannelsViewControllerDelegate {
-    func shouldPresentEditor(sender: MyChannelsViewController, withChannel channel: Channel?) {
+    func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?) {
         if let checkChannel = channel {
             delegate?.shouldPresentEditor(self, withChannel: checkChannel)
         } else {
             delegate?.shouldPresentEditor(self, withChannel: nil)
         }
     }
-    
-    func shouldPresentPlayer(sender: MyChannelsViewController, withChannel channel: Channel) {
+    func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel) {
         delegate?.shouldPresentPlayer(self, withChannel: channel)
     }
 }
