@@ -90,6 +90,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let playAction = UITableViewRowAction(style: .Normal, title: "Play") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             self.delegate?.shouldPresentPlayer(self, withChannel: self.channelsArray[indexPath.row])
+            self.tableView.editing = false
         }
         playAction.backgroundColor = UIColor(red: 164/255, green: 179/255, blue: 112/255, alpha: 1)
         
