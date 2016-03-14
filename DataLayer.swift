@@ -62,8 +62,8 @@ class DataLayer: NSObject {
         }
     }
     
-    class func deleteChannel(withChannel channel: Channel, completion: (error: NSError?, channelId: String?) -> ()) {
-        ChannelClient.sharedInstance.deleteChannel(channel.channel_id) { (channelId, error) -> () in
+    class func deleteChannel(withChannelId channel_id: String, completion: (error: NSError?, channelId: String?) -> ()) {
+        ChannelClient.sharedInstance.deleteChannel(channel_id) { (channelId, error) -> () in
             if error != nil {
                 completion(error: error!, channelId: nil)
             } else {

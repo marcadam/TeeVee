@@ -22,6 +22,9 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var titleTextField: UITextField!
     
+    @IBOutlet var saveButtonWrapperView: UIView!
+    @IBOutlet var playButtonWrapperView: UIView!
+    
     private var topics:[String] = []
     private var newFilters: Filters?
     private var isEdit = false
@@ -80,6 +83,12 @@ class ChannelEditorViewController: UIViewController {
         tableView.separatorStyle = .None
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         tableView.alwaysBounceVertical = false
+        
+        playButtonWrapperView.layer.cornerRadius = 8
+        saveButtonWrapperView.layer.cornerRadius = 8
+        
+        playButtonWrapperView.backgroundColor = Theme.Colors.PlayColor.color
+        saveButtonWrapperView.backgroundColor = Theme.Colors.EditColor.color
     }
     
     func setDefaults() {
@@ -105,7 +114,6 @@ class ChannelEditorViewController: UIViewController {
     }
     
     @IBAction func onSaveTapped(sender: UIButton) {
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
         if isEdit {
             if topics.count > 0 {
                 updateChannel({ (error, channel) -> () in
@@ -237,6 +245,7 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
 extension ChannelEditorViewController {
     func createChannel(completion: (error: NSError?, channel: Channel?) -> ()) {
         if topics.count > 0 {
+            MBProgressHUD.showHUDAddedTo(view, animated: true)
             let channelDictionary = ["title": titleTextField.text!, "topics": topics, "filters": newFilters!] as NSDictionary
             DataLayer.createChannel(withDictionary: channelDictionary, completion: { (error, channel) -> () in
                 if error != nil {
@@ -272,6 +281,7 @@ extension ChannelEditorViewController {
                 count++
             }
             if count > 0 {
+                MBProgressHUD.showHUDAddedTo(view, animated: true)
                 DataLayer.updateChannel(withDictionary: dictionary, completion: { (error, channel) -> () in
                     if error != nil {
                         completion(error: error, channel: nil)
@@ -279,17 +289,26 @@ extension ChannelEditorViewController {
                         completion(error: nil, channel: channel)
                     }
                 })
+            } else {
+                dismissViewControllerAnimated(true, completion: { () -> Void in
+                    //
+                })
             }
         }
     }
     
     func deleteChannel(completion: (error: NSError?) -> ()) {
-        DataLayer.deleteChannel(withChannel: channel!, completion: { (error, channelId) -> () in
-            if error != nil {
-                print(error)
-            } else {
-                print(channelId)
-            }
-        })
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        if let channel = channel {
+            DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
+                if error != nil {
+                    print(error)
+                    completion(error: error)
+                } else {
+                    print(channelId)
+                    completion(error: nil)
+                }
+            })
+        }
     }
 }

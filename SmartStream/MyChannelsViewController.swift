@@ -97,13 +97,13 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             self.delegate?.myChannelsVC(self, didPlayChannel: self.channelsArray[indexPath.row])
             self.tableView.editing = false
         }
-        playAction.backgroundColor = UIColor(red: 164/255, green: 179/255, blue: 112/255, alpha: 1)
+        playAction.backgroundColor = Theme.Colors.PlayColor.color
         
         let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             self.delegate?.myChannelsVC(self, didEditChannel: self.channelsArray[indexPath.row])
             self.tableView.editing = false
         }
-        editAction.backgroundColor = UIColor(red: 113/255, green: 154/255, blue: 175/255, alpha: 1)
+        editAction.backgroundColor = Theme.Colors.EditColor.color
         
         let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             let channel = self.channelsArray[indexPath.row]
