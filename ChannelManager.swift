@@ -12,22 +12,9 @@ import SwiftPriorityQueue
 import youtube_ios_player_helper
 import TwitterKit
 
-class ChannelManager: NSObject {
-    let ItemDidEndNotification = "com.smartu.channelmanager.itemDidEnd"
-    let ItemAboutToEndNotification = "com.smartu.channelmanager.itemAboutToEnd"
-    let numItemsBeforeFetch = 3
-    let bufferTimeConstant = 5
-    let fadeInTimeConstant = 2.0
-    let fadeOutItmeConstant = 3.0
+class ChannelManager: NSObject, GenericPlayerDelegate {
+
     
-    let youtubePlayerVars : [NSObject : AnyObject] = [
-        "playsinline": 1 ,
-        "controls": 0,
-        "enablejsapi": 1,
-        "autohide": 1,
-        "autoplay" : 0,
-        "modestbranding" : 1
-    ]
     let myContext = UnsafeMutablePointer<()>()
     let twitterClient = TWTRAPIClient()
     var spinner: SpinnerView?
@@ -36,9 +23,9 @@ class ChannelManager: NSObject {
     var nativePlayerLayer: AVPlayerLayer?
     var nativePlayerView: UIView?
     var nativePlayerOverlay: UIView?
-    var youtubePlayerView: YTPlayerView?
-    var youtubePlayerOverlay: UIView?
-    var youtubeWebviewLoaded = false
+    
+    var youtubePlayerView: GenericPlayer?
+    
     var webView: UIView?
     
     var channelId: String!
@@ -49,6 +36,16 @@ class ChannelManager: NSObject {
     func updateBounds(containerView: UIView!) {
         playerContainerView?.bounds = containerView.bounds
         nativePlayerLayer!.frame = containerView.bounds
+    }
+    
+    func playbackStatus(playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
+        if playerType == .Youtube {
+            if status == .WillEnd {
+                notifyItemAboutToEnd()
+            } else if status == .DidEnd {
+                notifyItemDidEnd()
+            }
+        }
     }
     
     var playerContainerView: UIView? {
@@ -74,17 +71,7 @@ class ChannelManager: NSObject {
             nativePlayerOverlay!.userInteractionEnabled = false
             nativePlayerView!.addSubview(nativePlayerOverlay!)
             
-            youtubePlayerView = YTPlayerView(frame: playerContainerView!.bounds)
-            youtubePlayerView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            youtubePlayerView!.backgroundColor = UIColor.blackColor()
-            youtubePlayerView!.delegate = self
-            playerContainerView!.addSubview(youtubePlayerView!)
-            
-            youtubePlayerOverlay = UIView(frame: youtubePlayerView!.bounds)
-            youtubePlayerOverlay!.backgroundColor = UIColor.blackColor()
-            youtubePlayerOverlay!.alpha = 0.0
-            youtubePlayerOverlay!.userInteractionEnabled = false
-            youtubePlayerView!.addSubview(youtubePlayerOverlay!)
+            youtubePlayerView = YoutubePlayerView(playerType: .Youtube, containerView: playerContainerView!, playerDelegate: self)
             
             hidePlayerViews()
             
@@ -176,24 +163,7 @@ class ChannelManager: NSObject {
     }
     
     func playNextYoutubeItem(item: ChannelItem!) {
-        print("[MANAGER] play next YoutubeItem")
-        if item == currItem {return}
-        dispatch_async(dispatch_get_main_queue(),{
-            
-            if !self.youtubeWebviewLoaded {
-                self.youtubeWebviewLoaded = true
-                self.youtubePlayerView?.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
-            } else {
-                if self.currItem != nil && self.currItem!.extractor != "youtube" {
-                    // previous video is not youtube, so the video is already cued in
-                    self.youtubePlayerView?.playVideo()
-                } else {
-                    self.youtubePlayerView?.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
-                }
-            }
-            self.currItem = item
-            
-        })
+        youtubePlayerView?.startItem(item)
     }
     
     func playNextNativeItem(item: ChannelItem!) {
@@ -234,7 +204,7 @@ class ChannelManager: NSObject {
                 let totalDurationStr = String(format: "%.2f", totalDuration)
                 //print("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
                 
-                if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == self.bufferTimeConstant {
+                if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
                     self.notifyItemAboutToEnd()
                 }
             }
@@ -256,7 +226,7 @@ class ChannelManager: NSObject {
     }
     
     func prepareYoutubeVideo() {
-        self.youtubePlayerView?.playVideo()
+        youtubePlayerView?.playItem()
     }
     
     func fadeOutVideo(timer: NSTimer) {
@@ -286,7 +256,7 @@ class ChannelManager: NSObject {
         if extractor == "youtube" {
             if currItem != nil && currItem!.extractor != "youtube" {
                 print("[MANAGER] buffering: extractor = \(extractor!); id = \(item!.native_id!)")
-                youtubePlayerView?.cueVideoById(item!.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
+                youtubePlayerView?.prepareToStart(item!)
                 NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
             }
         } else {
@@ -326,17 +296,12 @@ class ChannelManager: NSObject {
     
     func hidePlayerViews() {
         print("[MANAGER] hides all players")
-        self.youtubePlayerView?.hidden = true
+        self.youtubePlayerView?.hide()
         self.nativePlayerView?.hidden = true
     }
     
     func hideYoutubeView() {
-        print("[MANAGER] fades out youtube player")
-        self.youtubePlayerOverlay?.alpha = 0.0
-        self.youtubePlayerView?.bringSubviewToFront(self.youtubePlayerOverlay!)
-        UIView.animateWithDuration(fadeOutItmeConstant) { () -> Void in
-            self.youtubePlayerOverlay?.alpha = 1.0
-        }
+        self.youtubePlayerView?.hide()
     }
     
     func hideNativeView() {
@@ -357,14 +322,7 @@ class ChannelManager: NSObject {
     }
     
     func showYoutubeView() {
-        print("[MANAGER] fades in youtube player")
-        self.youtubePlayerOverlay?.alpha = 1.0
-        self.youtubePlayerView?.bringSubviewToFront(self.youtubePlayerOverlay!)
-        UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
-            self.youtubePlayerOverlay?.alpha = 0.0
-            self.playerContainerView?.bringSubviewToFront(self.youtubePlayerView!)
-            self.youtubePlayerView?.hidden = false
-        }
+        self.youtubePlayerView?.show()
     }
     
     func showNativeView() {
@@ -390,7 +348,7 @@ class ChannelManager: NSObject {
         if currItem == nil {return}
         
         if currItem!.extractor == "youtube" {
-            youtubePlayerView?.playVideo()
+            youtubePlayerView?.playItem()
         } else if currItem!.extractor == "twitter" {
             
         } else {
@@ -400,13 +358,13 @@ class ChannelManager: NSObject {
     
     func pause() {
         nativePlayer?.pause()
-        youtubePlayerView?.pauseVideo()
+        youtubePlayerView?.pauseItem()
     }
     
     func stop() {
         nativePlayer?.pause()
         nativePlayer?.replaceCurrentItemWithPlayerItem(nil)
-        youtubePlayerView?.stopVideo()
+        youtubePlayerView?.stopItem()
     }
     
     func next() {
@@ -490,51 +448,6 @@ extension ChannelManager {
         }
     }
     
-}
-
-
-// ==========================================================
-// Option 2: Use youtube player
-// ==========================================================
-extension ChannelManager: YTPlayerViewDelegate {
-    
-    func playerViewDidBecomeReady(playerView: YTPlayerView!) {
-        print("[YOUTUBEPLAYER] playerViewDidBecomeReady")
-        self.youtubePlayerView?.playVideo()
-    }
-    
-    func playerView(playerView: YTPlayerView!, didChangeToState state: YTPlayerState) {
-        print("[YOUTUBEPLAYER] didChangeToState \(state.rawValue)")
-        if state == .Ended {
-            print("[YOUTUBEPLAYER] video ended")
-            notifyItemDidEnd()
-        } else if state == .Playing {
-            print("[YOUTUBEPLAYER] video playing")
-            showYoutubeView()
-        }
-    }
-    
-    func playerView(playerView: YTPlayerView!, didChangeToQuality quality: YTPlaybackQuality) {
-        print("[YOUTUBEPLAYER] didChangeToQuality \(quality.rawValue)")
-    }
-    
-    func playerView(playerView: YTPlayerView!, didPlayTime playTime: Float) {
-        let currentSecond = String(format: "%.2f", playTime)
-        let totalDuration = playerView.duration()
-        let totalDurationStr = String(format: "%.2f", playerView.duration())
-//        print("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
-        if Int(totalDuration) - Int(playTime) == bufferTimeConstant {
-            notifyItemAboutToEnd()
-        }
-    }
-    
-    func playerView(playerView: YTPlayerView!, receivedError error: YTPlayerError) {
-        print("[YOUTUBEPLAYER] didPlayTime \(error.rawValue)")
-    }
-    
-    func playerViewPreferredWebViewBackgroundColor(playerView: YTPlayerView!) -> UIColor! {
-        return UIColor.whiteColor()
-    }
 }
 
 

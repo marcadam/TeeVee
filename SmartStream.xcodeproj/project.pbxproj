@@ -19,6 +19,8 @@
 		0B597B5B1C844AD900D4AC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */; };
 		0B951B1E1C94ED520068C6AF /* CuratedInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B1D1C94ED520068C6AF /* CuratedInfo.swift */; };
 		0B951B201C94ED950068C6AF /* CarouselItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B1F1C94ED950068C6AF /* CarouselItem.swift */; };
+		0B951B221C96ACD10068C6AF /* YoutubePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B211C96ACD10068C6AF /* YoutubePlayerView.swift */; };
+		0B951B241C96B0580068C6AF /* GenericPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B231C96B0580068C6AF /* GenericPlayer.swift */; };
 		492D02741C8B5E37000AAF17 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02721C8B5E37000AAF17 /* ChannelTableViewCell.swift */; };
 		492D02751C8B5E37000AAF17 /* ChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02731C8B5E37000AAF17 /* ChannelTableViewCell.xib */; };
 		492D02781C8BC656000AAF17 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02771C8BC656000AAF17 /* MenuTableViewController.swift */; };
@@ -78,6 +80,8 @@
 		0B597B5C1C844AD900D4AC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B951B1D1C94ED520068C6AF /* CuratedInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuratedInfo.swift; sourceTree = "<group>"; };
 		0B951B1F1C94ED950068C6AF /* CarouselItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselItem.swift; sourceTree = "<group>"; };
+		0B951B211C96ACD10068C6AF /* YoutubePlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubePlayerView.swift; sourceTree = "<group>"; };
+		0B951B231C96B0580068C6AF /* GenericPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericPlayer.swift; sourceTree = "<group>"; };
 		492D02721C8B5E37000AAF17 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		492D02731C8B5E37000AAF17 /* ChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelTableViewCell.xib; sourceTree = "<group>"; };
 		492D02771C8BC656000AAF17 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
 				A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */,
 				0B11DD241C8E43B300012E85 /* SpinnerView.swift */,
+				0B951B211C96ACD10068C6AF /* YoutubePlayerView.swift */,
+				0B951B231C96B0580068C6AF /* GenericPlayer.swift */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -593,6 +599,7 @@
 				492D02B11C916D3A000AAF17 /* ChannelCollectionPagingViewCell.swift in Sources */,
 				A2F231F31C8D7A590053956D /* FilterSelectCell.swift in Sources */,
 				A29BA49B1C9124FD00ED13A5 /* Mock.swift in Sources */,
+				0B951B241C96B0580068C6AF /* GenericPlayer.swift in Sources */,
 				A2A3A3CC1C8AD8D600D1173C /* ChannelEditorViewController.swift in Sources */,
 				A2F231F01C8D6AB20053956D /* FilterSwitchCell.swift in Sources */,
 				A2F231E81C8D22060053956D /* Theme.swift in Sources */,
@@ -605,6 +612,7 @@
 				A23EC38F1C968BB800398BF2 /* MyChannelTableViewCell.swift in Sources */,
 				0B2CD8AF1C8846650055BD50 /* ChannelItem.swift in Sources */,
 				A2A3A3C81C8AD50B00D1173C /* HomeViewController.swift in Sources */,
+				0B951B221C96ACD10068C6AF /* YoutubePlayerView.swift in Sources */,
 				A29BA4971C9120FD00ED13A5 /* User.swift in Sources */,
 				0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */,
 				0B11DD251C8E43B300012E85 /* SpinnerView.swift in Sources */,
