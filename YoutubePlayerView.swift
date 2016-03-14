@@ -29,6 +29,7 @@ class YoutubePlayerView: NSObject {
     var youtubeWebviewLoaded = false
     
     var currItem: ChannelItem?
+    var videoAlreadyCued = false
     
     init(playerId: Int, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
         
@@ -65,6 +66,7 @@ extension YoutubePlayerView: SmartuPlayer {
     func prepareToStart(item: ChannelItem!) {
         print("[YOUTUBEPLAYER] buffering: extractor = \(item.extractor); id = \(item.native_id)")
         self.youtubePlayerView.cueVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
+        videoAlreadyCued = true
         NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
     }
     
@@ -78,10 +80,12 @@ extension YoutubePlayerView: SmartuPlayer {
                 self.youtubeWebviewLoaded = true
                 self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
             } else {
-                if self.currItem != nil && self.currItem!.extractor != "youtube" {
-                    // previous video is not youtube, so the video is already cued in
+                if self.videoAlreadyCued {
+                    print("[YOUTUBEPLAYER] YoutubeItem already cued - play now")
                     self.youtubePlayerView.playVideo()
+                    self.videoAlreadyCued = false
                 } else {
+                    self.hide(0.0)
                     self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
                 }
             }
@@ -91,15 +95,19 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func playItem() {
-        self.youtubePlayerView.playVideo()
+        youtubePlayerView.playVideo()
     }
     
     func stopItem() {
-        self.youtubePlayerView.stopVideo()
+        youtubePlayerView.stopVideo()
     }
     
     func pauseItem() {
-        self.youtubePlayerView.pauseVideo()
+        youtubePlayerView.pauseVideo()
+    }
+    
+    func nextItem() {
+        
     }
     
     func resetBounds(bounds: CGRect) {
@@ -107,6 +115,8 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func show(duration: NSTimeInterval?) {
+        //if !youtubePlayerView.hidden && youtubePlayerOverlay.alpha < 0.1 {return}
+        
         print("[YOUTUBEPLAYER] fades in youtube player")
         let du = duration == nil ? fadeInTimeConstant: duration!
         self.youtubePlayerOverlay.alpha = 1.0
@@ -125,6 +135,7 @@ extension YoutubePlayerView: SmartuPlayer {
         self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
         UIView.animateWithDuration(du) { () -> Void in
             self.youtubePlayerOverlay.alpha = 1.0
+            self.youtubePlayerView.hidden = true
         }
     }
     
@@ -164,6 +175,8 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     
     func playerView(playerView: YTPlayerView!, receivedError error: YTPlayerError) {
         print("[YOUTUBEPLAYER] didPlayTime \(error.rawValue)")
+        stopItem()
+        playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
     }
     
     func playerViewPreferredWebViewBackgroundColor(playerView: YTPlayerView!) -> UIColor! {

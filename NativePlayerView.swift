@@ -107,6 +107,7 @@ extension NativePlayerView: SmartuPlayer {
             //print(item.url!)
             self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
             self.playItem()
+            self.show(nil)
         })
     }
     
@@ -123,11 +124,17 @@ extension NativePlayerView: SmartuPlayer {
         nativePlayer.replaceCurrentItemWithPlayerItem(nil)
     }
     
+    func nextItem() {
+        
+    }
+    
     func resetBounds(bounds: CGRect) {
         nativePlayerLayer.frame = bounds
     }
     
     func show(duration: NSTimeInterval?) {
+        //if !nativePlayerView.hidden && nativePlayerOverlay.alpha < 0.1 {return}
+        
         print("[NATIVEPLAYER] fades in native player")
         let du = duration == nil ? fadeInTimeConstant: duration!
         nativePlayerOverlay.alpha = 1.0
@@ -146,6 +153,7 @@ extension NativePlayerView: SmartuPlayer {
         nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
         UIView.animateWithDuration(du) { () -> Void in
             self.nativePlayerOverlay.alpha = 1.0
+            self.nativePlayerView.hidden = true
         }
     }
     
@@ -165,20 +173,22 @@ extension NativePlayerView: SmartuPlayer {
             
             if self.nativePlayer.status == AVPlayerStatus.ReadyToPlay {
                 print("[NATIVEPLAYER] ready to play")
+                self.playItem()
+                self.show(nil)
                 
-                if let currentPlayerAsset = self.nativePlayer.currentItem?.asset as? AVURLAsset {
-                    if currItem != nil && currItem!.url == currentPlayerAsset.URL.absoluteString {
-                        dispatch_async(dispatch_get_main_queue(),{
-                            if self.nativePlayer.currentItem != nil {
-                                if let videoTrack = self.nativePlayer.currentItem!.asset.tracksWithMediaType(AVMediaTypeVideo).first {
-                                    print("naturalSize = \(videoTrack.naturalSize)")
-                                    //print("preferredTransform = \(videoTrack.preferredTransform)")
-                                }
-                            }
-                            self.nativePlayer.play()
-                        })
-                    }
-                }
+//                if let currentPlayerAsset = self.nativePlayer.currentItem?.asset as? AVURLAsset {
+//                    if currItem != nil && currItem!.url == currentPlayerAsset.URL.absoluteString {
+//                        dispatch_async(dispatch_get_main_queue(),{
+//                            if self.nativePlayer.currentItem != nil {
+//                                if let videoTrack = self.nativePlayer.currentItem!.asset.tracksWithMediaType(AVMediaTypeVideo).first {
+//                                    print("naturalSize = \(videoTrack.naturalSize)")
+//                                    //print("preferredTransform = \(videoTrack.preferredTransform)")
+//                                }
+//                            }
+//                            self.nativePlayer.play()
+//                        })
+//                    }
+//                }
             } else if self.nativePlayer.status == AVPlayerStatus.Failed {
                 print("[NATIVEPLAYER] failed to play")
             } else {

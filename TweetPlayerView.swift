@@ -92,6 +92,10 @@ extension TweetPlayerView: SmartuPlayer {
         
     }
     
+    func nextItem() {
+        
+    }
+    
     func resetBounds(bounds: CGRect) {
         
     }
@@ -101,10 +105,10 @@ extension TweetPlayerView: SmartuPlayer {
         self.tweetView?.alpha = 0.0
         UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
             self.tweetView?.alpha = 1.0
+            self.backgroundView.hidden = false
             self.containerView.bringSubviewToFront(self.backgroundView)
             if self.tweetView != nil {
                 self.backgroundView.bringSubviewToFront(self.tweetView!)
-                self.backgroundView.hidden = false
             }
         }
     }
@@ -114,6 +118,7 @@ extension TweetPlayerView: SmartuPlayer {
         self.tweetView?.alpha = 1.0
         UIView.animateWithDuration(fadeOutItmeConstant) { () -> Void in
             if self.tweetView != nil {
+                self.tweetView?.removeFromSuperview()
                 self.backgroundView.alpha = 0.0
             }
         }

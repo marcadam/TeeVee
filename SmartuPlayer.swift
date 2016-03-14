@@ -29,6 +29,7 @@ protocol SmartuPlayer {
     func playItem()
     func pauseItem()
     func stopItem()
+    func nextItem()
     func resetBounds(bounds: CGRect)
     
     func show(duration: NSTimeInterval?)
