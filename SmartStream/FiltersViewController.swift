@@ -47,7 +47,8 @@ class FiltersViewController: UIViewController {
         let filterSelectCellNib = UINib(nibName: "FilterSelectCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(filterSelectCellNib, forCellReuseIdentifier: filterSelectCellID)
         
-        tableView.backgroundColor = Theme.Colors.BackgroundColor.color
+        view.backgroundColor = Theme.Colors.BackgroundColor.color
+        tableView.backgroundColor = UIColor.clearColor()
 
         // Hide empty tableView rows
         tableView.tableFooterView = UIView(frame: CGRectZero)

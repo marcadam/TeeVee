@@ -23,8 +23,8 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var titleTextField: UITextField!
     
-    @IBOutlet var saveButtonWrapperView: UIView!
-    @IBOutlet var playButtonWrapperView: UIView!
+    @IBOutlet var saveBgView: UIView!
+    @IBOutlet var playBgView: UIView!
     
     private var topics:[String] = []
     private var newFilters: Filters?
@@ -85,11 +85,8 @@ class ChannelEditorViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         tableView.alwaysBounceVertical = false
         
-        playButtonWrapperView.layer.cornerRadius = 8
-        saveButtonWrapperView.layer.cornerRadius = 8
-        
-        playButtonWrapperView.backgroundColor = Theme.Colors.PlayColor.color
-        saveButtonWrapperView.backgroundColor = Theme.Colors.EditColor.color
+        saveBgView.backgroundColor = bgDarkColor
+        playBgView.backgroundColor = bgDarkColor
     }
     
     func setDefaults() {

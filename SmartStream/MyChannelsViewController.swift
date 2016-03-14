@@ -52,7 +52,9 @@ class MyChannelsViewController: UIViewController {
     
     func setupUI() {
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
-        tableView.separatorColor = Theme.Colors.HighlightLightColor.color
+        tableView.separatorColor = Theme.Colors.SeparatorColor.color
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        tableView.alwaysBounceVertical = false
 
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         createChannelLabel.textColor = Theme.Colors.HighlightColor.color

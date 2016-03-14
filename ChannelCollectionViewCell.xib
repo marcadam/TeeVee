@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="146" height="179"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lng-4h-xeB">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lng-4h-xeB">
                     <rect key="frame" x="1" y="1" width="144" height="144"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="lng-4h-xeB" secondAttribute="height" multiplier="1:1" id="CmE-DR-0o0"/>
@@ -22,7 +22,7 @@
                     <rect key="frame" x="1" y="145" width="144" height="33"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqg-LU-gwk">
-                            <rect key="frame" x="54" y="8" width="35.5" height="17"/>
+                            <rect key="frame" x="54" y="8" width="36" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>

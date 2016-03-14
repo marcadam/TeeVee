@@ -10,10 +10,20 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet var loginBackgroundView: UIView!
+    @IBOutlet var loginLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        view.backgroundColor = Theme.Colors.BackgroundColor.color
+        
+        loginBackgroundView.backgroundColor = Theme.Colors.LightButtonColor.color
+        loginBackgroundView.layer.cornerRadius = 8
+        
+        loginLabel.font = Theme.Fonts.BoldNormalTypeFace.font
+        loginLabel.textColor = Theme.Colors.HighlightColor.color
     }
 
     override func didReceiveMemoryWarning() {

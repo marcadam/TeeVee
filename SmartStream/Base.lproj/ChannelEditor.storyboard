@@ -93,87 +93,42 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="g37-QU-0fk">
                                 <rect key="frame" x="0.0" y="534" width="600" height="66"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddN-wT-Dg0">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLK-oy-v07">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="66"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awO-Rb-q2n">
-                                                <rect key="frame" x="75" y="18" width="150" height="30"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bhh-TE-0lH">
-                                                        <rect key="frame" x="60" y="0.0" width="30" height="30"/>
-                                                        <state key="normal" title="Play"/>
-                                                        <connections>
-                                                            <action selector="onStartChannelTapped:" destination="BRQ-9W-LhL" eventType="touchUpInside" id="f7i-mE-wAj"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="150" id="3Nn-vu-t4b"/>
-                                                    <constraint firstItem="Bhh-TE-0lH" firstAttribute="centerY" secondItem="awO-Rb-q2n" secondAttribute="centerY" id="OqN-uX-o3M"/>
-                                                    <constraint firstAttribute="height" constant="30" id="pW5-OL-Pmt"/>
-                                                    <constraint firstItem="Bhh-TE-0lH" firstAttribute="centerX" secondItem="awO-Rb-q2n" secondAttribute="centerX" id="stU-pL-Gia"/>
-                                                </constraints>
-                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-ps-F8r">
+                                                <rect key="frame" x="133" y="18" width="34" height="30"/>
+                                                <state key="normal" title="Save"/>
+                                                <connections>
+                                                    <action selector="onSaveTapped:" destination="BRQ-9W-LhL" eventType="touchUpInside" id="dg5-Iy-EeE"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="awO-Rb-q2n" firstAttribute="centerY" secondItem="ddN-wT-Dg0" secondAttribute="centerY" id="FTL-ud-ASE"/>
-                                            <constraint firstItem="awO-Rb-q2n" firstAttribute="centerX" secondItem="ddN-wT-Dg0" secondAttribute="centerX" id="G67-qf-WfF"/>
+                                            <constraint firstItem="6Pk-ps-F8r" firstAttribute="centerX" secondItem="YLK-oy-v07" secondAttribute="centerX" id="jvP-tp-8W5"/>
+                                            <constraint firstItem="6Pk-ps-F8r" firstAttribute="centerY" secondItem="YLK-oy-v07" secondAttribute="centerY" id="wvd-Jp-Jqv"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhl-5X-asb">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgo-ot-Uxb">
                                         <rect key="frame" x="300" y="0.0" width="300" height="66"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mSj-Cy-3ao">
-                                                <rect key="frame" x="75" y="18" width="150" height="30"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-ps-F8r">
-                                                        <rect key="frame" x="58" y="0.0" width="34" height="30"/>
-                                                        <state key="normal" title="Save"/>
-                                                        <connections>
-                                                            <action selector="onSaveTapped:" destination="BRQ-9W-LhL" eventType="touchUpInside" id="dg5-Iy-EeE"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="150" id="MzE-jv-ZZl"/>
-                                                    <constraint firstItem="6Pk-ps-F8r" firstAttribute="centerY" secondItem="mSj-Cy-3ao" secondAttribute="centerY" id="gha-B1-tjI"/>
-                                                    <constraint firstItem="6Pk-ps-F8r" firstAttribute="centerX" secondItem="mSj-Cy-3ao" secondAttribute="centerX" id="xF9-79-N1k"/>
-                                                    <constraint firstAttribute="height" constant="30" id="yV4-nD-NKt"/>
-                                                </constraints>
-                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bhh-TE-0lH">
+                                                <rect key="frame" x="135" y="18" width="30" height="30"/>
+                                                <state key="normal" title="Play"/>
+                                                <connections>
+                                                    <action selector="onStartChannelTapped:" destination="BRQ-9W-LhL" eventType="touchUpInside" id="f7i-mE-wAj"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="mSj-Cy-3ao" firstAttribute="centerX" secondItem="Vhl-5X-asb" secondAttribute="centerX" id="3hq-ju-NIU"/>
-                                            <constraint firstItem="mSj-Cy-3ao" firstAttribute="centerY" secondItem="Vhl-5X-asb" secondAttribute="centerY" id="aSe-y9-LSu"/>
+                                            <constraint firstItem="Bhh-TE-0lH" firstAttribute="centerY" secondItem="mgo-ot-Uxb" secondAttribute="centerY" id="flQ-JO-QhG"/>
+                                            <constraint firstItem="Bhh-TE-0lH" firstAttribute="centerX" secondItem="mgo-ot-Uxb" secondAttribute="centerX" id="sLc-iY-TbH"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="ddN-wT-Dg0" firstAttribute="leading" secondItem="g37-QU-0fk" secondAttribute="leading" constant="20" id="6wA-31-qVg"/>
-                                    <constraint firstAttribute="bottom" secondItem="ddN-wT-Dg0" secondAttribute="bottom" constant="10" id="9Q5-h5-Wgb"/>
-                                    <constraint firstItem="Vhl-5X-asb" firstAttribute="leading" secondItem="ddN-wT-Dg0" secondAttribute="trailing" constant="20" id="Ivb-Ni-jcA"/>
-                                    <constraint firstAttribute="bottom" secondItem="Vhl-5X-asb" secondAttribute="bottom" id="JhA-YS-Qcx"/>
-                                    <constraint firstItem="Vhl-5X-asb" firstAttribute="top" secondItem="g37-QU-0fk" secondAttribute="top" id="LhO-2d-9ch"/>
-                                    <constraint firstItem="ddN-wT-Dg0" firstAttribute="leading" secondItem="g37-QU-0fk" secondAttribute="leading" id="OP9-gG-3cD"/>
                                     <constraint firstAttribute="height" constant="66" id="Xml-V4-IXY"/>
-                                    <constraint firstAttribute="trailing" secondItem="Vhl-5X-asb" secondAttribute="trailing" id="gs6-pl-IXN"/>
-                                    <constraint firstItem="ddN-wT-Dg0" firstAttribute="top" secondItem="g37-QU-0fk" secondAttribute="top" constant="10" id="gtY-SZ-saS"/>
-                                    <constraint firstItem="Vhl-5X-asb" firstAttribute="leading" secondItem="ddN-wT-Dg0" secondAttribute="trailing" id="iVs-Dr-pP2"/>
-                                    <constraint firstItem="Vhl-5X-asb" firstAttribute="leading" secondItem="ddN-wT-Dg0" secondAttribute="trailing" id="j4p-HI-3PO"/>
-                                    <constraint firstAttribute="bottom" secondItem="ddN-wT-Dg0" secondAttribute="bottom" id="uX6-KK-Jz2"/>
-                                    <constraint firstItem="ddN-wT-Dg0" firstAttribute="top" secondItem="g37-QU-0fk" secondAttribute="top" id="zQL-hP-2Sm"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="6wA-31-qVg"/>
-                                        <exclude reference="9Q5-h5-Wgb"/>
-                                        <exclude reference="gtY-SZ-saS"/>
-                                        <exclude reference="Ivb-Ni-jcA"/>
-                                        <exclude reference="iVs-Dr-pP2"/>
-                                    </mask>
-                                </variation>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -224,8 +179,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="playButtonWrapperView" destination="awO-Rb-q2n" id="uoF-RK-ZBE"/>
-                        <outlet property="saveButtonWrapperView" destination="mSj-Cy-3ao" id="LQJ-D0-SHs"/>
+                        <outlet property="playBgView" destination="mgo-ot-Uxb" id="iTt-fl-IvG"/>
+                        <outlet property="saveBgView" destination="YLK-oy-v07" id="eg3-0e-7Lh"/>
                         <outlet property="searchTextField" destination="Iry-pM-F1e" id="BJc-Sl-e3X"/>
                         <outlet property="searchWrapperView" destination="5ug-65-odw" id="7BV-bQ-3xU"/>
                         <outlet property="tableView" destination="ucu-k2-WAx" id="Xa0-sO-8rs"/>

@@ -358,6 +358,14 @@
 			name = MyChannelTableViewCell;
 			sourceTree = "<group>";
 		};
+		A23EC3941C96C6A100398BF2 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */,
+			);
+			name = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		A2A3A3C01C8ACAB800D1173C /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,7 +375,7 @@
 				0B14595F1C8BA9A0001E6C23 /* ChannelTableViewCell */,
 				492D02B31C916D41000AAF17 /* ExploreCollectionPagingViewCell */,
 				0B1459601C8BA9B8001E6C23 /* ExploreCollectionViewCell */,
-				0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */,
+				A23EC3941C96C6A100398BF2 /* LaunchScreen */,
 			);
 			name = CommonViews;
 			sourceTree = "<group>";
