@@ -25,7 +25,7 @@ Nice-to-haves:
 
 - User can control the channel via Siri or the Apple Watch
 - User can like/dislike individual content in the channel; disliking something will also skip the channel forward
-- User can receive notifications for updates on his/her channels
+- User can receive push notifications for updates on his/her channels
 - (Not sure if this is desirable) User can filter content: prefer specific content producers / sources,  or to blacklist topics/sources/producers
 - User can add topics easily with the app's autocomplete suggestions feature
 - User can view all channels in a Category in a separate screen (Music category channels, for example)
