@@ -9,6 +9,10 @@
 import UIKit
 import MBProgressHUD
 
+protocol ExploreViewControllerDelegate: class {
+    func exploreVC(sender: ExploreViewController, didPlayChannel channel: Channel)
+}
+
 class ExploreViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -18,6 +22,8 @@ class ExploreViewController: UIViewController {
 
     private var channels: [Channel] = []
     private var featuredChannels: [Channel] = []
+
+    var delegate: ExploreViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +104,10 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
             cell.channel = channels[indexPath.row]
             return cell
         }
+    }
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        delegate?.exploreVC(self, didPlayChannel: channels[indexPath.row])
     }
 }
 

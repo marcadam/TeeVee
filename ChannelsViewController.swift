@@ -53,6 +53,7 @@ class ChannelsViewController: UIViewController {
         // Instantiate and add Explore view controller
         let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
         let exploreVC = exploreStoryboard.instantiateInitialViewController() as! ExploreViewController
+        exploreVC.delegate = self
         contentViewControllers.append(exploreVC)
 
         contentViewController = myChannelsVC
@@ -84,6 +85,14 @@ extension ChannelsViewController: MyChannelsViewControllerDelegate {
         }
     }
     func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel) {
+        delegate?.shouldPresentPlayer(self, withChannel: channel)
+    }
+}
+
+// MARK: - ExploreViewControllerDelegate
+
+extension ChannelsViewController: ExploreViewControllerDelegate {
+    func exploreVC(sender: ExploreViewController, didPlayChannel channel: Channel) {
         delegate?.shouldPresentPlayer(self, withChannel: channel)
     }
 }
