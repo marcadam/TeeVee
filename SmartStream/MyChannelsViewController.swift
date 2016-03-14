@@ -120,6 +120,11 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     }
     
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel) {
+        for (index, arrayChannel) in channelsArray.enumerate() {
+            if arrayChannel.channel_id == channel.channel_id {
+                channelsArray[index] = channel
+            }
+        }
         if !channelsArray.contains(channel) {
             channelsArray.append(channel)
         }

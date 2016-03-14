@@ -85,7 +85,7 @@ class ChannelEditorViewController: UIViewController {
                     if error != nil {
                         print(error)
                     } else {
-                        self.delegate?.channelEditor(self, didSetChannel: self.channel!)
+                        self.delegate?.channelEditor(self, didSetChannel: channel!)
                     }
                 })
                 self.dismissViewControllerAnimated(true, completion: { () -> Void in
