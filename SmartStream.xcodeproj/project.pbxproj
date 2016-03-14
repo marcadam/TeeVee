@@ -35,6 +35,8 @@
 		492D02B51C916F54000AAF17 /* ChannelCollectionPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02B41C916F54000AAF17 /* ChannelCollectionPageView.xib */; };
 		492D02B71C916F7E000AAF17 /* ChannelCollectionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02B61C916F7E000AAF17 /* ChannelCollectionPageView.swift */; };
 		495B34551C937AC4002A4ADD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B34541C937AC4002A4ADD /* SegmentedControl.swift */; };
+		A23EC38F1C968BB800398BF2 /* MyChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */; };
+		A23EC3911C968BC700398BF2 /* MyChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */; };
 		A29BA4951C900D8200ED13A5 /* DataLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4941C900D8200ED13A5 /* DataLayer.swift */; };
 		A29BA4971C9120FD00ED13A5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4961C9120FD00ED13A5 /* User.swift */; };
 		A29BA4991C91235400ED13A5 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4981C91235400ED13A5 /* Filters.swift */; };
@@ -93,6 +95,8 @@
 		492D02B61C916F7E000AAF17 /* ChannelCollectionPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCollectionPageView.swift; sourceTree = "<group>"; };
 		495B34541C937AC4002A4ADD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		60ACCFF50C60CCC4519D3769 /* Pods_SmartStream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartStream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChannelTableViewCell.swift; sourceTree = "<group>"; };
+		A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyChannelTableViewCell.xib; sourceTree = "<group>"; };
 		A29BA4941C900D8200ED13A5 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
 		A29BA4961C9120FD00ED13A5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A29BA4981C91235400ED13A5 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
@@ -345,9 +349,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A23EC38D1C968BA100398BF2 /* MyChannelTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */,
+				A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */,
+			);
+			name = MyChannelTableViewCell;
+			sourceTree = "<group>";
+		};
 		A2A3A3C01C8ACAB800D1173C /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				A23EC38D1C968BA100398BF2 /* MyChannelTableViewCell */,
 				495B34531C937A8B002A4ADD /* Custom Controlls */,
 				A2F231E91C8D69730053956D /* FilterTableViewCell */,
 				0B14595F1C8BA9A0001E6C23 /* ChannelTableViewCell */,
@@ -481,6 +495,7 @@
 				A2A3A3DD1C8AE1C200D1173C /* Home.storyboard in Resources */,
 				0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */,
 				A2A3A3DB1C8AD9E500D1173C /* Filters.storyboard in Resources */,
+				A23EC3911C968BC700398BF2 /* MyChannelTableViewCell.xib in Resources */,
 				492D02AA1C8FD7BD000AAF17 /* ChannelCollectionViewCell.xib in Resources */,
 				A2A3A3D81C8AD9C200D1173C /* ChannelEditor.storyboard in Resources */,
 			);
@@ -579,6 +594,7 @@
 				492D029D1C8BE119000AAF17 /* SettingsViewController.swift in Sources */,
 				492D02781C8BC656000AAF17 /* MenuTableViewController.swift in Sources */,
 				0B597B531C844AD900D4AC57 /* PlayerViewController.swift in Sources */,
+				A23EC38F1C968BB800398BF2 /* MyChannelTableViewCell.swift in Sources */,
 				0B2CD8AF1C8846650055BD50 /* ChannelItem.swift in Sources */,
 				A2A3A3C81C8AD50B00D1173C /* HomeViewController.swift in Sources */,
 				A29BA4971C9120FD00ED13A5 /* User.swift in Sources */,

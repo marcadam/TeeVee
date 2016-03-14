@@ -15,6 +15,7 @@ struct Theme {
         case LightBackgroundColor
         case HighlightColor
         case HighlightLightColor
+        case LightButtonColor
         
         var color: UIColor{
             switch self {
@@ -23,6 +24,7 @@ struct Theme {
             case .LightBackgroundColor: return UIColor(red: 54/255, green: 56/255, blue: 67/255, alpha: 1)
             case .HighlightColor: return UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1)
             case .HighlightLightColor: return UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 0.5)
+            case .LightButtonColor: return UIColor(red: 53/255, green: 57/255, blue: 73/255, alpha: 1)
             }
         }
     }
@@ -32,6 +34,7 @@ struct Theme {
         case TitleThinTypeFace
         case NormalTypeFace
         case LightNormalTypeFace
+        case BoldNormalTypeFace
 
         var font: UIFont {
             switch self {
@@ -39,6 +42,7 @@ struct Theme {
             case .TitleTypeFace: return UIFont.systemFontOfSize(24, weight: UIFontWeightRegular)
             case .NormalTypeFace: return UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
             case .LightNormalTypeFace: return UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+            case .BoldNormalTypeFace: return UIFont.systemFontOfSize(17, weight: UIFontWeightBold)
             }
         }
     }

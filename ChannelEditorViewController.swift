@@ -15,13 +15,19 @@ protocol ChannelEditorDelegate: class {
 class ChannelEditorViewController: UIViewController {
     
     @IBOutlet var searchWrapperView: UIView!
+    @IBOutlet var titleWrapperView: UIView!
     @IBOutlet var searchTextField: UITextField!
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var titleTextField: UITextField!
     
     private var topics:[String] = []
     private var newFilters: Filters?
     private var isEdit = false
+    private let bgDarkColor = Theme.Colors.DarkBackgroundColor.color
+    private let formTextFont = Theme.Fonts.NormalTypeFace.font
+    private let formTextColor = Theme.Colors.HighlightColor.color
+    private let formPlaceholderColor = Theme.Colors.HighlightLightColor.color
     
     var channel: Channel? {
         didSet {
@@ -53,12 +59,25 @@ class ChannelEditorViewController: UIViewController {
     }
     
     func uiSetup() {
-        searchWrapperView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
-        searchTextField.font = Theme.Fonts.TitleThinTypeFace.font
-        searchTextField.textColor = Theme.Colors.HighlightColor.color
-        searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a new topic", attributes: [NSForegroundColorAttributeName: Theme.Colors.HighlightLightColor.color])
-        tableView.backgroundColor = Theme.Colors.BackgroundColor.color
-        tableView.rowHeight = 90
+        titleWrapperView.backgroundColor = bgDarkColor
+        searchWrapperView.backgroundColor = bgDarkColor
+        
+        titleTextField.font = formTextFont
+        searchTextField.font = formTextFont
+        
+        titleTextField.textColor = formTextColor
+        searchTextField.textColor = formTextColor
+        
+        titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
+        searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a new topic", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
+        view.backgroundColor = Theme.Colors.BackgroundColor.color
+        tableView.backgroundColor = UIColor.clearColor()
+        tableView.rowHeight = 70
+        
+        let myChannelCellNib = UINib(nibName: "MyChannelTableViewCell", bundle: NSBundle.mainBundle())
+        tableView.registerNib(myChannelCellNib, forCellReuseIdentifier: "MyChannelTableViewCell")
+        tableView.separatorStyle = .None
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
     }
     
     func setDefaults() {
@@ -162,23 +181,10 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ChannelEditorCell", forIndexPath: indexPath)
-        cell.textLabel?.text = topics[indexPath.row]
-        cell.textLabel?.font = Theme.Fonts.LightNormalTypeFace.font
-        cell.textLabel?.textColor = Theme.Colors.HighlightColor.color
-        cell.backgroundColor = UIColor.clearColor()
+        let cell = tableView.dequeueReusableCellWithIdentifier("MyChannelTableViewCell", forIndexPath: indexPath) as! MyChannelTableViewCell
+        cell.topicLabel.text = topics[indexPath.row]
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
-    }
-    
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-            self.topics.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-        }
-        deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
-        
-        return [deleteAction]
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
