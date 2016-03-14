@@ -153,8 +153,9 @@ class ChannelEditorViewController: UIViewController {
         if let topic = searchTextField.text {
             if topic != "" {
                 topics.insert(topic, atIndex: 0)
+                let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
                 searchTextField.text = ""
-                tableView.reloadData()
             }
         }
     }
@@ -175,7 +176,7 @@ class ChannelEditorViewController: UIViewController {
     }
 }
 
-extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, FiltersViewDelegate {
+extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, FiltersViewDelegate, MyChannelTableViewCellDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return topics.count
     }
@@ -183,6 +184,8 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyChannelTableViewCell", forIndexPath: indexPath) as! MyChannelTableViewCell
         cell.topicLabel.text = topics[indexPath.row]
+        cell.indexPath = indexPath
+        cell.delegate = self
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
     }
@@ -193,6 +196,11 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
     
     func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
         newFilters = filters
+    }
+    
+    func myChannelCell(myChannelCell: MyChannelTableViewCell, didDeleteAt indexPath: NSIndexPath) {
+        topics.removeAtIndex(indexPath.row)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

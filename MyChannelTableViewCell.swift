@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol MyChannelTableViewCellDelegate: class {
+    func myChannelCell(myChannelCell: MyChannelTableViewCell, didDeleteAt indexPath: NSIndexPath)
+}
+
 class MyChannelTableViewCell: UITableViewCell {
 
     @IBOutlet var wrapperView: UIView!
     @IBOutlet var topicLabel: UILabel!
+    weak var delegate: MyChannelTableViewCellDelegate?
+    var indexPath: NSIndexPath!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,6 +41,6 @@ class MyChannelTableViewCell: UITableViewCell {
     }
 
     @IBAction func onDeleteTapped(sender: UIButton) {
-        
+        delegate?.myChannelCell(self, didDeleteAt: indexPath)
     }
 }
