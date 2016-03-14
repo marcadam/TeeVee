@@ -78,6 +78,7 @@ class ChannelEditorViewController: UIViewController {
         tableView.registerNib(myChannelCellNib, forCellReuseIdentifier: "MyChannelTableViewCell")
         tableView.separatorStyle = .None
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        tableView.alwaysBounceVertical = false
     }
     
     func setDefaults() {
@@ -195,21 +196,14 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.contentSize.height > tableView.frame.height {
-            scrollView.scrollEnabled = true
-        } else {
-            scrollView.scrollEnabled = false
-        }
-    }
-    
     func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
         newFilters = filters
     }
     
-    func myChannelCell(myChannelCell: MyChannelTableViewCell, didDeleteAt indexPath: NSIndexPath) {
-        topics.removeAtIndex(indexPath.row)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+    func myChannelCell(myChannelCell: MyChannelTableViewCell) {
+        let indexPath = tableView.indexPathForCell(myChannelCell)
+        topics.removeAtIndex(indexPath!.row)
+        tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

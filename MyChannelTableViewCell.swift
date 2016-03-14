@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MyChannelTableViewCellDelegate: class {
-    func myChannelCell(myChannelCell: MyChannelTableViewCell, didDeleteAt indexPath: NSIndexPath)
+    func myChannelCell(myChannelCell: MyChannelTableViewCell)
 }
 
 class MyChannelTableViewCell: UITableViewCell {
@@ -41,6 +41,6 @@ class MyChannelTableViewCell: UITableViewCell {
     }
 
     @IBAction func onDeleteTapped(sender: UIButton) {
-        delegate?.myChannelCell(self, didDeleteAt: indexPath)
+        delegate?.myChannelCell(self)
     }
 }
