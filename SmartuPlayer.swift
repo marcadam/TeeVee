@@ -36,5 +36,5 @@ protocol SmartuPlayer {
 }
 
 protocol SmartuPlayerDelegate: class {
-    func playbackStatus(playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double)
+    func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double)
 }

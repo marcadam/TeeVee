@@ -19,6 +19,7 @@ class YoutubePlayerView: NSObject {
         "modestbranding" : 1
     ]
     
+    let playerId: Int
     let playerType: PlayerType
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView!
@@ -29,10 +30,10 @@ class YoutubePlayerView: NSObject {
     
     var currItem: ChannelItem?
     
-    init(playerType: PlayerType, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
+    init(playerId: Int, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
         
-        
-        self.playerType = playerType
+        self.playerId = playerId
+        self.playerType = .Youtube
         self.containerView = containerView
         self.playerDelegate = playerDelegate
         
@@ -61,7 +62,7 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func startItem(item: ChannelItem!) {
-        print("[MANAGER] play next YoutubeItem")
+        print("[YOUTUBEPLAYER] play next YoutubeItem")
         if item == currItem {return}
         
         dispatch_async(dispatch_get_main_queue(),{
@@ -99,7 +100,7 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func show(duration: NSTimeInterval?) {
-        print("[MANAGER] fades in youtube player")
+        print("[YOUTUBEPLAYER] fades in youtube player")
         let du = duration == nil ? fadeInTimeConstant: duration!
         self.youtubePlayerOverlay.alpha = 1.0
         self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
@@ -111,7 +112,7 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func hide(duration: NSTimeInterval?) {
-        print("[MANAGER] fades out youtube player")
+        print("[YOUTUBEPLAYER] fades out youtube player")
         let du = duration == nil ? fadeOutItmeConstant: duration!
         self.youtubePlayerOverlay.alpha = 0.0
         self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
@@ -133,7 +134,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         print("[YOUTUBEPLAYER] didChangeToState \(state.rawValue)")
         if state == .Ended {
             print("[YOUTUBEPLAYER] video ended")
-            playerDelegate?.playbackStatus(self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
+            playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
         } else if state == .Playing {
             print("[YOUTUBEPLAYER] video playing")
             self.show(nil)
@@ -150,7 +151,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         let totalDurationStr = String(format: "%.2f", playerView.duration())
         //        print("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
         if Int(totalDuration) - Int(playTime) == bufferTimeConstant {
-            playerDelegate?.playbackStatus(self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
+            playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
         }
     }
     

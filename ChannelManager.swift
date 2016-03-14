@@ -7,9 +7,7 @@
 //
 
 import UIKit
-import AVFoundation
 import SwiftPriorityQueue
-import youtube_ios_player_helper
 import TwitterKit
 
 class ChannelManager: NSObject, SmartuPlayerDelegate {
@@ -20,6 +18,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     var players = [SmartuPlayer]()
     var nativePlayerView: SmartuPlayer?
     var youtubePlayerView: SmartuPlayer?
+    var tweetPlayerView: SmartuPlayer?
     
     var channelId: String!
     var priorityQueue: PriorityQueue<ChannelItem>?
@@ -33,7 +32,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
-    func playbackStatus(playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
+    func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
         if status == .WillEnd {
             notifyItemAboutToEnd()
         } else if status == .DidEnd {
@@ -46,11 +45,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if playerContainerView == nil {return}
             playerContainerView!.backgroundColor = UIColor.blackColor()
             
-            
-            nativePlayerView = NativePlayerView(playerType: .Native, containerView: playerContainerView!, playerDelegate: self)
-            youtubePlayerView = YoutubePlayerView(playerType: .Youtube, containerView: playerContainerView!, playerDelegate: self)
+            nativePlayerView = NativePlayerView(playerId: 0, containerView: playerContainerView!, playerDelegate: self)
+            youtubePlayerView = YoutubePlayerView(playerId: 1, containerView: playerContainerView!, playerDelegate: self)
+            tweetPlayerView = TweetPlayerView(playerId: 2, containerView: playerContainerView!, playerDelegate: self)
             players.append(nativePlayerView!)
             players.append(youtubePlayerView!)
+            players.append(tweetPlayerView!)
             
             hidePlayerViews()
             
@@ -103,52 +103,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         })
     }
     
-    func aboutToEndTweet() {
-        print("[MANAGER] aboutToEndTweet()")
-        notifyItemAboutToEnd()
-        NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "endTweet", userInfo: nil, repeats: false)
-    }
-    
-    func endTweet() {
-        print("[MANAGER] endTweet()")
-        tweetView?.removeFromSuperview()
-        notifyItemDidEnd()
-    }
-    
-    var tweetView: TWTRTweetView?
-    func playNextTweet(item: ChannelItem!) {
-        print("[MANAGER] play next TweetItem")
-
-        dispatch_async(dispatch_get_main_queue(),{
-            self.twitterClient.loadTweetWithID(item.native_id!) { tweet, error in
-                if let t = tweet {
-                    self.tweetView = TWTRTweetView(tweet: t)
-                    self.tweetView!.center = CGPointMake(self.playerContainerView!.bounds.size.width  / 2,
-                        self.playerContainerView!.bounds.size.height / 2)
-                    self.tweetView!.theme = .Light
-                    self.showTweetView()
-                    
-                    self.playerContainerView?.addSubview(self.tweetView!)
-                    self.playerContainerView?.bringSubviewToFront(self.tweetView!)
-                    NSTimer.scheduledTimerWithTimeInterval(8.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
-                    
-                } else {
-                    print("Failed to load Tweet: \(error!.localizedDescription) ; \(error!.debugDescription)")
-                }
-            }
-            
-            self.currItem = item
-        })
-    }
-    
-    func playNextYoutubeItem(item: ChannelItem!) {
-        youtubePlayerView?.startItem(item)
-    }
-    
-    func playNextNativeItem(item: ChannelItem!) {
-        nativePlayerView?.startItem(item)
-    }
-    
     init(channelId: String!) {
         super.init()
         
@@ -165,22 +119,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func prepareYoutubeVideo() {
         youtubePlayerView?.playItem()
-    }
-    
-    func fadeOutVideo(timer: NSTimer) {
-        print("[MANAGER] fadeOutVideo()")
-        let userInfo: [String : AnyObject] = timer.userInfo! as! [String : AnyObject]
-        let item: ChannelItem! = userInfo["nextItem"] as! ChannelItem
-        
-        if self.currItem != nil {
-            if self.currItem!.extractor == "youtube" {
-                hideYoutubeView()
-            } else if self.currItem!.extractor == "twitter" {
-                hideTweetView()
-            } else {
-                hideNativeView()
-            }
-        }
     }
     
     // Pre-buffering to smoothen transition
@@ -205,6 +143,22 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "fadeOutVideo:", userInfo: userInfo, repeats: false)
     }
     
+    func fadeOutVideo(timer: NSTimer) {
+        print("[MANAGER] fadeOutVideo()")
+        let userInfo: [String : AnyObject] = timer.userInfo! as! [String : AnyObject]
+        let item: ChannelItem! = userInfo["nextItem"] as! ChannelItem
+        
+        if self.currItem != nil {
+            if self.currItem!.extractor == "youtube" {
+                youtubePlayerView?.hide(nil)
+            } else if self.currItem!.extractor == "twitter" {
+                tweetPlayerView?.hide(nil)
+            } else {
+                nativePlayerView?.hide(nil)
+            }
+        }
+    }
+    
     func playNextItem() {
         var item: ChannelItem? = nil
         while (item == nil || item!.native_id == nil) && priorityQueue!.count > 0 {
@@ -219,12 +173,14 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         print("[MANAGER] extractor = \(item!.extractor); id = \(item!.native_id); url = \(item!.url)")
         
         if extractor == "youtube" {
-            playNextYoutubeItem(item)
+            youtubePlayerView?.show(nil)
+            youtubePlayerView?.startItem(item)
         } else if extractor == "twitter" {
-            playNextTweet(item)
+            tweetPlayerView?.show(nil)
+            tweetPlayerView?.startItem(item)
         } else {
-            showNativeView()
-            playNextNativeItem(item)
+            nativePlayerView?.show(nil)
+            nativePlayerView?.startItem(item)
         }
         
         if priorityQueue!.count <= numItemsBeforeFetch {
@@ -238,45 +194,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         nativePlayerView?.hide(0.0)
     }
     
-    func hideYoutubeView() {
-        youtubePlayerView?.hide(nil)
-    }
-    
-    func hideNativeView() {
-        nativePlayerView?.hide(nil)
-    }
-    
-    func hideTweetView() {
-        print("[MANAGER] fades out tweet player")
-        self.tweetView?.alpha = 1.0
-        UIView.animateWithDuration(fadeOutItmeConstant) { () -> Void in
-            self.tweetView?.alpha = 0.0
-        }
-    }
-    
-    func showYoutubeView() {
-        self.youtubePlayerView?.show(nil)
-    }
-    
-    func showNativeView() {
-        nativePlayerView?.show(nil)
-    }
-    
-    func showTweetView() {
-        print("[MANAGER] fades in tweet player")
-        self.tweetView?.alpha = 0.0
-        UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
-            self.tweetView?.alpha = 1.0
-        }
-    }
-    
     func play() {
         if currItem == nil {return}
         
         if currItem!.extractor == "youtube" {
             youtubePlayerView?.playItem()
         } else if currItem!.extractor == "twitter" {
-            
+            tweetPlayerView?.playItem()
         } else {
             nativePlayerView?.playItem()
         }
@@ -285,6 +209,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func pause() {
         nativePlayerView?.pauseItem()
         youtubePlayerView?.pauseItem()
+        tweetPlayerView?.pauseItem()
+//        for player in players {
+//            player.pauseItem()
+//        }
     }
     
     func stop() {

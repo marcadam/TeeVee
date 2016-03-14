@@ -11,6 +11,7 @@ import AVFoundation
 
 class NativePlayerView: NSObject {
     
+    let playerId: Int
     let playerType: PlayerType
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView!
@@ -24,9 +25,10 @@ class NativePlayerView: NSObject {
     
     var currItem: ChannelItem?
     
-    init(playerType: PlayerType, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
+    init(playerId: Int, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
         
-        self.playerType = playerType
+        self.playerId = playerId
+        self.playerType = .Native
         self.containerView = containerView
         self.playerDelegate = playerDelegate
         
@@ -68,12 +70,10 @@ class NativePlayerView: NSObject {
                 //print("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
                 
                 if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
-                    self.playerDelegate?.playbackStatus(self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
+                    self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
                 }
             }
         })
-        
-        
     }
     
     deinit {
@@ -96,7 +96,7 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func startItem(item: ChannelItem!) {
-        print("[MANAGER] play next nativeItem")
+        print("[NATIVEPLAYER] play next nativeItem")
         if item == currItem {return}
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
         //        nativePlayer?.advanceToNextItem()
@@ -127,7 +127,7 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func show(duration: NSTimeInterval?) {
-        print("[MANAGER] fades in native player")
+        print("[NATIVEPLAYER] fades in native player")
         let du = duration == nil ? fadeInTimeConstant: duration!
         nativePlayerOverlay.alpha = 1.0
         nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
@@ -139,7 +139,7 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func hide(duration: NSTimeInterval?) {
-        print("[MANAGER] fades out native player")
+        print("[NATIVEPLAYER] fades out native player")
         let du = duration == nil ? fadeOutItmeConstant: duration!
         nativePlayerOverlay.alpha = 0.0
         nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
@@ -151,7 +151,7 @@ extension NativePlayerView: SmartuPlayer {
     
     func nativePlayerDidFinishPlaying(notification: NSNotification) {
         if nativePlayer.rate != 0 && nativePlayer.error == nil {
-            playerDelegate?.playbackStatus(self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
+            playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
         }
     }
     
