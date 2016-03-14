@@ -44,6 +44,12 @@ class MyChannelsViewController: UIViewController {
         setupUI()
         getChannels()
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tableView.editing = false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -102,13 +108,11 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let playAction = UITableViewRowAction(style: .Normal, title: "Play") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             self.delegate?.myChannelsVC(self, didPlayChannel: self.channelsArray[indexPath.row])
-            self.tableView.editing = false
         }
         playAction.backgroundColor = Theme.Colors.PlayColor.color
         
         let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             self.delegate?.myChannelsVC(self, didEditChannel: self.channelsArray[indexPath.row])
-            self.tableView.editing = false
         }
         editAction.backgroundColor = Theme.Colors.EditColor.color
         
