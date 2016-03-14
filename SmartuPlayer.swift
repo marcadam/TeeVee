@@ -1,5 +1,5 @@
 //
-//  GenericPlayer.swift
+//  SmartuPlayer.swift
 //  SmartStream
 //
 //  Created by Hieu Nguyen on 3/14/16.
@@ -19,7 +19,7 @@ enum PlayerType: Int {
     case Native = 0, Youtube, Web, Tweet
 }
 
-protocol GenericPlayer {
+protocol SmartuPlayer {
     func prepareToStart(item: ChannelItem!)
     func startItem(item: ChannelItem!)
     func playItem()
@@ -35,6 +35,6 @@ enum PlaybackStatus: Int {
     case Init = 0, Playing, Pause, Stop, WillEnd, DidEnd
 }
 
-protocol GenericPlayerDelegate {
+protocol SmartuPlayerDelegate {
     func playbackStatus(playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double)
 }

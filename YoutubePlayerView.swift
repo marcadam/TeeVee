@@ -9,7 +9,7 @@
 import UIKit
 import youtube_ios_player_helper
 
-class YoutubePlayerView: YTPlayerView {
+class YoutubePlayerView: NSObject {
     let youtubePlayerVars : [NSObject : AnyObject] = [
         "playsinline": 1 ,
         "controls": 0,
@@ -19,45 +19,45 @@ class YoutubePlayerView: YTPlayerView {
         "modestbranding" : 1
     ]
     
-    var playerDelegate: GenericPlayerDelegate?
-    var playerType: PlayerType
+    var playerDelegate: SmartuPlayerDelegate?
+    let playerType: PlayerType
     var containerView: UIView!
     
+    var youtubePlayerView: YTPlayerView!
     var youtubePlayerOverlay: UIView!
     var youtubeWebviewLoaded = false
     
     var currItem: ChannelItem?
     
-    required init?(coder aDecoder: NSCoder) {
-        self.playerType = .Youtube
-        super.init(coder: aDecoder)
-    }
-    
-    init(playerType: PlayerType, containerView: UIView!, playerDelegate: GenericPlayerDelegate?) {
+    init(playerType: PlayerType, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
+        
+        
         self.playerType = playerType
         self.containerView = containerView
         self.playerDelegate = playerDelegate
-        super.init(frame: containerView.bounds)
         
-        self.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        self.backgroundColor = UIColor.blackColor()
-        self.delegate = self
-        containerView.addSubview(self)
+        self.youtubePlayerView = YTPlayerView(frame: containerView.bounds)
+        self.youtubePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.youtubePlayerView.backgroundColor = UIColor.blackColor()
+        containerView.addSubview(self.youtubePlayerView)
         
-        youtubePlayerOverlay = UIView(frame: self.bounds)
+        youtubePlayerOverlay = UIView(frame: containerView.bounds)
         youtubePlayerOverlay!.backgroundColor = UIColor.blackColor()
         youtubePlayerOverlay!.alpha = 0.0
         youtubePlayerOverlay!.userInteractionEnabled = false
-        self.addSubview(youtubePlayerOverlay!)
+        self.youtubePlayerView.addSubview(youtubePlayerOverlay!)
+        
+        super.init()
+        self.youtubePlayerView.delegate = self
     }
     
 }
 
 
-extension YoutubePlayerView: GenericPlayer {
+extension YoutubePlayerView: SmartuPlayer {
     
     func prepareToStart(item: ChannelItem!) {
-        self.cueVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
+        self.youtubePlayerView.cueVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
     }
     
     func startItem(item: ChannelItem!) {
@@ -68,13 +68,13 @@ extension YoutubePlayerView: GenericPlayer {
             
             if !self.youtubeWebviewLoaded {
                 self.youtubeWebviewLoaded = true
-                self.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
+                self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
             } else {
                 if self.currItem != nil && self.currItem!.extractor != "youtube" {
                     // previous video is not youtube, so the video is already cued in
-                    self.playVideo()
+                    self.youtubePlayerView.playVideo()
                 } else {
-                    self.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
+                    self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
                 }
             }
             self.currItem = item
@@ -83,15 +83,15 @@ extension YoutubePlayerView: GenericPlayer {
     }
     
     func playItem() {
-        self.playVideo()
+        self.youtubePlayerView.playVideo()
     }
     
     func stopItem() {
-        self.stopVideo()
+        self.youtubePlayerView.stopVideo()
     }
     
     func pauseItem() {
-        self.pauseVideo()
+        self.youtubePlayerView.pauseVideo()
     }
     
     func resetBounds(bounds: CGRect) {
@@ -101,18 +101,18 @@ extension YoutubePlayerView: GenericPlayer {
     func show() {
         print("[MANAGER] fades in youtube player")
         self.youtubePlayerOverlay?.alpha = 1.0
-        self.bringSubviewToFront(self.youtubePlayerOverlay!)
+        self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay!)
         UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
             self.youtubePlayerOverlay?.alpha = 0.0
-            self.containerView.bringSubviewToFront(self)
-            self.hidden = false
+            self.containerView.bringSubviewToFront(self.youtubePlayerView)
+            self.youtubePlayerView.hidden = false
         }
     }
     
     func hide() {
         print("[MANAGER] fades out youtube player")
         self.youtubePlayerOverlay?.alpha = 0.0
-        self.bringSubviewToFront(self.youtubePlayerOverlay!)
+        self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay!)
         UIView.animateWithDuration(fadeOutItmeConstant) { () -> Void in
             self.youtubePlayerOverlay?.alpha = 1.0
         }
@@ -120,15 +120,11 @@ extension YoutubePlayerView: GenericPlayer {
     
 }
 
-extension YoutubePlayerView: YTPlayerViewDelegate, GenericPlayerDelegate {
-    
-    func playbackStatus(playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
-        
-    }
+extension YoutubePlayerView: YTPlayerViewDelegate {
     
     func playerViewDidBecomeReady(playerView: YTPlayerView!) {
         print("[YOUTUBEPLAYER] playerViewDidBecomeReady")
-        self.playVideo()
+        self.youtubePlayerView.playVideo()
     }
     
     func playerView(playerView: YTPlayerView!, didChangeToState state: YTPlayerState) {

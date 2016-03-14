@@ -12,7 +12,7 @@ import SwiftPriorityQueue
 import youtube_ios_player_helper
 import TwitterKit
 
-class ChannelManager: NSObject, GenericPlayerDelegate {
+class ChannelManager: NSObject, SmartuPlayerDelegate {
 
     
     let myContext = UnsafeMutablePointer<()>()
@@ -24,7 +24,7 @@ class ChannelManager: NSObject, GenericPlayerDelegate {
     var nativePlayerView: UIView?
     var nativePlayerOverlay: UIView?
     
-    var youtubePlayerView: GenericPlayer?
+    var youtubePlayerView: SmartuPlayer?
     
     var webView: UIView?
     
