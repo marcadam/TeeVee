@@ -208,8 +208,9 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
             if let topic = searchTextField.text {
                 if topic != "" {
                     topics.insert(topic, atIndex: 0)
+                    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                    tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
                     searchTextField.text = ""
-                    tableView.reloadData()
                 }
             }
         }
