@@ -26,6 +26,8 @@ Nice-to-haves:
 - User can control the channel via Siri or the Apple Watch
 - User can like/dislike individual content in the channel; disliking something will also skip the channel forward
 - User can filter content: prefer specific content producers / sources,  or to blacklist topics/sources/producers
+- User can add topics easily with the app's autocomplete suggestions feature
+- User can view all channels in a Category in a separate screen (Music category channels, for example)
 - User can choose a theme, among possibly a set of predefined themes, for their channels
 - User can link their Youtube / Twitter / Facebook / Vimeo accounts for better personalization
 - User can share the channels with their friends or on social media
