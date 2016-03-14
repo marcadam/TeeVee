@@ -106,6 +106,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="5ug-65-odw" firstAttribute="top" secondItem="DCO-82-xiw" secondAttribute="top" id="1YZ-pT-hZm"/>
                             <constraint firstItem="FdL-pM-EQd" firstAttribute="leading" secondItem="DCO-82-xiw" secondAttribute="leading" id="2MR-IN-0gl"/>
@@ -134,6 +135,9 @@
                                 <exclude reference="aDG-U3-p71"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="z4f-PP-toO" appends="YES" id="g0m-i9-MYZ"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Create Channel" id="A4O-hG-BGl">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="w2G-Ra-6mu">
@@ -157,6 +161,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HG7-sd-E6r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="z4f-PP-toO">
+                    <connections>
+                        <action selector="onBackgroundTapped:" destination="BRQ-9W-LhL" id="ez1-yk-BcR"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3792" y="237"/>
         </scene>

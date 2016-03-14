@@ -97,6 +97,11 @@ class ChannelEditorViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onBackgroundTapped(sender: UITapGestureRecognizer) {
+        searchTextField.resignFirstResponder()
+        titleTextField.resignFirstResponder()
+    }
+    
     @IBAction func onSaveTapped(sender: UIButton) {
         if isEdit {
             if topics.count > 0 {
@@ -191,7 +196,11 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        searchTextField.resignFirstResponder()
+        if scrollView.contentSize.height > tableView.frame.height {
+            scrollView.scrollEnabled = true
+        } else {
+            scrollView.scrollEnabled = false
+        }
     }
     
     func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
