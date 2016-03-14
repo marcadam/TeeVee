@@ -120,7 +120,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         return [playAction,editAction,deleteAction]
     }
     
-    func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel) {
+    func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel, completion: () -> ()) {
         for (index, arrayChannel) in channelsArray.enumerate() {
             if arrayChannel.channel_id == channel.channel_id {
                 channelsArray[index] = channel
@@ -130,5 +130,6 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             channelsArray.append(channel)
         }
         tableView.reloadData()
+        completion()
     }
 }

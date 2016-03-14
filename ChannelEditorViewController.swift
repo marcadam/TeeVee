@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 protocol ChannelEditorDelegate: class {
-    func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel)
+    func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel, completion: ()->())
 }
 
 class ChannelEditorViewController: UIViewController {
@@ -104,37 +105,49 @@ class ChannelEditorViewController: UIViewController {
     }
     
     @IBAction func onSaveTapped(sender: UIButton) {
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
         if isEdit {
             if topics.count > 0 {
                 updateChannel({ (error, channel) -> () in
                     if error != nil {
                         print(error)
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
                     } else {
-                        self.delegate?.channelEditor(self, didSetChannel: channel!)
+                        self.delegate?.channelEditor(self, didSetChannel: channel!, completion: { () -> () in
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            self.isEdit = false
+                            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                                //
+                            })
+                        })
                     }
-                })
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    self.isEdit = false
                 })
             } else {
                 deleteChannel({ (error) -> () in
                     if error != nil {
                         print(error)
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    } else {
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        self.isEdit = false
+                        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                            //
+                        })
                     }
-                })
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    self.isEdit = false
                 })
             }
         } else {
             createChannel { (error, channel) -> () in
                 if error != nil {
                     print(error)
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
                 } else {
                     // Show latest added channel on MyFeed using delegate pattern
-                    self.delegate?.channelEditor(self, didSetChannel: channel!)
-                    self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                        //
+                    self.delegate?.channelEditor(self, didSetChannel: channel!, completion: { () -> () in
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                            //
+                        })
                     })
                 }
             }
