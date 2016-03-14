@@ -14,19 +14,12 @@ import TwitterKit
 
 class ChannelManager: NSObject, SmartuPlayerDelegate {
 
-    
-    let myContext = UnsafeMutablePointer<()>()
     let twitterClient = TWTRAPIClient()
     var spinner: SpinnerView?
     
-    var nativePlayer: AVQueuePlayer?
-    var nativePlayerLayer: AVPlayerLayer?
-    var nativePlayerView: UIView?
-    var nativePlayerOverlay: UIView?
-    
+    var players = [SmartuPlayer]()
+    var nativePlayerView: SmartuPlayer?
     var youtubePlayerView: SmartuPlayer?
-    
-    var webView: UIView?
     
     var channelId: String!
     var priorityQueue: PriorityQueue<ChannelItem>?
@@ -35,16 +28,16 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func updateBounds(containerView: UIView!) {
         playerContainerView?.bounds = containerView.bounds
-        nativePlayerLayer!.frame = containerView.bounds
+        for player in players {
+            player.resetBounds(containerView.bounds)
+        }
     }
     
     func playbackStatus(playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
-        if playerType == .Youtube {
-            if status == .WillEnd {
-                notifyItemAboutToEnd()
-            } else if status == .DidEnd {
-                notifyItemDidEnd()
-            }
+        if status == .WillEnd {
+            notifyItemAboutToEnd()
+        } else if status == .DidEnd {
+            notifyItemDidEnd()
         }
     }
     
@@ -53,25 +46,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if playerContainerView == nil {return}
             playerContainerView!.backgroundColor = UIColor.blackColor()
             
-            nativePlayerView = UIView(frame: playerContainerView!.bounds)
-            nativePlayerView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            nativePlayerView!.backgroundColor = UIColor.blackColor()
             
-            nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
-            nativePlayerLayer!.videoGravity = AVLayerVideoGravityResizeAspect
-            nativePlayerLayer!.frame = nativePlayerView!.bounds
-            nativePlayerView!.layer.addSublayer(nativePlayerLayer!)
-            nativePlayerLayer!.needsDisplayOnBoundsChange = true
-            nativePlayerView!.layer.needsDisplayOnBoundsChange = true
-            playerContainerView!.addSubview(nativePlayerView!)
-            
-            nativePlayerOverlay = UIView(frame: nativePlayerView!.bounds)
-            nativePlayerOverlay!.backgroundColor = UIColor.blackColor()
-            nativePlayerOverlay!.alpha = 0.0
-            nativePlayerOverlay!.userInteractionEnabled = false
-            nativePlayerView!.addSubview(nativePlayerOverlay!)
-            
+            nativePlayerView = NativePlayerView(playerType: .Native, containerView: playerContainerView!, playerDelegate: self)
             youtubePlayerView = YoutubePlayerView(playerType: .Youtube, containerView: playerContainerView!, playerDelegate: self)
+            players.append(nativePlayerView!)
+            players.append(youtubePlayerView!)
             
             hidePlayerViews()
             
@@ -167,61 +146,20 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func playNextNativeItem(item: ChannelItem!) {
-        print("[MANAGER] play next nativeItem")
-        if item == currItem {return}
-        //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
-        //        nativePlayer?.advanceToNextItem()
-        dispatch_async(dispatch_get_main_queue(),{
-            self.currItem = item
-            //nativePlayer?.removeAllItems()
-            //print(item.url!)
-            self.nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
-            self.nativePlayer?.play()
-        })
+        nativePlayerView?.startItem(item)
     }
     
     init(channelId: String!) {
         super.init()
         
         self.channelId = channelId
-        self.nativePlayer = AVQueuePlayer()
-        self.nativePlayer!.addObserver(self, forKeyPath: "status", options: [.New], context: self.myContext)
-        self.nativePlayer!.addObserver(self, forKeyPath: "currentItem", options: [.New], context: self.myContext)
-        self.nativePlayer!.addObserver(self, forKeyPath: "duration", options: [.New], context: self.myContext)
-        self.nativePlayer!.addObserver(self, forKeyPath: "loadedTimeRanges", options: [.New], context: self.myContext)
-        self.nativePlayer!.addObserver(self, forKeyPath: "presentationSize", options: [.New], context: self.myContext)
-        self.nativePlayer!.addObserver(self, forKeyPath: "error", options: [.New], context: self.myContext)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "nativePlayerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserverForName(ItemDidEndNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: processItemEndEvent)
         NSNotificationCenter.defaultCenter().addObserverForName(ItemAboutToEndNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: processItemAboutToEndEvent)
-        
-        // an observer for every second playback
-        timeObserver = nativePlayer!.addPeriodicTimeObserverForInterval(CMTimeMake(1,1), queue: nil, usingBlock: { (time: CMTime) -> Void in
-            if self.nativePlayer != nil && self.nativePlayer!.currentItem != nil {
-                let currentSecond = self.nativePlayer!.currentItem!.currentTime().value / Int64(self.nativePlayer!.currentItem!.currentTime().timescale)
-                let totalDuration = CMTimeGetSeconds(self.nativePlayer!.currentItem!.duration)
-                let totalDurationStr = String(format: "%.2f", totalDuration)
-                //print("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
-                
-                if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
-                    self.notifyItemAboutToEnd()
-                }
-            }
-        })
     }
     
     deinit {
         stop()
-        if timeObserver != nil {
-            nativePlayer?.removeTimeObserver(timeObserver!)
-        }
-        self.nativePlayer?.removeObserver(self, forKeyPath: "status")
-        self.nativePlayer?.removeObserver(self, forKeyPath: "currentItem")
-        self.nativePlayer?.removeObserver(self, forKeyPath: "duration")
-        self.nativePlayer?.removeObserver(self, forKeyPath: "loadedTimeRanges")
-        self.nativePlayer?.removeObserver(self, forKeyPath: "presentationSize")
-        self.nativePlayer?.removeObserver(self, forKeyPath: "error")
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -296,21 +234,16 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func hidePlayerViews() {
         print("[MANAGER] hides all players")
-        self.youtubePlayerView?.hide()
-        self.nativePlayerView?.hidden = true
+        youtubePlayerView?.hide(0.0)
+        nativePlayerView?.hide(0.0)
     }
     
     func hideYoutubeView() {
-        self.youtubePlayerView?.hide()
+        youtubePlayerView?.hide(nil)
     }
     
     func hideNativeView() {
-        print("[MANAGER] fades out native player")
-        self.nativePlayerOverlay?.alpha = 0.0
-        self.nativePlayerView?.bringSubviewToFront(self.nativePlayerOverlay!)
-        UIView.animateWithDuration(fadeOutItmeConstant) { () -> Void in
-            self.nativePlayerOverlay?.alpha = 1.0
-        }
+        nativePlayerView?.hide(nil)
     }
     
     func hideTweetView() {
@@ -322,18 +255,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func showYoutubeView() {
-        self.youtubePlayerView?.show()
+        self.youtubePlayerView?.show(nil)
     }
     
     func showNativeView() {
-        print("[MANAGER] fades in native player")
-        self.nativePlayerOverlay?.alpha = 1.0
-        self.nativePlayerView?.bringSubviewToFront(self.nativePlayerOverlay!)
-        UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
-            self.nativePlayerOverlay?.alpha = 0.0
-            self.playerContainerView?.bringSubviewToFront(self.nativePlayerView!)
-            self.nativePlayerView?.hidden = false
-        }
+        nativePlayerView?.show(nil)
     }
     
     func showTweetView() {
@@ -352,18 +278,17 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         } else if currItem!.extractor == "twitter" {
             
         } else {
-            nativePlayer?.play()
+            nativePlayerView?.playItem()
         }
     }
     
     func pause() {
-        nativePlayer?.pause()
+        nativePlayerView?.pauseItem()
         youtubePlayerView?.pauseItem()
     }
     
     func stop() {
-        nativePlayer?.pause()
-        nativePlayer?.replaceCurrentItemWithPlayerItem(nil)
+        nativePlayerView?.stopItem()
         youtubePlayerView?.stopItem()
     }
     
@@ -391,69 +316,3 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
 }
 
-
-// ==========================================================
-// Option 1: Use native iOS player
-// ==========================================================
-extension ChannelManager {
-    
-    func nativePlayerDidFinishPlaying(notification: NSNotification) {
-        if nativePlayer?.rate != 0 && nativePlayer?.error == nil {
-            notifyItemDidEnd()
-        }
-    }
-    
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if context != myContext {return}
-        let nativePlayer = object as? AVPlayer
-        if (nativePlayer == nil || nativePlayer != self.nativePlayer) {return}
-        
-        if keyPath == "status" {
-            
-            if nativePlayer!.status == AVPlayerStatus.ReadyToPlay {
-                print("[NATIVEPLAYER] ready to play")
-                
-                if let currentPlayerAsset = nativePlayer!.currentItem?.asset as? AVURLAsset {
-                    if currItem != nil && currItem!.url == currentPlayerAsset.URL.absoluteString {
-                        dispatch_async(dispatch_get_main_queue(),{
-                            if nativePlayer!.currentItem != nil {
-                                if let videoTrack = nativePlayer!.currentItem!.asset.tracksWithMediaType(AVMediaTypeVideo).first {
-                                    print("naturalSize = \(videoTrack.naturalSize)")
-                                    //print("preferredTransform = \(videoTrack.preferredTransform)")
-                                }
-                            }
-                            self.nativePlayer?.play()
-                        })
-                    }
-                }
-            } else if nativePlayer!.status == AVPlayerStatus.Failed {
-                print("[NATIVEPLAYER] failed to play")
-            } else {
-                print("[NATIVEPLAYER] unhandled playerItem status \(nativePlayer!.status)")
-            }
-            
-        } else if keyPath == "currentItem" {
-            
-        } else if keyPath == "duration" {
-            
-            if let timeInterval = nativePlayer!.currentItem?.duration {
-                let totalDuration = CMTimeGetSeconds(timeInterval)
-                print("totalDuration = \(totalDuration)")
-            }
-            
-        } else if keyPath == "loadedTimeRanges" {
-        } else if keyPath == "presentationSize" {
-        } else if keyPath == "error" {
-            
-        }
-    }
-    
-}
-
-
-// ==========================================================
-// Option 3: Use web view player
-// ==========================================================
-extension ChannelManager {
-    
-}

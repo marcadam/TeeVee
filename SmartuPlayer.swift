@@ -19,6 +19,10 @@ enum PlayerType: Int {
     case Native = 0, Youtube, Web, Tweet
 }
 
+enum PlaybackStatus: Int {
+    case Init = 0, Playing, Pause, Stop, WillEnd, DidEnd
+}
+
 protocol SmartuPlayer {
     func prepareToStart(item: ChannelItem!)
     func startItem(item: ChannelItem!)
@@ -27,14 +31,10 @@ protocol SmartuPlayer {
     func stopItem()
     func resetBounds(bounds: CGRect)
     
-    func show()
-    func hide()
+    func show(duration: NSTimeInterval?)
+    func hide(duration: NSTimeInterval?)
 }
 
-enum PlaybackStatus: Int {
-    case Init = 0, Playing, Pause, Stop, WillEnd, DidEnd
-}
-
-protocol SmartuPlayerDelegate {
+protocol SmartuPlayerDelegate: class {
     func playbackStatus(playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double)
 }
