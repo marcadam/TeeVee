@@ -28,7 +28,7 @@ Nice-to-haves:
 - (Not sure if this is desirable) User can filter content: prefer specific content producers / sources,  or to blacklist topics/sources/producers
 - User can add topics easily with the app's autocomplete suggestions feature
 - User can view all channels in a Category in a separate screen (Music category channels, for example)
-- User can choose a theme, among possibly a set of predefined themes, for their channels
+- User can choose a custom style theme, among possibly a set of predefined themes, for their channels
 - User can share the channels with their friends or on social media
 - User can see and watch their friends' public channels
 - User can see all of their past 'likes'
