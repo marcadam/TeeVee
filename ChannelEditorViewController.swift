@@ -20,7 +20,7 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet var titleTextField: UITextField!
     
     private var topics:[String] = []
-    private var filters: Filters?
+    private var newFilters: Filters?
     private var isEdit = false
     
     var channel: Channel? {
@@ -29,9 +29,9 @@ class ChannelEditorViewController: UIViewController {
                 isEdit = true
                 topics = setChannel.topics!
                 view.layoutIfNeeded()
-                titleTextField.text = setChannel.title ?? nil
+                titleTextField.text = setChannel.title
                 if let filters = setChannel.filters {
-                    self.filters = filters
+                    newFilters = filters
                 }
             }
         }
@@ -58,59 +58,18 @@ class ChannelEditorViewController: UIViewController {
         searchTextField.textColor = Theme.Colors.HighlightColor.color
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a new topic", attributes: [NSForegroundColorAttributeName: Theme.Colors.HighlightLightColor.color])
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
-        tableView.rowHeight = 100
+        tableView.rowHeight = 90
     }
     
     func setDefaults() {
-        // TODO : if this is a new channel, fetch available filters from server
-        // ChannelClient.sharedInstance.getAvailableFilters()
-        
-        // else if this is an existing channel, populate screen/filters using its data
-        if filters == nil {
-            let filtersDict = ["max_duration": 300] as NSMutableDictionary
-            filters = Filters(dictionary: filtersDict)
+        if newFilters == nil {
+            // TODO : if this is a new channel, fetch available filters from server
+            // ChannelClient.sharedInstance.getAvailableFilters()
+            let filtersDict = ["max_duration": 300] as NSDictionary
+            newFilters = Filters(dictionary: filtersDict)
         } else {
-            filters = channel?.filters
-        }
-    }
-    
-    func createChannel(completion: (error: NSError?, channel: Channel?)->()) {
-        if topics.count > 0 {
-            let channelDictionary = ["title": titleTextField.text!, "topics": topics, "filters": filters!] as NSDictionary
-            DataLayer.createChannel(withDictionary: channelDictionary, completion: { (error, channel) -> () in
-                if error != nil {
-                    completion(error: error!, channel: nil)
-                } else {
-                    completion(error: nil, channel: channel!)
-                }
-            })
-        }
-    }
-    
-    func updateChannel(completion: (error: NSError?, channel: Channel?)->()) {
-        if let channel = channel {
-            var count = 0
-            if topics != channel.topics! {
-                channel.topics = topics
-                count++
-            }
-            if titleTextField.text != channel.title && titleTextField.text != "" {
-                channel.title = titleTextField.text
-                count++
-            }
-            if filters != channel.filters {
-                channel.filters = filters
-                count++
-            }
-            if count > 0 {
-                DataLayer.updateChannel(withChannel: channel, completion: { (error, channel) -> () in
-                    if error != nil {
-                        completion(error: error, channel: nil)
-                    } else {
-                        completion(error: nil, channel: channel)
-                    }
-                })
-            }
+            // else if this is an existing channel, populate screen/filters using its data
+            newFilters = channel!.filters
         }
     }
     
@@ -127,6 +86,15 @@ class ChannelEditorViewController: UIViewController {
                         print(error)
                     } else {
                         self.delegate?.channelEditor(self, didSetChannel: self.channel!)
+                    }
+                })
+                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    self.isEdit = false
+                })
+            } else {
+                deleteChannel({ (error) -> () in
+                    if error != nil {
+                        print(error)
                     }
                 })
                 self.dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -179,7 +147,7 @@ class ChannelEditorViewController: UIViewController {
         if segue.identifier == "filtersSegue" {
             let destination = segue.destinationViewController as! FiltersViewController
             destination.delegate = self
-            destination.filters = filters
+            destination.filters = newFilters
         } else if segue.identifier == "playerSegue" {
             let destination = segue.destinationViewController as! PlayerViewController
             let channel = sender as! Channel
@@ -218,7 +186,7 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
-        self.filters = filters
+        newFilters = filters
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -232,5 +200,65 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
             }
         }
         return true
+    }
+}
+
+extension ChannelEditorViewController {
+    func createChannel(completion: (error: NSError?, channel: Channel?) -> ()) {
+        if topics.count > 0 {
+            let channelDictionary = ["title": titleTextField.text!, "topics": topics, "filters": newFilters!] as NSDictionary
+            DataLayer.createChannel(withDictionary: channelDictionary, completion: { (error, channel) -> () in
+                if error != nil {
+                    completion(error: error!, channel: nil)
+                } else {
+                    completion(error: nil, channel: channel!)
+                }
+            })
+        }
+    }
+    
+    func updateChannel(completion: (error: NSError?, channel: Channel?) -> ()) {
+        if let channel = channel {
+            var count = 0
+            var dictionary = [String: AnyObject]()
+            
+            // set default dictionary items
+            dictionary["channel_id"] = channel.channel_id!
+            dictionary["topics"] = channel.topics!
+            dictionary["title"] = channel.title!
+            dictionary["filters"] = channel.filters!
+            
+            if topics != channel.topics! {
+                dictionary["topics"] = topics
+                count++
+            }
+            if titleTextField.text != channel.title && titleTextField.text != "" {
+                dictionary["title"] = titleTextField.text
+                count++
+            }
+            if newFilters != channel.filters {
+                dictionary["filters"] = newFilters
+                count++
+            }
+            if count > 0 {
+                DataLayer.updateChannel(withDictionary: dictionary, completion: { (error, channel) -> () in
+                    if error != nil {
+                        completion(error: error, channel: nil)
+                    } else {
+                        completion(error: nil, channel: channel)
+                    }
+                })
+            }
+        }
+    }
+    
+    func deleteChannel(completion: (error: NSError?) -> ()) {
+        DataLayer.deleteChannel(withChannel: channel!, completion: { (error, channelId) -> () in
+            if error != nil {
+                print(error)
+            } else {
+                print(channelId)
+            }
+        })
     }
 }

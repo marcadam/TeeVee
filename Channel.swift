@@ -10,44 +10,22 @@ import UIKit
 
 class Channel: NSObject {
 
-    var dictionary: NSMutableDictionary?
+    let dictionary: NSDictionary?
     let owner: User?
     let channel_id: String?
-    var title: String? {
-        didSet {
-            self.dictionary?.setValue(title!, forKey: "title")
-        }
-    }
-    var thumbnail_url: String? {
-        didSet {
-            self.dictionary?.setValue(thumbnail_url!, forKey: "thumbnail_url")
-        }
-    }
-    var items: [ChannelItem]? {
-        didSet {
-            self.dictionary?.setValue(items, forKey: "items")
-        }
-    }
-    var filters: Filters? {
-        didSet {
-            let max_duration = filters!.max_duration
-            let dict = ["max_duration": max_duration!]
-            self.dictionary?.setValue(dict, forKey: "filters")
-        }
-    }
-    var topics: [String]? {
-        didSet {
-            self.dictionary?.setValue(topics, forKey: "topics")
-        }
-    }
+    let title: String?
+    let thumbnail_url: String?
+    let items: [ChannelItem]?
+    let filters: Filters?
+    let topics: [String]?
     let curated: CuratedInfo?
     
     init(dictionary: NSDictionary) {
-        let dict = dictionary
-        self.dictionary = dict.mutableCopy() as? NSMutableDictionary
+        self.dictionary = dictionary
         
         var items = [ChannelItem]()
         var curated: CuratedInfo? = nil
+        var setFilters: Filters? = nil
         
         channel_id = dictionary["_id"] as? String
         title = dictionary["title"] as? String
@@ -61,9 +39,14 @@ class Channel: NSObject {
             curated = CuratedInfo(dictionary: curatedInfo)
         }
         
+        if let filters = dictionary["filters"] as? NSDictionary {
+            setFilters = Filters(dictionary: filters)
+        }
+        
         self.items = items
         self.curated = curated
-        filters = dictionary["filters"] as? Filters
+        self.filters = setFilters
+        
         topics = dictionary["topics"] as? [String]
         owner = dictionary["owner"] as? User
     }

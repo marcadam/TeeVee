@@ -53,11 +53,11 @@ class MyChannelsViewController: UIViewController {
     }
     func getChannels() {
         ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
-            if error == nil {
+            if error != nil {
+                print(error)
+            } else {
                 self.channelsArray.appendContentsOf(channels!)
                 self.tableView.reloadData()
-            } else {
-                print(error)
             }
         }
     }

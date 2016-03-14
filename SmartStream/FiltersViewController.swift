@@ -36,6 +36,7 @@ class FiltersViewController: UIViewController {
     private var titles = []
     private var durationSelected: Int!
     private var durationSelectedIndex: Int!
+    private var didChangeFilters = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,10 +55,12 @@ class FiltersViewController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-    
-        filters.max_duration = durationSelected
-        filters.updateDictionary(ofKey: "max_duration", withValue: durationSelected)
-        self.delegate?.filtersView(self, didSetFilters: filters)
+
+        if didChangeFilters {
+            let filtersDictionary = ["max_duration": durationSelected] as NSDictionary
+            let newFilters = Filters(dictionary: filtersDictionary)
+            self.delegate?.filtersView(self, didSetFilters: newFilters)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -113,15 +116,19 @@ extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             durationSelected = 60
             durationSelectedIndex = 0
+            checkIfFilterChanged(durationSelected)
         case 1:
             durationSelected = 300
             durationSelectedIndex = 1
+            checkIfFilterChanged(durationSelected)
         case 2:
             durationSelected = 10000
             durationSelectedIndex = 2
+            checkIfFilterChanged(durationSelected)
         default:
             durationSelected = 300
             durationSelectedIndex = 1
+            checkIfFilterChanged(durationSelected)
         }
         tableView.reloadData()
         
@@ -136,5 +143,13 @@ extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
         header.contentView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         header.textLabel?.font = Theme.Fonts.NormalTypeFace.font
         header.textLabel?.textColor = Theme.Colors.HighlightColor.color
+    }
+    
+    func checkIfFilterChanged(selected: Int) {
+        if filters.max_duration! != selected {
+            didChangeFilters = true
+        } else {
+            didChangeFilters = false
+        }
     }
 }

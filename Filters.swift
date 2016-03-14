@@ -9,21 +9,15 @@
 import UIKit
 
 class Filters: NSObject {
-    var dictionary: NSMutableDictionary
-    var max_duration: Int?
-    var likes: [ChannelItem]?
-    var dislikes: [ChannelItem]?
+    let dictionary: NSDictionary
+    let max_duration: Int?
+    let likes: [ChannelItem]?
+    let dislikes: [ChannelItem]?
     
     init(dictionary: NSDictionary) {
-        self.dictionary = dictionary as! NSMutableDictionary
+        self.dictionary = dictionary
         max_duration = dictionary["max_duration"] as? Int
         likes = dictionary["likes"] as? [ChannelItem]
         dislikes = dictionary["dislikes"] as? [ChannelItem]
-    }
-    
-    func updateDictionary(ofKey key: String, withValue value: AnyObject) {
-        
-        dictionary.setValue(value, forKey: key)
-
     }
 }
