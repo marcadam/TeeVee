@@ -52,7 +52,9 @@ class MyChannelsViewController: UIViewController {
         tableView.rowHeight = 90
         tableView.separatorStyle = .None
     }
+
     func getChannels() {
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
         ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
             if let channels = channels {
                 self.channelsArray = channels
@@ -68,7 +70,6 @@ class MyChannelsViewController: UIViewController {
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
         delegate?.myChannelsVC(self, didEditChannel: nil)
     }
-
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
