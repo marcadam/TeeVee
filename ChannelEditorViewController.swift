@@ -12,6 +12,7 @@ import MBProgressHUD
 protocol ChannelEditorDelegate: class {
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel, completion: () -> ())
     func channelEditor(channelEditor: ChannelEditorViewController, didDeleteChannel channelId: String, completion: () -> ())
+    func channelEditor(channelEditor: ChannelEditorViewController, shouldPlayChannel channel: Channel)
 }
 
 class ChannelEditorViewController: UIViewController {
@@ -106,15 +107,10 @@ class ChannelEditorViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onBackgroundTapped(sender: UITapGestureRecognizer) {
-        searchTextField.resignFirstResponder()
-        titleTextField.resignFirstResponder()
-    }
-    
-    @IBAction func onSaveTapped(sender: UIButton) {
+    func buttonAction(isPlay: Bool) {
         if isEdit {
             if topics.count > 0 {
-                updateChannel({ (error, channel) -> () in
+                updateChannel(isPlay, completion: { (error, channel) -> () in
                     if error != nil {
                         print(error)
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
@@ -123,7 +119,9 @@ class ChannelEditorViewController: UIViewController {
                             MBProgressHUD.hideHUDForView(self.view, animated: true)
                             self.isEdit = false
                             self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                                //
+                                if isPlay {
+                                    self.delegate?.channelEditor(self, shouldPlayChannel: channel!)
+                                }
                             })
                         })
                     }
@@ -154,7 +152,9 @@ class ChannelEditorViewController: UIViewController {
                     self.delegate?.channelEditor(self, didSetChannel: channel!, completion: { () -> () in
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
                         self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                            //
+                            if isPlay {
+                                self.delegate?.channelEditor(self, shouldPlayChannel: channel!)
+                            }
                         })
                     })
                 }
@@ -162,12 +162,17 @@ class ChannelEditorViewController: UIViewController {
         }
     }
     
+    @IBAction func onBackgroundTapped(sender: UITapGestureRecognizer) {
+        searchTextField.resignFirstResponder()
+        titleTextField.resignFirstResponder()
+    }
+    
+    @IBAction func onSaveTapped(sender: UIButton) {
+        buttonAction(false)
+    }
+    
     @IBAction func onStartChannelTapped(sender: AnyObject) {
-        if topics.count > 0 {
-            createChannel({ (error, channel) -> () in
-                self.performSegueWithIdentifier("playerSegue", sender: channel!)
-            })
-        }
+        buttonAction(true)
     }
     
     @IBAction func onBackTapped(sender: AnyObject) {
@@ -257,7 +262,7 @@ extension ChannelEditorViewController {
         }
     }
     
-    func updateChannel(completion: (error: NSError?, channel: Channel?) -> ()) {
+    func updateChannel(isPlay: Bool, completion: (error: NSError?, channel: Channel?) -> ()) {
         if let channel = channel {
             var count = 0
             var dictionary = [String: AnyObject]()
@@ -291,7 +296,9 @@ extension ChannelEditorViewController {
                 })
             } else {
                 dismissViewControllerAnimated(true, completion: { () -> Void in
-                    //
+                    if isPlay {
+                        self.delegate?.channelEditor(self, shouldPlayChannel: channel)
+                    }
                 })
             }
         }

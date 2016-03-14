@@ -186,7 +186,6 @@
                         <outlet property="tableView" destination="ucu-k2-WAx" id="Xa0-sO-8rs"/>
                         <outlet property="titleTextField" destination="KJG-Cb-VNa" id="Oqy-xv-TDj"/>
                         <outlet property="titleWrapperView" destination="FdL-pM-EQd" id="6la-YS-ATa"/>
-                        <segue destination="UM3-pZ-hxC" kind="presentation" identifier="playerSegue" id="ylm-cK-Rl9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HG7-sd-E6r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -204,15 +203,7 @@
                 <viewControllerPlaceholder storyboardName="Filters" referencedIdentifier="FiltersTableView" id="r98-P7-qa7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kdr-rj-qdn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4297.5" y="211"/>
-        </scene>
-        <!--PlayerStoryboard-->
-        <scene sceneID="ijk-Yf-tMd">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Player" referencedIdentifier="PlayerStoryboard" id="UM3-pZ-hxC" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R31-jY-8em" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4301" y="259"/>
+            <point key="canvasLocation" x="4297.5" y="237"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Uza-6f-2wx">

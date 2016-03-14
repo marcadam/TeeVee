@@ -149,4 +149,8 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         tableView.reloadData()
         completion()
     }
+    
+    func channelEditor(channelEditor: ChannelEditorViewController, shouldPlayChannel channel: Channel) {
+        delegate?.myChannelsVC(self, didPlayChannel: channel)
+    }
 }
