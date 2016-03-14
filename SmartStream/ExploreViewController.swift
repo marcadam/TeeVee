@@ -36,7 +36,8 @@ class ExploreViewController: UIViewController {
         collectionView.registerNib(channelCellNIB, forCellWithReuseIdentifier: channelCellID)
 
         // Theming
-        collectionView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+        view.backgroundColor = Theme.Colors.BackgroundColor.color
+        collectionView.backgroundColor = UIColor.clearColor()
 
         getChannels()
     }

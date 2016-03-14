@@ -27,7 +27,7 @@ class ChannelCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         backgroundColor = Theme.Colors.LightBackgroundColor.color
-        infoContainerView.backgroundColor = Theme.Colors.BackgroundColor.color
+        infoContainerView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         channelNameLabel.textColor = Theme.Colors.HighlightColor.color
     }
 }
