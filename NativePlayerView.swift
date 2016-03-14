@@ -36,6 +36,7 @@ class NativePlayerView: NSObject {
         nativePlayerView = UIView(frame: containerView.bounds)
         nativePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         nativePlayerView.backgroundColor = UIColor.blackColor()
+        nativePlayerView.hidden = true
         
         nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
         nativePlayerLayer.videoGravity = AVLayerVideoGravityResizeAspect
@@ -80,12 +81,12 @@ class NativePlayerView: NSObject {
         if timeObserver != nil {
             nativePlayer.removeTimeObserver(timeObserver!)
         }
-        self.nativePlayer.removeObserver(self, forKeyPath: "status")
-        self.nativePlayer.removeObserver(self, forKeyPath: "currentItem")
-        self.nativePlayer.removeObserver(self, forKeyPath: "duration")
-        self.nativePlayer.removeObserver(self, forKeyPath: "loadedTimeRanges")
-        self.nativePlayer.removeObserver(self, forKeyPath: "presentationSize")
-        self.nativePlayer.removeObserver(self, forKeyPath: "error")
+        nativePlayer.removeObserver(self, forKeyPath: "status")
+        nativePlayer.removeObserver(self, forKeyPath: "currentItem")
+        nativePlayer.removeObserver(self, forKeyPath: "duration")
+        nativePlayer.removeObserver(self, forKeyPath: "loadedTimeRanges")
+        nativePlayer.removeObserver(self, forKeyPath: "presentationSize")
+        nativePlayer.removeObserver(self, forKeyPath: "error")
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

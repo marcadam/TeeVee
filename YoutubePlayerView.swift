@@ -37,19 +37,20 @@ class YoutubePlayerView: NSObject {
         self.containerView = containerView
         self.playerDelegate = playerDelegate
         
-        self.youtubePlayerView = YTPlayerView(frame: containerView.bounds)
-        self.youtubePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        self.youtubePlayerView.backgroundColor = UIColor.blackColor()
+        youtubePlayerView = YTPlayerView(frame: containerView.bounds)
+        youtubePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        youtubePlayerView.backgroundColor = UIColor.blackColor()
+        youtubePlayerView.hidden = true
         containerView.addSubview(self.youtubePlayerView)
         
         youtubePlayerOverlay = UIView(frame: containerView.bounds)
         youtubePlayerOverlay!.backgroundColor = UIColor.blackColor()
         youtubePlayerOverlay!.alpha = 0.0
         youtubePlayerOverlay!.userInteractionEnabled = false
-        self.youtubePlayerView.addSubview(youtubePlayerOverlay!)
+        youtubePlayerView.addSubview(youtubePlayerOverlay!)
         
         super.init()
-        self.youtubePlayerView.delegate = self
+        youtubePlayerView.delegate = self
     }
     
 }
@@ -57,8 +58,14 @@ class YoutubePlayerView: NSObject {
 
 extension YoutubePlayerView: SmartuPlayer {
     
+    func prepareYoutubeVideo() {
+        self.playItem()
+    }
+    
     func prepareToStart(item: ChannelItem!) {
+        print("[YOUTUBEPLAYER] buffering: extractor = \(item.extractor); id = \(item.native_id)")
         self.youtubePlayerView.cueVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
+        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
     }
     
     func startItem(item: ChannelItem!) {

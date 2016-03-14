@@ -32,6 +32,7 @@ class TweetPlayerView: NSObject {
         backgroundView = UIView(frame: containerView.bounds)
         backgroundView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         backgroundView.backgroundColor = UIColor.blackColor()
+        backgroundView.hidden = true
         containerView.addSubview(backgroundView)
     }
 }
@@ -103,6 +104,7 @@ extension TweetPlayerView: SmartuPlayer {
             self.containerView.bringSubviewToFront(self.backgroundView)
             if self.tweetView != nil {
                 self.backgroundView.bringSubviewToFront(self.tweetView!)
+                self.backgroundView.hidden = false
             }
         }
     }

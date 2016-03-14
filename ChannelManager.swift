@@ -117,10 +117,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func prepareYoutubeVideo() {
-        youtubePlayerView?.playItem()
-    }
-    
     // Pre-buffering to smoothen transition
     var currCueId: String! = ""
     func prepareNextItem() {
@@ -131,9 +127,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         let extractor = item!.extractor
         if extractor == "youtube" {
             if currItem != nil && currItem!.extractor != "youtube" {
-                print("[MANAGER] buffering: extractor = \(extractor!); id = \(item!.native_id!)")
                 youtubePlayerView?.prepareToStart(item!)
-                NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
             }
         } else {
             // native player buffering
@@ -161,7 +155,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func playNextItem() {
         var item: ChannelItem? = nil
-        while (item == nil || item!.native_id == nil) && priorityQueue!.count > 0 {
+        while priorityQueue!.count > 0 && (item == nil || item!.native_id == nil) {
             item = priorityQueue!.pop()
         }
         if item == nil {
@@ -190,8 +184,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func hidePlayerViews() {
         print("[MANAGER] hides all players")
-        youtubePlayerView?.hide(0.0)
-        nativePlayerView?.hide(0.0)
+        for player in players {
+            player.hide(0.0)
+        }
     }
     
     func play() {
@@ -207,17 +202,15 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func pause() {
-        nativePlayerView?.pauseItem()
-        youtubePlayerView?.pauseItem()
-        tweetPlayerView?.pauseItem()
-//        for player in players {
-//            player.pauseItem()
-//        }
+        for player in players {
+            player.pauseItem()
+        }
     }
     
     func stop() {
-        nativePlayerView?.stopItem()
-        youtubePlayerView?.stopItem()
+        for player in players {
+            player.stopItem()
+        }
     }
     
     func next() {
