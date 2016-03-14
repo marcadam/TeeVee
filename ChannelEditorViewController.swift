@@ -17,15 +17,16 @@ protocol ChannelEditorDelegate: class {
 
 class ChannelEditorViewController: UIViewController {
     
-    @IBOutlet var searchWrapperView: UIView!
-    @IBOutlet var titleWrapperView: UIView!
-    @IBOutlet var searchTextField: UITextField!
+    @IBOutlet weak var searchWrapperView: UIView!
+    @IBOutlet weak var titleWrapperView: UIView!
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var addButton: UIButton!
+
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var titleTextField: UITextField!
     
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet var titleTextField: UITextField!
-    
-    @IBOutlet var saveBgView: UIView!
-    @IBOutlet var playBgView: UIView!
+    @IBOutlet weak var saveBgView: UIView!
+    @IBOutlet weak var playBgView: UIView!
     
     private var topics:[String] = []
     private var newFilters: Filters?
@@ -67,12 +68,13 @@ class ChannelEditorViewController: UIViewController {
     func uiSetup() {
         titleWrapperView.backgroundColor = bgDarkColor
         searchWrapperView.backgroundColor = bgDarkColor
-        
+
         titleTextField.font = formTextFont
         searchTextField.font = formTextFont
         
         titleTextField.textColor = formTextColor
         searchTextField.textColor = formTextColor
+        addButton.tintColor = formTextColor
         
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a new topic", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
