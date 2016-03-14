@@ -13,7 +13,7 @@ class DataLayer: NSObject {
 //        let channelID = generateID()
         let topics = dictionary["topics"] as! [String]
         let filters = dictionary["filters"] as! Filters
-        let filtersDict = filters.dictionary 
+        let filtersDict = filtersToDictionary(filters)
         let title = dictionary["title"] as! String
         
 //        let itemDictionary = Mock.NewChannelItem.init(topics: topics).items
@@ -37,21 +37,23 @@ class DataLayer: NSObject {
         }
     }
     
-    class func updateChannel(withChannel channel: Channel, completion: (error: NSError?, channel: Channel?) -> ()) {
+    class func updateChannel(withDictionary dictionary: NSDictionary, completion: (error: NSError?, channel: Channel?) -> ()) {
         
-        let topics = channel.dictionary!["topics"] as! [String]
-        let filters = channel.dictionary!["filters"] as! NSDictionary
-        let title = channel.dictionary!["title"] as! String
+        let channel_id = dictionary["channel_id"] as! String
+        let topics = dictionary["topics"] as! [String]
+        let filters = dictionary["filters"] as! Filters
+        let filtersDict = filtersToDictionary(filters)
+        let title = dictionary["title"] as! String
         
         let channelDictionary =
         ["channel": [
             "title": title,
-            "filters": filters,
+            "filters": filtersDict,
             "topics": topics
             ]
         ] as NSDictionary
         
-        ChannelClient.sharedInstance.updateChannel(channel.channel_id, channelDict: channelDictionary) { (channel, error) -> () in
+        ChannelClient.sharedInstance.updateChannel(channel_id, channelDict: channelDictionary) { (channel, error) -> () in
             if error != nil {
                 completion(error: error!, channel: nil)
             } else {
@@ -68,6 +70,11 @@ class DataLayer: NSObject {
                 completion(error: nil, channelId: channelId)
             }
         }
+    }
+    
+    static func filtersToDictionary(filters: Filters) -> NSDictionary {
+        let dictionary = ["max_duration": filters.max_duration!] as NSDictionary
+        return dictionary
     }
     
 //    static func generateID() -> String {
