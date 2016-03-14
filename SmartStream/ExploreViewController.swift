@@ -97,6 +97,7 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(channelPagingCellID, forIndexPath: indexPath) as! ChannelCollectionPagingViewCell
+            cell.delegate = self
             cell.featuredChannels = featuredChannels
             return cell
         } else {
@@ -150,5 +151,11 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
         } else {
             return cellInset
         }
+    }
+}
+
+extension ExploreViewController: ChannelCollectionPagingViewCellDelegate {
+    func channelCollectionPageView(sender: ChannelCollectionPagingViewCell, didPlayChannel channel: Channel) {
+        delegate?.exploreVC(self, didPlayChannel: channel)
     }
 }

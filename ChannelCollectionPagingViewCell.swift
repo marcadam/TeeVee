@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ChannelCollectionPagingViewCellDelegate: class {
+    func channelCollectionPageView(sender: ChannelCollectionPagingViewCell, didPlayChannel channel: Channel)
+}
+
 class ChannelCollectionPagingViewCell: UICollectionViewCell {
 
     @IBOutlet weak var scrollView: UIScrollView!
@@ -23,11 +27,14 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
 
             for index in 0..<numberOfPages {
                 let pageView = ChannelCollectionPageView(frame: CGRect(x: (pageWidth * CGFloat(index)), y: 0, width: pageWidth, height: pageHeight))
+                pageView.delegate = self
                 pageView.channel = featuredChannels[index]
                 scrollView.addSubview(pageView)
             }
         }
     }
+
+    weak var delegate: ChannelCollectionPagingViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,5 +55,11 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
 extension ChannelCollectionPagingViewCell: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+    }
+}
+
+extension ChannelCollectionPagingViewCell: ChannelCollectionPageViewDelegate {
+    func channelCollectionPageView(sender: ChannelCollectionPageView, didPlayChannel channel: Channel) {
+        delegate?.channelCollectionPageView(self, didPlayChannel: channel)
     }
 }

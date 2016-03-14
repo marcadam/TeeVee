@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ChannelCollectionPageViewDelegate: class {
+    func channelCollectionPageView(sender: ChannelCollectionPageView, didPlayChannel channel: Channel)
+}
+
 class ChannelCollectionPageView: UIView {
 
     @IBOutlet var contentView: UIView!
@@ -24,6 +28,8 @@ class ChannelCollectionPageView: UIView {
             }
         }
     }
+
+    weak var delegate: ChannelCollectionPageViewDelegate?
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -49,5 +55,8 @@ class ChannelCollectionPageView: UIView {
         channelNameContainerView.layer.borderColor = Theme.Colors.LightBackgroundColor.color.CGColor
         channelNameContainerView.layer.borderWidth = 1.0
         channelNameLabel.textColor = Theme.Colors.HighlightColor.color
+    }
+    @IBAction func onTapChannel(sender: UITapGestureRecognizer) {
+        delegate?.channelCollectionPageView(self, didPlayChannel: channel)
     }
 }

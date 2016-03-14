@@ -18,8 +18,12 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LEv-ff-jmj">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LEv-ff-jmj">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="SJ6-jj-30m" appends="YES" id="7hP-87-r7I"/>
+                    </connections>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PU5-W8-9O7">
                     <rect key="frame" x="271" y="147" width="58" height="28"/>
@@ -52,5 +56,10 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <tapGestureRecognizer id="SJ6-jj-30m">
+            <connections>
+                <action selector="onTapChannel:" destination="-1" id="je5-5P-i87"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>
