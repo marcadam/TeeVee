@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var contentViewLeadingConstraint: NSLayoutConstraint!
 
-    let contentViewPeakOffset: CGFloat = 44.0
+    let contentViewPeakOffset: CGFloat = 50.0
     var originalContentViewLeftMargin: CGFloat!
     var menuOpen = false
 
