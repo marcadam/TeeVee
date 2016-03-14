@@ -29,6 +29,7 @@ class YoutubePlayerView: YTPlayerView {
     var currItem: ChannelItem?
     
     required init?(coder aDecoder: NSCoder) {
+        self.playerType = .Youtube
         super.init(coder: aDecoder)
     }
     
