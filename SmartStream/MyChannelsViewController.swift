@@ -35,6 +35,12 @@ class MyChannelsViewController: UIViewController {
         // Do any additional setup after loading the view.
         let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
+        tableView.estimatedRowHeight = 67
+        tableView.rowHeight = UITableViewAutomaticDimension
+
+        // Hide empty tableView rows
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+
         setupUI()
         getChannels()
     }
@@ -46,11 +52,10 @@ class MyChannelsViewController: UIViewController {
     
     func setupUI() {
         tableView.backgroundColor = Theme.Colors.BackgroundColor.color
+        tableView.separatorColor = Theme.Colors.HighlightLightColor.color
+
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         createChannelLabel.textColor = Theme.Colors.HighlightColor.color
-        
-        tableView.rowHeight = 90
-        tableView.separatorStyle = .None
     }
 
     func getChannels() {
