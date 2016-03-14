@@ -18,7 +18,7 @@
                         <rect key="frame" x="30" y="53" width="470" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conan O'Brien" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhx-qA-LXO">
-                                <rect key="frame" x="10" y="15" width="410" height="21"/>
+                                <rect key="frame" x="38" y="15" width="394" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -37,9 +37,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6B4-kG-Mr4" firstAttribute="leading" secondItem="qhx-qA-LXO" secondAttribute="trailing" constant="12" id="363-YX-SvD"/>
+                            <constraint firstItem="6B4-kG-Mr4" firstAttribute="leading" secondItem="qhx-qA-LXO" secondAttribute="trailing" id="363-YX-SvD"/>
                             <constraint firstItem="6B4-kG-Mr4" firstAttribute="centerY" secondItem="ydC-WT-yWh" secondAttribute="centerY" id="Yey-eX-ZeT"/>
-                            <constraint firstItem="qhx-qA-LXO" firstAttribute="leading" secondItem="ydC-WT-yWh" secondAttribute="leading" constant="10" id="Z3d-hm-8fW"/>
+                            <constraint firstItem="qhx-qA-LXO" firstAttribute="leading" secondItem="ydC-WT-yWh" secondAttribute="leading" constant="38" id="Z3d-hm-8fW"/>
                             <constraint firstAttribute="trailing" secondItem="qhx-qA-LXO" secondAttribute="trailing" constant="50" id="eck-SI-2zn"/>
                             <constraint firstItem="qhx-qA-LXO" firstAttribute="centerY" secondItem="ydC-WT-yWh" secondAttribute="centerY" id="h3Z-0g-cAx"/>
                             <constraint firstAttribute="height" constant="50" id="v0E-SH-QYm"/>
