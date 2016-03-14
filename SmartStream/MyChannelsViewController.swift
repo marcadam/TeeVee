@@ -112,7 +112,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         
         let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             let channel = self.channelsArray[indexPath.row]
-            DataLayer.deleteChannel(withChannel: channel, completion: { (error, channelId) -> () in
+            DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
                 self.channelsArray.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
                 self.dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -133,6 +133,16 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         }
         if !channelsArray.contains(channel) {
             channelsArray.append(channel)
+        }
+        tableView.reloadData()
+        completion()
+    }
+    
+    func channelEditor(channelEditor: ChannelEditorViewController, didDeleteChannel channelId: String, completion: () -> ()) {
+        for (index, arrayChannel) in channelsArray.enumerate() {
+            if arrayChannel.channel_id == channelId {
+                channelsArray.removeAtIndex(index)
+            }
         }
         tableView.reloadData()
         completion()

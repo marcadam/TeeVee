@@ -10,7 +10,8 @@ import UIKit
 import MBProgressHUD
 
 protocol ChannelEditorDelegate: class {
-    func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel, completion: ()->())
+    func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel, completion: () -> ())
+    func channelEditor(channelEditor: ChannelEditorViewController, didDeleteChannel channelId: String, completion: () -> ())
 }
 
 class ChannelEditorViewController: UIViewController {
@@ -131,15 +132,17 @@ class ChannelEditorViewController: UIViewController {
                     }
                 })
             } else {
-                deleteChannel({ (error) -> () in
+                deleteChannel({ (error, channelId) -> () in
                     if error != nil {
                         print(error)
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
                     } else {
-                        MBProgressHUD.hideHUDForView(self.view, animated: true)
-                        self.isEdit = false
-                        self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                            //
+                        self.delegate?.channelEditor(self, didDeleteChannel: channelId!, completion: { () -> () in
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            self.isEdit = false
+                            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                                //
+                            })
                         })
                     }
                 })
@@ -297,16 +300,16 @@ extension ChannelEditorViewController {
         }
     }
     
-    func deleteChannel(completion: (error: NSError?) -> ()) {
+    func deleteChannel(completion: (error: NSError?, channelId: String?) -> ()) {
         MBProgressHUD.showHUDAddedTo(view, animated: true)
         if let channel = channel {
             DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
                 if error != nil {
                     print(error)
-                    completion(error: error)
+                    completion(error: error, channelId: nil)
                 } else {
                     print(channelId)
-                    completion(error: nil)
+                    completion(error: nil, channelId: channelId)
                 }
             })
         }
