@@ -80,7 +80,9 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: ChannelsViewControllerDelegate, ProfileViewControllerDelegate, SettingsViewControllerDelegate {
+// MARK: - ChannelsViewControllerDelegate
+
+extension HomeViewController: ChannelsViewControllerDelegate {
     private func toggleMenu() {
         originalContentViewLeftMargin = contentViewLeadingConstraint.constant
         UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -96,14 +98,6 @@ extension HomeViewController: ChannelsViewControllerDelegate, ProfileViewControl
     }
 
     func channelsView(channelsView: ChannelsViewController, didTapMenuButton: UIBarButtonItem) {
-        toggleMenu()
-    }
-
-    func profileView(profileView: ProfileViewController, didTapMenuButton: UIBarButtonItem) {
-        toggleMenu()
-    }
-
-    func settingsView(profileView: SettingsViewController, didTapMenuButton: UIBarButtonItem) {
         toggleMenu()
     }
 
@@ -128,5 +122,19 @@ extension HomeViewController: ChannelsViewControllerDelegate, ProfileViewControl
         playerVC.channelId = channel.channel_id
         presentViewController(playerVC, animated: true, completion: nil)
     }
+}
+// MARK: - ProfileViewControllerDelegate
 
+extension HomeViewController: ProfileViewControllerDelegate {
+    func profileView(profileView: ProfileViewController, didTapMenuButton: UIBarButtonItem) {
+        toggleMenu()
+    }
+}
+
+// MARK: - SettingsViewControllerDelegate
+
+extension HomeViewController: SettingsViewControllerDelegate {
+    func settingsView(profileView: SettingsViewController, didTapMenuButton: UIBarButtonItem) {
+        toggleMenu()
+    }
 }

@@ -8,10 +8,33 @@
 
 import UIKit
 
+protocol ChannelCollectionPagingViewCellDelegate: class {
+    func channelCollectionPageView(sender: ChannelCollectionPagingViewCell, didPlayChannel channel: Channel)
+}
+
 class ChannelCollectionPagingViewCell: UICollectionViewCell {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
+
+    var featuredChannels: [Channel]! {
+        didSet {
+            let pageWidth = scrollView.bounds.width
+            let pageHeight = scrollView.bounds.height
+            let numberOfPages = featuredChannels.count
+            pageControl.numberOfPages = numberOfPages
+            scrollView.contentSize = CGSize(width: pageWidth * CGFloat(numberOfPages), height: pageHeight)
+
+            for index in 0..<numberOfPages {
+                let pageView = ChannelCollectionPageView(frame: CGRect(x: (pageWidth * CGFloat(index)), y: 0, width: pageWidth, height: pageHeight))
+                pageView.delegate = self
+                pageView.channel = featuredChannels[index]
+                scrollView.addSubview(pageView)
+            }
+        }
+    }
+
+    weak var delegate: ChannelCollectionPagingViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,15 +44,6 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
 
         let scrollViewWidth = UIScreen.mainScreen().bounds.width
         scrollView.frame = CGRect(x: 0, y: 0, width: scrollViewWidth, height: 200)
-
-        let pageWidth = scrollView.bounds.width
-        let pageHeight = scrollView.bounds.height
-        scrollView.contentSize = CGSize(width: pageWidth * 3, height: pageHeight)
-
-        for index in 0..<3 {
-            let pageView = ChannelCollectionPageView(frame: CGRect(x: (pageWidth * CGFloat(index)), y: 0, width: pageWidth, height: pageHeight))
-            scrollView.addSubview(pageView)
-        }
     }
 
     @IBAction func pageControlDidPage(sender: UIPageControl) {
@@ -41,5 +55,11 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
 extension ChannelCollectionPagingViewCell: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+    }
+}
+
+extension ChannelCollectionPagingViewCell: ChannelCollectionPageViewDelegate {
+    func channelCollectionPageView(sender: ChannelCollectionPageView, didPlayChannel channel: Channel) {
+        delegate?.channelCollectionPageView(self, didPlayChannel: channel)
     }
 }

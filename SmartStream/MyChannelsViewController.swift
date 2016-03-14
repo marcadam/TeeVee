@@ -8,10 +8,11 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
 protocol MyChannelsViewControllerDelegate: class {
-    func shouldPresentEditor(sender: MyChannelsViewController, withChannel channel: Channel?)
-    func shouldPresentPlayer(sender: MyChannelsViewController, withChannel channel: Channel)
+    func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?)
+    func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel)
 }
 
 class MyChannelsViewController: UIViewController {
@@ -53,17 +54,19 @@ class MyChannelsViewController: UIViewController {
     }
     func getChannels() {
         ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
-            if error != nil {
-                print(error)
-            } else {
-                self.channelsArray.appendContentsOf(channels!)
+            if let channels = channels {
+                self.channelsArray = channels
                 self.tableView.reloadData()
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            } else {
+                print(error)
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
             }
         }
     }
     
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
-        delegate?.shouldPresentEditor(self, withChannel: nil)
+        delegate?.myChannelsVC(self, didEditChannel: nil)
     }
 
 }
@@ -85,18 +88,18 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        delegate?.shouldPresentPlayer(self, withChannel: channelsArray[indexPath.row])
+        delegate?.myChannelsVC(self, didPlayChannel: channelsArray[indexPath.row])
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let playAction = UITableViewRowAction(style: .Normal, title: "Play") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-            self.delegate?.shouldPresentPlayer(self, withChannel: self.channelsArray[indexPath.row])
+            self.delegate?.myChannelsVC(self, didPlayChannel: self.channelsArray[indexPath.row])
             self.tableView.editing = false
         }
         playAction.backgroundColor = UIColor(red: 164/255, green: 179/255, blue: 112/255, alpha: 1)
         
         let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-            self.delegate?.shouldPresentEditor(self, withChannel: self.channelsArray[indexPath.row])
+            self.delegate?.myChannelsVC(self, didEditChannel: self.channelsArray[indexPath.row])
             self.tableView.editing = false
         }
         editAction.backgroundColor = UIColor(red: 113/255, green: 154/255, blue: 175/255, alpha: 1)
