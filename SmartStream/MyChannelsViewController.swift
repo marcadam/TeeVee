@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
 protocol MyChannelsViewControllerDelegate: class {
     func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?)
@@ -52,11 +53,13 @@ class MyChannelsViewController: UIViewController {
     }
     func getChannels() {
         ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
-            if error == nil {
-                self.channelsArray.appendContentsOf(channels!)
+            if let channels = channels {
+                self.channelsArray = channels
                 self.tableView.reloadData()
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
             } else {
                 print(error)
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
             }
         }
     }
