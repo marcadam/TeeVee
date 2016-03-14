@@ -14,11 +14,14 @@ protocol MyChannelTableViewCellDelegate: class {
 
 class MyChannelTableViewCell: UITableViewCell {
 
-    @IBOutlet var wrapperView: UIView!
-    @IBOutlet var topicLabel: UILabel!
-    weak var delegate: MyChannelTableViewCellDelegate?
+    @IBOutlet weak var wrapperView: UIView!
+    @IBOutlet weak var topicLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
+
     var indexPath: NSIndexPath!
-    
+
+    weak var delegate: MyChannelTableViewCellDelegate?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -37,6 +40,7 @@ class MyChannelTableViewCell: UITableViewCell {
         
         topicLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         topicLabel.textColor = Theme.Colors.HighlightColor.color
+        deleteButton.tintColor = Theme.Colors.HighlightColor.color
         backgroundColor = UIColor.clearColor()
     }
 

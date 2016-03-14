@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="530" height="157"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zoN-Yk-oea" id="xQM-Cv-N2O">
-                <rect key="frame" x="0.0" y="0.0" width="530" height="156"/>
+                <rect key="frame" x="0.0" y="0.0" width="530" height="156.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ydC-WT-yWh">
@@ -23,13 +23,14 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6B4-kG-Mr4">
-                                <rect key="frame" x="432" y="10" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6B4-kG-Mr4">
+                                <rect key="frame" x="436" y="12" width="26" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="bXM-Uy-n8y"/>
-                                    <constraint firstAttribute="height" constant="30" id="wS0-7K-JcU"/>
+                                    <constraint firstAttribute="height" constant="26" id="5I8-fG-65v"/>
+                                    <constraint firstAttribute="width" constant="26" id="Bb7-8O-ign"/>
                                 </constraints>
-                                <state key="normal" title="X"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="Delete"/>
                                 <connections>
                                     <action selector="onDeleteTapped:" destination="zoN-Yk-oea" eventType="touchUpInside" id="dFS-j1-B50"/>
                                 </connections>
@@ -37,13 +38,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6B4-kG-Mr4" firstAttribute="leading" secondItem="qhx-qA-LXO" secondAttribute="trailing" id="363-YX-SvD"/>
-                            <constraint firstItem="6B4-kG-Mr4" firstAttribute="centerY" secondItem="ydC-WT-yWh" secondAttribute="centerY" id="Yey-eX-ZeT"/>
+                            <constraint firstItem="6B4-kG-Mr4" firstAttribute="top" secondItem="ydC-WT-yWh" secondAttribute="top" constant="12" id="3Ty-6Y-RKy"/>
+                            <constraint firstAttribute="trailing" secondItem="6B4-kG-Mr4" secondAttribute="trailing" constant="8" id="CTm-cl-QGu"/>
                             <constraint firstItem="qhx-qA-LXO" firstAttribute="leading" secondItem="ydC-WT-yWh" secondAttribute="leading" constant="38" id="Z3d-hm-8fW"/>
                             <constraint firstAttribute="trailing" secondItem="qhx-qA-LXO" secondAttribute="trailing" constant="50" id="eck-SI-2zn"/>
                             <constraint firstItem="qhx-qA-LXO" firstAttribute="centerY" secondItem="ydC-WT-yWh" secondAttribute="centerY" id="h3Z-0g-cAx"/>
+                            <constraint firstAttribute="bottom" secondItem="6B4-kG-Mr4" secondAttribute="bottom" constant="12" id="hWQ-gm-H6a"/>
+                            <constraint firstItem="6B4-kG-Mr4" firstAttribute="leading" secondItem="qhx-qA-LXO" secondAttribute="trailing" constant="4" id="jEB-uF-sqG"/>
                             <constraint firstAttribute="height" constant="50" id="v0E-SH-QYm"/>
-                            <constraint firstAttribute="trailing" secondItem="6B4-kG-Mr4" secondAttribute="trailing" constant="8" id="yDz-pB-M87"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -59,10 +61,14 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="deleteButton" destination="6B4-kG-Mr4" id="qk2-4d-vHU"/>
                 <outlet property="topicLabel" destination="qhx-qA-LXO" id="82c-LV-ms8"/>
                 <outlet property="wrapperView" destination="ydC-WT-yWh" id="Rz3-Os-TE3"/>
             </connections>
             <point key="canvasLocation" x="985" y="493.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Delete" width="20" height="20"/>
+    </resources>
 </document>
