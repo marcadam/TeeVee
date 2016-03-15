@@ -31,9 +31,6 @@ protocol SmartuPlayer {
     func stopItem()
     func nextItem()
     func resetBounds(bounds: CGRect)
-    
-    func show(duration: NSTimeInterval?)
-    func hide(duration: NSTimeInterval?)
 }
 
 protocol SmartuPlayerDelegate: class {

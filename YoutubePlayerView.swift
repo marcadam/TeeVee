@@ -120,7 +120,10 @@ extension YoutubePlayerView: SmartuPlayer {
             //if !youtubePlayerView.hidden && youtubePlayerOverlay.alpha < 0.1 {return}
             
             print("[YOUTUBEPLAYER] fades in youtube player")
-            let du = duration == nil ? fadeInTimeConstant: duration!
+            var du = fadeInTimeConstant
+            if duration != nil {
+                du = duration!
+            }
             self.youtubePlayerOverlay.alpha = 1.0
             self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in
@@ -134,7 +137,10 @@ extension YoutubePlayerView: SmartuPlayer {
     func hide(duration: NSTimeInterval?) {
         dispatch_async(dispatch_get_main_queue(),{
             print("[YOUTUBEPLAYER] fades out youtube player")
-            let du = duration == nil ? fadeOutTimeConstant: duration!
+            var du = fadeOutTimeConstant
+            if duration != nil {
+                du = duration!
+            }
             self.youtubePlayerOverlay.alpha = 0.0
             self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in

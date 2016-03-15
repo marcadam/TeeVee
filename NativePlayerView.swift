@@ -139,7 +139,10 @@ extension NativePlayerView: SmartuPlayer {
             //if !nativePlayerView.hidden && nativePlayerOverlay.alpha < 0.1 {return}
             
             print("[NATIVEPLAYER] fades in native player")
-            let du = duration == nil ? fadeInTimeConstant: duration!
+            var du = fadeInTimeConstant
+            if duration != nil {
+                du = duration!
+            }
             self.nativePlayerOverlay.alpha = 1.0
             self.nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in
@@ -153,7 +156,10 @@ extension NativePlayerView: SmartuPlayer {
     func hide(duration: NSTimeInterval?) {
         dispatch_async(dispatch_get_main_queue(),{
             print("[NATIVEPLAYER] fades out native player")
-            let du = duration == nil ? fadeOutTimeConstant: duration!
+            var du = fadeOutTimeConstant
+            if duration != nil {
+                du = duration!
+            }
             self.nativePlayerOverlay.alpha = 0.0
             self.nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in

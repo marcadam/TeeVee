@@ -91,8 +91,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func playNextItem() {
         
         var item: ChannelItem? = nil
-        while priorityQueue!.count > 0 && (item == nil || item!.native_id == nil) {
+        while true {
+            if priorityQueue!.count == 0 {break}
             item = priorityQueue!.pop()
+            if item != nil && item?.native_id != nil {break}
         }
         if item == nil {
             stop()
