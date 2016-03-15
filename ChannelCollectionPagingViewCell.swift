@@ -44,6 +44,7 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
 
         let scrollViewWidth = UIScreen.mainScreen().bounds.width
         scrollView.frame = CGRect(x: 0, y: 0, width: scrollViewWidth, height: 200)
+        scrollView.backgroundColor = UIColor.clearColor()
     }
 
     @IBAction func pageControlDidPage(sender: UIPageControl) {

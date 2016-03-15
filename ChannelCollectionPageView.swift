@@ -49,6 +49,7 @@ class ChannelCollectionPageView: UIView {
         addSubview(contentView)
 
         // Theming
+        pageImageView.backgroundColor = UIColor.clearColor()
         channelNameContainerView.layer.cornerRadius = 4.0
         channelNameContainerView.clipsToBounds = true
         channelNameContainerView.backgroundColor = Theme.Colors.DarkBackgroundColor.color.colorWithAlphaComponent(0.7)

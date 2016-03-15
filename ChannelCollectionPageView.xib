@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LEv-ff-jmj">
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LEv-ff-jmj">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                     <gestureRecognizers/>
                     <connections>
@@ -45,7 +45,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="PU5-W8-9O7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="I24-PX-9NK"/>
                 <constraint firstAttribute="bottom" secondItem="LEv-ff-jmj" secondAttribute="bottom" id="b3p-4H-Upq"/>
