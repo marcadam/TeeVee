@@ -99,6 +99,7 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func stopItem() {
+        currItem = nil
         youtubePlayerView.stopVideo()
     }
     
@@ -115,28 +116,32 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func show(duration: NSTimeInterval?) {
-        //if !youtubePlayerView.hidden && youtubePlayerOverlay.alpha < 0.1 {return}
-        
-        print("[YOUTUBEPLAYER] fades in youtube player")
-        let du = duration == nil ? fadeInTimeConstant: duration!
-        self.youtubePlayerOverlay.alpha = 1.0
-        self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
-        UIView.animateWithDuration(du) { () -> Void in
-            self.youtubePlayerOverlay.alpha = 0.0
-            self.containerView.bringSubviewToFront(self.youtubePlayerView)
-            self.youtubePlayerView.hidden = false
-        }
+        dispatch_async(dispatch_get_main_queue(),{
+            //if !youtubePlayerView.hidden && youtubePlayerOverlay.alpha < 0.1 {return}
+            
+            print("[YOUTUBEPLAYER] fades in youtube player")
+            let du = duration == nil ? fadeInTimeConstant: duration!
+            self.youtubePlayerOverlay.alpha = 1.0
+            self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
+            UIView.animateWithDuration(du) { () -> Void in
+                self.youtubePlayerOverlay.alpha = 0.0
+                self.containerView.bringSubviewToFront(self.youtubePlayerView)
+                self.youtubePlayerView.hidden = false
+            }
+        })
     }
     
     func hide(duration: NSTimeInterval?) {
-        print("[YOUTUBEPLAYER] fades out youtube player")
-        let du = duration == nil ? fadeOutItmeConstant: duration!
-        self.youtubePlayerOverlay.alpha = 0.0
-        self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
-        UIView.animateWithDuration(du) { () -> Void in
-            self.youtubePlayerOverlay.alpha = 1.0
-            self.youtubePlayerView.hidden = true
-        }
+        dispatch_async(dispatch_get_main_queue(),{
+            print("[YOUTUBEPLAYER] fades out youtube player")
+            let du = duration == nil ? fadeOutItmeConstant: duration!
+            self.youtubePlayerOverlay.alpha = 0.0
+            self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
+            UIView.animateWithDuration(du) { () -> Void in
+                self.youtubePlayerOverlay.alpha = 1.0
+                self.youtubePlayerView.hidden = true
+            }
+        })
     }
     
 }
@@ -144,11 +149,13 @@ extension YoutubePlayerView: SmartuPlayer {
 extension YoutubePlayerView: YTPlayerViewDelegate {
     
     func playerViewDidBecomeReady(playerView: YTPlayerView!) {
+        if currItem == nil {return}
         print("[YOUTUBEPLAYER] playerViewDidBecomeReady")
         self.youtubePlayerView.playVideo()
     }
     
     func playerView(playerView: YTPlayerView!, didChangeToState state: YTPlayerState) {
+        if currItem == nil {return}
         print("[YOUTUBEPLAYER] didChangeToState \(state.rawValue)")
         if state == .Ended {
             print("[YOUTUBEPLAYER] video ended")
@@ -160,10 +167,12 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     }
     
     func playerView(playerView: YTPlayerView!, didChangeToQuality quality: YTPlaybackQuality) {
+        if currItem == nil {return}
         print("[YOUTUBEPLAYER] didChangeToQuality \(quality.rawValue)")
     }
     
     func playerView(playerView: YTPlayerView!, didPlayTime playTime: Float) {
+        if currItem == nil {return}
         let currentSecond = String(format: "%.2f", playTime)
         let totalDuration = playerView.duration()
         let totalDurationStr = String(format: "%.2f", playerView.duration())
@@ -174,6 +183,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     }
     
     func playerView(playerView: YTPlayerView!, receivedError error: YTPlayerError) {
+        if currItem == nil {return}
         print("[YOUTUBEPLAYER] didPlayTime \(error.rawValue)")
         stopItem()
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)

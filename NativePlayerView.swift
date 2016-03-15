@@ -120,6 +120,7 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func stopItem() {
+        currItem = nil
         nativePlayer.pause()
         nativePlayer.replaceCurrentItemWithPlayerItem(nil)
     }
@@ -133,28 +134,32 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func show(duration: NSTimeInterval?) {
-        //if !nativePlayerView.hidden && nativePlayerOverlay.alpha < 0.1 {return}
-        
-        print("[NATIVEPLAYER] fades in native player")
-        let du = duration == nil ? fadeInTimeConstant: duration!
-        nativePlayerOverlay.alpha = 1.0
-        nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
-        UIView.animateWithDuration(du) { () -> Void in
-            self.nativePlayerOverlay.alpha = 0.0
-            self.containerView.bringSubviewToFront(self.nativePlayerView)
-            self.nativePlayerView.hidden = false
-        }
+        dispatch_async(dispatch_get_main_queue(),{
+            //if !nativePlayerView.hidden && nativePlayerOverlay.alpha < 0.1 {return}
+            
+            print("[NATIVEPLAYER] fades in native player")
+            let du = duration == nil ? fadeInTimeConstant: duration!
+            self.nativePlayerOverlay.alpha = 1.0
+            self.nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
+            UIView.animateWithDuration(du) { () -> Void in
+                self.nativePlayerOverlay.alpha = 0.0
+                self.containerView.bringSubviewToFront(self.nativePlayerView)
+                self.nativePlayerView.hidden = false
+            }
+        })
     }
     
     func hide(duration: NSTimeInterval?) {
-        print("[NATIVEPLAYER] fades out native player")
-        let du = duration == nil ? fadeOutItmeConstant: duration!
-        nativePlayerOverlay.alpha = 0.0
-        nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
-        UIView.animateWithDuration(du) { () -> Void in
-            self.nativePlayerOverlay.alpha = 1.0
-            self.nativePlayerView.hidden = true
-        }
+        dispatch_async(dispatch_get_main_queue(),{
+            print("[NATIVEPLAYER] fades out native player")
+            let du = duration == nil ? fadeOutItmeConstant: duration!
+            self.nativePlayerOverlay.alpha = 0.0
+            self.nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
+            UIView.animateWithDuration(du) { () -> Void in
+                self.nativePlayerOverlay.alpha = 1.0
+                self.nativePlayerView.hidden = true
+            }
+        })
     }
     
     
@@ -165,6 +170,8 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if currItem == nil {return}
+        
         if context != myContext {return}
         let nativePlayer = object as? AVPlayer
         if (nativePlayer == nil || nativePlayer! != self.nativePlayer) {return}

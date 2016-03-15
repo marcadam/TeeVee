@@ -29,6 +29,10 @@ class PlayerViewController: UIViewController {
         }
     }
     
+    deinit {
+        channelManager.stop()
+    }
+    
     override func viewWillLayoutSubviews() {
         channelManager.updateBounds(self.playerView)
     }

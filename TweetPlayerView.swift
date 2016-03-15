@@ -18,7 +18,7 @@ class TweetPlayerView: NSObject {
     
     let twitterClient = TWTRAPIClient()
     var backgroundView: UIView!
-    var tweetView: TWTRTweetView!
+    weak var tweetView: TWTRTweetView!
     
     var currItem: ChannelItem?
     
@@ -46,6 +46,7 @@ extension TweetPlayerView: SmartuPlayer {
             self.twitterClient.loadTweetWithID(item.native_id!) { tweet, error in
                 if let t = tweet {
                     self.tweetView = TWTRTweetView(tweet: t)
+                    self.tweetView!.hidden = false
                     self.tweetView!.center = CGPointMake(self.backgroundView.bounds.size.width  / 2,
                         self.backgroundView.bounds.size.height / 2)
                     self.tweetView!.theme = .Light
@@ -65,14 +66,23 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func aboutToEndTweet() {
+        if currItem == nil {return}
+        
         print("[TWEETPLAYER] aboutToEndTweet()")
         self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
-        NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "endTweet", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "endTweet", userInfo: nil, repeats: false)
     }
     
     func endTweet() {
+        if currItem == nil {return}
+        
         print("[TWEETPLAYER] endTweet()")
-        tweetView?.removeFromSuperview()
+        
+        dispatch_async(dispatch_get_main_queue(),{
+            self.tweetView?.hidden = true
+            self.tweetView?.removeFromSuperview()
+        });
+        
         self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
     }
     
@@ -89,7 +99,8 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func stopItem() {
-        
+        currItem = nil
+        hide(nil)
     }
     
     func nextItem() {
@@ -101,26 +112,27 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func show(duration: NSTimeInterval?) {
-        print("[TWEETPLAYER] fades in tweet player")
-        self.tweetView?.alpha = 0.0
-        UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
-            self.tweetView?.alpha = 1.0
-            self.backgroundView.hidden = false
-            self.containerView.bringSubviewToFront(self.backgroundView)
-            if self.tweetView != nil {
-                self.backgroundView.bringSubviewToFront(self.tweetView!)
+        dispatch_async(dispatch_get_main_queue(),{
+            print("[TWEETPLAYER] fades in tweet player")
+            self.tweetView?.alpha = 0.0
+            UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
+                self.tweetView?.alpha = 1.0
+                self.backgroundView.hidden = false
+                self.containerView.bringSubviewToFront(self.backgroundView)
+                if self.tweetView != nil {
+                    self.backgroundView.bringSubviewToFront(self.tweetView!)
+                }
             }
-        }
+        })
     }
     
     func hide(duration: NSTimeInterval?) {
-        print("[TWEETPLAYER] fades out tweet player")
-        self.tweetView?.alpha = 1.0
-        UIView.animateWithDuration(fadeOutItmeConstant) { () -> Void in
-            if self.tweetView != nil {
-                self.tweetView?.removeFromSuperview()
+        dispatch_async(dispatch_get_main_queue(),{
+            print("[TWEETPLAYER] fades out tweet player")
+            self.tweetView?.alpha = 1.0
+            UIView.animateWithDuration(fadeOutItmeConstant) { () -> Void in
                 self.backgroundView.alpha = 0.0
             }
-        }
+        })
     }
 }
