@@ -66,14 +66,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         super.init()
         
         self.channelId = channelId
-        
-        NSNotificationCenter.defaultCenter().addObserverForName(ItemDidEndNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: processItemEndEvent)
-        NSNotificationCenter.defaultCenter().addObserverForName(ItemAboutToEndNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: processItemAboutToEndEvent)
     }
     
     deinit {
         stop()
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     // Prepare for next item
@@ -132,28 +128,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
         if status == .WillEnd {
-            notifyItemAboutToEnd()
+            prepareNextItem()
         } else if status == .DidEnd {
-            notifyItemDidEnd()
+            playNextItem()
         }
-    }
-    
-    func notifyItemAboutToEnd() {
-        NSNotificationCenter.defaultCenter().postNotificationName(ItemAboutToEndNotification, object: self, userInfo: nil)
-    }
-    
-    func notifyItemDidEnd() {
-        NSNotificationCenter.defaultCenter().postNotificationName(ItemDidEndNotification, object: self, userInfo: nil)
-    }
-    
-    func processItemAboutToEndEvent(notification: NSNotification) -> Void {
-        print("[MANAGER] processItemAboutToEndEvent")
-        prepareNextItem()
-    }
-    
-    func processItemEndEvent(notification: NSNotification) -> Void {
-        print("[MANAGER] processItemEndEvent")
-        playNextItem()
     }
     
     func play() {
