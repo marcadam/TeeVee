@@ -90,19 +90,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 youtubePlayerView?.prepareToStart(item!)
             }
         }
-        
-        let userInfo: [String : AnyObject] = ["nextItem" : item!]
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "fadeOutVideo:", userInfo: userInfo, repeats: false)
-    }
-    
-    func fadeOutVideo(timer: NSTimer) {
-        let userInfo: [String : AnyObject] = timer.userInfo! as! [String : AnyObject]
-        let item: ChannelItem! = userInfo["nextItem"] as! ChannelItem
-        
-        if item != nil && item == currItem {
-            print("[MANAGER] fadeOutVideo()")
-            currPlayer?.hide(nil)
-        }
     }
     
     func playNextItem() {
@@ -176,16 +163,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func pause() {
         if currItem == nil || currPlayer == nil {return}
-        for player in players {
-            player.pauseItem()
-        }
+        currPlayer!.pauseItem()
     }
     
     func stop() {
         if currItem == nil || currPlayer == nil {return}
-        for player in players {
-            player.stopItem()
-        }
+        currPlayer!.stopItem()
     }
     
     func next() {

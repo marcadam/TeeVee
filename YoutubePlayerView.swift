@@ -144,6 +144,9 @@ extension YoutubePlayerView: SmartuPlayer {
         })
     }
     
+    func endItem() {
+        hide(nil)
+    }
 }
 
 extension YoutubePlayerView: YTPlayerViewDelegate {
@@ -179,6 +182,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         //        print("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
         if Int(totalDuration) - Int(playTime) == bufferTimeConstant {
             playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
+            NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "endItem", userInfo: nil, repeats: false)
         }
     }
     

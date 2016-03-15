@@ -72,6 +72,7 @@ class NativePlayerView: NSObject {
                 
                 if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
                     self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
+                    NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "endItem", userInfo: nil, repeats: false)
                 }
             }
         })
@@ -162,6 +163,9 @@ extension NativePlayerView: SmartuPlayer {
         })
     }
     
+    func endItem() {
+        hide(nil)
+    }
     
     func nativePlayerDidFinishPlaying(notification: NSNotification) {
         if nativePlayer.rate != 0 && nativePlayer.error == nil {
