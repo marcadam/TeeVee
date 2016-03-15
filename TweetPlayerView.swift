@@ -69,7 +69,7 @@ extension TweetPlayerView: SmartuPlayer {
         
         print("[TWEETPLAYER] aboutToEndTweet()")
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
-        NSTimer.scheduledTimerWithTimeInterval(fadeOutItmeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)
         hide(nil)
     }
     
@@ -117,7 +117,7 @@ extension TweetPlayerView: SmartuPlayer {
         dispatch_async(dispatch_get_main_queue(),{
             print("[TWEETPLAYER] fades out tweet player")
             self.tweetView?.alpha = 1.0
-            UIView.animateWithDuration(fadeOutItmeConstant + 0.1) { () -> Void in
+            UIView.animateWithDuration(fadeOutTimeConstant + 0.1) { () -> Void in
                 self.tweetView?.alpha = 0.0
             }
         })
