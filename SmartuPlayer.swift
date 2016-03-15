@@ -13,7 +13,7 @@ let ItemAboutToEndNotification = "com.smartu.channelmanager.itemAboutToEnd"
 let numItemsBeforeFetch = 3
 let bufferTimeConstant = 5
 let fadeInTimeConstant = 2.0
-let fadeOutItmeConstant = 3.0
+let fadeOutTimeConstant = 3.0
 
 enum PlayerType: Int {
     case Native = 0, Youtube, Web, Tweet
@@ -31,9 +31,6 @@ protocol SmartuPlayer {
     func stopItem()
     func nextItem()
     func resetBounds(bounds: CGRect)
-    
-    func show(duration: NSTimeInterval?)
-    func hide(duration: NSTimeInterval?)
 }
 
 protocol SmartuPlayerDelegate: class {

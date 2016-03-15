@@ -46,6 +46,7 @@ extension TweetPlayerView: SmartuPlayer {
             self.twitterClient.loadTweetWithID(item.native_id!) { tweet, error in
                 if let t = tweet {
                     self.tweetView = TWTRTweetView(tweet: t)
+                    self.tweetView!.alpha = 0.0
                     self.tweetView!.center = CGPointMake(self.backgroundView.bounds.size.width  / 2,
                         self.backgroundView.bounds.size.height / 2)
                     self.tweetView!.theme = .Light
@@ -69,8 +70,9 @@ extension TweetPlayerView: SmartuPlayer {
         
         print("[TWEETPLAYER] aboutToEndTweet()")
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
-        NSTimer.scheduledTimerWithTimeInterval(fadeOutItmeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)
-        hide(nil)
+        
+        hide(fadeOutTimeConstant - 0.2)
+        NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)
     }
     
     func prepareToStart(item: ChannelItem!) {
@@ -101,8 +103,12 @@ extension TweetPlayerView: SmartuPlayer {
     func show(duration: NSTimeInterval?) {
         dispatch_async(dispatch_get_main_queue(),{
             print("[TWEETPLAYER] fades in tweet player")
-            self.tweetView?.alpha = 0.0
-            UIView.animateWithDuration(fadeInTimeConstant) { () -> Void in
+            
+            var du = fadeInTimeConstant
+            if duration != nil {
+                du = duration!
+            }
+            UIView.animateWithDuration(du) { () -> Void in
                 self.tweetView?.alpha = 1.0
                 self.containerView.bringSubviewToFront(self.backgroundView)
                 self.backgroundView.hidden = false
@@ -117,7 +123,12 @@ extension TweetPlayerView: SmartuPlayer {
         dispatch_async(dispatch_get_main_queue(),{
             print("[TWEETPLAYER] fades out tweet player")
             self.tweetView?.alpha = 1.0
-            UIView.animateWithDuration(fadeOutItmeConstant + 0.1) { () -> Void in
+            
+            var du = fadeOutTimeConstant
+            if duration != nil {
+                du = duration!
+            }
+            UIView.animateWithDuration(du) { () -> Void in
                 self.tweetView?.alpha = 0.0
             }
         })
