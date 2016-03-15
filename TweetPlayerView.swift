@@ -70,6 +70,7 @@ extension TweetPlayerView: SmartuPlayer {
         
         print("[TWEETPLAYER] aboutToEndTweet()")
         self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
+        self.hide(nil)
         NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "endTweet", userInfo: nil, repeats: false)
     }
     
