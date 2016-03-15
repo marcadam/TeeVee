@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="WEb-Ji-Ael">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="USF-V5-Bfi">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -34,11 +34,36 @@
                             <constraint firstAttribute="trailing" secondItem="Dyz-be-uyj" secondAttribute="trailing" id="zw2-hG-QD2"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ipW-x0-o0i">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="reK-yz-GJG">
+                            <connections>
+                                <action selector="didTapDone:" destination="WEb-Ji-Ael" id="EvC-8G-zfc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Dyz-be-uyj" id="DzV-nE-Arh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uhH-Ne-yfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4471" y="237"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3xB-Iy-P4j">
+            <objects>
+                <navigationController storyboardIdentifier="FiltersNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="USF-V5-Bfi" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="W3a-yc-WIh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WEb-Ji-Ael" kind="relationship" relationship="rootViewController" id="Loh-5c-mhv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jXN-L7-fVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3659" y="237"/>
         </scene>

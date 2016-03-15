@@ -78,6 +78,9 @@ class FiltersViewController: UIViewController {
             durationSelectedIndex = 2
         }
     }
+    @IBAction func didTapDone(sender: UIBarButtonItem) {
+        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {

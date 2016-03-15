@@ -199,9 +199,10 @@ class ChannelEditorViewController: UIViewController {
         
         print(segue.identifier!)
         if segue.identifier == "filtersSegue" {
-            let destination = segue.destinationViewController as! FiltersViewController
-            destination.delegate = self
-            destination.filters = newFilters
+            let filtersNC = segue.destinationViewController as! UINavigationController
+            let filtersVC = filtersNC.topViewController as! FiltersViewController
+            filtersVC.delegate = self
+            filtersVC.filters = newFilters
         } else if segue.identifier == "playerSegue" {
             let destination = segue.destinationViewController as! PlayerViewController
             let channel = sender as! Channel

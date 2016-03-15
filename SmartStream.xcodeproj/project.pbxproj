@@ -174,9 +174,9 @@
 		0B14595B1C8BA791001E6C23 /* ChannelEditor */ = {
 			isa = PBXGroup;
 			children = (
-				0B14595C1C8BA811001E6C23 /* Filters */,
 				A2A3A3D61C8AD9C200D1173C /* ChannelEditor.storyboard */,
 				A2A3A3CB1C8AD8D600D1173C /* ChannelEditorViewController.swift */,
+				0B14595C1C8BA811001E6C23 /* Filters */,
 			);
 			name = ChannelEditor;
 			sourceTree = "<group>";
