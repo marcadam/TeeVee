@@ -29,16 +29,24 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     var tweetsChannel: Channel?
     var tweetsPriorityQueue: PriorityQueue<ChannelItem>?
+    var twitterOn = false {
+        didSet {
+            if twitterOn {
+                self.playNextTweet()
+            } else {
+                self.tweetPlayerView?.stopItem()
+            }
+        }
+    }
     
     weak var playerContainerView: UIView? {
         didSet {
             if playerContainerView == nil {return}
             playerContainerView!.backgroundColor = Theme.Colors.DarkBackgroundColor.color
             
-            nativePlayerView = NativePlayerView(playerId: 0, containerView: playerContainerView!, playerDelegate: self)
-            youtubePlayerView = YoutubePlayerView(playerId: 1, containerView: playerContainerView!, playerDelegate: self)
-            
+            nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView!, playerDelegate: self)
             players.append(nativePlayerView!)
+            youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView!, playerDelegate: self)
             players.append(youtubePlayerView!)
             
             spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
@@ -54,7 +62,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if tweetsContainerView == nil {return}
             tweetsContainerView!.backgroundColor = UIColor.clearColor()
             
-            tweetPlayerView = TweetPlayerView(playerId: 2, containerView: tweetsContainerView!, playerDelegate: self)
+            tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView!, playerDelegate: self)
             players.append(tweetPlayerView!)
             
         }
@@ -84,10 +92,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 self.tweetsChannel = tweetsChannel
                 
                 self.tweetsPriorityQueue = PriorityQueue(ascending: true, startingValues: tweetsChannel!.items!)
-                
-                dispatch_async(dispatch_get_main_queue(),{
-                    self.playNextTweet()
-                })
             }
         }
     }
@@ -182,7 +186,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
         if playerType == .Tweet {
             if status == .DidEnd {
-                playNextTweet()
+                if twitterOn {
+                    playNextTweet()
+                }
             }
         } else {
             if status == .WillEnd {

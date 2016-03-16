@@ -11,11 +11,10 @@ import UIKit
 class PlayerViewController: UIViewController {
 
     @IBOutlet weak var playerView: UIView!
-    //@IBOutlet weak var tweetsView: UIView!
+    @IBOutlet weak var tweetsView: UIView!
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var channelTitleLabel: UILabel!
     @IBOutlet weak var playerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomButtonsView: UIView!
@@ -25,9 +24,10 @@ class PlayerViewController: UIViewController {
     var channelManager: ChannelManager!
     var channelTitle: String!
     var channelId: String! = "0"
-    var isPlaying = true
-    var twitterOn = false
-    var playerViewTopConstant: CGFloat!
+    
+    var playerViewTopConstantPortraitTwitterOn: CGFloat!
+    var playerViewTopConstantPortraitTwitterOff: CGFloat!
+    var playerViewTopConstantLandscape: CGFloat!
     var controlsHidden = false
     var latestTimer:NSTimer?
     
@@ -38,23 +38,25 @@ class PlayerViewController: UIViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
         channelManager = ChannelManager(channelId: channelId, autoplay: true)
-        channelManager.playerContainerView = self.playerView
-        //channelManager.tweetsContainerView = tweetsView
+        channelManager.playerContainerView = playerView
+        channelManager.tweetsContainerView = tweetsView
         
-        let viewCenterDistance = view.frame.height/2
-        let headerHeight = topHeaderView.frame.height
-        playerView.clipsToBounds = true
-        playerView.layoutIfNeeded()
-        playerViewTopConstant = viewCenterDistance - headerHeight - playerView.frame.height/2
-        playerViewTopConstraint.constant = playerViewTopConstant
-        //tweetsView.clipsToBounds = true
+        let viewCenterDistance = view.bounds.height/2
+        let headerHeight = topHeaderView.bounds.height
+        playerViewTopConstantLandscape = 0
+        playerViewTopConstantPortraitTwitterOn = headerHeight
+        playerViewTopConstantPortraitTwitterOff = viewCenterDistance - playerView.bounds.height/2
+        playerViewTopConstraint.constant = getPlayerTopConstant(self.channelManager.twitterOn)
+        
         view.backgroundColor = Theme.Colors.BackgroundColor.color
-        tableView.backgroundColor = UIColor.clearColor()
         channelTitleLabel.text = channelTitle
         channelTitleLabel.textColor = Theme.Colors.HighlightColor.color
         channelTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
-        tableView.hidden = true
-        tableView.separatorStyle = .None
+        
+        playerView.clipsToBounds = true
+        tweetsView.clipsToBounds = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         setTimerToFadeOut()
     }
@@ -62,47 +64,54 @@ class PlayerViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         application.statusBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(animated: Bool) {
         application.statusBarHidden = false
         super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    func rotated()
+    {
+        channelManager.updateBounds(playerView, tweetsContainerView: tweetsView)
+//        if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
+//            print("Portrait")
+//        } else if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
+//            print("landscape")
+//        }
     }
     
     deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         channelManager.stop()
     }
     
     override func viewWillLayoutSubviews() {
-        //channelManager.updateBounds(playerView, tweetsContainerView: tweetsView)
+        channelManager.updateBounds(playerView, tweetsContainerView: tweetsView)
+    }
+    
+    func getPlayerTopConstant(twitterOn: Bool) -> CGFloat! {
+        if application.statusBarOrientation.isPortrait {
+            if twitterOn {
+                return playerViewTopConstantPortraitTwitterOn
+            } else {
+                return playerViewTopConstantPortraitTwitterOff
+            }
+        } else {
+            return playerViewTopConstantLandscape
+        }
     }
     
     @IBAction func onTwitterTapped(sender: UIButton) {
-        if twitterOn {
-            // Hide Twitter Stream
-            playerViewTopConstraint.constant = playerViewTopConstant
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.view.layoutIfNeeded()
-            })
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.view.layoutIfNeeded()
-                }, completion: { (bool: Bool) -> Void in
-                    self.twitterOn = !self.twitterOn
-                    self.tableView.hidden = true
-            })
-        } else {
-            // Show Twitter Stream
-            playerViewTopConstraint.constant = 0
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.view.layoutIfNeeded()
-            })
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.view.layoutIfNeeded()
-                }, completion: { (bool: Bool) -> Void in
-                    self.twitterOn = !self.twitterOn
-                    self.tableView.hidden = false
-            })
-        }
+        playerViewTopConstraint.constant = getPlayerTopConstant(!self.channelManager.twitterOn)
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }, completion: { (bool: Bool) -> Void in
+                self.channelManager.twitterOn = !self.channelManager.twitterOn
+        })
+        
         setTimerToFadeOut()
     }
     
