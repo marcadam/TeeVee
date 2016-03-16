@@ -26,75 +26,135 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htx-ko-x93">
-                                <rect key="frame" x="0.0" y="338" width="600" height="162"/>
+                                <rect key="frame" x="0.0" y="338" width="600" height="262"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ix1-YS-Lcv">
-                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2nR-wN-DLw">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYb-ml-Hqy">
-                                        <rect key="frame" x="16" y="35" width="30" height="30"/>
-                                        <state key="normal" title="Play"/>
-                                        <connections>
-                                            <action selector="onPlayTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wul-rw-lDb"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGe-MH-5Gf">
-                                        <rect key="frame" x="552" y="35" width="32" height="30"/>
-                                        <state key="normal" title="Stop"/>
-                                        <connections>
-                                            <action selector="onStopTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Da8-xN-API"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JmF-Xv-t2P">
-                                        <rect key="frame" x="273" y="35" width="54" height="30"/>
-                                        <state key="normal" title="Dismiss"/>
-                                        <connections>
-                                            <action selector="onDismiss:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D5k-cB-qL1"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvf-jH-IFF">
-                                        <rect key="frame" x="76" y="35" width="32" height="30"/>
-                                        <state key="normal" title="Next"/>
-                                        <connections>
-                                            <action selector="onNextTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Ze-7t-GYM"/>
-                                        </connections>
-                                    </button>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wa0-ox-4Kl">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Wa0-ox-4Kl" secondAttribute="height" multiplier="16:9" id="mb0-oa-MlB"/>
+                                        </constraints>
+                                    </view>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ktl-9Q-3z9">
+                                        <rect key="frame" x="0.0" y="338" width="600" height="262"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="AXC-14-F7a">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="262"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1gK-Ya-m8S">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="262"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aXu-y7-hZ5">
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="262"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYb-ml-Hqy">
+                                                                    <rect key="frame" x="60" y="116" width="30" height="30"/>
+                                                                    <state key="normal" title="Play"/>
+                                                                    <connections>
+                                                                        <action selector="onPlayTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wul-rw-lDb"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="QYb-ml-Hqy" firstAttribute="centerY" secondItem="aXu-y7-hZ5" secondAttribute="centerY" id="Isk-PX-Vxz"/>
+                                                                <constraint firstItem="QYb-ml-Hqy" firstAttribute="centerX" secondItem="aXu-y7-hZ5" secondAttribute="centerX" id="nL8-Ao-vZS"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IzD-3V-Txd">
+                                                            <rect key="frame" x="150" y="0.0" width="150" height="262"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGe-MH-5Gf">
+                                                                    <rect key="frame" x="59" y="116" width="32" height="30"/>
+                                                                    <state key="normal" title="Stop"/>
+                                                                    <connections>
+                                                                        <action selector="onStopTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Da8-xN-API"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="MGe-MH-5Gf" firstAttribute="centerX" secondItem="IzD-3V-Txd" secondAttribute="centerX" id="ECd-3S-xgH"/>
+                                                                <constraint firstItem="MGe-MH-5Gf" firstAttribute="centerY" secondItem="IzD-3V-Txd" secondAttribute="centerY" id="NPr-hX-dLY"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEh-7R-pOw">
+                                                            <rect key="frame" x="300" y="0.0" width="150" height="262"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JmF-Xv-t2P">
+                                                                    <rect key="frame" x="48" y="116" width="54" height="30"/>
+                                                                    <state key="normal" title="Dismiss"/>
+                                                                    <connections>
+                                                                        <action selector="onDismiss:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D5k-cB-qL1"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="JmF-Xv-t2P" firstAttribute="centerX" secondItem="GEh-7R-pOw" secondAttribute="centerX" id="kQL-KM-fF0"/>
+                                                                <constraint firstItem="JmF-Xv-t2P" firstAttribute="centerY" secondItem="GEh-7R-pOw" secondAttribute="centerY" id="y1A-H7-qmu"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZY5-pu-xju">
+                                                            <rect key="frame" x="450" y="0.0" width="150" height="262"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvf-jH-IFF">
+                                                                    <rect key="frame" x="59" y="116" width="32" height="30"/>
+                                                                    <state key="normal" title="Next"/>
+                                                                    <connections>
+                                                                        <action selector="onNextTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Ze-7t-GYM"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="Mvf-jH-IFF" firstAttribute="centerX" secondItem="ZY5-pu-xju" secondAttribute="centerX" id="5tb-dN-Szp"/>
+                                                                <constraint firstItem="Mvf-jH-IFF" firstAttribute="centerY" secondItem="ZY5-pu-xju" secondAttribute="centerY" id="8rO-ZY-1a7"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1gK-Ya-m8S" firstAttribute="top" secondItem="AXC-14-F7a" secondAttribute="top" id="8AK-Q4-GeP"/>
+                                                <constraint firstItem="1gK-Ya-m8S" firstAttribute="leading" secondItem="AXC-14-F7a" secondAttribute="leading" id="Cnk-S1-ayz"/>
+                                                <constraint firstAttribute="trailing" secondItem="1gK-Ya-m8S" secondAttribute="trailing" id="CqV-oE-4Op"/>
+                                                <constraint firstAttribute="bottom" secondItem="1gK-Ya-m8S" secondAttribute="bottom" id="TyQ-Cl-gfQ"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="light"/>
+                                    </visualEffectView>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstItem="Mvf-jH-IFF" firstAttribute="leading" secondItem="QYb-ml-Hqy" secondAttribute="trailing" constant="30" id="4Cn-g4-drP"/>
-                                    <constraint firstAttribute="trailing" secondItem="MGe-MH-5Gf" secondAttribute="trailing" constant="16" id="Jya-Hf-xZe"/>
-                                    <constraint firstAttribute="height" constant="100" id="PKd-M2-kv8"/>
-                                    <constraint firstItem="QYb-ml-Hqy" firstAttribute="centerY" secondItem="Ix1-YS-Lcv" secondAttribute="centerY" id="ajg-l3-8ch"/>
-                                    <constraint firstItem="Mvf-jH-IFF" firstAttribute="centerX" secondItem="Ix1-YS-Lcv" secondAttribute="centerX" id="div-qH-5K6"/>
-                                    <constraint firstItem="JmF-Xv-t2P" firstAttribute="centerY" secondItem="Ix1-YS-Lcv" secondAttribute="centerY" id="dmm-cd-rUH"/>
-                                    <constraint firstItem="QYb-ml-Hqy" firstAttribute="leading" secondItem="Ix1-YS-Lcv" secondAttribute="leading" constant="16" id="jFA-gO-TqX"/>
-                                    <constraint firstItem="JmF-Xv-t2P" firstAttribute="centerX" secondItem="Ix1-YS-Lcv" secondAttribute="centerX" id="kHf-NU-5fb"/>
-                                    <constraint firstItem="Mvf-jH-IFF" firstAttribute="centerY" secondItem="Ix1-YS-Lcv" secondAttribute="centerY" id="lWU-31-Ink"/>
-                                    <constraint firstItem="MGe-MH-5Gf" firstAttribute="centerY" secondItem="Ix1-YS-Lcv" secondAttribute="centerY" id="o3Z-Os-sZd"/>
+                                    <constraint firstAttribute="trailing" secondItem="ktl-9Q-3z9" secondAttribute="trailing" id="457-CR-USw"/>
+                                    <constraint firstItem="ktl-9Q-3z9" firstAttribute="top" secondItem="Wa0-ox-4Kl" secondAttribute="bottom" id="7go-Os-e4E"/>
+                                    <constraint firstItem="ktl-9Q-3z9" firstAttribute="leading" secondItem="2nR-wN-DLw" secondAttribute="leading" id="8Fz-5o-kJs"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wa0-ox-4Kl" secondAttribute="trailing" id="9Ca-CU-OY4"/>
+                                    <constraint firstAttribute="bottom" secondItem="ktl-9Q-3z9" secondAttribute="bottom" id="A6a-a4-ZIR"/>
+                                    <constraint firstItem="Wa0-ox-4Kl" firstAttribute="top" secondItem="2nR-wN-DLw" secondAttribute="top" id="KOy-9q-ENE"/>
+                                    <constraint firstItem="Wa0-ox-4Kl" firstAttribute="leading" secondItem="2nR-wN-DLw" secondAttribute="leading" id="iMH-YO-wX5"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="div-qH-5K6"/>
-                                    </mask>
-                                </variation>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="wvb-ld-IC1" appends="YES" id="5Aj-Ei-dYA"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2nR-wN-DLw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1eC-ns-fm2"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="46P-Gl-MCf"/>
-                            <constraint firstAttribute="trailing" secondItem="Ix1-YS-Lcv" secondAttribute="trailing" id="4LZ-0b-82g"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="90Q-0Q-inu"/>
+                            <constraint firstItem="2nR-wN-DLw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="94S-Qn-2je"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="Ds2-g3-sCv"/>
-                            <constraint firstItem="Ix1-YS-Lcv" firstAttribute="top" secondItem="htx-ko-x93" secondAttribute="bottom" id="F2D-NJ-rh8"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="htx-ko-x93" secondAttribute="bottom" id="Elp-XU-Lis"/>
                             <constraint firstAttribute="trailing" secondItem="WeQ-Ok-9nI" secondAttribute="trailing" id="JcE-aX-9MW"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2nR-wN-DLw" secondAttribute="bottom" id="MDJ-iZ-JL3"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QfX-Hc-Y6O"/>
+                            <constraint firstAttribute="trailing" secondItem="2nR-wN-DLw" secondAttribute="trailing" id="aem-uu-byZ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="bJL-AX-yDL"/>
                             <constraint firstItem="htx-ko-x93" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="g6e-H9-s9u"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ixD-0v-pqv"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ix1-YS-Lcv" secondAttribute="bottom" id="kY4-pD-4o5"/>
                             <constraint firstAttribute="trailing" secondItem="htx-ko-x93" secondAttribute="trailing" id="nTL-eN-Ycc"/>
-                            <constraint firstItem="Ix1-YS-Lcv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ns8-t4-cvy"/>
                             <constraint firstItem="htx-ko-x93" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="zy9-uu-X0E"/>
                         </constraints>
                         <variation key="default">
@@ -107,11 +167,18 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="buttonOverlayView" destination="ktl-9Q-3z9" id="WUd-Ka-N8F"/>
+                        <outlet property="overlayView" destination="2nR-wN-DLw" id="ZOU-fb-99J"/>
                         <outlet property="playerView" destination="WeQ-Ok-9nI" id="8fE-Wq-d2O"/>
                         <outlet property="tweetsView" destination="htx-ko-x93" id="Pod-Bp-La2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="wvb-ld-IC1">
+                    <connections>
+                        <action selector="onOverlayTapped:" destination="BYZ-38-t0r" id="Veu-37-Gu4"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="655" y="237"/>
         </scene>

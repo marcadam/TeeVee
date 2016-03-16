@@ -12,9 +12,12 @@ class PlayerViewController: UIViewController {
 
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var tweetsView: UIView!
+    @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var buttonOverlayView: UIVisualEffectView!
     
     var channelManager: ChannelManager!
     var channelId: String! = "0"
+    private var showButtons = true
     
     let application = UIApplication.sharedApplication()
     
@@ -62,6 +65,11 @@ class PlayerViewController: UIViewController {
     
     @IBAction func onDismiss(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func onOverlayTapped(sender: UITapGestureRecognizer) {
+        buttonOverlayView.hidden = !showButtons
+        showButtons = !showButtons
     }
 }
 
