@@ -14,6 +14,7 @@ class ChannelItem: NSObject, Comparable {
     let native_id: String?
     let extractor: String?
     let timestamp: NSTimeInterval?
+    let tweet: Tweet?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -21,6 +22,13 @@ class ChannelItem: NSObject, Comparable {
         url = dictionary["url"] as? String
         native_id = dictionary["native_id"] as? String
         extractor = dictionary["extractor"] as? String
+        
+        var tweet: Tweet? = nil
+        if let tweetDict = dictionary["tweet"] as? NSDictionary {
+            tweet = Tweet(dictionary: tweetDict)
+        }
+        
+        self.tweet = tweet
         timestamp = NSDate().timeIntervalSince1970
     }
     
