@@ -196,6 +196,9 @@
                                         <exclude reference="xoH-rn-FIB"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="9PZ-0L-fXa" appends="YES" id="2wz-lj-ekq"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -233,17 +236,24 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="bottomButtonsView" destination="HwZ-QQ-aK9" id="T7w-vX-JnL"/>
                         <outlet property="channelTitleLabel" destination="hSO-Ch-0H0" id="zbV-CO-fBE"/>
+                        <outlet property="dismissButton" destination="Pbd-lh-AnI" id="FYj-oh-kJD"/>
                         <outlet property="overlayView" destination="2nR-wN-DLw" id="ZOU-fb-99J"/>
                         <outlet property="pauseButton" destination="2qd-xo-1O0" id="tMC-YF-StJ"/>
                         <outlet property="playButton" destination="f2C-8Z-7ve" id="6CA-v8-xf8"/>
                         <outlet property="playerView" destination="WeQ-Ok-9nI" id="8fE-Wq-d2O"/>
                         <outlet property="playerViewTopConstraint" destination="m9v-av-sPo" id="TJY-Uu-HzE"/>
                         <outlet property="tableView" destination="lSm-4P-EZP" id="jZz-1l-gvM"/>
-                        <outlet property="topTitleHeaderView" destination="GRx-Qj-t1N" id="SXc-Z3-GlS"/>
+                        <outlet property="topHeaderView" destination="Qsl-U8-Nzk" id="SE1-gS-O5c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="9PZ-0L-fXa">
+                    <connections>
+                        <action selector="onBackgroundTapped:" destination="BYZ-38-t0r" id="wa2-2j-YvC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="655" y="237"/>
         </scene>

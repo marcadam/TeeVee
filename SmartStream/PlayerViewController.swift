@@ -18,7 +18,9 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var channelTitleLabel: UILabel!
     @IBOutlet weak var playerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var topTitleHeaderView: UIView!
+    @IBOutlet weak var bottomButtonsView: UIView!
+    @IBOutlet weak var topHeaderView: UIView!
+    @IBOutlet weak var dismissButton: UIButton!
     
     var channelManager: ChannelManager!
     var channelTitle: String!
@@ -26,6 +28,7 @@ class PlayerViewController: UIViewController {
     var isPlaying = true
     var twitterOn = false
     var playerViewTopConstant: CGFloat!
+    var controlsHidden = false
     
     let application = UIApplication.sharedApplication()
     
@@ -38,7 +41,7 @@ class PlayerViewController: UIViewController {
         //channelManager.tweetsContainerView = tweetsView
         
         let viewCenterDistance = view.frame.height/2
-        let headerHeight = topTitleHeaderView.frame.height
+        let headerHeight = topHeaderView.frame.height
         playerView.clipsToBounds = true
         playerView.layoutIfNeeded()
         playerViewTopConstant = viewCenterDistance - headerHeight - playerView.frame.height/2
@@ -119,5 +122,33 @@ class PlayerViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBAction func onBackgroundTapped(sender: UITapGestureRecognizer) {
+        animateFade()
+    }
+    
+    func animateFade() {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            if self.controlsHidden {
+                // show everything
+                self.bottomButtonsView.hidden = false
+                self.dismissButton.hidden = false
+                self.bottomButtonsView.layer.opacity = 1
+                self.dismissButton.layer.opacity = 1
+                self.channelTitleLabel.layer.opacity = 1
+            } else {
+                // hide everything
+                self.bottomButtonsView.layer.opacity = 0
+                self.dismissButton.layer.opacity = 0
+                self.channelTitleLabel.layer.opacity = 0.3
+            }
+            }) { (bool: Bool) -> Void in
+                if !self.controlsHidden {
+                    // hide everything
+                    self.bottomButtonsView.hidden = true
+                    self.dismissButton.hidden = true
+                }
+                self.controlsHidden = !self.controlsHidden
+        }
+    }
 }
 
