@@ -112,7 +112,10 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func resetBounds(bounds: CGRect) {
-        
+        print("[YOUTUBEPLAYER] resetBounds")
+        if youtubePlayerView != nil && youtubePlayerView.webView != nil {
+            youtubePlayerView.webView.frame = bounds
+        }
     }
     
     func show(duration: NSTimeInterval?) {
