@@ -14,7 +14,7 @@ class TweetPlayerView: NSObject {
     let playerId: Int
     let playerType: PlayerType
     weak var playerDelegate: SmartuPlayerDelegate?
-    weak var containerView: UIView!
+    weak var containerView: UIView?
     
     let twitterClient = TWTRAPIClient()
     var backgroundView: UIView!
@@ -110,7 +110,7 @@ extension TweetPlayerView: SmartuPlayer {
             }
             UIView.animateWithDuration(du) { () -> Void in
                 self.tweetView?.alpha = 1.0
-                self.containerView.bringSubviewToFront(self.backgroundView)
+                self.containerView?.bringSubviewToFront(self.backgroundView)
                 self.backgroundView.hidden = false
                 if self.tweetView != nil {
                     self.backgroundView.bringSubviewToFront(self.tweetView!)

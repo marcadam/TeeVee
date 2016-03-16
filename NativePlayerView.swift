@@ -14,7 +14,7 @@ class NativePlayerView: NSObject {
     let playerId: Int
     let playerType: PlayerType
     weak var playerDelegate: SmartuPlayerDelegate?
-    weak var containerView: UIView!
+    weak var containerView: UIView?
     
     let myContext = UnsafeMutablePointer<()>()
     var nativePlayer: AVQueuePlayer!
@@ -147,7 +147,7 @@ extension NativePlayerView: SmartuPlayer {
             self.nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in
                 self.nativePlayerOverlay.alpha = 0.0
-                self.containerView.bringSubviewToFront(self.nativePlayerView)
+                self.containerView?.bringSubviewToFront(self.nativePlayerView)
                 self.nativePlayerView.hidden = false
             }
         })

@@ -157,9 +157,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         let extractor = item!.extractor
         print("[MANAGER] extractor = \(item!.extractor); id = \(item!.native_id); url = \(item!.url)")
         
-        currItem = item
         if extractor == "twitter" {
-            currPlayer = tweetPlayerView
             tweetPlayerView?.startItem(item!)
         }
         
