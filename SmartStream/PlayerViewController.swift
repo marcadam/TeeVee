@@ -37,6 +37,7 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
+        
         channelManager = ChannelManager(channelId: channelId, autoplay: true)
         channelManager.playerContainerView = playerView
         channelManager.tweetsContainerView = tweetsView
