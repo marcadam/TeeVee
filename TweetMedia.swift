@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Media: NSObject {
+class TweetMedia: NSObject {
     let dictionary: NSDictionary
     
     let mediaUrl: String?
