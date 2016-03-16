@@ -60,7 +60,7 @@ class MyChannelsViewController: UIViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorColor = Theme.Colors.SeparatorColor.color
-        tableView.alwaysBounceVertical = false
+//        tableView.alwaysBounceVertical = false
 
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         createChannelLabel.textColor = Theme.Colors.HighlightColor.color
