@@ -74,12 +74,12 @@ class PlayerViewController: UIViewController {
     
     func rotated()
     {
-        channelManager.updateBounds(playerView, tweetsContainerView: tweetsView)
-//        if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
-//            print("Portrait")
-//        } else if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
-//            print("landscape")
-//        }
+        viewWillLayoutSubviews()
+        if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
+            print("Portrait")
+        } else if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
+            print("Landscape")
+        }
     }
     
     deinit {

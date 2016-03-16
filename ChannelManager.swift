@@ -32,7 +32,20 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     var twitterOn = false {
         didSet {
             if twitterOn {
-                self.playNextTweet()
+                if tweetsPriorityQueue == nil {
+                    ChannelClient.sharedInstance.getTweetsForChannel(channelId) { (tweetsChannel, error) -> () in
+                        if tweetsChannel != nil && tweetsChannel!.items!.count > 0 {
+                            self.tweetsChannel = tweetsChannel
+                            
+                            self.tweetsPriorityQueue = PriorityQueue(ascending: true, startingValues: tweetsChannel!.items!)
+                            dispatch_async(dispatch_get_main_queue(),{
+                                self.playNextTweet()
+                            })
+                        }
+                    }
+                } else {
+                    self.playNextTweet()
+                }
             } else {
                 self.tweetPlayerView?.stopItem()
             }
@@ -84,14 +97,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         self.playNextItem()
                     })
                 }
-            }
-        }
-        
-        ChannelClient.sharedInstance.getTweetsForChannel(channelId) { (tweetsChannel, error) -> () in
-            if tweetsChannel != nil && tweetsChannel!.items!.count > 0 {
-                self.tweetsChannel = tweetsChannel
-                
-                self.tweetsPriorityQueue = PriorityQueue(ascending: true, startingValues: tweetsChannel!.items!)
             }
         }
     }
@@ -147,6 +152,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func playNextTweet() {
+        if tweetsPriorityQueue == nil {return}
         var item: ChannelItem? = nil
         while true {
             if tweetsPriorityQueue!.count == 0 {break}
