@@ -19,7 +19,7 @@ import UIKit
 class Tweet: NSObject {
     let dictionary: NSDictionary
     let id: String?
-    let user: User?
+    let user: TweetUser?
     let text: String?
     let createdAtString: String?
     let createdAt: NSDate?
@@ -30,13 +30,13 @@ class Tweet: NSObject {
     var retweetCount: Int
     var favCount: Int
     let retweetOriginalId: String?
-    let media: Media?
+    let media: TweetMedia?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
         
         var id: String? = nil
-        var user: User? = nil
+        var user: TweetUser? = nil
         var text = ""
         var createdAtString = ""
         var createdAt: NSDate? = nil
@@ -47,7 +47,7 @@ class Tweet: NSObject {
         var retweetCount = 0
         var favCount = 0
         var retweetOriginalId: String? = nil
-        var media: Media?
+        var media: TweetMedia?
         
         if let idStr = dictionary["id_str"] as? String {
             id = idStr
@@ -55,7 +55,7 @@ class Tweet: NSObject {
         }
         
         if let userDict = dictionary["user"] as? NSDictionary {
-            user = User(dictionary: userDict)
+            user = TweetUser(dictionary: userDict)
         }
         if let textStr = dictionary["text"] as? String {
             text = textStr
@@ -70,7 +70,7 @@ class Tweet: NSObject {
             retweetOriginalId = retweetedStatus["id_str"] as? String
             
             if let retweetUserDict = retweetedStatus["user"] as? NSDictionary {
-                let retweetUser = User(dictionary: retweetUserDict)
+                let retweetUser = TweetUser(dictionary: retweetUserDict)
                 retweetName = user!.name!
                 user = retweetUser
             }
@@ -100,7 +100,7 @@ class Tweet: NSObject {
         if let entities = dictionary["entities"] as? NSDictionary {
             if let mediaArray = entities["media"] as? NSArray {
                 if mediaArray.count > 0 {
-                    media = Media(dictionary: mediaArray[0] as! NSDictionary)
+                    media = TweetMedia(dictionary: mediaArray[0] as! NSDictionary)
                 }
             }
         }

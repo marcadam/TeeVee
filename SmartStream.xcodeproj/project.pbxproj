@@ -22,8 +22,9 @@
 		0B951B221C96ACD10068C6AF /* YoutubePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B211C96ACD10068C6AF /* YoutubePlayerView.swift */; };
 		0B951B241C96B0580068C6AF /* SmartuPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B231C96B0580068C6AF /* SmartuPlayer.swift */; };
 		0B951B261C9927EE0068C6AF /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B251C9927EE0068C6AF /* Tweet.swift */; };
-		0B951B281C99280F0068C6AF /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B271C99280F0068C6AF /* Media.swift */; };
+		0B951B281C99280F0068C6AF /* TweetMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B271C99280F0068C6AF /* TweetMedia.swift */; };
 		0B951B2B1C9928690068C6AF /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B2A1C9928690068C6AF /* DateManager.swift */; };
+		0B951B2D1C99307C0068C6AF /* TweetUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B2C1C99307C0068C6AF /* TweetUser.swift */; };
 		492D02741C8B5E37000AAF17 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02721C8B5E37000AAF17 /* ChannelTableViewCell.swift */; };
 		492D02751C8B5E37000AAF17 /* ChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02731C8B5E37000AAF17 /* ChannelTableViewCell.xib */; };
 		492D02781C8BC656000AAF17 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02771C8BC656000AAF17 /* MenuTableViewController.swift */; };
@@ -88,8 +89,9 @@
 		0B951B211C96ACD10068C6AF /* YoutubePlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubePlayerView.swift; sourceTree = "<group>"; };
 		0B951B231C96B0580068C6AF /* SmartuPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartuPlayer.swift; sourceTree = "<group>"; };
 		0B951B251C9927EE0068C6AF /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
-		0B951B271C99280F0068C6AF /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		0B951B271C99280F0068C6AF /* TweetMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetMedia.swift; sourceTree = "<group>"; };
 		0B951B2A1C9928690068C6AF /* DateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		0B951B2C1C99307C0068C6AF /* TweetUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetUser.swift; sourceTree = "<group>"; };
 		492D02721C8B5E37000AAF17 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		492D02731C8B5E37000AAF17 /* ChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelTableViewCell.xib; sourceTree = "<group>"; };
 		492D02771C8BC656000AAF17 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
@@ -258,7 +260,8 @@
 				0B951B1D1C94ED520068C6AF /* CuratedInfo.swift */,
 				0B951B1F1C94ED950068C6AF /* CarouselItem.swift */,
 				0B951B251C9927EE0068C6AF /* Tweet.swift */,
-				0B951B271C99280F0068C6AF /* Media.swift */,
+				0B951B271C99280F0068C6AF /* TweetMedia.swift */,
+				0B951B2C1C99307C0068C6AF /* TweetUser.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -607,7 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B951B281C99280F0068C6AF /* Media.swift in Sources */,
+				0B951B281C99280F0068C6AF /* TweetMedia.swift in Sources */,
 				A2A3A3D01C8AD94A00D1173C /* MyChannelsViewController.swift in Sources */,
 				0B951B201C94ED950068C6AF /* CarouselItem.swift in Sources */,
 				A29BA4991C91235400ED13A5 /* Filters.swift in Sources */,
@@ -633,6 +636,7 @@
 				9AF70B0D1C973D9200302187 /* NativePlayerView.swift in Sources */,
 				A2F231E81C8D22060053956D /* Theme.swift in Sources */,
 				0B951B1E1C94ED520068C6AF /* CuratedInfo.swift in Sources */,
+				0B951B2D1C99307C0068C6AF /* TweetUser.swift in Sources */,
 				A2A3A3CA1C8AD8B900D1173C /* FiltersViewController.swift in Sources */,
 				492D02A71C8D188F000AAF17 /* ChannelsViewController.swift in Sources */,
 				492D029D1C8BE119000AAF17 /* SettingsViewController.swift in Sources */,
