@@ -28,23 +28,37 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     var currItem: ChannelItem?
     
     var tweetsChannel: Channel?
-    var tweetsPriorityQueue: PriorityQueue<ChannelItem>?
+    var tweetsPriorityQueues: [String: PriorityQueue<ChannelItem>]?
+    
     var twitterOn = false {
         didSet {
             if twitterOn {
-                if tweetsPriorityQueue == nil {
+                if tweetsPriorityQueues == nil {
                     ChannelClient.sharedInstance.getTweetsForChannel(channelId) { (tweetsChannel, error) -> () in
                         if tweetsChannel != nil && tweetsChannel!.items!.count > 0 {
                             self.tweetsChannel = tweetsChannel
                             
-                            self.tweetsPriorityQueue = PriorityQueue(ascending: true, startingValues: tweetsChannel!.items!)
+                            self.tweetsPriorityQueues = [String: PriorityQueue<ChannelItem>]()
+                            
+                            for item in tweetsChannel!.items! {
+                                if item.topic == nil || item.topic == "" {continue}
+                                
+                                if let queue = self.tweetsPriorityQueues![item.topic!] {
+                                    // queue exists for topic
+                                } else {
+                                    self.tweetsPriorityQueues![item.topic!] = PriorityQueue(ascending: true, startingValues: [])
+                                }
+                                
+                                self.tweetsPriorityQueues![item.topic!]?.push(item)
+                            }
+                            
                             dispatch_async(dispatch_get_main_queue(),{
-                                self.playNextTweet()
+                                self.playNextTweet(self.currItem)
                             })
                         }
                     }
                 } else {
-                    self.playNextTweet()
+                    self.playNextTweet(currItem)
                 }
             } else {
                 self.tweetPlayerView?.stopItem()
@@ -151,28 +165,29 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
-    func playNextTweet() {
-        if tweetsPriorityQueue == nil {return}
-        var item: ChannelItem? = nil
-        while true {
-            if tweetsPriorityQueue!.count == 0 {break}
-            item = tweetsPriorityQueue!.pop()
-            if item != nil && item?.native_id != nil {break}
-        }
-        if item == nil {
-            stop()
-            return
-        }
+    func playNextTweet(channelItem: ChannelItem?) {
+        if channelItem == nil || channelItem?.topic == nil {return}
         
-        let extractor = item!.extractor
-        print("[MANAGER] extractor = \(item!.extractor); id = \(item!.native_id); url = \(item!.url)")
-        
-        if extractor == "twitter" {
-            tweetPlayerView?.startItem(item!)
-        }
-        
-        if tweetsPriorityQueue!.count <= numItemsBeforeFetch {
-            fetchMoreTweetsItems(false)
+        if var queue = self.tweetsPriorityQueues![channelItem!.topic!] {
+            var tweetItem: ChannelItem? = nil
+            while true {
+                if queue.count == 0 {break}
+                tweetItem = queue.pop()
+                if tweetItem != nil && tweetItem?.native_id != nil && tweetItem?.extractor == "twitter" {break}
+            }
+            if tweetItem == nil {
+                tweetPlayerView?.stopItem()
+                return
+            }
+            
+            let extractor = tweetItem!.extractor
+            print("[MANAGER] extractor = \(tweetItem!.extractor); id = \(tweetItem!.native_id)")
+            
+            tweetPlayerView?.startItem(tweetItem!)
+            
+            if queue.count <= numItemsBeforeFetch {
+                fetchMoreTweetsItems(false)
+            }
         }
     }
     
@@ -193,7 +208,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         if playerType == .Tweet {
             if status == .DidEnd {
                 if twitterOn {
-                    playNextTweet()
+                    playNextTweet(currItem)
                 }
             }
         } else {
@@ -257,8 +272,16 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         dispatch_async(backgroundQueue, {
             ChannelClient.sharedInstance.getTweetsForChannel(self.channelId) { (channel, error) -> () in
                 if channel != nil && channel!.items!.count > 0 {
-                    for item in channel!.items! {
-                        self.tweetsPriorityQueue!.push(item)
+                    for item in self.tweetsChannel!.items! {
+                        if item.topic == nil || item.topic == "" {continue}
+                        
+                        if let topicKey = self.tweetsPriorityQueues![item.topic!] as? String {
+                            // queue exists for topic
+                        } else {
+                            self.tweetsPriorityQueues![item.topic!] = PriorityQueue(ascending: true, startingValues: [])
+                        }
+                        
+                        self.tweetsPriorityQueues![item.topic!]?.push(item)
                     }
                 }
             }
