@@ -103,22 +103,26 @@ class PlayerViewController: UIViewController {
                     self.tableView.hidden = false
             })
         }
+        setTimerToFadeOut()
     }
     
     @IBAction func onPlayTapped(sender: AnyObject) {
         self.channelManager.play()
         playButton.hidden = true
         pauseButton.hidden = false
+        setTimerToFadeOut()
     }
     
     @IBAction func onStopTapped(sender: AnyObject) {
         self.channelManager.pause()
         playButton.hidden = false
         pauseButton.hidden = true
+        setTimerToFadeOut()
     }
     
     @IBAction func onNextTapped(sender: AnyObject) {
         self.channelManager.next()
+        setTimerToFadeOut()
     }
     
     @IBAction func onDismiss(sender: AnyObject) {
@@ -137,7 +141,10 @@ class PlayerViewController: UIViewController {
     }
     
     func animateFade() {
-        UIView.animateWithDuration(1, animations: { () -> Void in
+        bottomButtonsView.layer.removeAllAnimations()
+        dismissButton.layer.removeAllAnimations()
+        channelTitleLabel.layer.removeAllAnimations()
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
             if self.controlsHidden {
                 // show everything
                 self.bottomButtonsView.hidden = false
