@@ -41,11 +41,10 @@ class PlayerViewController: UIViewController {
         channelManager.playerContainerView = playerView
         channelManager.tweetsContainerView = tweetsView
         
-        let viewCenterDistance = view.bounds.height/2
         let headerHeight = topHeaderView.bounds.height
         playerViewTopConstantLandscape = 0
         playerViewTopConstantPortraitTwitterOn = headerHeight
-        playerViewTopConstantPortraitTwitterOff = viewCenterDistance - playerView.bounds.height/2
+        playerViewTopConstantPortraitTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
         playerViewTopConstraint.constant = getPlayerTopConstant(self.channelManager.twitterOn)
         
         view.backgroundColor = Theme.Colors.BackgroundColor.color
@@ -89,6 +88,11 @@ class PlayerViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
+        let newTopConstantTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
+        if newTopConstantTwitterOff != playerViewTopConstantPortraitTwitterOff {
+            playerViewTopConstantPortraitTwitterOff = newTopConstantTwitterOff
+            playerViewTopConstraint.constant = getPlayerTopConstant(self.channelManager.twitterOn)
+        }
         channelManager.updateBounds(playerView, tweetsContainerView: tweetsView)
     }
     
