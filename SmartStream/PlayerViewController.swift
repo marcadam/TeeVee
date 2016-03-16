@@ -11,17 +11,21 @@ import UIKit
 class PlayerViewController: UIViewController {
 
     @IBOutlet weak var playerView: UIView!
-    @IBOutlet weak var tweetsView: UIView!
+    //@IBOutlet weak var tweetsView: UIView!
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var channelTitleLabel: UILabel!
+    @IBOutlet weak var playerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topTitleHeaderView: UIView!
     
     var channelManager: ChannelManager!
     var channelTitle: String!
     var channelId: String! = "0"
     var isPlaying = true
+    var twitterOn = false
+    var playerViewTopConstant: CGFloat!
     
     let application = UIApplication.sharedApplication()
     
@@ -31,15 +35,22 @@ class PlayerViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         channelManager = ChannelManager(channelId: channelId, autoplay: true)
         channelManager.playerContainerView = self.playerView
-        channelManager.tweetsContainerView = tweetsView
-     
+        //channelManager.tweetsContainerView = tweetsView
+        
+        let viewCenterDistance = view.frame.height/2
+        let headerHeight = topTitleHeaderView.frame.height
         playerView.clipsToBounds = true
-        tweetsView.clipsToBounds = true
+        playerView.layoutIfNeeded()
+        playerViewTopConstant = viewCenterDistance - headerHeight - playerView.frame.height/2
+        playerViewTopConstraint.constant = playerViewTopConstant
+        //tweetsView.clipsToBounds = true
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
         channelTitleLabel.text = channelTitle
         channelTitleLabel.textColor = Theme.Colors.HighlightColor.color
         channelTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
+        tableView.hidden = true
+        tableView.separatorStyle = .None
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -57,7 +68,35 @@ class PlayerViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        channelManager.updateBounds(playerView, tweetsContainerView: tweetsView)
+        //channelManager.updateBounds(playerView, tweetsContainerView: tweetsView)
+    }
+    
+    @IBAction func onTwitterTapped(sender: UIButton) {
+        if twitterOn {
+            // Hide Twitter Stream
+            playerViewTopConstraint.constant = playerViewTopConstant
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+            })
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+                }, completion: { (bool: Bool) -> Void in
+                    self.twitterOn = !self.twitterOn
+                    self.tableView.hidden = true
+            })
+        } else {
+            // Show Twitter Stream
+            playerViewTopConstraint.constant = 0
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+            })
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+                }, completion: { (bool: Bool) -> Void in
+                    self.twitterOn = !self.twitterOn
+                    self.tableView.hidden = false
+            })
+        }
     }
     
     @IBAction func onPlayTapped(sender: AnyObject) {
