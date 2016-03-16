@@ -16,6 +16,8 @@ class PlayerViewController: UIViewController {
     var channelManager: ChannelManager!
     var channelId: String! = "0"
     
+    let application = UIApplication.sharedApplication()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +28,16 @@ class PlayerViewController: UIViewController {
      
         playerView.clipsToBounds = true
         tweetsView.clipsToBounds = true
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        application.statusBarHidden = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        application.statusBarHidden = false
+        super.viewWillDisappear(animated)
     }
     
     deinit {

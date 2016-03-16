@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Theme.applyTheme()
 
         Fabric.with([Twitter.self])
+
         return true
     }
 
