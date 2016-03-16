@@ -40,12 +40,12 @@ class YoutubePlayerView: NSObject {
         
         youtubePlayerView = YTPlayerView(frame: containerView.bounds)
         youtubePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        youtubePlayerView.backgroundColor = UIColor.blackColor()
+        youtubePlayerView.backgroundColor = UIColor.clearColor()
         youtubePlayerView.hidden = true
         containerView.addSubview(self.youtubePlayerView)
         
         youtubePlayerOverlay = UIView(frame: containerView.bounds)
-        youtubePlayerOverlay!.backgroundColor = UIColor.blackColor()
+        youtubePlayerOverlay!.backgroundColor = UIColor.clearColor()
         youtubePlayerOverlay!.alpha = 0.0
         youtubePlayerOverlay!.userInteractionEnabled = false
         youtubePlayerView.addSubview(youtubePlayerOverlay!)
@@ -200,6 +200,6 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     }
     
     func playerViewPreferredWebViewBackgroundColor(playerView: YTPlayerView!) -> UIColor! {
-        return UIColor.whiteColor()
+        return UIColor.clearColor()
     }
 }

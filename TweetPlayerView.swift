@@ -31,7 +31,7 @@ class TweetPlayerView: NSObject {
         
         backgroundView = UIView(frame: containerView.bounds)
         backgroundView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        backgroundView.backgroundColor = UIColor.blackColor()
+        backgroundView.backgroundColor = UIColor.clearColor()
         backgroundView.hidden = true
         containerView.addSubview(backgroundView)
     }

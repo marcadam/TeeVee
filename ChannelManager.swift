@@ -33,7 +33,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     weak var playerContainerView: UIView? {
         didSet {
             if playerContainerView == nil {return}
-            playerContainerView!.backgroundColor = UIColor.blackColor()
+            playerContainerView!.backgroundColor = Theme.Colors.DarkBackgroundColor.color
             
             nativePlayerView = NativePlayerView(playerId: 0, containerView: playerContainerView!, playerDelegate: self)
             youtubePlayerView = YoutubePlayerView(playerId: 1, containerView: playerContainerView!, playerDelegate: self)
@@ -52,7 +52,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     weak var tweetsContainerView: UIView? {
         didSet {
             if tweetsContainerView == nil {return}
-            tweetsContainerView!.backgroundColor = UIColor.blackColor()
+            tweetsContainerView!.backgroundColor = UIColor.clearColor()
             
             tweetPlayerView = TweetPlayerView(playerId: 2, containerView: tweetsContainerView!, playerDelegate: self)
             players.append(tweetPlayerView!)

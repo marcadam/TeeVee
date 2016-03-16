@@ -35,7 +35,7 @@ class NativePlayerView: NSObject {
         nativePlayer = AVQueuePlayer()
         nativePlayerView = UIView(frame: containerView.bounds)
         nativePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        nativePlayerView.backgroundColor = UIColor.blackColor()
+        nativePlayerView.backgroundColor = UIColor.clearColor()
         nativePlayerView.hidden = true
         
         nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
@@ -47,7 +47,7 @@ class NativePlayerView: NSObject {
         containerView.addSubview(nativePlayerView)
         
         nativePlayerOverlay = UIView(frame: nativePlayerView.bounds)
-        nativePlayerOverlay.backgroundColor = UIColor.blackColor()
+        nativePlayerOverlay.backgroundColor = UIColor.clearColor()
         nativePlayerOverlay.alpha = 0.0
         nativePlayerOverlay.userInteractionEnabled = false
         nativePlayerView!.addSubview(nativePlayerOverlay)

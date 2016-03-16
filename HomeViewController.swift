@@ -120,6 +120,7 @@ extension HomeViewController: ChannelsViewControllerDelegate {
         let playerStoryboard = UIStoryboard(name: "Player", bundle: nil)
         let playerVC = playerStoryboard.instantiateViewControllerWithIdentifier("PlayerStoryboard") as! PlayerViewController
         playerVC.channelId = channel.channel_id
+        playerVC.channelTitle = channel.title
         presentViewController(playerVC, animated: true, completion: nil)
     }
 }

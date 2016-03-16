@@ -13,11 +13,15 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var tweetsView: UIView!
     @IBOutlet weak var overlayView: UIView!
-    @IBOutlet weak var buttonOverlayView: UIVisualEffectView!
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var channelTitleLabel: UILabel!
     
     var channelManager: ChannelManager!
+    var channelTitle: String!
     var channelId: String! = "0"
-    private var showButtons = true
+    var isPlaying = true
     
     let application = UIApplication.sharedApplication()
     
@@ -31,6 +35,11 @@ class PlayerViewController: UIViewController {
      
         playerView.clipsToBounds = true
         tweetsView.clipsToBounds = true
+        view.backgroundColor = Theme.Colors.BackgroundColor.color
+        tableView.backgroundColor = UIColor.clearColor()
+        channelTitleLabel.text = channelTitle
+        channelTitleLabel.textColor = Theme.Colors.HighlightColor.color
+        channelTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -53,10 +62,14 @@ class PlayerViewController: UIViewController {
     
     @IBAction func onPlayTapped(sender: AnyObject) {
         self.channelManager.play()
+        playButton.hidden = true
+        pauseButton.hidden = false
     }
     
     @IBAction func onStopTapped(sender: AnyObject) {
         self.channelManager.pause()
+        playButton.hidden = false
+        pauseButton.hidden = true
     }
     
     @IBAction func onNextTapped(sender: AnyObject) {
@@ -67,9 +80,5 @@ class PlayerViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func onOverlayTapped(sender: UITapGestureRecognizer) {
-        buttonOverlayView.hidden = !showButtons
-        showButtons = !showButtons
-    }
 }
 
