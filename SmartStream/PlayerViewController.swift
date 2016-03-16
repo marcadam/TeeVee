@@ -29,6 +29,7 @@ class PlayerViewController: UIViewController {
     var twitterOn = false
     var playerViewTopConstant: CGFloat!
     var controlsHidden = false
+    var latestTimer:NSTimer?
     
     let application = UIApplication.sharedApplication()
     
@@ -54,6 +55,8 @@ class PlayerViewController: UIViewController {
         channelTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         tableView.hidden = true
         tableView.separatorStyle = .None
+        
+        setTimerToFadeOut()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -126,8 +129,15 @@ class PlayerViewController: UIViewController {
         animateFade()
     }
     
+    func setTimerToFadeOut() {
+        if let timer = latestTimer {
+            timer.invalidate()
+        }
+        latestTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "animateFade", userInfo: nil, repeats: false)
+    }
+    
     func animateFade() {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+        UIView.animateWithDuration(1, animations: { () -> Void in
             if self.controlsHidden {
                 // show everything
                 self.bottomButtonsView.hidden = false
@@ -135,11 +145,15 @@ class PlayerViewController: UIViewController {
                 self.bottomButtonsView.layer.opacity = 1
                 self.dismissButton.layer.opacity = 1
                 self.channelTitleLabel.layer.opacity = 1
+                self.setTimerToFadeOut()
             } else {
                 // hide everything
                 self.bottomButtonsView.layer.opacity = 0
                 self.dismissButton.layer.opacity = 0
                 self.channelTitleLabel.layer.opacity = 0.3
+                if let timer = self.latestTimer {
+                    timer.invalidate()
+                }
             }
             }) { (bool: Bool) -> Void in
                 if !self.controlsHidden {
