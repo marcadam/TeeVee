@@ -11,6 +11,7 @@ import UIKit
 class PlayerViewController: UIViewController {
 
     @IBOutlet weak var playerView: UIView!
+    @IBOutlet weak var tweetsView: UIView!
     
     var channelManager: ChannelManager!
     var channelId: String! = "0"
@@ -19,14 +20,12 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-        channelManager = ChannelManager(channelId: channelId)
+        channelManager = ChannelManager(channelId: channelId, autoplay: true)
         channelManager.playerContainerView = self.playerView
-        
-        ChannelClient.sharedInstance.getChannel(channelId) { (channel, error) -> () in
-            if channel != nil {
-                self.channelManager.channel = channel
-            }
-        }
+        channelManager.tweetsContainerView = tweetsView
+     
+        playerView.clipsToBounds = true
+        tweetsView.clipsToBounds = true
     }
     
     deinit {
@@ -34,7 +33,7 @@ class PlayerViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        channelManager.updateBounds(self.playerView)
+        channelManager.updateBounds(playerView, tweetsContainerView: tweetsView)
     }
     
     @IBAction func onPlayTapped(sender: AnyObject) {

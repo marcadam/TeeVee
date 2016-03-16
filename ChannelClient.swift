@@ -111,6 +111,24 @@ class ChannelClient {
         
     }
     
+    func getTweetsForChannel(channelId: String!, completion: (channel: Channel?, error: NSError?) -> ()) {
+        
+        manager.GET(String("tweets/" + channelId), parameters: nil, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //print(response)
+            if let json = response as? NSDictionary {
+                let channel = Channel(dictionary: json)
+                completion(channel: channel, error: nil)
+            } else {
+                completion(channel: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
+            }
+            
+            }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error \(error.debugDescription)")
+                completion(channel: nil, error: error)
+        }
+        
+    }
+    
     
     func getMyChannels(completion: (channels: [Channel]?, error: NSError?) -> ()) {
         

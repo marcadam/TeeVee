@@ -202,9 +202,9 @@
 		0B14595E1C8BA870001E6C23 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				0B40EE741C8BC05C00E6B65E /* ChannelManager.swift */,
-				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
 				A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */,
+				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
+				0B40EE741C8BC05C00E6B65E /* ChannelManager.swift */,
 				0B11DD241C8E43B300012E85 /* SpinnerView.swift */,
 				0B951B231C96B0580068C6AF /* SmartuPlayer.swift */,
 				0B951B211C96ACD10068C6AF /* YoutubePlayerView.swift */,

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Player View Controller-->
@@ -18,7 +19,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeQ-Ok-9nI">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="337.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="WeQ-Ok-9nI" secondAttribute="height" multiplier="16:9" id="vBI-Kt-wAj"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htx-ko-x93">
+                                <rect key="frame" x="0.0" y="357.5" width="600" height="142.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ix1-YS-Lcv">
@@ -77,22 +85,28 @@
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="46P-Gl-MCf"/>
                             <constraint firstAttribute="trailing" secondItem="Ix1-YS-Lcv" secondAttribute="trailing" id="4LZ-0b-82g"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="Ds2-g3-sCv"/>
+                            <constraint firstItem="Ix1-YS-Lcv" firstAttribute="top" secondItem="htx-ko-x93" secondAttribute="bottom" id="F2D-NJ-rh8"/>
                             <constraint firstAttribute="trailing" secondItem="WeQ-Ok-9nI" secondAttribute="trailing" id="JcE-aX-9MW"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QfX-Hc-Y6O"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="bJL-AX-yDL"/>
+                            <constraint firstItem="htx-ko-x93" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="g6e-H9-s9u"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ixD-0v-pqv"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ix1-YS-Lcv" secondAttribute="bottom" id="kY4-pD-4o5"/>
+                            <constraint firstAttribute="trailing" secondItem="htx-ko-x93" secondAttribute="trailing" id="nTL-eN-Ycc"/>
                             <constraint firstItem="Ix1-YS-Lcv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ns8-t4-cvy"/>
+                            <constraint firstItem="htx-ko-x93" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="zy9-uu-X0E"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="46P-Gl-MCf"/>
                                 <exclude reference="Ds2-g3-sCv"/>
+                                <exclude reference="bJL-AX-yDL"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="playerView" destination="WeQ-Ok-9nI" id="8fE-Wq-d2O"/>
+                        <outlet property="tweetsView" destination="htx-ko-x93" id="Pod-Bp-La2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
