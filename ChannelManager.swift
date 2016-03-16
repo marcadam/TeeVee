@@ -173,12 +173,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             while true {
                 if queue.count == 0 {break}
                 tweetItem = queue.pop()
+                print("queue.count = \(queue.count)")
                 if tweetItem != nil && tweetItem?.native_id != nil && tweetItem?.extractor == "twitter" {break}
             }
-            if tweetItem == nil {
-                tweetPlayerView?.stopItem()
-                return
-            }
+            if tweetItem == nil {return}
             
             let extractor = tweetItem!.extractor
             print("[MANAGER] extractor = \(tweetItem!.extractor); id = \(tweetItem!.native_id)")
@@ -237,6 +235,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func next() {
         stop()
+        tweetPlayerView?.stopItem()
         playNextItem()
     }
     

@@ -30,6 +30,7 @@ class YoutubePlayerView: NSObject {
     
     var currItem: ChannelItem?
     var videoAlreadyCued = false
+    var currBounds: CGRect
     
     init(playerId: Int, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
         
@@ -49,6 +50,7 @@ class YoutubePlayerView: NSObject {
         youtubePlayerOverlay!.alpha = 0.0
         youtubePlayerOverlay!.userInteractionEnabled = false
         youtubePlayerView.addSubview(youtubePlayerOverlay!)
+        currBounds = containerView.bounds
         
         super.init()
         youtubePlayerView.delegate = self
@@ -112,6 +114,8 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func resetBounds(bounds: CGRect) {
+        if currBounds == bounds {return}
+        
         print("[YOUTUBEPLAYER] resetBounds")
         if youtubePlayerView != nil && youtubePlayerView.webView != nil {
             youtubePlayerView.webView.frame = bounds
