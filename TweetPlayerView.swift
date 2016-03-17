@@ -53,6 +53,7 @@ extension TweetPlayerView: SmartuPlayer {
         dispatch_async(dispatch_get_main_queue(),{
             
             self.tableView.hidden = false
+            self.tableView.layer.opacity = 1
             self.currItem = item
 
             self.tableView.beginUpdates()
@@ -95,12 +96,17 @@ extension TweetPlayerView: SmartuPlayer {
     
     func stopItem() {
         dispatch_async(dispatch_get_main_queue(),{
-            self.tableView.hidden = true
+            self.tableView.layer.opacity = 1
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.tableView.layer.opacity = 0
+                }, completion: { (bool: Bool) -> Void in
+                    self.tableView.hidden = true
+                    self.currItem = nil
+                    self.items.removeAll()
+                    self.tableView.reloadData()
+                    self.endTweet()
+            })
         })
-        currItem = nil
-        items.removeAll()
-        tableView.reloadData()
-        endTweet()
     }
     
     func nextItem() {

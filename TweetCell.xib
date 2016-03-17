@@ -44,46 +44,80 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" image="twitter" translatesAutoresizingMaskIntoConstraints="NO" id="QIG-bk-1m1">
+                                <rect key="frame" x="75" y="10" width="10" height="8"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="8" id="2Ke-ew-wuR"/>
+                                    <constraint firstAttribute="width" constant="10" id="LMB-zL-lCO"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" text="Mar 20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyo-vP-T7Y">
+                                <rect key="frame" x="384" y="8" width="41" height="15"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <color key="textColor" red="0.55777243589743586" green="0.55777243589743586" blue="0.55777243589743586" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="QIG-bk-1m1" firstAttribute="centerY" secondItem="dAD-WA-gh7" secondAttribute="centerY" id="6e0-fC-zXz"/>
+                            <constraint firstAttribute="trailing" secondItem="pyo-vP-T7Y" secondAttribute="trailing" constant="8" id="B89-1f-dC2"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="C5m-Ws-CX5"/>
                             <constraint firstItem="Z2X-bo-NJm" firstAttribute="top" secondItem="dAD-WA-gh7" secondAttribute="bottom" id="DHI-g2-lkB"/>
                             <constraint firstItem="dAD-WA-gh7" firstAttribute="leading" secondItem="3Db-n4-zbh" secondAttribute="leading" constant="8" id="Hfu-ES-ywd"/>
                             <constraint firstAttribute="trailing" secondItem="Nhz-UX-HOb" secondAttribute="trailing" constant="8" id="NGL-xd-dyi"/>
                             <constraint firstItem="Nhz-UX-HOb" firstAttribute="top" secondItem="Z2X-bo-NJm" secondAttribute="bottom" constant="5" id="SOc-xh-hyR"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Nhz-UX-HOb" secondAttribute="bottom" constant="8" id="T5R-bl-Zbs"/>
+                            <constraint firstItem="QIG-bk-1m1" firstAttribute="top" secondItem="3Db-n4-zbh" secondAttribute="top" constant="10" id="XmT-tA-nfE"/>
+                            <constraint firstItem="QIG-bk-1m1" firstAttribute="leading" secondItem="dAD-WA-gh7" secondAttribute="trailing" constant="5" id="YWV-FF-IJ3"/>
                             <constraint firstItem="Z2X-bo-NJm" firstAttribute="leading" secondItem="3Db-n4-zbh" secondAttribute="leading" constant="8" id="Zbw-C7-ntR"/>
+                            <constraint firstItem="pyo-vP-T7Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QIG-bk-1m1" secondAttribute="trailing" constant="8" id="Zty-su-WC3"/>
+                            <constraint firstItem="QIG-bk-1m1" firstAttribute="top" secondItem="dAD-WA-gh7" secondAttribute="top" id="duy-1v-XwH"/>
                             <constraint firstItem="dAD-WA-gh7" firstAttribute="top" secondItem="3Db-n4-zbh" secondAttribute="top" constant="8" id="goZ-dS-1sz"/>
                             <constraint firstItem="Nhz-UX-HOb" firstAttribute="leading" secondItem="3Db-n4-zbh" secondAttribute="leading" constant="8" id="i4p-G1-PZi"/>
+                            <constraint firstItem="pyo-vP-T7Y" firstAttribute="top" secondItem="3Db-n4-zbh" secondAttribute="top" constant="8" id="neB-8d-ee2"/>
                             <constraint firstAttribute="bottom" secondItem="Nhz-UX-HOb" secondAttribute="bottom" constant="8" id="xK5-J4-dLH"/>
+                            <constraint firstItem="QIG-bk-1m1" firstAttribute="centerY" secondItem="dAD-WA-gh7" secondAttribute="centerY" id="xWV-Oh-xv7"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="xK5-J4-dLH"/>
+                                <exclude reference="6e0-fC-zXz"/>
+                                <exclude reference="duy-1v-XwH"/>
+                                <exclude reference="xWV-Oh-xv7"/>
                             </mask>
                         </variation>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="c5A-8n-2dz" firstAttribute="top" secondItem="GMR-73-oHE" secondAttribute="topMargin" id="1JS-BM-UQm"/>
-                    <constraint firstAttribute="trailing" secondItem="3Db-n4-zbh" secondAttribute="trailing" constant="8" id="2L9-7W-qqe"/>
+                    <constraint firstAttribute="trailing" secondItem="3Db-n4-zbh" secondAttribute="trailing" constant="20" id="2L9-7W-qqe"/>
                     <constraint firstItem="3Db-n4-zbh" firstAttribute="top" secondItem="c5A-8n-2dz" secondAttribute="top" id="6BO-fK-vI2"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="c5A-8n-2dz" secondAttribute="bottom" constant="8" id="L9f-5t-rIS"/>
                     <constraint firstItem="c5A-8n-2dz" firstAttribute="leading" secondItem="GMR-73-oHE" secondAttribute="leadingMargin" id="hfy-5j-WMM"/>
                     <constraint firstItem="3Db-n4-zbh" firstAttribute="leading" secondItem="c5A-8n-2dz" secondAttribute="trailing" constant="8" id="ifG-7c-wXF"/>
                     <constraint firstAttribute="bottom" secondItem="3Db-n4-zbh" secondAttribute="bottom" constant="8" id="k93-Aj-i1w"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="3Db-n4-zbh" secondAttribute="trailing" id="uPV-eE-pgX"/>
                     <constraint firstItem="3Db-n4-zbh" firstAttribute="top" secondItem="GMR-73-oHE" secondAttribute="top" constant="8" id="x2x-Sf-v6w"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="2L9-7W-qqe"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="AvatarImageView" destination="c5A-8n-2dz" id="c96-lD-6cm"/>
                 <outlet property="nameLabel" destination="dAD-WA-gh7" id="VXP-VF-K78"/>
                 <outlet property="tweetBackgroundView" destination="3Db-n4-zbh" id="tgu-aM-CUQ"/>
                 <outlet property="tweetContentLabel" destination="Nhz-UX-HOb" id="vD3-vx-2rg"/>
+                <outlet property="tweetDateLabel" destination="pyo-vP-T7Y" id="pcm-kI-W5F"/>
                 <outlet property="usernameLabel" destination="Z2X-bo-NJm" id="G2U-C3-s6M"/>
             </connections>
             <point key="canvasLocation" x="549.5" y="351.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="twitter" width="157" height="127"/>
+    </resources>
 </document>

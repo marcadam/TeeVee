@@ -15,6 +15,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var tweetContentLabel: UILabel!
     @IBOutlet weak var tweetBackgroundView: UIView!
+    @IBOutlet weak var tweetDateLabel: UILabel!
     
     let clearColor = UIColor.clearColor()
     let regFontColor = Theme.Colors.HighlightColor.color
@@ -26,6 +27,7 @@ class TweetCell: UITableViewCell {
             nameLabel.text = tweet.user!.name
             usernameLabel.text = "@\(tweet.user!.screenname!)"
             tweetContentLabel.text = tweet.text
+            tweetDateLabel.text = tweet.formattedDateString
         }
     }
     
@@ -36,6 +38,7 @@ class TweetCell: UITableViewCell {
         backgroundColor = clearColor
         contentView.backgroundColor = clearColor
         tweetBackgroundView.backgroundColor = Theme.Colors.LightBackgroundColor.color
+        tweetBackgroundView.layer.opacity = 0.6
         nameLabel.textColor = Theme.Colors.HighlightLightColor.color
         usernameLabel.textColor = Theme.Colors.HighlightLightColor.color
         tweetContentLabel.textColor = regFontColor
