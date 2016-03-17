@@ -20,6 +20,8 @@ class TweetPlayerView: NSObject {
     var backgroundView: UIView!
     weak var tweetView: TWTRTweetView!
     
+    var tableView: UITableView!
+    
     var currItem: ChannelItem?
     
     init(playerId: Int, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
@@ -34,6 +36,13 @@ class TweetPlayerView: NSObject {
         backgroundView.backgroundColor = UIColor.clearColor()
         backgroundView.hidden = true
         containerView.addSubview(backgroundView)
+        
+        super.init()
+        tableView = UITableView(frame: containerView.bounds, style: UITableViewStyle.Plain)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TweetCell")
+        containerView.addSubview(self.tableView)
     }
 }
 
@@ -137,5 +146,17 @@ extension TweetPlayerView: SmartuPlayer {
     func endTweet() {
         self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
         self.tweetView?.removeFromSuperview()
+    }
+}
+
+extension TweetPlayerView: UITableViewDataSource, UITableViewDelegate {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath)
+        
+        return cell
     }
 }
