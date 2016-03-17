@@ -91,6 +91,8 @@ class ChannelEditorViewController: UIViewController {
         
         saveBgView.backgroundColor = bgDarkColor
         playBgView.backgroundColor = bgDarkColor
+
+        searchTextField.becomeFirstResponder()
     }
     
     func setDefaults() {
