@@ -8,11 +8,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="98" id="Lmn-kO-fZf" customClass="TweetCell" customModule="SmartStream" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="497" height="98"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="247" id="Lmn-kO-fZf" customClass="TweetCell" customModule="SmartStream" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="497" height="247"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lmn-kO-fZf" id="GMR-73-oHE">
-                <rect key="frame" x="0.0" y="0.0" width="497" height="97.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="497" height="246"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c5A-8n-2dz">
@@ -23,22 +23,22 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Db-n4-zbh">
-                        <rect key="frame" x="66" y="8" width="423" height="81"/>
+                        <rect key="frame" x="66" y="8" width="423" height="230"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Elon Musk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAD-WA-gh7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elon Musk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAD-WA-gh7">
                                 <rect key="frame" x="8" y="8" width="62" height="15"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="@elonmusk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2X-bo-NJm">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@elonmusk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2X-bo-NJm">
                                 <rect key="frame" x="8" y="21" width="56" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nhz-UX-HOb">
-                                <rect key="frame" x="8" y="38" width="407" height="5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nhz-UX-HOb">
+                                <rect key="frame" x="8" y="38" width="407" height="24"/>
                                 <string key="text">The AEI meeting wasn't secret and I was only there for a few hours to talk about Mars and sustainable energy. Nothing to do with Trump.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -57,6 +57,11 @@
                             <constraint firstItem="Nhz-UX-HOb" firstAttribute="leading" secondItem="3Db-n4-zbh" secondAttribute="leading" constant="8" id="i4p-G1-PZi"/>
                             <constraint firstAttribute="bottom" secondItem="Nhz-UX-HOb" secondAttribute="bottom" constant="8" id="xK5-J4-dLH"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="xK5-J4-dLH"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
                 <constraints>
@@ -75,7 +80,7 @@
                 <outlet property="tweetContentLabel" destination="Nhz-UX-HOb" id="vD3-vx-2rg"/>
                 <outlet property="usernameLabel" destination="Z2X-bo-NJm" id="G2U-C3-s6M"/>
             </connections>
-            <point key="canvasLocation" x="549.5" y="277"/>
+            <point key="canvasLocation" x="549.5" y="351.5"/>
         </tableViewCell>
     </objects>
 </document>
