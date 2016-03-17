@@ -42,6 +42,9 @@ class TweetCell: UITableViewCell {
         
         AvatarImageView.layer.cornerRadius = 4
         AvatarImageView.clipsToBounds = true
+        
+        tweetBackgroundView.layer.cornerRadius = 4
+        tweetBackgroundView.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
