@@ -8,6 +8,8 @@
 
 import UIKit
 
+let maxNumTweets = 20
+
 class TweetPlayerView: NSObject {
     
     let playerId: Int
@@ -35,6 +37,7 @@ class TweetPlayerView: NSObject {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .None
         tableView.backgroundColor = UIColor.clearColor()
+        //tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y:  self.tableView.bounds.height)
         tableView.hidden = true
         
         tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
@@ -48,12 +51,41 @@ extension TweetPlayerView: SmartuPlayer {
         print("[TWEETPLAYER] play next TweetItem")
         
         dispatch_async(dispatch_get_main_queue(),{
+            
             self.tableView.hidden = false
             self.currItem = item
             self.items.append(item)
+            if self.items.count == maxNumTweets {
+                self.items.removeFirst()
+            }
+            let prevOffset = self.tableView.contentOffset
             self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+            self.tableView.contentOffset = prevOffset
+            self.tableViewScrollToBottom()
             
-            NSTimer.scheduledTimerWithTimeInterval(8.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
+        })
+    }
+    
+    func tableViewScrollToBottom() {
+        
+        let delay = 1.0 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        
+        dispatch_after(time, dispatch_get_main_queue(), {
+            
+            let numberOfSections = self.tableView.numberOfSections
+            let numberOfRows = self.tableView.numberOfRowsInSection(numberOfSections - 1)
+            
+            if numberOfRows > 0 {
+                let indexPath = NSIndexPath(forRow: numberOfRows - 1, inSection: numberOfSections - 1)
+                
+                UIView.animateWithDuration(1.0, animations: { () -> Void in
+                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+                })
+            }
+            
         })
     }
     
@@ -63,7 +95,6 @@ extension TweetPlayerView: SmartuPlayer {
         print("[TWEETPLAYER] aboutToEndTweet()")
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
         
-        hide(fadeOutTimeConstant - 0.2)
         NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)
     }
     
@@ -96,40 +127,6 @@ extension TweetPlayerView: SmartuPlayer {
         
     }
     
-    func show(duration: NSTimeInterval?) {
-//        dispatch_async(dispatch_get_main_queue(),{
-//            print("[TWEETPLAYER] fades in tweet player")
-//            
-//            var du = fadeInTimeConstant
-//            if duration != nil {
-//                du = duration!
-//            }
-//            UIView.animateWithDuration(du) { () -> Void in
-//                self.tweetView?.alpha = 1.0
-//                self.containerView?.bringSubviewToFront(self.backgroundView)
-//                self.backgroundView.hidden = false
-//                if self.tweetView != nil {
-//                    self.backgroundView.bringSubviewToFront(self.tweetView!)
-//                }
-//            }
-//        })
-    }
-    
-    func hide(duration: NSTimeInterval?) {
-//        dispatch_async(dispatch_get_main_queue(),{
-//            print("[TWEETPLAYER] fades out tweet player")
-//            self.tweetView?.alpha = 1.0
-//            
-//            var du = fadeOutTimeConstant
-//            if duration != nil {
-//                du = duration!
-//            }
-//            UIView.animateWithDuration(du) { () -> Void in
-//                self.tweetView?.alpha = 0.0
-//            }
-//        })
-    }
-    
     func endTweet() {
         self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
         dispatch_async(dispatch_get_main_queue(),{
@@ -151,4 +148,6 @@ extension TweetPlayerView: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
+    
 }
