@@ -54,38 +54,15 @@ extension TweetPlayerView: SmartuPlayer {
             
             self.tableView.hidden = false
             self.currItem = item
-            self.items.append(item)
+            self.items.insert(item, atIndex: 0)
             if self.items.count == maxNumTweets {
-                self.items.removeFirst()
+                self.items.removeLast()
             }
-            let prevOffset = self.tableView.contentOffset
-            self.tableView.reloadData()
-            self.tableView.layoutIfNeeded()
-            self.tableView.contentOffset = prevOffset
-            self.tableViewScrollToBottom()
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+            self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, 0)
             
             NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
-        })
-    }
-    
-    func tableViewScrollToBottom() {
-        
-        let delay = 1.0 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        
-        dispatch_after(time, dispatch_get_main_queue(), {
-            
-            let numberOfSections = self.tableView.numberOfSections
-            let numberOfRows = self.tableView.numberOfRowsInSection(numberOfSections - 1)
-            
-            if numberOfRows > 0 {
-                let indexPath = NSIndexPath(forRow: numberOfRows - 1, inSection: numberOfSections - 1)
-                
-                UIView.animateWithDuration(1.0, animations: { () -> Void in
-                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-                })
-            }
-            
         })
     }
     

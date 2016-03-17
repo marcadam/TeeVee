@@ -39,6 +39,9 @@ class TweetCell: UITableViewCell {
         nameLabel.textColor = Theme.Colors.HighlightLightColor.color
         usernameLabel.textColor = Theme.Colors.HighlightLightColor.color
         tweetContentLabel.textColor = regFontColor
+        
+        AvatarImageView.layer.cornerRadius = 4
+        AvatarImageView.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
