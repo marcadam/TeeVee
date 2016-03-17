@@ -56,6 +56,12 @@ extension TweetPlayerView: SmartuPlayer {
             self.tableView.layer.opacity = 1
             self.currItem = item
 
+            UIView.beginAnimations("incomingTweet", context: nil)
+            UIView.setAnimationDuration(1.2)
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({ () -> Void in
+                
+            })
             self.tableView.beginUpdates()
             if self.items.count == maxNumTweets {
                 let lastIndexPath = NSIndexPath(forRow: self.items.count - 1, inSection: 0)
@@ -66,6 +72,8 @@ extension TweetPlayerView: SmartuPlayer {
             self.items.insert(item, atIndex: 0)
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
             self.tableView.endUpdates()
+            CATransaction.commit()
+            UIView.commitAnimations()
             
             self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, 0)
             

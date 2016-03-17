@@ -27,7 +27,7 @@ class TweetCell: UITableViewCell {
             nameLabel.text = tweet.user!.name
             usernameLabel.text = "@\(tweet.user!.screenname!)"
             tweetContentLabel.text = tweet.text
-            tweetDateLabel.text = tweet.formattedDateString
+            tweetDateLabel.text = DateManager.getFriendlyTime(tweet.createdAt!)
         }
     }
     
