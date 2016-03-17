@@ -13,6 +13,7 @@ import MBProgressHUD
 protocol MyChannelsViewControllerDelegate: class {
     func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?)
     func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel)
+    func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?)
 }
 
 class MyChannelsViewController: UIViewController {
@@ -155,10 +156,11 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             })
             alert.addAction(alertCancelAction)
 
-            self.presentViewController(alert, animated: true, completion: {
+            self.delegate?.myChannelsVC(self, shouldPresentAlert: alert, completion: { () -> Void in
                 // Bugfix: iOS9 - Tint not fully Applied without Reapplying
                 alert.view.tintColor = Theme.Colors.HighlightColor.color
             })
+
         }
         deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
         
