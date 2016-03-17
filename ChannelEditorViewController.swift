@@ -121,7 +121,7 @@ class ChannelEditorViewController: UIViewController {
             if topics.count > 0 {
                 updateChannel(isPlay, completion: { (error, channel) -> () in
                     if error != nil {
-                        print(error)
+                        debugPrint(error)
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
                     } else {
                         self.delegate?.channelEditor(self, didSetChannel: channel!, completion: { () -> () in
@@ -138,7 +138,7 @@ class ChannelEditorViewController: UIViewController {
             } else {
                 deleteChannel({ (error, channelId) -> () in
                     if error != nil {
-                        print(error)
+                        debugPrint(error)
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
                     } else {
                         self.delegate?.channelEditor(self, didDeleteChannel: channelId!, completion: { () -> () in
@@ -154,7 +154,7 @@ class ChannelEditorViewController: UIViewController {
         } else {
             createChannel { (error, channel) -> () in
                 if error != nil {
-                    print(error)
+                    debugPrint(error)
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                 } else {
                     // Show latest added channel on MyFeed using delegate pattern
@@ -204,7 +204,7 @@ class ChannelEditorViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        print(segue.identifier!)
+        debugPrint(segue.identifier!)
         if segue.identifier == "filtersSegue" {
             let filtersNC = segue.destinationViewController as! UINavigationController
             let filtersVC = filtersNC.topViewController as! FiltersViewController
@@ -319,10 +319,10 @@ extension ChannelEditorViewController {
         if let channel = channel {
             DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
                 if error != nil {
-                    print(error)
+                    debugPrint(error)
                     completion(error: error, channelId: nil)
                 } else {
-                    print(channelId)
+                    debugPrint(channelId)
                     completion(error: nil, channelId: channelId)
                 }
             })

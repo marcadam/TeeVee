@@ -48,7 +48,7 @@ class TweetPlayerView: NSObject {
 extension TweetPlayerView: SmartuPlayer {
     
     func startItem(item: ChannelItem!) {
-        print("[TWEETPLAYER] play next TweetItem")
+        debugPrint("[TWEETPLAYER] play next TweetItem")
         
         dispatch_async(dispatch_get_main_queue(),{
             
@@ -84,7 +84,7 @@ extension TweetPlayerView: SmartuPlayer {
     func aboutToEndTweet() {
         if currItem == nil {return}
         
-        print("[TWEETPLAYER] aboutToEndTweet()")
+        debugPrint("[TWEETPLAYER] aboutToEndTweet()")
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
         
         NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)

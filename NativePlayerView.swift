@@ -68,7 +68,9 @@ class NativePlayerView: NSObject {
                 let currentSecond = self.nativePlayer!.currentItem!.currentTime().value / Int64(self.nativePlayer!.currentItem!.currentTime().timescale)
                 let totalDuration = CMTimeGetSeconds(self.nativePlayer!.currentItem!.duration)
                 let totalDurationStr = String(format: "%.2f", totalDuration)
-                //print("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
+                //debugPrint("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
+                
+                playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
                 
                 if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
                     self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
@@ -98,14 +100,14 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func startItem(item: ChannelItem!) {
-        print("[NATIVEPLAYER] play next nativeItem")
+        debugPrint("[NATIVEPLAYER] play next nativeItem")
         if item == currItem {return}
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
         //        nativePlayer?.advanceToNextItem()
         dispatch_async(dispatch_get_main_queue(),{
             self.currItem = item
             //nativePlayer?.removeAllItems()
-            //print(item.url!)
+            //debugPrint(item.url!)
             self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
             self.playItem()
             self.show(nil)
@@ -138,7 +140,7 @@ extension NativePlayerView: SmartuPlayer {
         dispatch_async(dispatch_get_main_queue(),{
             //if !nativePlayerView.hidden && nativePlayerOverlay.alpha < 0.1 {return}
             
-            print("[NATIVEPLAYER] fades in native player")
+            debugPrint("[NATIVEPLAYER] fades in native player")
             var du = fadeInTimeConstant
             if duration != nil {
                 du = duration!
@@ -155,7 +157,7 @@ extension NativePlayerView: SmartuPlayer {
     
     func hide(duration: NSTimeInterval?) {
         dispatch_async(dispatch_get_main_queue(),{
-            print("[NATIVEPLAYER] fades out native player")
+            debugPrint("[NATIVEPLAYER] fades out native player")
             var du = fadeOutTimeConstant
             if duration != nil {
                 du = duration!
@@ -189,7 +191,7 @@ extension NativePlayerView: SmartuPlayer {
         if keyPath == "status" {
             
             if self.nativePlayer.status == AVPlayerStatus.ReadyToPlay {
-                print("[NATIVEPLAYER] ready to play")
+                debugPrint("[NATIVEPLAYER] ready to play")
                 self.playItem()
                 self.show(nil)
                 
@@ -198,8 +200,8 @@ extension NativePlayerView: SmartuPlayer {
 //                        dispatch_async(dispatch_get_main_queue(),{
 //                            if self.nativePlayer.currentItem != nil {
 //                                if let videoTrack = self.nativePlayer.currentItem!.asset.tracksWithMediaType(AVMediaTypeVideo).first {
-//                                    print("naturalSize = \(videoTrack.naturalSize)")
-//                                    //print("preferredTransform = \(videoTrack.preferredTransform)")
+//                                    debugPrint("naturalSize = \(videoTrack.naturalSize)")
+//                                    //debugPrint("preferredTransform = \(videoTrack.preferredTransform)")
 //                                }
 //                            }
 //                            self.nativePlayer.play()
@@ -207,9 +209,9 @@ extension NativePlayerView: SmartuPlayer {
 //                    }
 //                }
             } else if self.nativePlayer.status == AVPlayerStatus.Failed {
-                print("[NATIVEPLAYER] failed to play")
+                debugPrint("[NATIVEPLAYER] failed to play")
             } else {
-                print("[NATIVEPLAYER] unhandled playerItem status \(self.nativePlayer.status)")
+                debugPrint("[NATIVEPLAYER] unhandled playerItem status \(self.nativePlayer.status)")
             }
             
         } else if keyPath == "currentItem" {
@@ -218,7 +220,7 @@ extension NativePlayerView: SmartuPlayer {
             
             if let timeInterval = self.nativePlayer.currentItem?.duration {
                 let totalDuration = CMTimeGetSeconds(timeInterval)
-                print("totalDuration = \(totalDuration)")
+                debugPrint("totalDuration = \(totalDuration)")
             }
             
         } else if keyPath == "loadedTimeRanges" {

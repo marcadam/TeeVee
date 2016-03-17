@@ -27,7 +27,7 @@ class ChannelClient {
     func createChannel(channelDict: NSDictionary!, completion: (channel: Channel?, error: NSError?) -> ()) {
         
         manager.POST("channels", parameters: channelDict, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            //print(response)
+            //debugPrint(response)
             if let json = response as? NSDictionary {
                 let channel = Channel(dictionary: json)
                 completion(channel: channel, error: nil)
@@ -36,7 +36,7 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("error \(error.debugDescription)")
+                debugPrint("error \(error.debugDescription)")
                 completion(channel: nil, error: error)
         }
         
@@ -46,7 +46,7 @@ class ChannelClient {
     func updateChannel(channelId: String!, channelDict: NSDictionary!, completion: (channel: Channel?, error: NSError?) -> ()) {
         
         manager.PUT(String("channels/" + channelId), parameters: channelDict, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            //print(response)
+            //debugPrint(response)
             if let json = response as? NSDictionary {
                 let channel = Channel(dictionary: json)
                 completion(channel: channel, error: nil)
@@ -55,7 +55,7 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("error \(error.debugDescription)")
+                debugPrint("error \(error.debugDescription)")
                 completion(channel: nil, error: error)
         }
         
@@ -77,7 +77,7 @@ class ChannelClient {
     func getChannel(channelId: String!, completion: (channel: Channel?, error: NSError?) -> ()) {
         
         manager.GET(String("channels/" + channelId), parameters: nil, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            //print(response)
+            //debugPrint(response)
             if let json = response as? NSDictionary {
                 let channel = Channel(dictionary: json)
                 completion(channel: channel, error: nil)
@@ -86,7 +86,7 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("error \(error.debugDescription)")
+                debugPrint("error \(error.debugDescription)")
                 completion(channel: nil, error: error)
         }
         
@@ -96,7 +96,7 @@ class ChannelClient {
     func streamChannel(channelId: String!, completion: (channel: Channel?, error: NSError?) -> ()) {
         
         manager.GET(String("stream/" + channelId), parameters: nil, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            //print(response)
+            //debugPrint(response)
             if let json = response as? NSDictionary {
                 let channel = Channel(dictionary: json)
                 completion(channel: channel, error: nil)
@@ -105,7 +105,7 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("error \(error.debugDescription)")
+                debugPrint("error \(error.debugDescription)")
                 completion(channel: nil, error: error)
         }
         
@@ -114,7 +114,7 @@ class ChannelClient {
     func getTweetsForChannel(channelId: String!, completion: (channel: Channel?, error: NSError?) -> ()) {
         
         manager.GET(String("tweets/" + channelId), parameters: nil, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            //print(response)
+            //debugPrint(response)
             if let json = response as? NSDictionary {
                 let channel = Channel(dictionary: json)
                 completion(channel: channel, error: nil)
@@ -123,7 +123,7 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("error \(error.debugDescription)")
+                debugPrint("error \(error.debugDescription)")
                 completion(channel: nil, error: error)
         }
         
@@ -133,7 +133,7 @@ class ChannelClient {
     func getMyChannels(completion: (channels: [Channel]?, error: NSError?) -> ()) {
         
         manager.GET("channels", parameters: nil, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            //print(response)
+            //debugPrint(response)
             if let json = response as? [NSDictionary] {
                 let channels = Channel.channelsWithArray(json)
                 completion(channels: channels, error: nil)
@@ -142,7 +142,7 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("error \(error.debugDescription)")
+                debugPrint("error \(error.debugDescription)")
                 completion(channels: nil, error: error)
         }
         
@@ -151,7 +151,7 @@ class ChannelClient {
     func getExploreChannels(completion: (channels: [Channel]?, error: NSError?) -> ()) {
         
         manager.GET("explore", parameters: nil, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            //print(response)
+            //debugPrint(response)
             if let json = response as? [NSDictionary] {
                 let channels = Channel.channelsWithArray(json)
                 completion(channels: channels, error: nil)
@@ -160,7 +160,7 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("error \(error.debugDescription)")
+                debugPrint("error \(error.debugDescription)")
                 completion(channels: nil, error: error)
         }
         
@@ -169,7 +169,7 @@ class ChannelClient {
     func getAvailableFilters(completion: (filters: Filters?, error: NSError?) -> ()) {
         
         manager.GET("filters", parameters: nil, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            //print(response)
+            //debugPrint(response)
             if let json = response as? NSDictionary {
                 let filters = Filters(dictionary: json)
                 completion(filters: filters, error: nil)
@@ -178,7 +178,7 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                print("error \(error.debugDescription)")
+                debugPrint("error \(error.debugDescription)")
                 completion(filters: nil, error: error)
         }
         
