@@ -13,6 +13,7 @@ import MBProgressHUD
 protocol MyChannelsViewControllerDelegate: class {
     func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?)
     func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel)
+    func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?)
 }
 
 class MyChannelsViewController: UIViewController {
@@ -117,13 +118,49 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         
         let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             let channel = self.channelsArray[indexPath.row]
-            DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
-                self.channelsArray.removeAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    //
+
+            let alert = UIAlertController(title: "", message: "", preferredStyle: .Alert)
+            let title = NSAttributedString(string: "Delete Channel?", attributes: [
+                NSFontAttributeName : UIFont.boldSystemFontOfSize(17),
+                NSForegroundColorAttributeName : Theme.Colors.HighlightColor.color
+                ]
+            )
+            alert.setValue(title, forKey: "attributedTitle")
+            let message = NSAttributedString(string: "Are you sure you want to delete the \"\(channel.title!)\" channel?", attributes: [
+                NSFontAttributeName : UIFont.systemFontOfSize(14),
+                NSForegroundColorAttributeName : Theme.Colors.HighlightColor.color
+                ]
+            )
+            alert.setValue(message, forKey: "attributedMessage")
+            // Customize UI of alert
+            alert.view.tintColor = UIColor.whiteColor()
+            let alertSubview = alert.view.subviews.first! as UIView
+            let alertContentView = alertSubview.subviews.first! as UIView
+            alertContentView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+            alertContentView.layer.cornerRadius = 13
+            alertContentView.alpha = 0.8
+
+            let alertDeleteAction = UIAlertAction(title: "Delete", style: .Default, handler: { (action) -> Void in
+                DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
+                    self.channelsArray.removeAtIndex(indexPath.row)
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+                    self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                        //
+                    })
                 })
             })
+            alert.addAction(alertDeleteAction)
+
+            let alertCancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+                self.tableView.editing = false
+            })
+            alert.addAction(alertCancelAction)
+
+            self.delegate?.myChannelsVC(self, shouldPresentAlert: alert, completion: { () -> Void in
+                // Bugfix: iOS9 - Tint not fully Applied without Reapplying
+                alert.view.tintColor = Theme.Colors.HighlightColor.color
+            })
+
         }
         deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
         

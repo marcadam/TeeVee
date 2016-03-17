@@ -12,6 +12,7 @@ protocol ChannelsViewControllerDelegate: class {
     func channelsView(channelsView: ChannelsViewController, didTapMenuButton: UIBarButtonItem)
     func shouldPresentEditor(sender: ChannelsViewController, withChannel channel: Channel?)
     func shouldPresentPlayer(sender: ChannelsViewController, withChannel channel: Channel)
+    func shouldPresentAlert(sender: ChannelsViewController, withAlert alert: UIAlertController, completion: (() -> Void)?)
 }
 
 class ChannelsViewController: UIViewController {
@@ -86,6 +87,9 @@ extension ChannelsViewController: MyChannelsViewControllerDelegate {
     }
     func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel) {
         delegate?.shouldPresentPlayer(self, withChannel: channel)
+    }
+    func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?) {
+        delegate?.shouldPresentAlert(self, withAlert: alert, completion: completion)
     }
 }
 

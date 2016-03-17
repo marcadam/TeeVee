@@ -123,7 +123,14 @@ extension HomeViewController: ChannelsViewControllerDelegate {
         playerVC.channelTitle = channel.title
         presentViewController(playerVC, animated: true, completion: nil)
     }
+
+    func shouldPresentAlert(sender: ChannelsViewController, withAlert alert: UIAlertController, completion: (() -> Void)?) {
+        self.presentViewController(alert, animated: true, completion: {
+            completion!()
+        })
+    }
 }
+
 // MARK: - ProfileViewControllerDelegate
 
 extension HomeViewController: ProfileViewControllerDelegate {
