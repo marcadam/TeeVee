@@ -12,5 +12,7 @@ class ExploreSectionCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var sectionHeaderLabel: UILabel!
     
-    
+    override func awakeFromNib() {
+        sectionHeaderLabel.textColor = Theme.Colors.HighlightColor.color
+    }
 }

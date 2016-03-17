@@ -32,14 +32,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Curated Channels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lu6-px-0t2">
-                                            <rect key="frame" x="20" y="14" width="138" height="21"/>
+                                            <rect key="frame" x="15" y="14" width="138" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Lu6-px-0t2" firstAttribute="leading" secondItem="rix-bp-TAt" secondAttribute="leading" constant="20" id="AE4-K0-oxJ"/>
+                                        <constraint firstItem="Lu6-px-0t2" firstAttribute="leading" secondItem="rix-bp-TAt" secondAttribute="leading" constant="15" id="AE4-K0-oxJ"/>
                                         <constraint firstItem="Lu6-px-0t2" firstAttribute="centerY" secondItem="rix-bp-TAt" secondAttribute="centerY" id="i8E-f2-usu"/>
                                     </constraints>
                                     <connections>

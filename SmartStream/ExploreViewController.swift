@@ -14,39 +14,40 @@ protocol ExploreViewControllerDelegate: class {
 }
 
 class ExploreViewController: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
     let channelPagingCellID = "com.smartchannel.ChannelCollectionPagingViewCell"
     let channelCellID = "com.smartchannel.ChannelCollectionViewCell"
-
+    let sectionTitleArray = ["blank_title", "Curated Channels"]
+    
     private var channels: [Channel] = []
     private var featuredChannels: [Channel] = []
-
+    
     var delegate: ExploreViewControllerDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         let channelPagingCellNIB = UINib(nibName: "ChannelCollectionPagingViewCell", bundle: NSBundle.mainBundle())
         collectionView.registerNib(channelPagingCellNIB, forCellWithReuseIdentifier: channelPagingCellID)
-
+        
         let channelCellNIB = UINib(nibName: "ChannelCollectionViewCell", bundle: NSBundle.mainBundle())
         collectionView.registerNib(channelCellNIB, forCellWithReuseIdentifier: channelCellID)
-
+        
         // Theming
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         collectionView.backgroundColor = UIColor.clearColor()
-
+        
         getChannels()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func getChannels() {
         MBProgressHUD.showHUDAddedTo(view, animated: true)
         ChannelClient.sharedInstance.getExploreChannels { (channels, error) -> () in
@@ -61,16 +62,16 @@ class ExploreViewController: UIViewController {
             }
         }
     }
-
+    
     func getFeaturedChannels(channels: [Channel]) -> [Channel] {
         var featuredChannels = [Channel]()
-
+        
         for channel in channels {
             if channel.curated?.type == "featured" {
                 featuredChannels.append(channel)
             }
         }
-
+        
         return featuredChannels
     }
 }
@@ -78,11 +79,11 @@ class ExploreViewController: UIViewController {
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
 extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 2
     }
-
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return 1
@@ -94,7 +95,7 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
             }
         }
     }
-
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(channelPagingCellID, forIndexPath: indexPath) as! ChannelCollectionPagingViewCell
@@ -107,7 +108,7 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
             return cell
         }
     }
-
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         delegate?.exploreVC(self, didPlayChannel: channels[indexPath.row])
     }
@@ -121,7 +122,7 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
     var cellInset: CGFloat { return 14.0 }
     var infoViewHeight: CGFloat { return 33.0 }
     var pagingViewHeight: CGFloat { return 200.00 }
-
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         if indexPath.section == 0 {
             return CGSize(width: collectionView.bounds.width, height: pagingViewHeight)
@@ -131,15 +132,15 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: cellWidth, height: cellHeight)
         }
     }
-
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         if section == 0 {
             return UIEdgeInsetsMake(0,0,0,0)
         } else {
-            return UIEdgeInsetsMake(cellInset, cellInset, cellInset, cellInset)
+            return UIEdgeInsetsMake(0, cellInset, cellInset, cellInset)
         }
     }
-
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         if section == 0 {
             return 0
@@ -147,7 +148,7 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
             return cellInset
         }
     }
-
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         if section == 0 {
             return 0
@@ -157,14 +158,20 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        //var reusableView: UICollectionReusableView = nil
-        //if indexPath.section == 1 && kind == UICollectionElementKindSectionHeader {
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "ExploreSectionCollectionReusableView", forIndexPath: indexPath) as! ExploreSectionCollectionReusableView
-            
-            return headerView
-            //reusableView = headerView
-        //}
-        //return reusableView
+        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "ExploreSectionCollectionReusableView", forIndexPath: indexPath) as! ExploreSectionCollectionReusableView
+        headerView.sectionHeaderLabel.text = sectionTitleArray[indexPath.section]
+        
+        //return headerView
+        return headerView
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSizeZero
+        } else {
+            return CGSizeMake(view.frame.width, 50)
+        }
     }
 }
 
