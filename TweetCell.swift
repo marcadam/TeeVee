@@ -15,6 +15,14 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var tweetContentLabel: UILabel!
     
+    var tweet: Tweet! {
+        didSet {
+            nameLabel.text = tweet.user!.name
+            usernameLabel.text = "@\(tweet.user!.screenname!)"
+            tweetContentLabel.text = tweet.text
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
