@@ -87,11 +87,9 @@ class PlayerViewController: UIViewController {
             print("Portrait")
             application.statusBarHidden = true
             gradientView.hidden = false
-            bottomButtonsWrapperView.hidden = false
         } else if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
             print("Landscape")
             gradientView.hidden = true
-            bottomButtonsWrapperView.hidden = true
         }
     }
     
