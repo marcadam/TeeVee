@@ -59,14 +59,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ucu-k2-WAx">
-                                <rect key="frame" x="0.0" y="194" width="600" height="340"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BRQ-9W-LhL" id="zgE-OY-KJM"/>
-                                    <outlet property="delegate" destination="BRQ-9W-LhL" id="6oL-m1-dNs"/>
-                                </connections>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FdL-pM-EQd">
                                 <rect key="frame" x="0.0" y="64" width="600" height="50"/>
                                 <subviews>
@@ -92,46 +84,24 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="g37-QU-0fk">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ucu-k2-WAx">
+                                <rect key="frame" x="0.0" y="194" width="600" height="340"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BRQ-9W-LhL" id="zgE-OY-KJM"/>
+                                    <outlet property="delegate" destination="BRQ-9W-LhL" id="6oL-m1-dNs"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-ps-F8r">
                                 <rect key="frame" x="0.0" y="534" width="600" height="66"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLK-oy-v07">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="66"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-ps-F8r">
-                                                <rect key="frame" x="133" y="18" width="34" height="30"/>
-                                                <state key="normal" title="Save"/>
-                                                <connections>
-                                                    <action selector="onSaveTapped:" destination="BRQ-9W-LhL" eventType="touchUpInside" id="dg5-Iy-EeE"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="6Pk-ps-F8r" firstAttribute="centerX" secondItem="YLK-oy-v07" secondAttribute="centerX" id="jvP-tp-8W5"/>
-                                            <constraint firstItem="6Pk-ps-F8r" firstAttribute="centerY" secondItem="YLK-oy-v07" secondAttribute="centerY" id="wvd-Jp-Jqv"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgo-ot-Uxb">
-                                        <rect key="frame" x="300" y="0.0" width="300" height="66"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bhh-TE-0lH">
-                                                <rect key="frame" x="135" y="18" width="30" height="30"/>
-                                                <state key="normal" title="Play"/>
-                                                <connections>
-                                                    <action selector="onStartChannelTapped:" destination="BRQ-9W-LhL" eventType="touchUpInside" id="f7i-mE-wAj"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="Bhh-TE-0lH" firstAttribute="centerY" secondItem="mgo-ot-Uxb" secondAttribute="centerY" id="flQ-JO-QhG"/>
-                                            <constraint firstItem="Bhh-TE-0lH" firstAttribute="centerX" secondItem="mgo-ot-Uxb" secondAttribute="centerX" id="sLc-iY-TbH"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
+                                <color key="backgroundColor" red="0.30161886670291604" green="0.38558315498798723" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="66" id="Xml-V4-IXY"/>
+                                    <constraint firstAttribute="height" constant="66" id="uh5-Jr-mWM"/>
                                 </constraints>
-                            </stackView>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Save"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -142,18 +112,18 @@
                             <constraint firstAttribute="trailing" secondItem="5ug-65-odw" secondAttribute="trailing" id="9AE-FB-IxU"/>
                             <constraint firstAttribute="trailing" secondItem="ucu-k2-WAx" secondAttribute="trailing" id="9Ju-Id-Xwl"/>
                             <constraint firstItem="ucu-k2-WAx" firstAttribute="leading" secondItem="DCO-82-xiw" secondAttribute="leading" id="ATA-xp-3wq"/>
+                            <constraint firstItem="6Pk-ps-F8r" firstAttribute="leading" secondItem="DCO-82-xiw" secondAttribute="leading" id="Bdi-z8-TVW"/>
                             <constraint firstItem="ucu-k2-WAx" firstAttribute="top" secondItem="5ug-65-odw" secondAttribute="bottom" id="D3d-Uk-odv"/>
                             <constraint firstItem="5ug-65-odw" firstAttribute="top" secondItem="FdL-pM-EQd" secondAttribute="bottom" constant="30" id="FCg-pw-yes"/>
-                            <constraint firstItem="g37-QU-0fk" firstAttribute="leading" secondItem="DCO-82-xiw" secondAttribute="leading" id="Ff5-Oa-QyI"/>
+                            <constraint firstItem="6Pk-ps-F8r" firstAttribute="top" secondItem="ucu-k2-WAx" secondAttribute="bottom" id="NuD-rt-2cC"/>
+                            <constraint firstItem="ADh-kj-RnR" firstAttribute="top" secondItem="6Pk-ps-F8r" secondAttribute="bottom" id="Ren-st-XUE"/>
                             <constraint firstAttribute="trailing" secondItem="FdL-pM-EQd" secondAttribute="trailing" id="XCa-Y9-Cnw"/>
                             <constraint firstItem="ucu-k2-WAx" firstAttribute="top" secondItem="7NR-M9-1tf" secondAttribute="bottom" id="Z1a-3t-QyC"/>
                             <constraint firstItem="ucu-k2-WAx" firstAttribute="top" secondItem="5ug-65-odw" secondAttribute="bottom" id="aDG-U3-p71"/>
                             <constraint firstItem="5ug-65-odw" firstAttribute="top" secondItem="7NR-M9-1tf" secondAttribute="bottom" id="aU2-DO-Otf"/>
-                            <constraint firstItem="g37-QU-0fk" firstAttribute="top" secondItem="ucu-k2-WAx" secondAttribute="bottom" id="dZt-yy-3pH"/>
-                            <constraint firstAttribute="trailing" secondItem="g37-QU-0fk" secondAttribute="trailing" id="djC-cj-Mfm"/>
+                            <constraint firstAttribute="trailing" secondItem="6Pk-ps-F8r" secondAttribute="trailing" id="evU-z7-Hdh"/>
                             <constraint firstItem="FdL-pM-EQd" firstAttribute="top" secondItem="7NR-M9-1tf" secondAttribute="bottom" id="f1r-1i-kVN"/>
                             <constraint firstItem="ADh-kj-RnR" firstAttribute="top" secondItem="ucu-k2-WAx" secondAttribute="bottom" constant="66" id="n6a-Rw-FEJ"/>
-                            <constraint firstItem="ADh-kj-RnR" firstAttribute="top" secondItem="g37-QU-0fk" secondAttribute="bottom" id="rLY-qD-wwU"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -182,8 +152,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="hCJ-Hy-hqx" id="VUu-YM-d5R"/>
-                        <outlet property="playBgView" destination="mgo-ot-Uxb" id="iTt-fl-IvG"/>
-                        <outlet property="saveBgView" destination="YLK-oy-v07" id="eg3-0e-7Lh"/>
+                        <outlet property="channelMainActionButton" destination="6Pk-ps-F8r" id="Obw-ga-PCb"/>
                         <outlet property="searchTextField" destination="Iry-pM-F1e" id="BJc-Sl-e3X"/>
                         <outlet property="searchWrapperView" destination="5ug-65-odw" id="7BV-bQ-3xU"/>
                         <outlet property="tableView" destination="ucu-k2-WAx" id="Xa0-sO-8rs"/>
