@@ -129,6 +129,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
+    var prevItem: ChannelItem?
     func playNextItem() {
         if priorityQueue == nil {return}
         
@@ -136,7 +137,14 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         while true {
             if priorityQueue!.count == 0 {break}
             item = priorityQueue!.pop()
-            if item != nil && item?.native_id != nil {break}
+            if item != nil && item?.native_id != nil {
+                if prevItem != nil && prevItem?.extractor == item!.extractor && prevItem!.native_id == item!.native_id {
+                    // remove back-to-back duplicate items
+                    continue
+                }
+                prevItem = item
+                break
+            }
         }
         if item == nil {
             stop()
