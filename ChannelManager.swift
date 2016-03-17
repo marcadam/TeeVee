@@ -132,6 +132,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func playNextItem() {
+        if priorityQueue == nil {return}
         
         var item: ChannelItem? = nil
         while true {
