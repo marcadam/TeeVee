@@ -39,8 +39,11 @@ class TweetPlayerView: NSObject {
         
         super.init()
         tableView = UITableView(frame: containerView.bounds, style: UITableViewStyle.Plain)
+        tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.hidden = true
+        
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TweetCell")
         containerView.addSubview(self.tableView)
     }
