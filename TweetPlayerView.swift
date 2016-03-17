@@ -54,12 +54,18 @@ extension TweetPlayerView: SmartuPlayer {
             
             self.tableView.hidden = false
             self.currItem = item
-            self.items.insert(item, atIndex: 0)
+
+            self.tableView.beginUpdates()
             if self.items.count == maxNumTweets {
+                let lastIndexPath = NSIndexPath(forRow: self.items.count - 1, inSection: 0)
                 self.items.removeLast()
+                self.tableView.deleteRowsAtIndexPaths([lastIndexPath], withRowAnimation: .Fade)
             }
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            self.items.insert(item, atIndex: 0)
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+            self.tableView.endUpdates()
+            
             self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, 0)
             
             NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
