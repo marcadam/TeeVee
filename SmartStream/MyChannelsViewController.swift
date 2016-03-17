@@ -118,28 +118,26 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             let channel = self.channelsArray[indexPath.row]
 
+            let alert = UIAlertController(title: "", message: "", preferredStyle: .Alert)
             let title = NSAttributedString(string: "Delete Channel?", attributes: [
                 NSFontAttributeName : UIFont.boldSystemFontOfSize(17),
                 NSForegroundColorAttributeName : Theme.Colors.HighlightColor.color
                 ]
             )
+            alert.setValue(title, forKey: "attributedTitle")
             let message = NSAttributedString(string: "Are you sure you want to delete the \"\(channel.title!)\" channel?", attributes: [
-                NSFontAttributeName : UIFont.boldSystemFontOfSize(14),
+                NSFontAttributeName : UIFont.systemFontOfSize(14),
                 NSForegroundColorAttributeName : Theme.Colors.HighlightColor.color
                 ]
             )
-
-            let alert = UIAlertController(title: "", message: "", preferredStyle: .Alert)
-            alert.setValue(title, forKey: "attributedTitle")
             alert.setValue(message, forKey: "attributedMessage")
+            // Customize UI of alert
             alert.view.tintColor = UIColor.whiteColor()
             let alertSubview = alert.view.subviews.first! as UIView
             let alertContentView = alertSubview.subviews.first! as UIView
             alertContentView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
             alertContentView.layer.cornerRadius = 13
             alertContentView.alpha = 0.8
-//            alertContentView.layer.borderWidth = 1
-//            alertContentView.layer.borderColor = Theme.Colors.HighlightColor.color.CGColor
 
             let alertDeleteAction = UIAlertAction(title: "Delete", style: .Default, handler: { (action) -> Void in
                 DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
