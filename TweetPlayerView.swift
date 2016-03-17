@@ -99,6 +99,7 @@ extension TweetPlayerView: SmartuPlayer {
         })
         currItem = nil
         items.removeAll()
+        tableView.reloadData()
         endTweet()
     }
     
@@ -126,8 +127,10 @@ extension TweetPlayerView: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         
-        let channelItem = items[indexPath.row]
-        cell.tweet = channelItem.tweet!
+        if items.count > indexPath.row {
+            let channelItem = items[indexPath.row]
+            cell.tweet = channelItem.tweet!
+        }
         
         return cell
     }
