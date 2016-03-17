@@ -24,7 +24,18 @@ class ChannelCollectionPageView: UIView {
         didSet {
             channelNameLabel.text = channel.title
             if let coverURL = channel.curated?.cover_url {
-                pageImageView.setImageWithURL(NSURL(string: coverURL)!, placeholderImage: UIImage(named: "placeholder"))
+                let request = NSURLRequest(URL: NSURL(string: coverURL)!)
+                pageImageView.setImageWithURLRequest(request, placeholderImage: UIImage(named: "placeholder"), success: { (request: NSURLRequest, response: NSHTTPURLResponse?, image: UIImage) -> Void in
+                    self.pageImageView.image = image
+                    self.pageImageView.layer.opacity = 0
+                    UIView.transitionWithView(self.pageImageView, duration: 0.3, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+                        self.pageImageView.layer.opacity = 1
+                        }, completion: { (bool: Bool) -> Void in
+                            //
+                    })
+                    }, failure: { (request: NSURLRequest, response: NSHTTPURLResponse?, error: NSError) -> Void in
+                        //
+                })
             }
         }
     }
