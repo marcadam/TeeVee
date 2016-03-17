@@ -74,7 +74,7 @@ class MyChannelsViewController: UIViewController {
                 self.tableView.reloadData()
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
             } else {
-                print(error)
+                debugPrint(error)
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
             }
         }

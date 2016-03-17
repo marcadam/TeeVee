@@ -23,7 +23,7 @@ class TweetMedia: NSObject {
         }
         
         self.mediaUrl = mediaUrl
-        //print(self.mediaUrl!)
+        //debugPrint(self.mediaUrl!)
     }
 }
 

@@ -21,7 +21,7 @@ class TweetPlayerView: NSObject {
     var currItem: ChannelItem?
     var items = [ChannelItem]()
     
-    init(playerId: Int, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
+    init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
         self.playerId = playerId
         self.playerType = .Tweet
@@ -29,7 +29,7 @@ class TweetPlayerView: NSObject {
         self.playerDelegate = playerDelegate
         
         super.init()
-        tableView = UITableView(frame: containerView.bounds, style: .Plain)
+        tableView = UITableView(frame: containerView!.bounds, style: .Plain)
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.delegate = self
         tableView.dataSource = self
@@ -41,14 +41,14 @@ class TweetPlayerView: NSObject {
         tableView.hidden = true
         
         tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
-        containerView.addSubview(self.tableView)
+        containerView!.addSubview(self.tableView)
     }
 }
 
 extension TweetPlayerView: SmartuPlayer {
     
     func startItem(item: ChannelItem!) {
-        print("[TWEETPLAYER] play next TweetItem")
+        debugPrint("[TWEETPLAYER] play next TweetItem")
         
         dispatch_async(dispatch_get_main_queue(),{
             
@@ -84,7 +84,7 @@ extension TweetPlayerView: SmartuPlayer {
     func aboutToEndTweet() {
         if currItem == nil {return}
         
-        print("[TWEETPLAYER] aboutToEndTweet()")
+        debugPrint("[TWEETPLAYER] aboutToEndTweet()")
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
         
         NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)

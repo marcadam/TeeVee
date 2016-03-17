@@ -57,7 +57,7 @@ class ExploreViewController: UIViewController {
                 self.collectionView.reloadData()
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
             } else {
-                print(error)
+                debugPrint(error)
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
             }
         }

@@ -29,7 +29,7 @@ class DataLayer: NSObject {
         
         ChannelClient.sharedInstance.createChannel(channelDictionary) { (channel, error) -> () in
             if error != nil {
-               print(error)
+               debugPrint(error)
                 completion(error: error!, channel: nil)
             } else {
                 completion(error: nil, channel: channel!)

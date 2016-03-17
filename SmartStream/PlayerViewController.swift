@@ -84,11 +84,11 @@ class PlayerViewController: UIViewController {
     {
         viewWillLayoutSubviews()
         if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
-            print("Portrait")
+            debugPrint("Portrait")
             application.statusBarHidden = true
             gradientView.hidden = false
         } else if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
-            print("Landscape")
+            debugPrint("Landscape")
             gradientView.hidden = true
         }
     }

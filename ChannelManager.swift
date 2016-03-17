@@ -22,8 +22,9 @@ class QueueWrapper: NSObject {
 class ChannelManager: NSObject, SmartuPlayerDelegate {
 
     let twitterClient = TWTRAPIClient()
-    var spinner: SpinnerView?
     let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+    var spinner: SpinnerView!
+    var spinnerShowing = false
     
     var players = [SmartuPlayer]()
     var nativePlayerView: SmartuPlayer?
@@ -65,18 +66,15 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     weak var playerContainerView: UIView? {
         didSet {
             if playerContainerView == nil {return}
-            playerContainerView!.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+            playerContainerView?.backgroundColor = Theme.Colors.DarkBackgroundColor.color
             
-            nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView!, playerDelegate: self)
+            nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
             players.append(nativePlayerView!)
-            youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView!, playerDelegate: self)
+            youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
             players.append(youtubePlayerView!)
             
             spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
-            spinner!.hidden = false
-            spinner!.startAnimating()
-            playerContainerView!.addSubview(spinner!)
-            playerContainerView!.bringSubviewToFront(spinner!)
+            showSpinner()
         }
     }
     
@@ -85,7 +83,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if tweetsContainerView == nil {return}
             tweetsContainerView!.backgroundColor = UIColor.clearColor()
             
-            tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView!, playerDelegate: self)
+            tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView, playerDelegate: self)
             players.append(tweetPlayerView!)
             
         }
@@ -131,6 +129,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
+    var prevItem: ChannelItem?
     func playNextItem() {
         if priorityQueue == nil {return}
         
@@ -138,7 +137,14 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         while true {
             if priorityQueue!.count == 0 {break}
             item = priorityQueue!.pop()
-            if item != nil && item?.native_id != nil {break}
+            if item != nil && item?.native_id != nil {
+                if prevItem != nil && prevItem?.extractor == item!.extractor && prevItem!.native_id == item!.native_id {
+                    // remove back-to-back duplicate items
+                    continue
+                }
+                prevItem = item
+                break
+            }
         }
         if item == nil {
             stop()
@@ -146,7 +152,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
         
         let extractor = item?.extractor
-        print("[MANAGER] extractor = \(item?.extractor); id = \(item?.native_id); url = \(item?.url)")
+        debugPrint("[MANAGER] extractor = \(item?.extractor); id = \(item?.native_id); url = \(item?.url)")
         
         currItem = item
         if extractor == "youtube" {
@@ -162,6 +168,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
+    var prevTweet: Tweet?
     func playNextTweet(channelItem: ChannelItem?) {
         if channelItem == nil || channelItem?.topic == nil {return}
         
@@ -172,13 +179,20 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             while true {
                 if queueWrapper.queue!.count == 0 {break}
                 tweetItem = queueWrapper.queue!.pop()
-                print("queue.count = \(queueWrapper.queue!.count)")
-                if tweetItem != nil && tweetItem?.native_id != nil && tweetItem?.extractor == "twitter" {break}
+                debugPrint("queue.count = \(queueWrapper.queue!.count)")
+                if tweetItem != nil && tweetItem?.native_id != nil && tweetItem?.extractor == "twitter" {
+                    if prevTweet != nil && tweetItem?.tweet != nil && prevTweet?.text == tweetItem?.tweet?.text {
+                        // remove back-to-back duplicate tweets
+                        continue
+                    }
+                    prevTweet = tweetItem?.tweet
+                    break
+                }
             }
             if tweetItem == nil {return}
             
             let extractor = tweetItem!.extractor
-            print("[MANAGER] extractor = \(tweetItem!.extractor); id = \(tweetItem!.native_id)")
+            debugPrint("[MANAGER] extractor = \(tweetItem!.extractor); id = \(tweetItem!.native_id)")
             
             tweetPlayerView?.startItem(tweetItem!)
             
@@ -203,16 +217,23 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
         if playerType == .Tweet {
-            if status == .DidEnd {
-                if twitterOn {
-                    playNextTweet(currItem)
-                }
+            if status == .DidEnd && twitterOn {
+                playNextTweet(currItem)
             }
         } else {
             if status == .WillEnd {
                 prepareNextItem()
             } else if status == .DidEnd {
+                showSpinner()
                 playNextItem()
+            } else if status == .Playing {
+                let progressStr = String(format: "%.2f", progress)
+                let totalDurationStr = String(format: "%.2f", totalDuration)
+                debugPrint("progress: \(progressStr) / \(totalDurationStr)")
+                
+                if spinnerShowing {
+                    removeSpinner()
+                }
             }
         }
     }
@@ -234,22 +255,31 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func next() {
         stop()
-        //tweetPlayerView?.stopItem()
         playNextItem()
     }
     
+    func showSpinner() {
+        dispatch_async(dispatch_get_main_queue(),{
+            self.spinnerShowing = true
+            self.spinner.hidden = false
+            self.spinner.startAnimating()
+            self.playerContainerView?.addSubview(self.spinner)
+            self.playerContainerView?.bringSubviewToFront(self.spinner)
+        })
+    }
     
     func removeSpinner() {
-        if self.spinner != nil && self.spinner!.isDescendantOfView(self.playerContainerView!) {
+        if self.spinner.isDescendantOfView(self.playerContainerView!) {
             dispatch_async(dispatch_get_main_queue(),{
-                self.spinner?.stopAnimating()
-                self.spinner?.removeFromSuperview()
+                self.spinnerShowing = false
+                self.spinner.stopAnimating()
+                self.spinner.removeFromSuperview()
             })
         }
     }
     
     func fetchMoreItems(autoplay: Bool) {
-        print("[MANAGER] fetchMoreItems()")
+        debugPrint("[MANAGER] fetchMoreItems()")
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             ChannelClient.sharedInstance.streamChannel(self.channelId) { (channel, error) -> () in
@@ -265,7 +295,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func fetchMoreTweetsItems(completion: ((error: NSError?) -> ())?) {
-        print("[MANAGER] fetchMoreTweetItems()")
+        debugPrint("[MANAGER] fetchMoreTweetItems()")
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             ChannelClient.sharedInstance.getTweetsForChannel(self.channelId) { (channel, error) -> () in
