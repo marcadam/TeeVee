@@ -66,11 +66,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     weak var playerContainerView: UIView? {
         didSet {
             if playerContainerView == nil {return}
-            playerContainerView!.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+            playerContainerView?.backgroundColor = Theme.Colors.DarkBackgroundColor.color
             
-            nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView!, playerDelegate: self)
+            nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
             players.append(nativePlayerView!)
-            youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView!, playerDelegate: self)
+            youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
             players.append(youtubePlayerView!)
             
             spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
@@ -83,7 +83,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if tweetsContainerView == nil {return}
             tweetsContainerView!.backgroundColor = UIColor.clearColor()
             
-            tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView!, playerDelegate: self)
+            tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView, playerDelegate: self)
             players.append(tweetPlayerView!)
             
         }
@@ -263,8 +263,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             self.spinnerShowing = true
             self.spinner.hidden = false
             self.spinner.startAnimating()
-            self.playerContainerView!.addSubview(self.spinner)
-            self.playerContainerView!.bringSubviewToFront(self.spinner)
+            self.playerContainerView?.addSubview(self.spinner)
+            self.playerContainerView?.bringSubviewToFront(self.spinner)
         })
     }
     

@@ -25,7 +25,7 @@ class NativePlayerView: NSObject {
     
     var currItem: ChannelItem?
     
-    init(playerId: Int, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
+    init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
         self.playerId = playerId
         self.playerType = .Native
@@ -33,18 +33,18 @@ class NativePlayerView: NSObject {
         self.playerDelegate = playerDelegate
         
         nativePlayer = AVQueuePlayer()
-        nativePlayerView = UIView(frame: containerView.bounds)
+        nativePlayerView = UIView(frame: containerView!.bounds)
         nativePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         nativePlayerView.backgroundColor = UIColor.clearColor()
         nativePlayerView.hidden = true
         
         nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
         nativePlayerLayer.videoGravity = AVLayerVideoGravityResizeAspect
-        nativePlayerLayer.frame = containerView.bounds
+        nativePlayerLayer.frame = containerView!.bounds
         nativePlayerView.layer.addSublayer(nativePlayerLayer)
         nativePlayerLayer.needsDisplayOnBoundsChange = true
         nativePlayerView.layer.needsDisplayOnBoundsChange = true
-        containerView.addSubview(nativePlayerView)
+        containerView!.addSubview(nativePlayerView)
         
         nativePlayerOverlay = UIView(frame: nativePlayerView.bounds)
         nativePlayerOverlay.backgroundColor = UIColor.clearColor()

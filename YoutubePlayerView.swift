@@ -32,25 +32,25 @@ class YoutubePlayerView: NSObject {
     var videoAlreadyCued = false
     var currBounds: CGRect
     
-    init(playerId: Int, containerView: UIView!, playerDelegate: SmartuPlayerDelegate?) {
+    init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
         self.playerId = playerId
         self.playerType = .Youtube
         self.containerView = containerView
         self.playerDelegate = playerDelegate
         
-        youtubePlayerView = YTPlayerView(frame: containerView.bounds)
+        youtubePlayerView = YTPlayerView(frame: containerView!.bounds)
         youtubePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         youtubePlayerView.backgroundColor = UIColor.clearColor()
         youtubePlayerView.hidden = true
-        containerView.addSubview(self.youtubePlayerView)
+        containerView!.addSubview(self.youtubePlayerView)
         
-        youtubePlayerOverlay = UIView(frame: containerView.bounds)
+        youtubePlayerOverlay = UIView(frame: containerView!.bounds)
         youtubePlayerOverlay!.backgroundColor = UIColor.clearColor()
         youtubePlayerOverlay!.alpha = 0.0
         youtubePlayerOverlay!.userInteractionEnabled = false
         youtubePlayerView.addSubview(youtubePlayerOverlay!)
-        currBounds = containerView.bounds
+        currBounds = containerView!.bounds
         
         super.init()
         youtubePlayerView.delegate = self
