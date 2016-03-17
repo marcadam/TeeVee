@@ -64,6 +64,7 @@
 		A2A3A3DF1C8AF74500D1173C /* ChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3DE1C8AF74500D1173C /* ChannelCollectionViewCell.swift */; };
 		A2B9E1551C9A14D9009FD91B /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9E1541C9A14D9009FD91B /* TweetCell.swift */; };
 		A2B9E1581C9A1540009FD91B /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2B9E1571C9A1540009FD91B /* TweetCell.xib */; };
+		A2B9E15D1C9A509A009FD91B /* ExploreSectionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9E15C1C9A509A009FD91B /* ExploreSectionCollectionReusableView.swift */; };
 		A2F231E81C8D22060053956D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F231E71C8D22060053956D /* Theme.swift */; };
 		A2F231EE1C8D69D10053956D /* FilterSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F231ED1C8D69D10053956D /* FilterSwitchCell.xib */; };
 		A2F231F01C8D6AB20053956D /* FilterSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F231EF1C8D6AB20053956D /* FilterSwitchCell.swift */; };
@@ -134,6 +135,7 @@
 		A2A3A3DE1C8AF74500D1173C /* ChannelCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelCollectionViewCell.swift; path = SmartStream/ChannelCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2B9E1541C9A14D9009FD91B /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		A2B9E1571C9A1540009FD91B /* TweetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetCell.xib; sourceTree = "<group>"; };
+		A2B9E15C1C9A509A009FD91B /* ExploreSectionCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreSectionCollectionReusableView.swift; sourceTree = "<group>"; };
 		A2F231E71C8D22060053956D /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A2F231ED1C8D69D10053956D /* FilterSwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterSwitchCell.xib; sourceTree = "<group>"; };
 		A2F231EF1C8D6AB20053956D /* FilterSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSwitchCell.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 		A2A3A3C01C8ACAB800D1173C /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				A2B9E1591C9A4FEC009FD91B /* ExploreCollectionViewHeader */,
 				A23EC38D1C968BA100398BF2 /* MyChannelTableViewCell */,
 				495B34531C937A8B002A4ADD /* Custom Controlls */,
 				A2F231E91C8D69730053956D /* FilterTableViewCell */,
@@ -424,6 +427,14 @@
 				A2B9E1571C9A1540009FD91B /* TweetCell.xib */,
 			);
 			name = TweetCell;
+			sourceTree = "<group>";
+		};
+		A2B9E1591C9A4FEC009FD91B /* ExploreCollectionViewHeader */ = {
+			isa = PBXGroup;
+			children = (
+				A2B9E15C1C9A509A009FD91B /* ExploreSectionCollectionReusableView.swift */,
+			);
+			name = ExploreCollectionViewHeader;
 			sourceTree = "<group>";
 		};
 		A2F231E61C8D21EC0053956D /* Themes */ = {
@@ -664,6 +675,7 @@
 				0B951B221C96ACD10068C6AF /* YoutubePlayerView.swift in Sources */,
 				A29BA4971C9120FD00ED13A5 /* User.swift in Sources */,
 				0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */,
+				A2B9E15D1C9A509A009FD91B /* ExploreSectionCollectionReusableView.swift in Sources */,
 				0B11DD251C8E43B300012E85 /* SpinnerView.swift in Sources */,
 				0B2CD8AD1C8846270055BD50 /* Channel.swift in Sources */,
 			);

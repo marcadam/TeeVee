@@ -111,6 +111,8 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         delegate?.exploreVC(self, didPlayChannel: channels[indexPath.row])
     }
+    
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -152,6 +154,17 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
         } else {
             return cellInset
         }
+    }
+    
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        //var reusableView: UICollectionReusableView = nil
+        //if indexPath.section == 1 && kind == UICollectionElementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "ExploreSectionCollectionReusableView", forIndexPath: indexPath) as! ExploreSectionCollectionReusableView
+            
+            return headerView
+            //reusableView = headerView
+        //}
+        //return reusableView
     }
 }
 
