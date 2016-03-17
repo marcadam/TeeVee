@@ -53,39 +53,31 @@ extension TweetPlayerView: SmartuPlayer {
         dispatch_async(dispatch_get_main_queue(),{
             
             self.tableView.hidden = false
+            self.tableView.layer.opacity = 1
             self.currItem = item
-            self.items.append(item)
+
+            UIView.beginAnimations("incomingTweet", context: nil)
+            UIView.setAnimationDuration(1.2)
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({ () -> Void in
+                
+            })
+            self.tableView.beginUpdates()
             if self.items.count == maxNumTweets {
-                self.items.removeFirst()
+                let lastIndexPath = NSIndexPath(forRow: self.items.count - 1, inSection: 0)
+                self.items.removeLast()
+                self.tableView.deleteRowsAtIndexPaths([lastIndexPath], withRowAnimation: .Fade)
             }
-            let prevOffset = self.tableView.contentOffset
-            self.tableView.reloadData()
-            self.tableView.layoutIfNeeded()
-            self.tableView.contentOffset = prevOffset
-            self.tableViewScrollToBottom()
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            self.items.insert(item, atIndex: 0)
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+            self.tableView.endUpdates()
+            CATransaction.commit()
+            UIView.commitAnimations()
+            
+            self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, 0)
             
             NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
-        })
-    }
-    
-    func tableViewScrollToBottom() {
-        
-        let delay = 1.0 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        
-        dispatch_after(time, dispatch_get_main_queue(), {
-            
-            let numberOfSections = self.tableView.numberOfSections
-            let numberOfRows = self.tableView.numberOfRowsInSection(numberOfSections - 1)
-            
-            if numberOfRows > 0 {
-                let indexPath = NSIndexPath(forRow: numberOfRows - 1, inSection: numberOfSections - 1)
-                
-                UIView.animateWithDuration(1.0, animations: { () -> Void in
-                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-                })
-            }
-            
         })
     }
     
@@ -112,11 +104,17 @@ extension TweetPlayerView: SmartuPlayer {
     
     func stopItem() {
         dispatch_async(dispatch_get_main_queue(),{
-            self.tableView.hidden = true
+            self.tableView.layer.opacity = 1
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.tableView.layer.opacity = 0
+                }, completion: { (bool: Bool) -> Void in
+                    self.tableView.hidden = true
+                    self.currItem = nil
+                    self.items.removeAll()
+                    self.tableView.reloadData()
+                    self.endTweet()
+            })
         })
-        currItem = nil
-        items.removeAll()
-        endTweet()
     }
     
     func nextItem() {
@@ -143,8 +141,10 @@ extension TweetPlayerView: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         
-        let channelItem = items[indexPath.row]
-        cell.tweet = channelItem.tweet!
+        if items.count > indexPath.row {
+            let channelItem = items[indexPath.row]
+            cell.tweet = channelItem.tweet!
+        }
         
         return cell
     }

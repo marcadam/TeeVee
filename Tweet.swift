@@ -23,6 +23,7 @@ class Tweet: NSObject {
     let text: String?
     let createdAtString: String?
     let createdAt: NSDate?
+    let formattedDateString: String?
     let retweetName: String?
     let replyName: String?
     var favorited: Bool
@@ -40,6 +41,7 @@ class Tweet: NSObject {
         var text = ""
         var createdAtString = ""
         var createdAt: NSDate? = nil
+        var formattedDateString: String = ""
         var retweetName: String? = nil
         var replyName: String? = nil
         var favorited = false
@@ -63,6 +65,7 @@ class Tweet: NSObject {
         if let createdAtStr = dictionary["created_at"] as? String {
             createdAtString = createdAtStr
             createdAt = DateManager.defaultFormatter.dateFromString(createdAtString)
+            formattedDateString = DateManager.shortFormatter.stringFromDate(createdAt!)
         }
         
         if let retweetedStatus = dictionary["retweeted_status"] as? NSDictionary {
@@ -110,6 +113,7 @@ class Tweet: NSObject {
         self.text = text
         self.createdAtString = createdAtString
         self.createdAt = createdAt
+        self.formattedDateString = formattedDateString
         self.retweetName = retweetName
         self.replyName = replyName
         self.favorited = favorited

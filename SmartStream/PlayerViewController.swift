@@ -20,6 +20,8 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var bottomButtonsView: UIView!
     @IBOutlet weak var topHeaderView: UIView!
     @IBOutlet weak var dismissButton: UIButton!
+    @IBOutlet weak var gradientView: GradientView!
+    @IBOutlet weak var bottomButtonsWrapperView: UIView!
     
     var channelManager: ChannelManager!
     var channelTitle: String!
@@ -31,6 +33,7 @@ class PlayerViewController: UIViewController {
     var controlsHidden = false
     var latestTimer:NSTimer?
     
+    let backgroundColor = Theme.Colors.BackgroundColor.color
     let application = UIApplication.sharedApplication()
     
     override func viewDidLoad() {
@@ -48,13 +51,17 @@ class PlayerViewController: UIViewController {
         playerViewTopConstantPortraitTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
         playerViewTopConstraint.constant = getPlayerTopConstant(self.channelManager.twitterOn)
         
-        view.backgroundColor = Theme.Colors.BackgroundColor.color
+        view.backgroundColor = backgroundColor
         channelTitleLabel.text = channelTitle
         channelTitleLabel.textColor = Theme.Colors.HighlightColor.color
         channelTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         
         playerView.clipsToBounds = true
         tweetsView.clipsToBounds = true
+        
+        bottomButtonsWrapperView.backgroundColor = UIColor.clearColor()
+        gradientView.colors = [UIColor.clearColor(), backgroundColor]
+        gradientView.layer.opacity = 0
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
@@ -78,8 +85,13 @@ class PlayerViewController: UIViewController {
         viewWillLayoutSubviews()
         if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
             print("Portrait")
+            application.statusBarHidden = true
+            gradientView.hidden = false
+            bottomButtonsWrapperView.hidden = false
         } else if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
             print("Landscape")
+            gradientView.hidden = true
+            bottomButtonsWrapperView.hidden = true
         }
     }
     
@@ -111,8 +123,18 @@ class PlayerViewController: UIViewController {
     
     @IBAction func onTwitterTapped(sender: UIButton) {
         playerViewTopConstraint.constant = getPlayerTopConstant(!self.channelManager.twitterOn)
+        if channelManager.twitterOn {
+            gradientView.layer.opacity = 1
+        } else {
+            gradientView.layer.opacity = 0
+        }
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.view.layoutIfNeeded()
+            if self.channelManager.twitterOn {
+                self.gradientView.layer.opacity = 0
+            } else {
+                self.gradientView.layer.opacity = 1
+            }
             }, completion: { (bool: Bool) -> Void in
                 self.channelManager.twitterOn = !self.channelManager.twitterOn
         })
@@ -151,7 +173,7 @@ class PlayerViewController: UIViewController {
         if let timer = latestTimer {
             timer.invalidate()
         }
-        latestTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "animateFade", userInfo: nil, repeats: false)
+        latestTimer = NSTimer.scheduledTimerWithTimeInterval(3.5, target: self, selector: "animateFade", userInfo: nil, repeats: false)
     }
     
     func animateFade() {
