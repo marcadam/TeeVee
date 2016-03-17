@@ -12,10 +12,12 @@ class User: NSObject {
     let dictionary: NSDictionary
     let name: String?
     let username: String?
+    let imageUrl: String?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
         name = dictionary["name"] as? String
         username = dictionary["username"] as? String
+        imageUrl = dictionary["imageurl"] as? String
     }
 }
