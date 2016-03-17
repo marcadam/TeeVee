@@ -14,9 +14,15 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var tweetContentLabel: UILabel!
+    @IBOutlet weak var tweetBackgroundView: UIView!
+    
+    let clearColor = UIColor.clearColor()
+    let regFontColor = Theme.Colors.HighlightColor.color
     
     var tweet: Tweet! {
         didSet {
+            let avatarUrl = NSURL(string: tweet.user!.profileImageUrl!)
+            AvatarImageView.setImageWithURL(avatarUrl!, placeholderImage: UIImage(named: "placeholder"))
             nameLabel.text = tweet.user!.name
             usernameLabel.text = "@\(tweet.user!.screenname!)"
             tweetContentLabel.text = tweet.text
@@ -27,8 +33,12 @@ class TweetCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        backgroundColor = UIColor.clearColor()
-        contentView.backgroundColor = UIColor.clearColor()
+        backgroundColor = clearColor
+        contentView.backgroundColor = clearColor
+        tweetBackgroundView.backgroundColor = Theme.Colors.LightBackgroundColor.color
+        nameLabel.textColor = Theme.Colors.HighlightLightColor.color
+        usernameLabel.textColor = Theme.Colors.HighlightLightColor.color
+        tweetContentLabel.textColor = regFontColor
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
