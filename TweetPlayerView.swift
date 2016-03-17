@@ -33,7 +33,8 @@ class TweetPlayerView: NSObject {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.separatorStyle = .None
+        tableView.backgroundColor = UIColor.clearColor()
         tableView.hidden = true
         
         tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")

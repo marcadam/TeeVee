@@ -27,7 +27,8 @@ class TweetCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        
+        backgroundColor = UIColor.clearColor()
+        contentView.backgroundColor = UIColor.clearColor()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
