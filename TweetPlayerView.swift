@@ -58,13 +58,34 @@ extension TweetPlayerView: SmartuPlayer {
             if self.items.count == maxNumTweets {
                 self.items.removeFirst()
             }
-            //let contentOffset = self.tableView.contentOffset
-            //self.tableView.reloadData()
-            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.items.count - 1, inSection: 0)], withRowAnimation: .Fade)
-            //self.tableView.contentOffset = contentOffset
+            let prevOffset = self.tableView.contentOffset
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+            self.tableView.contentOffset = prevOffset
             self.tableViewScrollToBottom()
             
             NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
+        })
+    }
+    
+    func tableViewScrollToBottom() {
+        
+        let delay = 1.0 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        
+        dispatch_after(time, dispatch_get_main_queue(), {
+            
+            let numberOfSections = self.tableView.numberOfSections
+            let numberOfRows = self.tableView.numberOfRowsInSection(numberOfSections - 1)
+            
+            if numberOfRows > 0 {
+                let indexPath = NSIndexPath(forRow: numberOfRows - 1, inSection: numberOfSections - 1)
+                
+                UIView.animateWithDuration(1.0, animations: { () -> Void in
+                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+                })
+            }
+            
         })
     }
     
@@ -128,27 +149,5 @@ extension TweetPlayerView: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableViewScrollToBottom() {
-        
-        let delay = 0.2 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        
-        dispatch_after(time, dispatch_get_main_queue(), {
-            
-            let numberOfSections = self.tableView.numberOfSections
-            let numberOfRows = self.tableView.numberOfRowsInSection(numberOfSections - 1)
-            
-            if numberOfRows > 0 {
-                let indexPath = NSIndexPath(forRow: numberOfRows - 1, inSection: numberOfSections - 1)
-                let lastCellRect = self.tableView.rectForRowAtIndexPath(indexPath)
-                let lastCell = self.tableView.cellForRowAtIndexPath(indexPath)
-                //self.tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: self.tableView.contentOffset.y)
-                UIView.animateWithDuration(1.0, animations: { () -> Void in
-                    //self.tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: lastCellRect.origin.y)
-                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-                })
-            }
-            
-        })
-    }
+    
 }
