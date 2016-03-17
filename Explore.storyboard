@@ -22,11 +22,30 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="o3z-tZ-euy">
                                     <size key="itemSize" width="0.0" height="0.0"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExploreSectionCollectionReusableView" id="rix-bp-TAt" customClass="ExploreSectionCollectionReusableView" customModule="SmartStream" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Curated Channels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lu6-px-0t2">
+                                            <rect key="frame" x="20" y="14" width="138" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Lu6-px-0t2" firstAttribute="leading" secondItem="rix-bp-TAt" secondAttribute="leading" constant="20" id="AE4-K0-oxJ"/>
+                                        <constraint firstItem="Lu6-px-0t2" firstAttribute="centerY" secondItem="rix-bp-TAt" secondAttribute="centerY" id="i8E-f2-usu"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="sectionHeaderLabel" destination="Lu6-px-0t2" id="U6D-Fs-clH"/>
+                                    </connections>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="69d-dk-AnO" id="XZK-B7-N5U"/>
                                     <outlet property="delegate" destination="69d-dk-AnO" id="xlm-xb-ODi"/>
@@ -53,7 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XvU-2n-6sS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2289" y="922"/>
+            <point key="canvasLocation" x="2323" y="951"/>
         </scene>
     </scenes>
 </document>
