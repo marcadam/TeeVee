@@ -75,7 +75,8 @@ class ChannelEditorViewController: UIViewController {
         titleTextField.textColor = formTextColor
         searchTextField.textColor = formTextColor
         addButton.tintColor = formTextColor
-        
+
+        titleTextField.text = "My Awesome Channel"
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a new topic", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         view.backgroundColor = Theme.Colors.BackgroundColor.color
