@@ -10,6 +10,15 @@ import UIKit
 import SwiftPriorityQueue
 import TwitterKit
 
+class QueueWrapper: NSObject {
+    var queue: PriorityQueue<ChannelItem>?
+    
+    init(queue: PriorityQueue<ChannelItem>?) {
+        self.queue = queue
+        super.init()
+    }
+}
+
 class ChannelManager: NSObject, SmartuPlayerDelegate {
 
     let twitterClient = TWTRAPIClient()
@@ -28,35 +37,22 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     var currItem: ChannelItem?
     
     var tweetsChannel: Channel?
-    var tweetsPriorityQueues: [String: PriorityQueue<ChannelItem>]?
+    var tweetsPriorityQueues: [String: QueueWrapper]?
     
     var twitterOn = false {
         didSet {
             if twitterOn {
                 if tweetsPriorityQueues == nil {
-                    ChannelClient.sharedInstance.getTweetsForChannel(channelId) { (tweetsChannel, error) -> () in
-                        if tweetsChannel != nil && tweetsChannel!.items!.count > 0 {
-                            self.tweetsChannel = tweetsChannel
-                            
-                            self.tweetsPriorityQueues = [String: PriorityQueue<ChannelItem>]()
-                            
-                            for item in tweetsChannel!.items! {
-                                if item.topic == nil || item.topic == "" {continue}
-                                
-                                if let queue = self.tweetsPriorityQueues![item.topic!] {
-                                    // queue exists for topic
-                                } else {
-                                    self.tweetsPriorityQueues![item.topic!] = PriorityQueue(ascending: true, startingValues: [])
-                                }
-                                
-                                self.tweetsPriorityQueues![item.topic!]?.push(item)
-                            }
-                            
-                            dispatch_async(dispatch_get_main_queue(),{
-                                self.playNextTweet(self.currItem)
-                            })
-                        }
-                    }
+                    
+                    self.tweetsPriorityQueues = [String: QueueWrapper]()
+                    fetchMoreTweetsItems({ (error) -> () in
+                        if error != nil {return}
+                        
+                        dispatch_async(dispatch_get_main_queue(),{
+                            self.playNextTweet(self.currItem)
+                        })
+                    })
+                    
                 } else {
                     self.playNextTweet(currItem)
                 }
@@ -168,12 +164,14 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func playNextTweet(channelItem: ChannelItem?) {
         if channelItem == nil || channelItem?.topic == nil {return}
         
-        if var queue = self.tweetsPriorityQueues![channelItem!.topic!] {
+        if let queueWrapper = self.tweetsPriorityQueues![channelItem!.topic!] {
+            if queueWrapper.queue == nil {return}
+            
             var tweetItem: ChannelItem? = nil
             while true {
-                if queue.count == 0 {break}
-                tweetItem = queue.pop()
-                print("queue.count = \(queue.count)")
+                if queueWrapper.queue!.count == 0 {break}
+                tweetItem = queueWrapper.queue!.pop()
+                print("queue.count = \(queueWrapper.queue!.count)")
                 if tweetItem != nil && tweetItem?.native_id != nil && tweetItem?.extractor == "twitter" {break}
             }
             if tweetItem == nil {return}
@@ -183,8 +181,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             
             tweetPlayerView?.startItem(tweetItem!)
             
-            if queue.count <= numItemsBeforeFetch {
-                fetchMoreTweetsItems(false)
+            if queueWrapper.queue!.count <= numItemsBeforeFetch {
+                fetchMoreTweetsItems(nil)
             }
         }
     }
@@ -235,7 +233,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func next() {
         stop()
-        tweetPlayerView?.stopItem()
+        //tweetPlayerView?.stopItem()
         playNextItem()
     }
     
@@ -265,23 +263,28 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         })
     }
     
-    func fetchMoreTweetsItems(autoplay: Bool) {
+    func fetchMoreTweetsItems(completion: ((error: NSError?) -> ())?) {
         print("[MANAGER] fetchMoreTweetItems()")
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             ChannelClient.sharedInstance.getTweetsForChannel(self.channelId) { (channel, error) -> () in
                 if channel != nil && channel!.items!.count > 0 {
-                    for item in self.tweetsChannel!.items! {
+                    for item in channel!.items! {
                         if item.topic == nil || item.topic == "" {continue}
                         
-                        if let topicKey = self.tweetsPriorityQueues![item.topic!] as? String {
+                        var queue: PriorityQueue<ChannelItem>? = nil
+                        if let queueWrapper = self.tweetsPriorityQueues![item.topic!] {
                             // queue exists for topic
+                            queueWrapper.queue?.push(item)
                         } else {
-                            self.tweetsPriorityQueues![item.topic!] = PriorityQueue(ascending: true, startingValues: [])
+                            queue = PriorityQueue<ChannelItem>(ascending: true, startingValues: [])
+                            queue!.push(item)
+                            let newQueueWrapper = QueueWrapper(queue: queue)
+                            self.tweetsPriorityQueues![item.topic!] = newQueueWrapper
                         }
-                        
-                        self.tweetsPriorityQueues![item.topic!]?.push(item)
                     }
+                    
+                    completion?(error: error)
                 }
             }
         })
