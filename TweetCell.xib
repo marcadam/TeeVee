@@ -62,36 +62,20 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="pyo-vP-T7Y" secondAttribute="trailing" constant="8" id="B89-1f-dC2"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="C5m-Ws-CX5"/>
-                            <constraint firstItem="Z2X-bo-NJm" firstAttribute="top" secondItem="dAD-WA-gh7" secondAttribute="bottom" constant="2" id="DHI-g2-lkB"/>
                             <constraint firstItem="Z2X-bo-NJm" firstAttribute="leading" secondItem="QIG-bk-1m1" secondAttribute="trailing" constant="2" id="EFl-lw-BsV"/>
                             <constraint firstItem="dAD-WA-gh7" firstAttribute="leading" secondItem="3Db-n4-zbh" secondAttribute="leading" constant="8" id="Hfu-ES-ywd"/>
                             <constraint firstAttribute="trailing" secondItem="Nhz-UX-HOb" secondAttribute="trailing" constant="8" id="NGL-xd-dyi"/>
-                            <constraint firstItem="Nhz-UX-HOb" firstAttribute="top" secondItem="pyo-vP-T7Y" secondAttribute="bottom" constant="8" id="Ow6-zy-kgs"/>
                             <constraint firstItem="pyo-vP-T7Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Z2X-bo-NJm" secondAttribute="trailing" constant="8" id="Q8d-Oq-Nds"/>
-                            <constraint firstItem="Nhz-UX-HOb" firstAttribute="top" secondItem="Z2X-bo-NJm" secondAttribute="bottom" constant="5" id="SOc-xh-hyR"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Nhz-UX-HOb" secondAttribute="bottom" constant="8" id="T5R-bl-Zbs"/>
-                            <constraint firstItem="QIG-bk-1m1" firstAttribute="top" secondItem="3Db-n4-zbh" secondAttribute="top" constant="10" id="XmT-tA-nfE"/>
                             <constraint firstItem="QIG-bk-1m1" firstAttribute="leading" secondItem="dAD-WA-gh7" secondAttribute="trailing" constant="5" id="YWV-FF-IJ3"/>
-                            <constraint firstItem="Z2X-bo-NJm" firstAttribute="leading" secondItem="3Db-n4-zbh" secondAttribute="leading" constant="8" id="Zbw-C7-ntR"/>
                             <constraint firstItem="pyo-vP-T7Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QIG-bk-1m1" secondAttribute="trailing" constant="8" id="Zty-su-WC3"/>
                             <constraint firstItem="Z2X-bo-NJm" firstAttribute="baseline" secondItem="dAD-WA-gh7" secondAttribute="baseline" id="dTX-1D-JhF"/>
                             <constraint firstItem="dAD-WA-gh7" firstAttribute="top" secondItem="3Db-n4-zbh" secondAttribute="top" constant="8" id="goZ-dS-1sz"/>
                             <constraint firstItem="Nhz-UX-HOb" firstAttribute="leading" secondItem="3Db-n4-zbh" secondAttribute="leading" constant="8" id="i4p-G1-PZi"/>
-                            <constraint firstItem="pyo-vP-T7Y" firstAttribute="top" secondItem="3Db-n4-zbh" secondAttribute="top" constant="8" id="neB-8d-ee2"/>
                             <constraint firstItem="QIG-bk-1m1" firstAttribute="baseline" secondItem="dAD-WA-gh7" secondAttribute="baseline" id="oeD-mT-k4A"/>
                             <constraint firstItem="Nhz-UX-HOb" firstAttribute="top" secondItem="dAD-WA-gh7" secondAttribute="bottom" constant="5" id="p4g-nq-bWp"/>
                             <constraint firstItem="pyo-vP-T7Y" firstAttribute="baseline" secondItem="dAD-WA-gh7" secondAttribute="baseline" id="uFe-ho-u5Q"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Ow6-zy-kgs"/>
-                                <exclude reference="SOc-xh-hyR"/>
-                                <exclude reference="XmT-tA-nfE"/>
-                                <exclude reference="DHI-g2-lkB"/>
-                                <exclude reference="Zbw-C7-ntR"/>
-                                <exclude reference="neB-8d-ee2"/>
-                            </mask>
-                        </variation>
                     </view>
                 </subviews>
                 <constraints>

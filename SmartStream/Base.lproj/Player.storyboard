@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -32,25 +32,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fne-8W-XJa" customClass="GradientView" customModule="SmartStream" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="450" width="600" height="100"/>
+                                        <rect key="frame" x="0.0" y="338" width="600" height="262"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="jq3-L3-ieL"/>
-                                            <constraint firstAttribute="height" constant="100" id="m0q-wb-RKE"/>
-                                            <constraint firstAttribute="height" constant="150" id="o9l-Iq-HQZ"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="jq3-L3-ieL"/>
-                                                <exclude reference="o9l-Iq-HQZ"/>
-                                            </mask>
-                                        </variation>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qsl-U8-Nzk">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSO-Ch-0H0">
-                                                <rect key="frame" x="236" y="14" width="129" height="21"/>
+                                                <rect key="frame" x="236" y="14" width="128.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -214,6 +203,9 @@
                                         <exclude reference="iMH-YO-wX5"/>
                                         <exclude reference="xoH-rn-FIB"/>
                                         <exclude reference="UIv-Tj-ajt"/>
+                                        <exclude reference="VVo-vF-fzl"/>
+                                        <exclude reference="te2-dF-9Fy"/>
+                                        <exclude reference="ufM-su-h2N"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -226,12 +218,16 @@
                             <constraint firstItem="2nR-wN-DLw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1eC-ns-fm2"/>
                             <constraint firstItem="2nR-wN-DLw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="94S-Qn-2je"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="IWR-q4-Vkf"/>
+                            <constraint firstItem="Fne-8W-XJa" firstAttribute="top" secondItem="c6s-au-H2R" secondAttribute="top" id="In9-F7-5pH"/>
                             <constraint firstAttribute="trailing" secondItem="WeQ-Ok-9nI" secondAttribute="trailing" id="JcE-aX-9MW"/>
+                            <constraint firstItem="Fne-8W-XJa" firstAttribute="height" secondItem="c6s-au-H2R" secondAttribute="height" id="Lbh-cb-YHp"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2nR-wN-DLw" secondAttribute="bottom" id="MDJ-iZ-JL3"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QfX-Hc-Y6O"/>
+                            <constraint firstItem="Fne-8W-XJa" firstAttribute="leading" secondItem="c6s-au-H2R" secondAttribute="leading" id="RHb-Tj-aMC"/>
                             <constraint firstItem="c6s-au-H2R" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Snn-Gz-emH"/>
                             <constraint firstItem="c6s-au-H2R" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="TMq-at-ry6"/>
                             <constraint firstAttribute="bottom" secondItem="c6s-au-H2R" secondAttribute="bottom" id="VVA-Qr-Lec"/>
+                            <constraint firstItem="Fne-8W-XJa" firstAttribute="width" secondItem="c6s-au-H2R" secondAttribute="width" id="a39-zO-xgA"/>
                             <constraint firstAttribute="trailing" secondItem="2nR-wN-DLw" secondAttribute="trailing" id="aem-uu-byZ"/>
                             <constraint firstAttribute="trailing" secondItem="c6s-au-H2R" secondAttribute="trailing" id="sqO-lN-rfM"/>
                         </constraints>

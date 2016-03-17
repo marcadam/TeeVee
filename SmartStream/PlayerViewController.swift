@@ -59,7 +59,7 @@ class PlayerViewController: UIViewController {
         playerView.clipsToBounds = true
         tweetsView.clipsToBounds = true
         
-        bottomButtonsWrapperView.backgroundColor = backgroundColor
+        bottomButtonsWrapperView.backgroundColor = UIColor.clearColor()
         gradientView.colors = [UIColor.clearColor(), backgroundColor]
         gradientView.layer.opacity = 0
         
