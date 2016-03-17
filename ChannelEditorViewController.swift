@@ -25,9 +25,8 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleTextField: UITextField!
     
-    @IBOutlet weak var saveBgView: UIView!
-    @IBOutlet weak var playBgView: UIView!
-    
+    @IBOutlet weak var channelMainActionButton: UIButton!
+
     private var topics:[String] = []
     private var newFilters: Filters?
     private var isEdit = false
@@ -59,10 +58,16 @@ class ChannelEditorViewController: UIViewController {
         uiSetup()
         setDefaults()
     }
-    
+
+    override func viewWillAppear(animated: Bool) {
+        let buttonTitle = isEdit ? "Save" : "Save & Play"
+        let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
+        channelMainActionButton.setTitle(buttonTitle, forState: .Normal)
+        channelMainActionButton.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
+    }
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
     }
     
     func uiSetup() {
@@ -75,7 +80,8 @@ class ChannelEditorViewController: UIViewController {
         titleTextField.textColor = formTextColor
         searchTextField.textColor = formTextColor
         addButton.tintColor = formTextColor
-        
+
+        titleTextField.text = "My Awesome Channel"
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a new topic", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         view.backgroundColor = Theme.Colors.BackgroundColor.color
@@ -88,10 +94,11 @@ class ChannelEditorViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         tableView.alwaysBounceVertical = false
         
-        saveBgView.backgroundColor = bgDarkColor
-        playBgView.backgroundColor = bgDarkColor
+        channelMainActionButton.setTitleColor(formTextColor, forState: .Normal)
+
+        searchTextField.becomeFirstResponder()
     }
-    
+
     func setDefaults() {
         if newFilters == nil {
             // TODO : if this is a new channel, fetch available filters from server
@@ -169,11 +176,11 @@ class ChannelEditorViewController: UIViewController {
         titleTextField.resignFirstResponder()
     }
     
-    @IBAction func onSaveTapped(sender: UIButton) {
+    func onSaveTapped(sender: UIButton) {
         buttonAction(false)
     }
     
-    @IBAction func onStartChannelTapped(sender: AnyObject) {
+    func onSaveAndPlayTapped(sender: AnyObject) {
         buttonAction(true)
     }
     
