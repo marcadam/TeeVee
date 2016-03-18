@@ -24,6 +24,7 @@ class NativePlayerView: NSObject {
     var timeObserver: AnyObject?
     
     var currItem: ChannelItem?
+    var isPlaying = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
@@ -70,6 +71,11 @@ class NativePlayerView: NSObject {
                 let totalDurationStr = String(format: "%.2f", totalDuration)
                 //debugPrint("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
                 
+                if !self.isPlaying {
+                    self.isPlaying = true
+                    self.show(nil)
+                }
+                
                 playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
                 
                 if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
@@ -110,7 +116,6 @@ extension NativePlayerView: SmartuPlayer {
             //debugPrint(item.url!)
             self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
             self.playItem()
-            self.show(nil)
         })
     }
     
@@ -173,6 +178,7 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func nativePlayerDidFinishPlaying(notification: NSNotification) {
+        isPlaying = false
         if nativePlayer.rate != 0 && nativePlayer.error == nil {
             playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
         }
@@ -190,7 +196,6 @@ extension NativePlayerView: SmartuPlayer {
             if self.nativePlayer.status == AVPlayerStatus.ReadyToPlay {
                 debugPrint("[NATIVEPLAYER] ready to play")
                 self.playItem()
-                self.show(nil)
                 
             } else if self.nativePlayer.status == AVPlayerStatus.Failed {
                 debugPrint("[NATIVEPLAYER] failed to play")
