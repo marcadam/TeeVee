@@ -42,14 +42,15 @@ class YoutubePlayerView: NSObject {
         youtubePlayerView = YTPlayerView(frame: containerView!.bounds)
         youtubePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         youtubePlayerView.backgroundColor = UIColor.clearColor()
-        youtubePlayerView.hidden = true
         containerView!.addSubview(self.youtubePlayerView)
         
         youtubePlayerOverlay = UIView(frame: containerView!.bounds)
-        youtubePlayerOverlay!.backgroundColor = UIColor.clearColor()
-        youtubePlayerOverlay!.alpha = 0.0
-        youtubePlayerOverlay!.userInteractionEnabled = false
-        youtubePlayerView.addSubview(youtubePlayerOverlay!)
+        youtubePlayerOverlay.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        youtubePlayerOverlay.backgroundColor = UIColor.blackColor()
+        youtubePlayerOverlay.alpha = 1.0
+        youtubePlayerOverlay.userInteractionEnabled = false
+        containerView!.addSubview(youtubePlayerOverlay)
+        
         currBounds = containerView!.bounds
         
         super.init()
@@ -131,28 +132,28 @@ extension YoutubePlayerView: SmartuPlayer {
             if duration != nil {
                 du = duration!
             }
+            
             self.youtubePlayerOverlay.alpha = 1.0
-            self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
+            self.containerView?.bringSubviewToFront(self.youtubePlayerView)
+            self.containerView?.bringSubviewToFront(self.youtubePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in
                 self.youtubePlayerOverlay.alpha = 0.0
-                self.containerView?.bringSubviewToFront(self.youtubePlayerView)
-                self.youtubePlayerView.hidden = false
             }
         })
     }
     
     func hide(duration: NSTimeInterval?) {
         dispatch_async(dispatch_get_main_queue(),{
+            //if !youtubePlayerView.hidden && youtubePlayerOverlay.alpha < 0.1 {return}
+            
             debugPrint("[YOUTUBEPLAYER] fades out youtube player")
             var du = fadeOutTimeConstant
             if duration != nil {
                 du = duration!
             }
             self.youtubePlayerOverlay.alpha = 0.0
-            self.youtubePlayerView.bringSubviewToFront(self.youtubePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in
                 self.youtubePlayerOverlay.alpha = 1.0
-                self.youtubePlayerView.hidden = true
             }
         })
     }
@@ -179,6 +180,9 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         } else if state == .Playing {
             debugPrint("[YOUTUBEPLAYER] video playing")
             self.show(nil)
+        } else if state == .Buffering {
+            debugPrint("[YOUTUBEPLAYER] video buffering")
+            //self.show(nil)
         }
     }
     

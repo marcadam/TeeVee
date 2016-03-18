@@ -36,7 +36,6 @@ class NativePlayerView: NSObject {
         nativePlayerView = UIView(frame: containerView!.bounds)
         nativePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         nativePlayerView.backgroundColor = UIColor.clearColor()
-        nativePlayerView.hidden = true
         
         nativePlayerLayer = AVPlayerLayer(player: self.nativePlayer)
         nativePlayerLayer.videoGravity = AVLayerVideoGravityResizeAspect
@@ -46,11 +45,12 @@ class NativePlayerView: NSObject {
         nativePlayerView.layer.needsDisplayOnBoundsChange = true
         containerView!.addSubview(nativePlayerView)
         
-        nativePlayerOverlay = UIView(frame: nativePlayerView.bounds)
-        nativePlayerOverlay.backgroundColor = UIColor.clearColor()
+        nativePlayerOverlay = UIView(frame: containerView!.bounds)
+        nativePlayerOverlay.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        nativePlayerOverlay.backgroundColor = UIColor.blackColor()
         nativePlayerOverlay.alpha = 0.0
         nativePlayerOverlay.userInteractionEnabled = false
-        nativePlayerView!.addSubview(nativePlayerOverlay)
+        containerView!.addSubview(nativePlayerOverlay)
         
         super.init()
         
@@ -146,11 +146,10 @@ extension NativePlayerView: SmartuPlayer {
                 du = duration!
             }
             self.nativePlayerOverlay.alpha = 1.0
-            self.nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
+            self.containerView?.bringSubviewToFront(self.nativePlayerView)
+            self.containerView?.bringSubviewToFront(self.nativePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in
                 self.nativePlayerOverlay.alpha = 0.0
-                self.containerView?.bringSubviewToFront(self.nativePlayerView)
-                self.nativePlayerView.hidden = false
             }
         })
     }
@@ -163,10 +162,8 @@ extension NativePlayerView: SmartuPlayer {
                 du = duration!
             }
             self.nativePlayerOverlay.alpha = 0.0
-            self.nativePlayerView.bringSubviewToFront(self.nativePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in
                 self.nativePlayerOverlay.alpha = 1.0
-                self.nativePlayerView.hidden = true
             }
         })
     }
@@ -195,19 +192,6 @@ extension NativePlayerView: SmartuPlayer {
                 self.playItem()
                 self.show(nil)
                 
-//                if let currentPlayerAsset = self.nativePlayer.currentItem?.asset as? AVURLAsset {
-//                    if currItem != nil && currItem!.url == currentPlayerAsset.URL.absoluteString {
-//                        dispatch_async(dispatch_get_main_queue(),{
-//                            if self.nativePlayer.currentItem != nil {
-//                                if let videoTrack = self.nativePlayer.currentItem!.asset.tracksWithMediaType(AVMediaTypeVideo).first {
-//                                    debugPrint("naturalSize = \(videoTrack.naturalSize)")
-//                                    //debugPrint("preferredTransform = \(videoTrack.preferredTransform)")
-//                                }
-//                            }
-//                            self.nativePlayer.play()
-//                        })
-//                    }
-//                }
             } else if self.nativePlayer.status == AVPlayerStatus.Failed {
                 debugPrint("[NATIVEPLAYER] failed to play")
             } else {
