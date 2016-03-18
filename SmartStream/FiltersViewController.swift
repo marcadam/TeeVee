@@ -52,6 +52,8 @@ class FiltersViewController: UIViewController {
 
         // Hide empty tableView rows
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        tableView.alwaysBounceVertical = false
     }
     
     override func viewWillDisappear(animated: Bool) {

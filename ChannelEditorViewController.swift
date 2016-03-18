@@ -34,6 +34,7 @@ class ChannelEditorViewController: UIViewController {
     private let formTextFont = Theme.Fonts.NormalTypeFace.font
     private let formTextColor = Theme.Colors.HighlightColor.color
     private let formPlaceholderColor = Theme.Colors.HighlightLightColor.color
+    private var keyboardTimer: NSTimer?
     
     var channel: Channel? {
         didSet {
@@ -65,7 +66,7 @@ class ChannelEditorViewController: UIViewController {
         channelMainActionButton.setTitle(buttonTitle, forState: .Normal)
         channelMainActionButton.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
+        keyboardTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -73,6 +74,10 @@ class ChannelEditorViewController: UIViewController {
         
         titleTextField.resignFirstResponder()
         searchTextField.resignFirstResponder()
+        
+        if let kTimer = keyboardTimer {
+            kTimer.invalidate()
+        }
     }
     
     func uiSetup() {
