@@ -46,15 +46,23 @@
                                     <outletCollection property="gestureRecognizers" destination="EVJ-gu-S83" appends="YES" id="I8K-t9-V3I"/>
                                 </connections>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3P-Rk-n6S">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="YAg-VK-nIn" firstAttribute="top" secondItem="k3P-Rk-n6S" secondAttribute="bottom" id="H0e-lr-rQH"/>
                             <constraint firstAttribute="trailing" secondItem="9Pd-Bx-FT7" secondAttribute="trailing" id="NxG-e7-gbt"/>
+                            <constraint firstItem="k3P-Rk-n6S" firstAttribute="top" secondItem="oA4-yX-AvU" secondAttribute="bottom" id="OIM-rv-fba"/>
                             <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="oA4-yX-AvU" secondAttribute="bottom" id="X3N-Qe-1bK"/>
                             <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="oA4-yX-AvU" secondAttribute="bottom" id="hql-Rj-xi0"/>
                             <constraint firstAttribute="trailing" secondItem="zvu-2i-osg" secondAttribute="trailing" id="lNI-ka-VA1"/>
                             <constraint firstItem="YAg-VK-nIn" firstAttribute="top" secondItem="9Pd-Bx-FT7" secondAttribute="bottom" id="mt7-nI-r4P"/>
                             <constraint firstItem="9Pd-Bx-FT7" firstAttribute="top" secondItem="zvu-2i-osg" secondAttribute="bottom" id="r9J-RZ-Epc"/>
+                            <constraint firstItem="k3P-Rk-n6S" firstAttribute="leading" secondItem="7j7-QB-XqQ" secondAttribute="leading" id="sAq-Wo-2Oh"/>
+                            <constraint firstAttribute="trailing" secondItem="k3P-Rk-n6S" secondAttribute="trailing" id="udq-Wk-lrf"/>
                             <constraint firstItem="zvu-2i-osg" firstAttribute="leading" secondItem="7j7-QB-XqQ" secondAttribute="leading" id="v6j-TT-F4U"/>
                             <constraint firstItem="9Pd-Bx-FT7" firstAttribute="leading" secondItem="7j7-QB-XqQ" secondAttribute="leading" id="whb-qi-hRU"/>
                             <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="7j7-QB-XqQ" secondAttribute="top" id="zaW-fO-ajt"/>
@@ -70,6 +78,7 @@
                     <connections>
                         <outlet property="createChannelLabel" destination="6WB-10-X09" id="Oku-al-JGL"/>
                         <outlet property="createChannelView" destination="zvu-2i-osg" id="HQW-qu-NzS"/>
+                        <outlet property="hiddenOverlay" destination="k3P-Rk-n6S" id="rCX-0Y-Srt"/>
                         <outlet property="tableView" destination="9Pd-Bx-FT7" id="wip-vC-i0c"/>
                     </connections>
                 </viewController>

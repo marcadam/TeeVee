@@ -98,6 +98,14 @@ extension HomeViewController: ChannelsViewControllerDelegate {
     }
 
     func channelsView(channelsView: ChannelsViewController, didTapMenuButton: UIBarButtonItem) {
+        let overlayView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: view.frame.height))
+        channelsView.view.addSubview(overlayView)
+        if menuOpen {
+            overlayView.hidden = true
+        } else {
+            overlayView.hidden = false
+        }
+        
         toggleMenu()
     }
 

@@ -19,8 +19,9 @@ protocol MyChannelsViewControllerDelegate: class {
 class MyChannelsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var createChannelView: UIView!
-    @IBOutlet var createChannelLabel: UILabel!
+    @IBOutlet weak var createChannelView: UIView!
+    @IBOutlet weak var createChannelLabel: UILabel!
+    @IBOutlet weak var hiddenOverlay: UIView!
 
     let channelCellID = "com.smartchannel.ChannelTableViewCell"
 
