@@ -189,6 +189,7 @@ class PlayerViewController: UIViewController {
                 // show everything
                 self.bottomButtonsView.hidden = false
                 self.dismissButton.hidden = false
+                self.progressBarView.hidden = false
                 self.progressBarView.layer.opacity = 1
                 self.bottomButtonsView.layer.opacity = 1
                 self.dismissButton.layer.opacity = 1
@@ -198,7 +199,7 @@ class PlayerViewController: UIViewController {
                 // hide everything
                 self.bottomButtonsView.layer.opacity = 0
                 self.dismissButton.layer.opacity = 0
-                self.progressBarView.layer.opacity = 0.3
+                self.progressBarView.layer.opacity = 0
                 self.channelTitleLabel.layer.opacity = 0.3
                 if let timer = self.latestTimer {
                     timer.invalidate()
@@ -209,6 +210,7 @@ class PlayerViewController: UIViewController {
                     // hide everything
                     self.bottomButtonsView.hidden = true
                     self.dismissButton.hidden = true
+                    self.progressBarView.hidden = true
                 }
                 self.controlsHidden = !self.controlsHidden
         }
