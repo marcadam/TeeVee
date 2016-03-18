@@ -34,6 +34,9 @@ class MenuViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 180
         tableView.alwaysBounceVertical = false
+        let midPointY = view.frame.height / 2.5
+        let topPadding = UIEdgeInsets(top: midPointY - 60, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = topPadding
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,16 +60,13 @@ class MenuViewController: UIViewController {
 extension MenuViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("AvatarCell", forIndexPath: indexPath) as! ProfileAvatarCell
             cell.user = user
-            return cell
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("LogoutCell", forIndexPath: indexPath) as! ProfileLogoutCell
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath)

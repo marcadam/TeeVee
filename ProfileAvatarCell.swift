@@ -29,6 +29,9 @@ class ProfileAvatarCell: UITableViewCell {
         // Initialization code
         backgroundColor = UIColor.clearColor()
         avatarImageView.layer.cornerRadius = avatarImageView.frame.height/2
+        avatarImageView.layer.borderWidth = 2
+        avatarImageView.layer.borderColor = Theme.Colors.HighlightColor.color.CGColor
+        avatarImageView.clipsToBounds = true
         nameLabel.textColor = Theme.Colors.HighlightColor.color
     }
 

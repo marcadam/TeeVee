@@ -36,15 +36,15 @@ class LoginViewController: UIViewController {
             let homeVC = segue.destinationViewController as! HomeViewController
             let menuStoryboard = UIStoryboard(name: "MenuView", bundle: nil)
             let channelsStoryboard = UIStoryboard(name: "Channels", bundle: nil)
-            let menuNC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuNavigationController") as! UINavigationController
-            let menuVC = menuNC.topViewController as! MenuViewController
+            let menuVC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+            //let menuVC = menuNC.topViewController as! MenuViewController
 
             let channelsNC = channelsStoryboard.instantiateViewControllerWithIdentifier("ChannelsNavigationController") as! UINavigationController
             let channelsVC = channelsNC.topViewController as! ChannelsViewController
             channelsVC.delegate = homeVC
             
             menuVC.containerViewController = homeVC
-            homeVC.menuViewController = menuNC
+            homeVC.menuViewController = menuVC
             homeVC.contentViewController = channelsNC
         }
     }
