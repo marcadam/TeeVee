@@ -78,7 +78,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
             players.append(youtubePlayerView!)
             
-            spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
             showSpinner()
         }
     }
@@ -97,12 +96,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     init(channelId: String!, autoplay: Bool) {
         super.init()
         self.channelId = channelId
+        self.spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
         
         ChannelClient.sharedInstance.getChannel(channelId) { (channel, error) -> () in
             if channel != nil && channel!.items!.count > 0 {
                 self.channel = channel
                 
-                self.removeSpinner()
                 self.priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
                 
                 if autoplay {
@@ -184,7 +183,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             while true {
                 if queueWrapper.queue!.count == 0 {break}
                 tweetItem = queueWrapper.queue!.pop()
-                debugPrint("queue.count = \(queueWrapper.queue!.count)")
+                debugPrint("[MANAGER] queue.count = \(queueWrapper.queue!.count)")
                 if tweetItem != nil && tweetItem?.native_id != nil && tweetItem?.extractor == "twitter" {
                     if prevTweet != nil && tweetItem?.tweet != nil && prevTweet?.text == tweetItem?.tweet?.text {
                         // remove back-to-back duplicate tweets
@@ -218,6 +217,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             self.tweetsContainerView?.bounds = tweetsContainerView!.bounds
             tweetPlayerView?.resetBounds(tweetsContainerView!.bounds)
         }
+        spinner.frame = playerContainerView!.bounds
     }
     
     func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
@@ -234,7 +234,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             } else if status == .Playing {
                 let progressStr = String(format: "%.2f", progress)
                 let totalDurationStr = String(format: "%.2f", totalDuration)
-                debugPrint("progress: \(progressStr) / \(totalDurationStr)")
+                debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
                 delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
                 
                 if spinnerShowing {
@@ -282,6 +282,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func showSpinner() {
         dispatch_async(dispatch_get_main_queue(),{
+            debugPrint("[MANAGER] showSpinner()")
             self.spinnerShowing = true
             self.spinner.hidden = false
             self.spinner.startAnimating()
@@ -293,6 +294,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func removeSpinner() {
         if self.spinner.isDescendantOfView(self.playerContainerView!) {
             dispatch_async(dispatch_get_main_queue(),{
+                debugPrint("[MANAGER] removeSpinner()")
                 self.spinnerShowing = false
                 self.spinner.stopAnimating()
                 self.spinner.removeFromSuperview()
