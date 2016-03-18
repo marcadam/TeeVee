@@ -78,7 +78,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
             players.append(youtubePlayerView!)
             
-            showSpinner()
+            showSpinner(0)
         }
     }
     
@@ -231,7 +231,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 prepareNextItem()
             } else if status == .DidEnd {
                 isPlaying = false
-                showSpinner()
+                showSpinner(Int64(2.0 * Double(NSEC_PER_SEC)))
                 playNextItem()
             } else if status == .Playing {
                 isPlaying = true
@@ -285,9 +285,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
-    func showSpinner() {
+    func showSpinner(delay: Int64) {
         if self.spinnerShowing {return}
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(),{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(),{
             if self.isPlaying {return}
             
             debugPrint("[MANAGER] showSpinner()")
