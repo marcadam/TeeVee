@@ -31,7 +31,10 @@ class ProgressbarView: UIView {
 
         let widthScale = CGFloat(fraction) * barWidth
         //progressView.frame = CGRectMake(0, 0, barWidth * widthPercent, barHeight)
-        progressView.transform = CGAffineTransformMakeScale(widthScale * 2, 1)
+        progressView.layer.removeAllAnimations()
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            self.progressView.transform = CGAffineTransformMakeScale(widthScale * 2, 1)
+        })
         
     }
 
