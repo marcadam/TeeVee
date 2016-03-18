@@ -34,13 +34,7 @@
                             <constraint firstAttribute="trailing" secondItem="Dyz-be-uyj" secondAttribute="trailing" id="zw2-hG-QD2"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ipW-x0-o0i">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="reK-yz-GJG">
-                            <connections>
-                                <action selector="didTapDone:" destination="WEb-Ji-Ael" id="EvC-8G-zfc"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="ipW-x0-o0i"/>
                     <connections>
                         <outlet property="tableView" destination="Dyz-be-uyj" id="DzV-nE-Arh"/>
                     </connections>

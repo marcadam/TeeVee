@@ -64,10 +64,15 @@ class ChannelEditorViewController: UIViewController {
         let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
         channelMainActionButton.setTitle(buttonTitle, forState: .Normal)
         channelMainActionButton.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
+        
+        _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        titleTextField.resignFirstResponder()
+        searchTextField.resignFirstResponder()
     }
     
     func uiSetup() {
@@ -96,8 +101,9 @@ class ChannelEditorViewController: UIViewController {
         
         channelMainActionButton.setTitleColor(formTextColor, forState: .Normal)
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
     }
+    
+    
 
     func setDefaults() {
         if newFilters == nil {
@@ -210,8 +216,8 @@ class ChannelEditorViewController: UIViewController {
         
         debugPrint(segue.identifier!)
         if segue.identifier == "filtersSegue" {
-            let filtersNC = segue.destinationViewController as! UINavigationController
-            let filtersVC = filtersNC.topViewController as! FiltersViewController
+            let filtersVC = segue.destinationViewController as! FiltersViewController
+            //let filtersVC = filtersNC.topViewController as! FiltersViewController
             filtersVC.delegate = self
             filtersVC.filters = newFilters
         } else if segue.identifier == "playerSegue" {
