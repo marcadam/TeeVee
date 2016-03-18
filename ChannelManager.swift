@@ -10,6 +10,10 @@ import UIKit
 import SwiftPriorityQueue
 import TwitterKit
 
+protocol ChannelManagerDelegate: class {
+    func channelManager(channelManager: ChannelManager, progress: Double, totalDuration: Double)
+}
+
 class QueueWrapper: NSObject {
     var queue: PriorityQueue<ChannelItem>?
     
@@ -39,6 +43,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     var tweetsChannel: Channel?
     var tweetsPriorityQueues: [String: QueueWrapper]?
+    weak var delegate: ChannelManagerDelegate?
     
     var twitterOn = false {
         didSet {
@@ -230,6 +235,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 let progressStr = String(format: "%.2f", progress)
                 let totalDurationStr = String(format: "%.2f", totalDuration)
                 debugPrint("progress: \(progressStr) / \(totalDurationStr)")
+                delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
                 
                 if spinnerShowing {
                     removeSpinner()
