@@ -83,14 +83,15 @@ class PlayerViewController: UIViewController {
     func rotated()
     {
         viewWillLayoutSubviews()
-        if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
+        if (UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
             debugPrint("Portrait")
             application.statusBarHidden = true
             gradientView.hidden = false
-        } else if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
+        } else if (UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
             debugPrint("Landscape")
             gradientView.hidden = true
         }
+        channelManager.onRotation(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
     }
     
     deinit {

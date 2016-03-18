@@ -261,6 +261,19 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         playNextItem()
     }
     
+    var twitterPausedDueToRotation = false
+    func onRotation(isPortrait: Bool) {
+        if twitterOn {
+            if isPortrait && twitterPausedDueToRotation {
+                twitterPausedDueToRotation = false
+                tweetPlayerView?.playItem()
+            } else {
+                twitterPausedDueToRotation = true
+                tweetPlayerView?.pauseItem()
+            }
+        }
+    }
+    
     func showSpinner() {
         dispatch_async(dispatch_get_main_queue(),{
             self.spinnerShowing = true
