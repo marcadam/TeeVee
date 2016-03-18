@@ -378,12 +378,12 @@
 			name = ExploreCollectionPagingViewCell;
 			sourceTree = "<group>";
 		};
-		495B34531C937A8B002A4ADD /* Custom Controlls */ = {
+		495B34531C937A8B002A4ADD /* CustomControlls */ = {
 			isa = PBXGroup;
 			children = (
 				495B34541C937AC4002A4ADD /* SegmentedControl.swift */,
 			);
-			name = "Custom Controlls";
+			name = CustomControlls;
 			sourceTree = "<group>";
 		};
 		5C4BB3A47471187CBA70ED90 /* Frameworks */ = {
@@ -416,7 +416,7 @@
 			children = (
 				A2B9E1591C9A4FEC009FD91B /* ExploreCollectionViewHeader */,
 				A23EC38D1C968BA100398BF2 /* MyChannelTableViewCell */,
-				495B34531C937A8B002A4ADD /* Custom Controlls */,
+				495B34531C937A8B002A4ADD /* CustomControlls */,
 				A2F231E91C8D69730053956D /* FilterTableViewCell */,
 				0B14595F1C8BA9A0001E6C23 /* ChannelTableViewCell */,
 				492D02B31C916D41000AAF17 /* ExploreCollectionPagingViewCell */,
