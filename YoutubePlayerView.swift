@@ -185,8 +185,10 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         debugPrint("[YOUTUBEPLAYER] didChangeToState \(state.rawValue)")
         if state == .Ended {
             debugPrint("[YOUTUBEPLAYER] video ended")
-            isPlaying = false
-            playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
+            if isPlaying {
+                isPlaying = false
+                playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
+            }
         } else if state == .Playing {
             debugPrint("[YOUTUBEPLAYER] video playing")
         } else if state == .Buffering {
