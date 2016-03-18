@@ -141,7 +141,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         while true {
             if priorityQueue!.count == 0 {break}
             item = priorityQueue!.pop()
-            if item != nil && item?.native_id != nil {
+            if item != nil && item?.native_id != nil && item?.extractor == "youtube" {
                 if prevItem != nil && prevItem?.extractor == item!.extractor && prevItem!.native_id == item!.native_id {
                     // remove back-to-back duplicate items
                     continue
@@ -183,7 +183,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             while true {
                 if queueWrapper.queue!.count == 0 {break}
                 tweetItem = queueWrapper.queue!.pop()
-                debugPrint("[MANAGER] queue.count = \(queueWrapper.queue!.count)")
+                //debugPrint("[MANAGER] queue.count = \(queueWrapper.queue!.count)")
                 if tweetItem != nil && tweetItem?.native_id != nil && tweetItem?.extractor == "twitter" {
                     if prevTweet != nil && tweetItem?.tweet != nil && prevTweet?.text == tweetItem?.tweet?.text {
                         // remove back-to-back duplicate tweets
@@ -263,7 +263,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func next() {
-        stop()
+        pause()
+        currPlayer?.nextItem()
+        tweetPlayerView?.nextItem()
         playNextItem()
     }
     
@@ -281,6 +283,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func showSpinner() {
+        if self.spinnerShowing {return}
         dispatch_async(dispatch_get_main_queue(),{
             debugPrint("[MANAGER] showSpinner()")
             self.spinnerShowing = true

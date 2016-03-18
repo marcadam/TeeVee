@@ -31,6 +31,8 @@ class YoutubePlayerView: NSObject {
     var currItem: ChannelItem?
     var videoAlreadyCued = false
     var currBounds: CGRect
+    var isPlaying = false
+    var isBuffering = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
@@ -88,7 +90,6 @@ extension YoutubePlayerView: SmartuPlayer {
                     self.youtubePlayerView.playVideo()
                     self.videoAlreadyCued = false
                 } else {
-                    self.hide(0.0)
                     self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
                 }
             }
@@ -111,7 +112,7 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func nextItem() {
-        
+        hide(0.0)
     }
     
     func resetBounds(bounds: CGRect) {
@@ -161,6 +162,14 @@ extension YoutubePlayerView: SmartuPlayer {
     func endItem() {
         hide(nil)
     }
+    
+    func onPlaybackError() {
+        debugPrint("[YOUTUBEPLAYER] onPlaybackError()")
+        stopItem()
+        isBuffering = false
+        isPlaying = false
+        playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
+    }
 }
 
 extension YoutubePlayerView: YTPlayerViewDelegate {
@@ -176,13 +185,17 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         debugPrint("[YOUTUBEPLAYER] didChangeToState \(state.rawValue)")
         if state == .Ended {
             debugPrint("[YOUTUBEPLAYER] video ended")
+            isPlaying = false
             playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
         } else if state == .Playing {
             debugPrint("[YOUTUBEPLAYER] video playing")
-            self.show(nil)
         } else if state == .Buffering {
             debugPrint("[YOUTUBEPLAYER] video buffering")
-            //self.show(nil)
+            isBuffering = true
+        } else if state == .Unstarted {
+            if isBuffering {
+                onPlaybackError()
+            }
         }
     }
     
@@ -196,8 +209,14 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         let currentSecond = String(format: "%.2f", playTime)
         let totalDuration = playerView.duration()
         let totalDurationStr = String(format: "%.2f", playerView.duration())
-        //        debugPrint("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
+        //debugPrint("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
         
+        if !isPlaying {
+            isPlaying = true
+            self.show(nil)
+        }
+        
+        isBuffering = false
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: Double(playTime), totalDuration: totalDuration)
         
         if Int(totalDuration) - Int(playTime) == bufferTimeConstant {
@@ -208,9 +227,8 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     
     func playerView(playerView: YTPlayerView!, receivedError error: YTPlayerError) {
         if currItem == nil {return}
-        debugPrint("[YOUTUBEPLAYER] didPlayTime \(error.rawValue)")
-        stopItem()
-        playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
+        debugPrint("[YOUTUBEPLAYER] receivedError \(error.rawValue)")
+        onPlaybackError()
     }
     
     func playerViewPreferredWebViewBackgroundColor(playerView: YTPlayerView!) -> UIColor! {
