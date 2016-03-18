@@ -21,6 +21,8 @@ class TweetPlayerView: NSObject {
     var currItem: ChannelItem?
     var items = [ChannelItem]()
     
+    var paused = false
+    
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
         self.playerId = playerId
@@ -95,11 +97,14 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func playItem() {
-        
+        if self.paused && currItem != nil {
+            self.paused = false
+            endTweet()
+        }
     }
     
     func pauseItem() {
-        
+        self.paused = true
     }
     
     func stopItem() {
@@ -126,10 +131,9 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func endTweet() {
-        self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
-        dispatch_async(dispatch_get_main_queue(),{
-            
-        })
+        if !self.paused {
+            self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
+        }
     }
 }
 
