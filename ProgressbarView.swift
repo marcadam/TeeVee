@@ -12,14 +12,12 @@ class ProgressbarView: UIView {
 
     var progressView:UIView!
     var progressbarColor: UIColor = UIColor.redColor()
-    var mainColor: UIColor = UIColor.whiteColor()
     private var barHeight: CGFloat!
     private var barWidth: CGFloat!
     
     override func drawRect(rect: CGRect) {
         
         // Must be set when the rect is drawn
-        backgroundColor = mainColor
         barHeight = rect.height
         barWidth = rect.width
         progressView = UIView(frame: CGRectMake(0, 0, 1, rect.height))

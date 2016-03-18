@@ -41,8 +41,8 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-        progressBarView.mainColor = Theme.Colors.HighlightLightColor.color
-        progressBarView.progressbarColor = Theme.Colors.LightButtonColor.color
+        progressBarView.backgroundColor = Theme.Colors.LightBackgroundColor.color
+        progressBarView.progressbarColor = Theme.Colors.HighlightColor.color
         
         channelManager = ChannelManager(channelId: channelId, autoplay: true)
         channelManager.delegate = self
