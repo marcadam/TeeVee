@@ -141,7 +141,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         while true {
             if priorityQueue!.count == 0 {break}
             item = priorityQueue!.pop()
-            if item != nil && item?.native_id != nil {
+            if item != nil && item?.native_id != nil && item?.extractor == "vidme" {
                 if prevItem != nil && prevItem?.extractor == item!.extractor && prevItem!.native_id == item!.native_id {
                     // remove back-to-back duplicate items
                     continue
@@ -220,6 +220,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         spinner.frame = playerContainerView!.bounds
     }
     
+    var isPlaying = false
     func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
         if playerType == .Tweet {
             if status == .DidEnd && twitterOn {
@@ -229,9 +230,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if status == .WillEnd {
                 prepareNextItem()
             } else if status == .DidEnd {
+                isPlaying = false
                 showSpinner()
                 playNextItem()
             } else if status == .Playing {
+                isPlaying = true
                 let progressStr = String(format: "%.2f", progress)
                 let totalDurationStr = String(format: "%.2f", totalDuration)
                 debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
@@ -284,7 +287,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func showSpinner() {
         if self.spinnerShowing {return}
-        dispatch_async(dispatch_get_main_queue(),{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(),{
+            if self.isPlaying {return}
+            
             debugPrint("[MANAGER] showSpinner()")
             self.spinnerShowing = true
             self.spinner.hidden = false

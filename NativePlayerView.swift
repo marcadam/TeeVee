@@ -134,7 +134,11 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func nextItem() {
-        
+        nativePlayer.pause()
+        if nativePlayer.currentItem != nil {
+            nativePlayer.removeItem(nativePlayer.currentItem!)
+            currItem = nil
+        }
     }
     
     func resetBounds(bounds: CGRect) {
@@ -178,8 +182,8 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func nativePlayerDidFinishPlaying(notification: NSNotification) {
-        isPlaying = false
-        if nativePlayer.rate != 0 && nativePlayer.error == nil {
+        if isPlaying && nativePlayer.rate != 0 && nativePlayer.error == nil {
+            isPlaying = false
             playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
         }
     }
