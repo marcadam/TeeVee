@@ -21,7 +21,6 @@ class MyChannelsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var createChannelView: UIView!
     @IBOutlet weak var createChannelLabel: UILabel!
-    @IBOutlet weak var hiddenOverlay: UIView!
 
     let channelCellID = "com.smartchannel.ChannelTableViewCell"
 

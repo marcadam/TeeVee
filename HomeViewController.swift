@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
     let contentViewPeakOffset: CGFloat = 50.0
     var originalContentViewLeftMargin: CGFloat!
     var menuOpen = false
+    var overlayLayer: UIView!
 
     var menuViewController: UIViewController! {
         didSet {
@@ -51,6 +52,8 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        overlayLayer = UIView(frame: CGRectMake(0, 0, 50, view.frame.height))
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,12 +101,11 @@ extension HomeViewController: ChannelsViewControllerDelegate {
     }
 
     func channelsView(channelsView: ChannelsViewController, didTapMenuButton: UIBarButtonItem) {
-        let overlayView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: view.frame.height))
-        channelsView.view.addSubview(overlayView)
+        
         if menuOpen {
-            overlayView.hidden = true
+            overlayLayer.removeFromSuperview()
         } else {
-            overlayView.hidden = false
+            channelsView.view.addSubview(overlayLayer)
         }
         
         toggleMenu()
