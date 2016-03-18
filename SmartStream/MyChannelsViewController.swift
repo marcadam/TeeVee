@@ -106,16 +106,19 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let playAction = UITableViewRowAction(style: .Normal, title: "Play") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        // Play
+        let playAction = UITableViewRowAction(style: .Normal, title: " Play    ") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             self.delegate?.myChannelsVC(self, didPlayChannel: self.channelsArray[indexPath.row])
         }
-        playAction.backgroundColor = Theme.Colors.LightBackgroundColor.color
+        playAction.backgroundColor = Theme.Colors.PlayColor.color
         
-        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        // Edit
+        let editAction = UITableViewRowAction(style: .Normal, title: " Edit    ") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             self.delegate?.myChannelsVC(self, didEditChannel: self.channelsArray[indexPath.row])
         }
-        editAction.backgroundColor = Theme.Colors.LightBackgroundColor.color
+        editAction.backgroundColor = Theme.Colors.EditColor.color
         
+        // Delete
         let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             let channel = self.channelsArray[indexPath.row]
 
@@ -162,8 +165,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             })
 
         }
-        //deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
-        deleteAction.backgroundColor = Theme.Colors.LightBackgroundColor.color
+        deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
         
         return [deleteAction, editAction, playAction]
     }
