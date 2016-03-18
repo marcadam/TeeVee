@@ -239,18 +239,21 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func play() {
-        if currItem == nil || currPlayer == nil {return}
+        if currItem == nil {return}
         currPlayer?.playItem()
+        tweetPlayerView?.playItem()
     }
     
     func pause() {
-        if currItem == nil || currPlayer == nil {return}
-        currPlayer!.pauseItem()
+        if currItem == nil {return}
+        currPlayer?.pauseItem()
+        tweetPlayerView?.pauseItem()
     }
     
     func stop() {
-        if currItem == nil || currPlayer == nil {return}
-        currPlayer!.stopItem()
+        if currItem == nil {return}
+        currPlayer?.stopItem()
+        tweetPlayerView?.stopItem()
     }
     
     func next() {
