@@ -28,7 +28,7 @@ class MenuViewController: UIViewController {
             user = Mock.NewUser.Tom.user
         }
         
-        view.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+        view.backgroundColor = Theme.Colors.LightBackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorStyle = .None
         tableView.rowHeight = UITableViewAutomaticDimension

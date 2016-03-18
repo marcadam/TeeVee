@@ -95,8 +95,8 @@ class ChannelEditorViewController: UIViewController {
         tableView.alwaysBounceVertical = false
         
         channelMainActionButton.setTitleColor(formTextColor, forState: .Normal)
-
-        searchTextField.becomeFirstResponder()
+        
+        _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
     }
 
     func setDefaults() {
@@ -109,6 +109,10 @@ class ChannelEditorViewController: UIViewController {
             // else if this is an existing channel, populate screen/filters using its data
             newFilters = channel!.filters
         }
+    }
+    
+    func showFirstResponder() {
+        searchTextField.becomeFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {

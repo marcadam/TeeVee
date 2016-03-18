@@ -109,12 +109,12 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         let playAction = UITableViewRowAction(style: .Normal, title: "Play") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             self.delegate?.myChannelsVC(self, didPlayChannel: self.channelsArray[indexPath.row])
         }
-        playAction.backgroundColor = Theme.Colors.PlayColor.color
+        playAction.backgroundColor = Theme.Colors.LightBackgroundColor.color
         
         let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             self.delegate?.myChannelsVC(self, didEditChannel: self.channelsArray[indexPath.row])
         }
-        editAction.backgroundColor = Theme.Colors.EditColor.color
+        editAction.backgroundColor = Theme.Colors.LightBackgroundColor.color
         
         let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             let channel = self.channelsArray[indexPath.row]
@@ -162,7 +162,8 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             })
 
         }
-        deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
+        //deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
+        deleteAction.backgroundColor = Theme.Colors.LightBackgroundColor.color
         
         return [deleteAction, editAction, playAction]
     }
