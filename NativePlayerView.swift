@@ -23,11 +23,13 @@ class NativePlayerView: NSObject {
     private let myContext = UnsafeMutablePointer<()>()
     private var nativePlayer: AVQueuePlayer!
     private var timeObserver: AnyObject?
+    private var currBounds: CGRect
     
     private var currItem: ChannelItem?
     private var isPlaying = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
+        debugPrint("[NATIVEPLAYER] init()")
         
         self.playerId = playerId
         self.playerType = .Native
@@ -53,6 +55,8 @@ class NativePlayerView: NSObject {
         nativePlayerOverlay.alpha = 0.0
         nativePlayerOverlay.userInteractionEnabled = false
         containerView!.addSubview(nativePlayerOverlay)
+        
+        currBounds = containerView!.bounds
         
         super.init()
         
@@ -86,6 +90,7 @@ class NativePlayerView: NSObject {
     }
     
     deinit {
+        debugPrint("[NATIVEPLAYER] deinit()")
         if timeObserver != nil {
             nativePlayer.removeTimeObserver(timeObserver!)
         }
@@ -143,6 +148,9 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func resetBounds(bounds: CGRect) {
+        if currBounds == bounds {return}
+        currBounds = bounds
+        
         debugPrint("[NATIVEPLAYER] resetBounds()")
         nativePlayerLayer.frame = bounds
     }
