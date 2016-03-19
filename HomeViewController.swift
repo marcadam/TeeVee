@@ -139,6 +139,14 @@ extension HomeViewController: ChannelsViewControllerDelegate {
             completion!()
         })
     }
+
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
 }
 
 // MARK: - ProfileViewControllerDelegate

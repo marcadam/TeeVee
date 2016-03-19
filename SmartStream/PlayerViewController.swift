@@ -13,6 +13,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var tweetsView: UIView!
     @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var twitterButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var channelTitleLabel: UILabel!
@@ -91,9 +92,11 @@ class PlayerViewController: UIViewController {
             debugPrint("Portrait")
             application.statusBarHidden = true
             gradientView.hidden = false
+            twitterButton.enabled = true
         } else if (UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
             debugPrint("Landscape")
             gradientView.hidden = true
+            twitterButton.enabled = false
         }
         channelManager.onRotation(application, isPortrait: UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
     }
@@ -215,6 +218,14 @@ class PlayerViewController: UIViewController {
                 }
                 self.controlsHidden = !self.controlsHidden
         }
+    }
+
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .AllButUpsideDown
     }
 }
 
