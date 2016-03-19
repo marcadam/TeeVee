@@ -54,20 +54,20 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                     if let queueWrapper = tweetsPriorityQueues![currItem!.topic!] {
                         // queue exists for topic
                         if queueWrapper.queue != nil && queueWrapper.queue!.count > numItemsBeforeFetch {
-                            self.playNextTweet(self.currItem)
+                            playNextTweet(currItem)
                             return
                         }
                     }
                 }
                 
-                fetchMoreTweetsItems({ (error) -> () in
-                    if error != nil {return}
+                fetchMoreTweetsItems({[weak self] (error) -> () in
+                    if self == nil || error != nil {return}
                     
-                    self.playNextTweet(self.currItem)
+                    self!.playNextTweet(self!.currItem)
                 })
                 
             } else {
-                self.tweetPlayerView?.stopItem()
+                tweetPlayerView?.stopItem()
             }
         }
     }
@@ -75,7 +75,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     weak var playerContainerView: UIView? {
         didSet {
             if playerContainerView == nil {return}
-            playerContainerView?.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+            playerContainerView!.backgroundColor = Theme.Colors.DarkBackgroundColor.color
             
             if nativePlayerView == nil {
                 nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
@@ -124,7 +124,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     deinit {
-        print("[ChannelManager] deinit()")
+        debugPrint("[ChannelManager] deinit()")
         stop()
         
         youtubePlayerView = nil
@@ -202,7 +202,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func playNextTweet(channelItem: ChannelItem?) {
         if channelItem == nil || channelItem?.topic == nil {return}
         
-        if let queueWrapper = self.tweetsPriorityQueues![channelItem!.topic!] {
+        if let queueWrapper = tweetsPriorityQueues![channelItem!.topic!] {
             if queueWrapper.queue == nil {return}
             
             var tweetItem: ChannelItem? = nil
@@ -318,28 +318,34 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func showSpinner(delay: Int64) {
-        if self.spinnerShowing {return}
+        if spinnerShowing {return}
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(),{
-            if self.isPlaying || self.spinner == nil {return}
+            [weak self] in
+            
+            if self == nil {return}
+            if self!.isPlaying || self!.spinner == nil {return}
             
             debugPrint("[MANAGER] showSpinner()")
-            self.spinnerShowing = true
-            self.spinner!.hidden = false
-            self.spinner!.startAnimating()
-            self.playerContainerView?.addSubview(self.spinner!)
-            self.playerContainerView?.bringSubviewToFront(self.spinner!)
+            self!.spinnerShowing = true
+            self!.spinner!.hidden = false
+            self!.spinner!.startAnimating()
+            self!.playerContainerView?.addSubview(self!.spinner!)
+            self!.playerContainerView?.bringSubviewToFront(self!.spinner!)
         })
     }
     
     func removeSpinner() {
-        if self.spinner != nil && self.spinner!.isDescendantOfView(self.playerContainerView!) {
+        if spinner != nil && spinner!.isDescendantOfView(playerContainerView!) {
             dispatch_async(dispatch_get_main_queue(),{
-                if !self.spinnerShowing || self.spinner == nil {return}
+                [weak self] in
+                
+                if self == nil {return}
+                if !self!.spinnerShowing || self!.spinner == nil {return}
                 debugPrint("[MANAGER] removeSpinner()")
-                self.spinnerShowing = false
-                self.spinner!.hidden = true
-                self.spinner!.stopAnimating()
-                self.spinner!.removeFromSuperview()
+                self!.spinnerShowing = false
+                self!.spinner!.hidden = true
+                self!.spinner!.stopAnimating()
+                self!.spinner!.removeFromSuperview()
             })
         }
     }
@@ -348,13 +354,16 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         debugPrint("[MANAGER] fetchMoreItems()")
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
-            ChannelClient.sharedInstance.streamChannel(self.channelId!) { (channel, error) -> () in
+            [weak self] in
+            if self == nil {return}
+            
+            ChannelClient.sharedInstance.streamChannel(self!.channelId!) { (channel, error) -> () in
+                if self == nil {return}
+                
                 if channel != nil && channel!.items!.count > 0 {
                     for item in channel!.items! {
-                        self.priorityQueue!.push(item)
+                        self!.priorityQueue!.push(item)
                     }
-                    
-                    // check if currently playing, if not, restart
                 }
             }
         })
@@ -373,34 +382,39 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         
         debugPrint("[MANAGER] fetchMoreTweetItems()")
         
-        if self.tweetsPriorityQueues == nil {
-            self.tweetsPriorityQueues = [String: QueueWrapper]()
+        if tweetsPriorityQueues == nil {
+            tweetsPriorityQueues = [String: QueueWrapper]()
         }
         
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
-            ChannelClient.sharedInstance.getTweetsForChannel(self.channelId!) { (channel, error) -> () in
+            [weak self] in
+            if self == nil {return}
+            
+            ChannelClient.sharedInstance.getTweetsForChannel(self!.channelId!) { (channel, error) -> () in
+                if self == nil {return}
+                
                 if channel != nil && channel!.items!.count > 0 {
                     for item in channel!.items! {
                         if item.topic == nil || item.topic == "" {continue}
                         
                         var queue: PriorityQueue<ChannelItem>? = nil
-                        if let queueWrapper = self.tweetsPriorityQueues![item.topic!] {
+                        if let queueWrapper = self!.tweetsPriorityQueues![item.topic!] {
                             // queue exists for topic
                             queueWrapper.queue?.push(item)
                         } else {
                             queue = PriorityQueue<ChannelItem>(ascending: true, startingValues: [])
                             queue!.push(item)
                             let newQueueWrapper = QueueWrapper(queue: queue)
-                            self.tweetsPriorityQueues![item.topic!] = newQueueWrapper
+                            self!.tweetsPriorityQueues![item.topic!] = newQueueWrapper
                         }
                     }
                     
-                    for request in self.pendingRequests {
+                    for request in self!.pendingRequests {
                         request(error: error)
                     }
-                    self.pendingRequests.removeAll()
-                    self.numTweetsRequests = 0
+                    self!.pendingRequests.removeAll()
+                    self!.numTweetsRequests = 0
                 }
             }
         })
