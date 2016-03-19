@@ -118,7 +118,6 @@ class PlayerViewController: UIViewController {
         for subview in tweetsView.subviews {
             subview.removeFromSuperview()
         }
-        channelManager?.stop()
         channelManager = nil
     }
     
@@ -190,6 +189,7 @@ class PlayerViewController: UIViewController {
     }
     
     @IBAction func onDismiss(sender: AnyObject) {
+        channelManager?.stop()
         dismissViewControllerAnimated(true, completion: nil)
     }
     

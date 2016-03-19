@@ -87,8 +87,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
                 players.append(youtubePlayerView!)
             }
-            
-            showSpinner(0)
         }
     }
     
@@ -122,6 +120,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 }
             }
         }
+        
+        showSpinner(0)
     }
     
     deinit {
