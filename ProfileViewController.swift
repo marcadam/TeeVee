@@ -32,4 +32,11 @@ class ProfileViewController: UIViewController {
         delegate?.profileView(self, didTapMenuButton: sender)
     }
 
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
 }

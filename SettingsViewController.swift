@@ -31,4 +31,12 @@ class SettingsViewController: UIViewController {
     @IBAction func didTapMenu(sender: UIBarButtonItem) {
         delegate?.settingsView(self, didTapMenuButton: sender)
     }
+
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
 }

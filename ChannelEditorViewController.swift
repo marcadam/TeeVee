@@ -107,8 +107,6 @@ class ChannelEditorViewController: UIViewController {
         channelMainActionButton.setTitleColor(formTextColor, forState: .Normal)
         
     }
-    
-    
 
     func setDefaults() {
         if newFilters == nil {
@@ -230,6 +228,14 @@ class ChannelEditorViewController: UIViewController {
             let channel = sender as! Channel
             destination.channelId = channel.channel_id // substitue with actual channelId
         }
+    }
+
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
     }
 }
 

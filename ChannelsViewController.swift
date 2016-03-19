@@ -113,6 +113,14 @@ class ChannelsViewController: UIViewController {
             })
         }
     }
+
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
 }
 
 // MARK: - MyChannelsViewControllerDelegate
