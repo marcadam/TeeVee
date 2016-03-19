@@ -35,11 +35,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     private var currPlayer: SmartuPlayer?
     
     private var channelId: String?
-    private var channel: Channel?
     private var priorityQueue: PriorityQueue<ChannelItem>?
     private var currItem: ChannelItem?
     
-    private var tweetsChannel: Channel?
     private var tweetsPriorityQueues: [String: QueueWrapper]?
     private var pendingRequests = Array<((error: NSError?) -> ())>()
     private var numTweetsRequests = 0
@@ -110,7 +108,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         fetchMoreTweetsItems(nil)
         ChannelClient.sharedInstance.getChannel(channelId!) { (channel, error) -> () in
             if channel != nil && channel!.items!.count > 0 {
-                self.channel = channel
                 
                 self.priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
                 
@@ -131,10 +128,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         nativePlayerView = nil
         tweetPlayerView = nil
         
-        channel = nil
         channelId = nil
         priorityQueue = nil
-        tweetsChannel = nil
         tweetsPriorityQueues = nil
         spinner = nil
         
