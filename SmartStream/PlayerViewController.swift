@@ -25,15 +25,16 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var bottomButtonsWrapperView: UIView!
     @IBOutlet weak var progressBarView: ProgressbarView!
     
-    var channelManager: ChannelManager?
     var channelTitle: String!
     var channelId: String? = "0"
+    private var channelManager: ChannelManager?
     
-    var playerViewTopConstantPortraitTwitterOn: CGFloat!
-    var playerViewTopConstantPortraitTwitterOff: CGFloat!
-    var playerViewTopConstantLandscape: CGFloat!
-    var controlsHidden = false
-    var latestTimer:NSTimer?
+    private var playerViewTopConstantPortraitTwitterOn: CGFloat!
+    private var playerViewTopConstantPortraitTwitterOff: CGFloat!
+    private var playerViewTopConstantLandscape: CGFloat!
+    private var controlsHidden = false
+    private var latestTimer: NSTimer?
+    private var isPortrait = true
     
     let backgroundColor = Theme.Colors.BackgroundColor.color
     let application = UIApplication.sharedApplication()
@@ -52,9 +53,8 @@ class PlayerViewController: UIViewController {
         channelManager!.playerContainerView = playerView
         channelManager!.tweetsContainerView = tweetsView
         
-        let headerHeight = topHeaderView.bounds.height
         playerViewTopConstantLandscape = 0
-        playerViewTopConstantPortraitTwitterOn = headerHeight
+        playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
         playerViewTopConstantPortraitTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
         playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
         
@@ -69,6 +69,8 @@ class PlayerViewController: UIViewController {
         bottomButtonsWrapperView.backgroundColor = UIColor.clearColor()
         gradientView.colors = [UIColor.clearColor(), backgroundColor]
         gradientView.layer.opacity = 0
+        
+        isPortrait = application.statusBarOrientation.isPortrait
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
@@ -89,18 +91,22 @@ class PlayerViewController: UIViewController {
     
     func rotated()
     {
-        viewWillLayoutSubviews()
-        if (UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
+        if isPortrait == application.statusBarOrientation.isPortrait {return}
+        isPortrait = application.statusBarOrientation.isPortrait
+        
+        if (application.statusBarOrientation.isPortrait) {
             debugPrint("Portrait")
             application.statusBarHidden = true
             gradientView.hidden = false
             twitterButton.enabled = true
-        } else if (UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
+        } else {
             debugPrint("Landscape")
             gradientView.hidden = true
             twitterButton.enabled = false
         }
-        channelManager?.onRotation(application, isPortrait: UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
+        
+        viewWillLayoutSubviews()
+        channelManager?.onRotation(application.statusBarOrientation.isPortrait)
     }
     
     deinit {
