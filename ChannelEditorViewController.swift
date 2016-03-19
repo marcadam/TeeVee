@@ -219,7 +219,7 @@ class ChannelEditorViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        debugPrint(segue.identifier!)
+        //debugPrint(segue.identifier!)
         if segue.identifier == "filtersSegue" {
             let filtersVC = segue.destinationViewController as! FiltersViewController
             //let filtersVC = filtersNC.topViewController as! FiltersViewController

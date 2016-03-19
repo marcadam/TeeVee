@@ -149,7 +149,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="qt7-yT-A6T" userLabel="Filters">
                             <connections>
-                                <segue destination="r98-P7-qa7" kind="push" identifier="filtersSegue" id="gkP-Yk-RSD"/>
+                                <segue destination="r98-P7-qa7" kind="show" identifier="filtersSegue" id="gkP-Yk-RSD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
