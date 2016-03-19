@@ -256,7 +256,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 prepareNextItem()
             } else if status == .DidEnd {
                 isPlaying = false
-                showSpinner(Int64(2.0 * Double(NSEC_PER_SEC)))
+                showSpinner(Int64(1.0 * Double(NSEC_PER_SEC)))
                 playNextItem()
             } else if status == .Playing {
                 isPlaying = true
