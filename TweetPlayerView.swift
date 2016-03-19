@@ -8,7 +8,7 @@
 
 import UIKit
 
-let maxNumTweets = 20
+let maxNumTweets = 10
 
 class TweetPlayerView: NSObject {
     
