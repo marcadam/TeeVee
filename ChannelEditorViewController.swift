@@ -231,7 +231,7 @@ class ChannelEditorViewController: UIViewController {
     func keyboardInputAccessoryView() -> UIView {
         if keyboardInputAccessory == nil {
             let accessoryView = UIButton(frame: CGRectMake(0.0, 0.0, view.bounds.width, 44.0))
-            accessoryView.backgroundColor = UIColor(red: 0/255.0, green: 122/255.0, blue: 255.0, alpha: 1.0)
+            accessoryView.backgroundColor = view.tintColor
             let buttonTitle = isEdit ? "Save" : "Save & Play"
             let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
             accessoryView.setTitle(buttonTitle, forState: .Normal)
