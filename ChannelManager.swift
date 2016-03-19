@@ -61,9 +61,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 }
                 
                 fetchMoreTweetsItems({[weak self] (error) -> () in
-                    if self == nil || error != nil {return}
-                    
-                    self!.playNextTweet(self!.currItem)
+                    if let strongSelf = self {
+                        if error != nil {return}
+                        strongSelf.playNextTweet(strongSelf.currItem)
+                    }
                 })
                 
             } else {
@@ -322,15 +323,16 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(),{
             [weak self] in
             
-            if self == nil {return}
-            if self!.isPlaying || self!.spinner == nil {return}
-            
-            debugPrint("[MANAGER] showSpinner()")
-            self!.spinnerShowing = true
-            self!.spinner!.hidden = false
-            self!.spinner!.startAnimating()
-            self!.playerContainerView?.addSubview(self!.spinner!)
-            self!.playerContainerView?.bringSubviewToFront(self!.spinner!)
+            if let strongSelf = self {
+                if strongSelf.isPlaying || strongSelf.spinner == nil {return}
+                
+                debugPrint("[MANAGER] showSpinner()")
+                strongSelf.spinnerShowing = true
+                strongSelf.spinner!.hidden = false
+                strongSelf.spinner!.startAnimating()
+                strongSelf.playerContainerView?.addSubview(strongSelf.spinner!)
+                strongSelf.playerContainerView?.bringSubviewToFront(strongSelf.spinner!)
+            }
         })
     }
     
@@ -339,13 +341,14 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             dispatch_async(dispatch_get_main_queue(),{
                 [weak self] in
                 
-                if self == nil {return}
-                if !self!.spinnerShowing || self!.spinner == nil {return}
-                debugPrint("[MANAGER] removeSpinner()")
-                self!.spinnerShowing = false
-                self!.spinner!.hidden = true
-                self!.spinner!.stopAnimating()
-                self!.spinner!.removeFromSuperview()
+                if let strongSelf = self {
+                    if !strongSelf.spinnerShowing || strongSelf.spinner == nil {return}
+                    debugPrint("[MANAGER] removeSpinner()")
+                    strongSelf.spinnerShowing = false
+                    strongSelf.spinner!.hidden = true
+                    strongSelf.spinner!.stopAnimating()
+                    strongSelf.spinner!.removeFromSuperview()
+                }
             })
         }
     }
