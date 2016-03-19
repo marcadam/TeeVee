@@ -21,13 +21,21 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BO9-YE-Xao">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="jGk-nV-vlz" firstAttribute="top" secondItem="cQT-jQ-C6W" secondAttribute="bottom" id="JUr-ee-Nu6"/>
+                            <constraint firstItem="BO9-YE-Xao" firstAttribute="leading" secondItem="nvm-Re-IEP" secondAttribute="leading" id="QAv-KH-2h8"/>
+                            <constraint firstItem="BO9-YE-Xao" firstAttribute="top" secondItem="cQT-jQ-C6W" secondAttribute="bottom" id="WNn-qz-aY4"/>
                             <constraint firstItem="JCJ-OZ-djB" firstAttribute="top" secondItem="jGk-nV-vlz" secondAttribute="bottom" id="ZYB-EM-E6Z"/>
                             <constraint firstAttribute="trailing" secondItem="jGk-nV-vlz" secondAttribute="trailing" id="hPp-lp-cdy"/>
-                            <constraint firstItem="jGk-nV-vlz" firstAttribute="leading" secondItem="nvm-Re-IEP" secondAttribute="leading" id="rYB-mo-dt3"/>
+                            <constraint firstItem="BO9-YE-Xao" firstAttribute="width" secondItem="nvm-Re-IEP" secondAttribute="width" id="luG-v6-oxZ"/>
+                            <constraint firstItem="JCJ-OZ-djB" firstAttribute="top" secondItem="BO9-YE-Xao" secondAttribute="bottom" id="rEr-6q-5tR"/>
+                            <constraint firstItem="jGk-nV-vlz" firstAttribute="width" secondItem="nvm-Re-IEP" secondAttribute="width" id="tgQ-y1-Lrq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TUw-bA-NmL">
@@ -38,7 +46,7 @@
                             </connections>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="a72-io-0gg" customClass="SegmentedControl" customModule="SmartStream" customModuleProvider="target">
-                            <rect key="frame" x="200" y="6" width="200" height="33"/>
+                            <rect key="frame" x="200" y="5.5" width="200" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -47,7 +55,10 @@
                         </view>
                     </navigationItem>
                     <connections>
-                        <outlet property="contentView" destination="jGk-nV-vlz" id="bgS-nl-OBR"/>
+                        <outlet property="exploreChannelsView" destination="BO9-YE-Xao" id="LcV-GP-Jgz"/>
+                        <outlet property="exploreChannelsViewLeadingConstraint" destination="QAv-KH-2h8" id="WU1-Sm-aDc"/>
+                        <outlet property="myChannelsView" destination="jGk-nV-vlz" id="9Xl-bv-Ks1"/>
+                        <outlet property="myChannelsViewTrailingConstraint" destination="hPp-lp-cdy" id="Xe0-L2-iix"/>
                         <outlet property="segmentedControl" destination="a72-io-0gg" id="w4V-7d-Iaa"/>
                     </connections>
                 </viewController>

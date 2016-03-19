@@ -115,7 +115,7 @@ extension HomeViewController: ChannelsViewControllerDelegate {
         let editorStoryboard = UIStoryboard(name: "ChannelEditor", bundle: nil)
         let editorNC = editorStoryboard.instantiateViewControllerWithIdentifier("ChannelEditorNavigationController") as! UINavigationController
         let editorVC = editorNC.topViewController as! ChannelEditorViewController
-        if let myChannelVC = sender.contentViewController as? MyChannelsViewController {
+        if let myChannelVC = sender.myChannelsViewController as? MyChannelsViewController {
             if let checkChannel = channel {
                 editorVC.channel = checkChannel
             } else {

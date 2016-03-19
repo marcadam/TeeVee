@@ -17,24 +17,27 @@ protocol ChannelsViewControllerDelegate: class {
 
 class ChannelsViewController: UIViewController {
 
-    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var myChannelsView: UIView!
+    @IBOutlet weak var exploreChannelsView: UIView!
+
+    @IBOutlet weak var myChannelsViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var exploreChannelsViewLeadingConstraint: NSLayoutConstraint!
+
     @IBOutlet weak var segmentedControl: SegmentedControl!
 
-    private var contentViewControllers: [UIViewController] = []
-    var contentViewController: UIViewController! {
-        didSet(oldContentViewController) {
+    var myChannelsViewController: UIViewController! {
+        didSet {
             view.layoutIfNeeded()
+            myChannelsViewController.view.frame = myChannelsView.bounds
+            myChannelsView.addSubview(myChannelsViewController.view)
+        }
+    }
 
-            if oldContentViewController != nil {
-                oldContentViewController.willMoveToParentViewController(nil)
-                oldContentViewController.view.removeFromSuperview()
-                oldContentViewController.didMoveToParentViewController(nil)
-            }
-
-            contentViewController.willMoveToParentViewController(self)
-            contentViewController.view.frame = contentView.bounds
-            contentView.addSubview(contentViewController.view)
-            contentViewController.didMoveToParentViewController(self)
+    var exploreChannelsViewController: UIViewController! {
+        didSet {
+            view.layoutIfNeeded()
+            exploreChannelsViewController.view.frame = exploreChannelsView.bounds
+            exploreChannelsView.addSubview(exploreChannelsViewController.view)
         }
     }
 
@@ -45,19 +48,22 @@ class ChannelsViewController: UIViewController {
 
         segmentedControl.items = ["My Streams", "Explore"]
 
+        // Push Explore scene off screen to the right
+        exploreChannelsViewLeadingConstraint.constant = view.bounds.width
+
         // Instantiate and add myChannels view controller
         let myChannelsStoryboard = UIStoryboard(name: "MyChannels", bundle: nil)
         let myChannelsVC = myChannelsStoryboard.instantiateViewControllerWithIdentifier("MyChannelsViewController") as! MyChannelsViewController
         myChannelsVC.delegate = self
-        contentViewControllers.append(myChannelsVC)
+        myChannelsViewController = myChannelsVC
+        addChildViewController(myChannelsViewController)
 
         // Instantiate and add Explore view controller
         let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
         let exploreVC = exploreStoryboard.instantiateInitialViewController() as! ExploreViewController
         exploreVC.delegate = self
-        contentViewControllers.append(exploreVC)
-
-        contentViewController = myChannelsVC
+        exploreChannelsViewController = exploreVC
+        addChildViewController(exploreChannelsViewController)
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,8 +76,42 @@ class ChannelsViewController: UIViewController {
     }
 
     @IBAction func onValueChanged(sender: SegmentedControl) {
-        contentViewController = contentViewControllers[sender.selectedSegmentIndex]
+        if sender.selectedSegmentIndex == 0 {
+            exploreChannelsViewController.willMoveToParentViewController(nil)
+            addChildViewController(myChannelsViewController)
+            myChannelsView.addSubview(myChannelsViewController.view)
 
+            UIView.animateWithDuration(0.4,
+                delay: 0,
+                options: [.CurveEaseInOut],
+                animations: { () -> Void in
+                    self.myChannelsViewTrailingConstraint.constant = 0
+                    self.exploreChannelsViewLeadingConstraint.constant = self.view.bounds.width
+                    self.view.layoutIfNeeded()
+                }, completion: { (finished) -> Void in
+                    self.exploreChannelsViewController.view.removeFromSuperview()
+                    self.exploreChannelsViewController.removeFromParentViewController()
+                    self.myChannelsViewController.didMoveToParentViewController(self)
+                }
+            )
+        } else {
+            myChannelsViewController.willMoveToParentViewController(nil)
+            addChildViewController(exploreChannelsViewController)
+            exploreChannelsView.addSubview(exploreChannelsViewController.view)
+
+            UIView.animateWithDuration(0.4,
+                delay: 0,
+                options: [.CurveEaseInOut],
+                animations: { () -> Void in
+                    self.myChannelsViewTrailingConstraint.constant = self.view.bounds.width
+                    self.exploreChannelsViewLeadingConstraint.constant = 0
+                    self.view.layoutIfNeeded()
+                }, completion: { (finished) -> Void in
+                    self.myChannelsViewController.view.removeFromSuperview()
+                    self.myChannelsViewController.removeFromParentViewController()
+                    self.exploreChannelsViewController.didMoveToParentViewController(self)
+            })
+        }
     }
 }
 
