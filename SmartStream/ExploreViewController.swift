@@ -74,6 +74,14 @@ class ExploreViewController: UIViewController {
         
         return featuredChannels
     }
+
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
@@ -112,8 +120,6 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         delegate?.exploreVC(self, didPlayChannel: channels[indexPath.row])
     }
-    
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

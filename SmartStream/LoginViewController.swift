@@ -48,4 +48,12 @@ class LoginViewController: UIViewController {
             homeVC.contentViewController = channelsNC
         }
     }
+
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
 }

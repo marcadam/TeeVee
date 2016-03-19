@@ -83,6 +83,13 @@ class MyChannelsViewController: UIViewController {
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
         delegate?.myChannelsVC(self, didEditChannel: nil)
     }
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate

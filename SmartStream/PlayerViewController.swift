@@ -216,6 +216,14 @@ class PlayerViewController: UIViewController {
                 self.controlsHidden = !self.controlsHidden
         }
     }
+
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .AllButUpsideDown
+    }
 }
 
 extension PlayerViewController: ChannelManagerDelegate {

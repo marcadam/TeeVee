@@ -83,6 +83,14 @@ class FiltersViewController: UIViewController {
     @IBAction func didTapDone(sender: UIBarButtonItem) {
         presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
+
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
 }
 
 extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
