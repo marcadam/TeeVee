@@ -124,7 +124,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     deinit {
-        debugPrint("[ChannelManager] deinit()")
+        print("[ChannelManager] deinit()")
         stop()
         
         youtubePlayerView = nil

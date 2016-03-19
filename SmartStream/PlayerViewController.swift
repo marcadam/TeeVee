@@ -201,7 +201,7 @@ class PlayerViewController: UIViewController {
         if let timer = latestTimer {
             timer.invalidate()
         }
-        latestTimer = NSTimer.scheduledTimerWithTimeInterval(3.5, target: self, selector: "animateFade", userInfo: nil, repeats: false)
+        latestTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "animateFade", userInfo: nil, repeats: false)
     }
     
     func animateFade() {
