@@ -47,6 +47,8 @@ class PlayerViewController: UIViewController {
         
         channelManager = ChannelManager(channelId: channelId, autoplay: true)
         channelManager.delegate = self
+        playerView.autoresizesSubviews = true
+        tweetsView.autoresizesSubviews = true
         channelManager.playerContainerView = playerView
         channelManager.tweetsContainerView = tweetsView
         
