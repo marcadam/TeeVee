@@ -106,7 +106,7 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func startItem(item: ChannelItem!) {
-        debugPrint("[NATIVEPLAYER] play next nativeItem")
+        debugPrint("[NATIVEPLAYER] startItem()")
         if item == currItem {return}
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
         //        nativePlayer?.advanceToNextItem()
@@ -120,14 +120,17 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func playItem() {
+        debugPrint("[NATIVEPLAYER] playItem()")
         nativePlayer.play()
     }
     
     func pauseItem() {
+        debugPrint("[NATIVEPLAYER] pauseItem()")
         nativePlayer.pause()
     }
     
     func stopItem() {
+        debugPrint("[NATIVEPLAYER] stopItem()")
         currItem = nil
         isPlaying = false
         nativePlayer.pause()
@@ -136,10 +139,12 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func nextItem() {
+        debugPrint("[NATIVEPLAYER] nextItem()")
         //stopItem()
     }
     
     func resetBounds(bounds: CGRect) {
+        debugPrint("[NATIVEPLAYER] resetBounds()")
         nativePlayerLayer.frame = bounds
     }
     

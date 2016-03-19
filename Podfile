@@ -10,7 +10,6 @@ target 'SmartStream' do
     pod 'FXBlurView'
     pod 'SwiftPriorityQueue'
     pod 'Fabric'
-    pod 'TwitterKit'
     pod 'youtube-ios-player-helper', :git=>'https://github.com/youtube/youtube-ios-player-helper', :commit=>'head'
     pod 'MBProgressHUD'
 end
