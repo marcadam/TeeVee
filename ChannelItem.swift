@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChannelItem: NSObject, Comparable {
+class ChannelItem: NSObject, NSCopying, Comparable {
     let dictionary: NSDictionary
     let url: String?
     let native_id: String?
@@ -17,7 +17,7 @@ class ChannelItem: NSObject, Comparable {
     let timestamp: NSTimeInterval?
     let tweet: Tweet?
     
-    init(dictionary: NSDictionary) {
+    required init(dictionary: NSDictionary) {
         self.dictionary = dictionary
 
         url = dictionary["url"] as? String
@@ -32,6 +32,10 @@ class ChannelItem: NSObject, Comparable {
         
         self.tweet = tweet
         timestamp = NSDate().timeIntervalSince1970
+    }
+    
+    func copyWithZone(zone: NSZone) -> AnyObject {
+        return self.dynamicType.init(dictionary: dictionary)
     }
     
     class func items(array array: [NSDictionary]) -> [ChannelItem] {

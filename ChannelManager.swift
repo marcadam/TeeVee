@@ -102,6 +102,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     init(channelId: String?, autoplay: Bool) {
+        debugPrint("[ChannelManager] init()")
         super.init()
         self.channelId = channelId
         self.spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)

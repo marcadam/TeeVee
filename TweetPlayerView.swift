@@ -56,7 +56,7 @@ extension TweetPlayerView: SmartuPlayer {
             
             self.tableView.hidden = false
             self.tableView.layer.opacity = 1
-            self.currItem = item
+            self.currItem = item.copy() as! ChannelItem
 
             UIView.beginAnimations("incomingTweet", context: nil)
             UIView.setAnimationDuration(1.2)
