@@ -51,7 +51,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     var twitterOn = false {
         didSet {
-            if !isPortrait {return} // disable Twitter function for landscape
             
             if twitterOn {
                 
