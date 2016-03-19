@@ -255,6 +255,81 @@ class ChannelEditorViewController: UIViewController {
     }
 }
 
+// MARK: - Channel Modification Methods
+
+extension ChannelEditorViewController {
+    func createChannel(completion: (error: NSError?, channel: Channel?) -> ()) {
+        if topics.count > 0 {
+            MBProgressHUD.showHUDAddedTo(view, animated: true)
+            let channelDictionary = ["title": titleTextField.text!, "topics": topics, "filters": newFilters!] as NSDictionary
+            DataLayer.createChannel(withDictionary: channelDictionary, completion: { (error, channel) -> () in
+                if error != nil {
+                    completion(error: error!, channel: nil)
+                } else {
+                    completion(error: nil, channel: channel!)
+                }
+            })
+        }
+    }
+
+    func updateChannel(isPlay: Bool, completion: (error: NSError?, channel: Channel?) -> ()) {
+        if let channel = channel {
+            var count = 0
+            var dictionary = [String: AnyObject]()
+
+            // set default dictionary items
+            dictionary["channel_id"] = channel.channel_id!
+            dictionary["topics"] = channel.topics!
+            dictionary["title"] = channel.title!
+            dictionary["filters"] = channel.filters!
+
+            if topics != channel.topics! {
+                dictionary["topics"] = topics
+                count++
+            }
+            if titleTextField.text != channel.title && titleTextField.text != "" {
+                dictionary["title"] = titleTextField.text
+                count++
+            }
+            if newFilters != channel.filters {
+                dictionary["filters"] = newFilters
+                count++
+            }
+            if count > 0 {
+                MBProgressHUD.showHUDAddedTo(view, animated: true)
+                DataLayer.updateChannel(withDictionary: dictionary, completion: { (error, channel) -> () in
+                    if error != nil {
+                        completion(error: error, channel: nil)
+                    } else {
+                        completion(error: nil, channel: channel)
+                    }
+                })
+            } else {
+                dismissViewControllerAnimated(true, completion: { () -> Void in
+                    if isPlay {
+                        self.delegate?.channelEditor(self, shouldPlayChannel: channel)
+                    }
+                })
+            }
+        }
+    }
+
+    func deleteChannel(completion: (error: NSError?, channelId: String?) -> ()) {
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        if let channel = channel {
+            DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
+                if error != nil {
+                    debugPrint(error)
+                    completion(error: error, channelId: nil)
+                } else {
+                    debugPrint(channelId)
+                    completion(error: nil, channelId: channelId)
+                }
+            })
+        }
+    }
+}
+
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate {
@@ -324,78 +399,5 @@ extension ChannelEditorViewController: UITextFieldDelegate {
 extension ChannelEditorViewController: FiltersViewDelegate {
     func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
         newFilters = filters
-    }
-}
-
-extension ChannelEditorViewController {
-    func createChannel(completion: (error: NSError?, channel: Channel?) -> ()) {
-        if topics.count > 0 {
-            MBProgressHUD.showHUDAddedTo(view, animated: true)
-            let channelDictionary = ["title": titleTextField.text!, "topics": topics, "filters": newFilters!] as NSDictionary
-            DataLayer.createChannel(withDictionary: channelDictionary, completion: { (error, channel) -> () in
-                if error != nil {
-                    completion(error: error!, channel: nil)
-                } else {
-                    completion(error: nil, channel: channel!)
-                }
-            })
-        }
-    }
-    
-    func updateChannel(isPlay: Bool, completion: (error: NSError?, channel: Channel?) -> ()) {
-        if let channel = channel {
-            var count = 0
-            var dictionary = [String: AnyObject]()
-            
-            // set default dictionary items
-            dictionary["channel_id"] = channel.channel_id!
-            dictionary["topics"] = channel.topics!
-            dictionary["title"] = channel.title!
-            dictionary["filters"] = channel.filters!
-            
-            if topics != channel.topics! {
-                dictionary["topics"] = topics
-                count++
-            }
-            if titleTextField.text != channel.title && titleTextField.text != "" {
-                dictionary["title"] = titleTextField.text
-                count++
-            }
-            if newFilters != channel.filters {
-                dictionary["filters"] = newFilters
-                count++
-            }
-            if count > 0 {
-                MBProgressHUD.showHUDAddedTo(view, animated: true)
-                DataLayer.updateChannel(withDictionary: dictionary, completion: { (error, channel) -> () in
-                    if error != nil {
-                        completion(error: error, channel: nil)
-                    } else {
-                        completion(error: nil, channel: channel)
-                    }
-                })
-            } else {
-                dismissViewControllerAnimated(true, completion: { () -> Void in
-                    if isPlay {
-                        self.delegate?.channelEditor(self, shouldPlayChannel: channel)
-                    }
-                })
-            }
-        }
-    }
-    
-    func deleteChannel(completion: (error: NSError?, channelId: String?) -> ()) {
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
-        if let channel = channel {
-            DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
-                if error != nil {
-                    debugPrint(error)
-                    completion(error: error, channelId: nil)
-                } else {
-                    debugPrint(channelId)
-                    completion(error: nil, channelId: channelId)
-                }
-            })
-        }
     }
 }
