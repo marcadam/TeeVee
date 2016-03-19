@@ -41,6 +41,7 @@ class ChannelEditorViewController: UIViewController {
         didSet {
             if let setChannel = channel {
                 isEdit = true
+                navigationItem.title = "Edit Channel"
                 topics = setChannel.topics!
                 view.layoutIfNeeded()
                 titleTextField.text = setChannel.title
