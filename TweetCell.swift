@@ -18,7 +18,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetDateLabel: UILabel!
     
     let clearColor = UIColor.clearColor()
-    let regFontColor = Theme.Colors.HighlightColor.color
+    let tweetContentColor = UIColor.whiteColor()
     
     var tweet: Tweet! {
         didSet {
@@ -41,7 +41,7 @@ class TweetCell: UITableViewCell {
         tweetBackgroundView.layer.opacity = 0.6
         nameLabel.textColor = Theme.Colors.HighlightLightColor.color
         usernameLabel.textColor = Theme.Colors.HighlightLightColor.color
-        tweetContentLabel.textColor = regFontColor
+        tweetContentLabel.textColor = tweetContentColor
         
         AvatarImageView.layer.cornerRadius = 4
         AvatarImageView.clipsToBounds = true
