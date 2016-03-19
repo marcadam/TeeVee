@@ -43,11 +43,28 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     var tweetsChannel: Channel?
     var tweetsPriorityQueues: [String: QueueWrapper]?
+    var pendingRequests = Array<((error: NSError?) -> ())>()
+    var numTweetsRequests = 0
+    var isPortrait = true
+    
     weak var delegate: ChannelManagerDelegate?
     
     var twitterOn = false {
         didSet {
+            if !isPortrait {return} // disable Twitter function for landscape
+            
             if twitterOn {
+                
+                if tweetsPriorityQueues != nil && currItem != nil && currItem!.topic != nil {
+                    if let queueWrapper = tweetsPriorityQueues![currItem!.topic!] {
+                        // queue exists for topic
+                        if queueWrapper.queue != nil && queueWrapper.queue!.count > numItemsBeforeFetch {
+                            self.playNextTweet(self.currItem)
+                            return
+                        }
+                    }
+                }
+                
                 fetchMoreTweetsItems({ (error) -> () in
                     if error != nil {return}
                     
@@ -55,6 +72,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         self.playNextTweet(self.currItem)
                     })
                 })
+                
             } else {
                 self.tweetPlayerView?.stopItem()
             }
@@ -267,7 +285,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         showSpinner(0)
     }
     
-    var isPortrait = true
     var twitterPausedDueToRotation = false
     func onRotation(application: UIApplication, isPortrait: Bool) {
         let newOrientation = application.statusBarOrientation.isPortrait
@@ -331,8 +348,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         })
     }
     
-    var pendingRequests = Array<((error: NSError?) -> ())>()
-    var numTweetsRequests = 0
     func fetchMoreTweetsItems(completion: ((error: NSError?) -> ())?) {
         if completion != nil {
             pendingRequests.append(completion!)

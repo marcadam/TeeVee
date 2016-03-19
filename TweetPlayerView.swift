@@ -108,7 +108,7 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func stopItem() {
-        pauseItem()
+        self.paused = false
         dispatch_async(dispatch_get_main_queue(),{
             self.tableView.layer.opacity = 1
             UIView.animateWithDuration(0.5, animations: { () -> Void in
