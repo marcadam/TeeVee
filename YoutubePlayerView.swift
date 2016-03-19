@@ -36,6 +36,7 @@ class YoutubePlayerView: NSObject {
     private var isBuffering = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
+        debugPrint("[YOUTUBEPLAYER] init()")
         
         self.playerId = playerId
         self.playerType = .Youtube
@@ -60,6 +61,9 @@ class YoutubePlayerView: NSObject {
         youtubePlayerView.delegate = self
     }
     
+    deinit {
+        debugPrint("[YOUTUBEPLAYER] deinit()")
+    }
 }
 
 

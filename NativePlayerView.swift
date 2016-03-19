@@ -28,6 +28,7 @@ class NativePlayerView: NSObject {
     private var isPlaying = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
+        debugPrint("[NATIVEPLAYER] init()")
         
         self.playerId = playerId
         self.playerType = .Native
@@ -86,6 +87,7 @@ class NativePlayerView: NSObject {
     }
     
     deinit {
+        debugPrint("[NATIVEPLAYER] deinit()")
         if timeObserver != nil {
             nativePlayer.removeTimeObserver(timeObserver!)
         }

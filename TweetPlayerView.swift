@@ -24,6 +24,7 @@ class TweetPlayerView: NSObject {
     private var paused = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
+        debugPrint("[TWEETPLAYER] init()")
         
         self.playerId = playerId
         self.playerType = .Tweet
@@ -44,6 +45,10 @@ class TweetPlayerView: NSObject {
         
         tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
         containerView!.addSubview(self.tableView)
+    }
+    
+    deinit {
+        debugPrint("[TWEETPLAYER] deinit()")
     }
 }
 

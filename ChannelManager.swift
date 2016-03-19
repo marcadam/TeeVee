@@ -77,10 +77,15 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if playerContainerView == nil {return}
             playerContainerView?.backgroundColor = Theme.Colors.DarkBackgroundColor.color
             
-            nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
-            players.append(nativePlayerView!)
-            youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
-            players.append(youtubePlayerView!)
+            if nativePlayerView == nil {
+                nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
+                players.append(nativePlayerView!)
+            }
+            
+            if youtubePlayerView == nil {
+                youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
+                players.append(youtubePlayerView!)
+            }
             
             showSpinner(0)
         }
@@ -91,8 +96,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if tweetsContainerView == nil {return}
             tweetsContainerView!.backgroundColor = UIColor.clearColor()
             
-            tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView, playerDelegate: self)
-            players.append(tweetPlayerView!)
+            if tweetPlayerView == nil {
+                tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView, playerDelegate: self)
+                players.append(tweetPlayerView!)
+            }
             
         }
     }
