@@ -302,7 +302,9 @@ extension ChannelEditorViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField == titleTextField {
-            titleTextField.text = ""
+            if !isEdit {
+                titleTextField.text = ""
+            }
         }
     }
     
