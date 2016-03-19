@@ -128,6 +128,14 @@ import UIKit
         }
         let label = labels[selectedSegmentIndex]
         label.textColor = onTextColor
-        self.thumbView.frame = label.frame
+
+        UIView.animateWithDuration(0.3,
+            delay: 0,
+            options: [.CurveEaseInOut],
+            animations: { () -> Void in
+                self.thumbView.frame = label.frame
+            },
+            completion: nil
+        )
     }
 }
