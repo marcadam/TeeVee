@@ -25,25 +25,25 @@ class QueueWrapper: NSObject {
 class ChannelManager: NSObject, SmartuPlayerDelegate {
 
     let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-    var spinner: SpinnerView?
-    var spinnerShowing = false
+    private var spinner: SpinnerView?
+    private var spinnerShowing = false
     
-    var players = [SmartuPlayer]()
-    var nativePlayerView: SmartuPlayer?
-    var youtubePlayerView: SmartuPlayer?
-    var tweetPlayerView: SmartuPlayer?
-    var currPlayer: SmartuPlayer?
+    private var players = [SmartuPlayer]()
+    private var nativePlayerView: SmartuPlayer?
+    private var youtubePlayerView: SmartuPlayer?
+    private var tweetPlayerView: SmartuPlayer?
+    private var currPlayer: SmartuPlayer?
     
-    var channelId: String?
-    var channel: Channel?
-    var priorityQueue: PriorityQueue<ChannelItem>?
-    var currItem: ChannelItem?
+    private var channelId: String?
+    private var channel: Channel?
+    private var priorityQueue: PriorityQueue<ChannelItem>?
+    private var currItem: ChannelItem?
     
-    var tweetsChannel: Channel?
-    var tweetsPriorityQueues: [String: QueueWrapper]?
-    var pendingRequests = Array<((error: NSError?) -> ())>()
-    var numTweetsRequests = 0
-    var isPortrait = true
+    private var tweetsChannel: Channel?
+    private var tweetsPriorityQueues: [String: QueueWrapper]?
+    private var pendingRequests = Array<((error: NSError?) -> ())>()
+    private var numTweetsRequests = 0
+    private var isPortrait = true
     
     weak var delegate: ChannelManagerDelegate?
     

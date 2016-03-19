@@ -24,16 +24,16 @@ class YoutubePlayerView: NSObject {
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView?
     
-    var youtubePlayerView: YTPlayerView!
-    var youtubePlayerOverlay: UIView!
+    private var youtubePlayerView: YTPlayerView!
+    private var youtubePlayerOverlay: UIView!
     
-    var youtubeWebviewLoaded = false
+    private var youtubeWebviewLoaded = false
     
-    var currItem: ChannelItem?
-    var videoAlreadyCued = false
-    var currBounds: CGRect
-    var isPlaying = false
-    var isBuffering = false
+    private var currItem: ChannelItem?
+    private var videoAlreadyCued = false
+    private var currBounds: CGRect
+    private var isPlaying = false
+    private var isBuffering = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         

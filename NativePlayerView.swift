@@ -16,16 +16,16 @@ class NativePlayerView: NSObject {
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView?
     
-    var nativePlayerView: UIView!
-    var nativePlayerLayer: AVPlayerLayer!
-    var nativePlayerOverlay: UIView!
+    private var nativePlayerView: UIView!
+    private var nativePlayerLayer: AVPlayerLayer!
+    private var nativePlayerOverlay: UIView!
     
-    let myContext = UnsafeMutablePointer<()>()
-    var nativePlayer: AVQueuePlayer!
-    var timeObserver: AnyObject?
+    private let myContext = UnsafeMutablePointer<()>()
+    private var nativePlayer: AVQueuePlayer!
+    private var timeObserver: AnyObject?
     
-    var currItem: ChannelItem?
-    var isPlaying = false
+    private var currItem: ChannelItem?
+    private var isPlaying = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         

@@ -17,11 +17,11 @@ class TweetPlayerView: NSObject {
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView?
     
-    var tableView: UITableView!
-    var currItem: ChannelItem?
-    var items = [ChannelItem]()
+    private var tableView: UITableView!
+    private var currItem: ChannelItem?
+    private var items = [ChannelItem]()
     
-    var paused = false
+    private var paused = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
