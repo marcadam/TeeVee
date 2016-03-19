@@ -266,6 +266,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func next() {
+        showSpinner(Int64(Double(NSEC_PER_SEC) / 4))
         pause()
         currPlayer?.nextItem()
         tweetPlayerView?.nextItem()
@@ -302,6 +303,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func removeSpinner() {
         if self.spinner.isDescendantOfView(self.playerContainerView!) {
             dispatch_async(dispatch_get_main_queue(),{
+                if !self.spinnerShowing {return}
                 debugPrint("[MANAGER] removeSpinner()")
                 self.spinnerShowing = false
                 self.spinner.stopAnimating()

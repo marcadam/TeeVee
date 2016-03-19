@@ -112,6 +112,9 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func nextItem() {
+        stopItem()
+        isBuffering = false
+        isPlaying = false
         hide(0.0)
     }
     
