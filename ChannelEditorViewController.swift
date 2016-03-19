@@ -35,6 +35,7 @@ class ChannelEditorViewController: UIViewController {
     private let formTextColor = Theme.Colors.HighlightColor.color
     private let formPlaceholderColor = Theme.Colors.HighlightLightColor.color
     private var keyboardTimer: NSTimer?
+    private var latestTitle = ""
     
     var channel: Channel? {
         didSet {
@@ -105,7 +106,7 @@ class ChannelEditorViewController: UIViewController {
         tableView.alwaysBounceVertical = false
         
         channelMainActionButton.setTitleColor(formTextColor, forState: .Normal)
-        
+        latestTitle = "My Awesome Channel"
     }
 
     func setDefaults() {
@@ -275,6 +276,22 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
             }
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if textField == titleTextField {
+            titleTextField.text = ""
+        }
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if textField == titleTextField {
+            if titleTextField.text != "" {
+                latestTitle = titleTextField.text!
+            } else {
+                titleTextField.text = latestTitle
+            }
+        }
     }
 }
 

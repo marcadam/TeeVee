@@ -21,6 +21,7 @@ class ProgressbarView: UIView {
         barHeight = rect.height
         barWidth = rect.width
         progressView = UIView(frame: CGRectMake(0, 0, 1, rect.height))
+        //progressView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         progressView.backgroundColor = progressbarColor
         addSubview(progressView)
         updateProgressBar(0, totalDuration: 1)
