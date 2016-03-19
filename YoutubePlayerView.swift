@@ -35,13 +35,12 @@ class YoutubePlayerView: NSObject {
     private var isPlaying = false
     private var isBuffering = false
     
-    init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
+    init(playerId: Int, containerView: UIView?) {
         debugPrint("[YOUTUBEPLAYER] init()")
         
         self.playerId = playerId
         self.playerType = .Youtube
         self.containerView = containerView
-        self.playerDelegate = playerDelegate
         
         youtubePlayerView = YTPlayerView(frame: containerView!.bounds)
         youtubePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]

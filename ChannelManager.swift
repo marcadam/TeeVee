@@ -34,7 +34,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     private var tweetPlayerView: SmartuPlayer?
     private var currPlayer: SmartuPlayer?
     
-    private var channelId: String?
+    private var channelId: String!
     private var priorityQueue: PriorityQueue<ChannelItem>?
     private var currItem: ChannelItem?
     
@@ -79,12 +79,16 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             playerContainerView!.backgroundColor = Theme.Colors.DarkBackgroundColor.color
             
             if nativePlayerView == nil {
-                nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
+                nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView)
+                let nativePlayer = nativePlayerView as! NativePlayerView
+                nativePlayer.playerDelegate = self
                 players.append(nativePlayerView!)
             }
             
             if youtubePlayerView == nil {
-                youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView, playerDelegate: self)
+                youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView)
+                let youtubePlayer = youtubePlayerView as! YoutubePlayerView
+                youtubePlayer.playerDelegate = self
                 players.append(youtubePlayerView!)
             }
         }
@@ -96,21 +100,23 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             tweetsContainerView!.backgroundColor = UIColor.clearColor()
             
             if tweetPlayerView == nil {
-                tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView, playerDelegate: self)
+                tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView)
+                let tweetPlayer = tweetPlayerView as! TweetPlayerView
+                tweetPlayer.playerDelegate = self
                 players.append(tweetPlayerView!)
             }
             
         }
     }
     
-    init(channelId: String?, autoplay: Bool) {
+    init(channelId: String, autoplay: Bool) {
         debugPrint("[ChannelManager] init()")
         super.init()
         self.channelId = channelId
         self.spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
         
         fetchMoreTweetsItems(nil)
-        ChannelClient.sharedInstance.getChannel(channelId!) { (channel, error) -> () in
+        ChannelClient.sharedInstance.getChannel(channelId) { (channel, error) -> () in
             if channel != nil && channel!.items!.count > 0 {
                 
                 self.priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
@@ -132,7 +138,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         nativePlayerView = nil
         tweetPlayerView = nil
         
-        channelId = nil
         priorityQueue = nil
         tweetsPriorityQueues = nil
         spinner = nil
@@ -360,7 +365,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             [weak self] in
             if self == nil {return}
             
-            ChannelClient.sharedInstance.streamChannel(self!.channelId!) { (channel, error) -> () in
+            ChannelClient.sharedInstance.streamChannel(self!.channelId) { (channel, error) -> () in
                 if self == nil {return}
                 
                 if channel != nil && channel!.items!.count > 0 {
@@ -394,7 +399,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             [weak self] in
             if self == nil {return}
             
-            ChannelClient.sharedInstance.getTweetsForChannel(self!.channelId!) { (channel, error) -> () in
+            ChannelClient.sharedInstance.getTweetsForChannel(self!.channelId) { (channel, error) -> () in
                 if self == nil {return}
                 
                 if channel != nil && channel!.items!.count > 0 {

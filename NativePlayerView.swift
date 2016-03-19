@@ -28,13 +28,12 @@ class NativePlayerView: NSObject {
     private var currItem: ChannelItem?
     private var isPlaying = false
     
-    init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
+    init(playerId: Int, containerView: UIView?) {
         debugPrint("[NATIVEPLAYER] init()")
         
         self.playerId = playerId
         self.playerType = .Native
         self.containerView = containerView
-        self.playerDelegate = playerDelegate
         
         nativePlayer = AVQueuePlayer()
         nativePlayerView = UIView(frame: containerView!.bounds)
@@ -79,7 +78,7 @@ class NativePlayerView: NSObject {
                     self.show(nil)
                 }
                 
-                playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
+                self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
                 
                 if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
                     self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)

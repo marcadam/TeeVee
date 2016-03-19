@@ -23,13 +23,12 @@ class TweetPlayerView: NSObject {
     
     private var paused = false
     
-    init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
+    init(playerId: Int, containerView: UIView?) {
         debugPrint("[TWEETPLAYER] init()")
         
         self.playerId = playerId
         self.playerType = .Tweet
         self.containerView = containerView
-        self.playerDelegate = playerDelegate
         
         super.init()
         tableView = UITableView(frame: containerView!.bounds, style: .Plain)

@@ -26,7 +26,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var progressBarView: ProgressbarView!
     
     var channelTitle: String!
-    var channelId: String? = "0"
+    var channelId: String! = "0"
     private var channelManager: ChannelManager?
     
     private var playerViewTopConstantPortraitTwitterOn: CGFloat!
