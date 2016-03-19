@@ -95,7 +95,7 @@ class PlayerViewController: UIViewController {
             debugPrint("Landscape")
             gradientView.hidden = true
         }
-        channelManager.onRotation(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
+        channelManager.onRotation(application, UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
     }
     
     deinit {

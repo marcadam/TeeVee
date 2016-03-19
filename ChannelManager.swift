@@ -273,21 +273,22 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     var isPortrait = true
     var twitterPausedDueToRotation = false
-    func onRotation(isPortrait: Bool) {
-        if self.isPortrait == isPortrait {return}
-        self.isPortrait = isPortrait
+    func onRotation(application: UIApplication, isPortrait: Bool) {
+        let newOrientation = application.statusBarOrientation.isPortrait
+        if self.isPortrait == newOrientation {return}
+        self.isPortrait = newOrientation
         
         if twitterOn {
-            if isPortrait {
+            if !isPortrait {
+                debugPrint("[MANAGER] pause Tweet due to rotation")
+                twitterPausedDueToRotation = true
+                tweetPlayerView?.pauseItem()
+            } else {
                 if twitterPausedDueToRotation {
                     debugPrint("[MANAGER] resume Tweet due to rotation")
                     twitterPausedDueToRotation = false
                     tweetPlayerView?.playItem()
                 }
-            } else {
-                debugPrint("[MANAGER] pause Tweet due to rotation")
-                twitterPausedDueToRotation = true
-                tweetPlayerView?.pauseItem()
             }
         }
     }
