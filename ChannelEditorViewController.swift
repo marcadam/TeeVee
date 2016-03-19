@@ -35,13 +35,14 @@ class ChannelEditorViewController: UIViewController {
     private let formTextColor = Theme.Colors.HighlightColor.color
     private let formPlaceholderColor = Theme.Colors.HighlightLightColor.color
     private var keyboardTimer: NSTimer?
-    private var latestTitle = ""
+    private var latestTitle = "My Awesome Channel"
     
     var channel: Channel? {
         didSet {
             if let setChannel = channel {
                 isEdit = true
                 navigationItem.title = "Edit Channel"
+                latestTitle = setChannel.title!
                 topics = setChannel.topics!
                 view.layoutIfNeeded()
                 titleTextField.text = setChannel.title
@@ -92,8 +93,8 @@ class ChannelEditorViewController: UIViewController {
         titleTextField.textColor = formTextColor
         searchTextField.textColor = formTextColor
         addButton.tintColor = formTextColor
-
-        titleTextField.text = "My Awesome Channel"
+        
+        titleTextField.text = latestTitle
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a new topic", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         view.backgroundColor = Theme.Colors.BackgroundColor.color
@@ -107,7 +108,6 @@ class ChannelEditorViewController: UIViewController {
         tableView.alwaysBounceVertical = false
         
         channelMainActionButton.setTitleColor(formTextColor, forState: .Normal)
-        latestTitle = "My Awesome Channel"
     }
 
     func setDefaults() {
