@@ -63,9 +63,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 fetchMoreTweetsItems({ (error) -> () in
                     if error != nil {return}
                     
-                    dispatch_async(dispatch_get_main_queue(),{
-                        self.playNextTweet(self.currItem)
-                    })
+                    self.playNextTweet(self.currItem)
                 })
                 
             } else {
@@ -112,9 +110,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 self.priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
                 
                 if autoplay {
-                    dispatch_async(dispatch_get_main_queue(),{
-                        self.playNextItem()
-                    })
+                    self.playNextItem()
                 }
             }
         }
