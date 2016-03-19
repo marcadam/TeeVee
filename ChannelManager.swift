@@ -36,12 +36,18 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     private var channelId: String!
     private var priorityQueue: PriorityQueue<ChannelItem>?
-    private var currItem: ChannelItem?
     
     private var tweetsPriorityQueues: [String: QueueWrapper]?
     private var pendingRequests = Array<((error: NSError?) -> ())>()
     private var numTweetsRequests = 0
     private var isPortrait = true
+    
+    private var currItem: ChannelItem?
+    private var prevItem: ChannelItem?
+    private var currTweetItem: ChannelItem?
+    private var prevTweetItem: ChannelItem?
+    private var isPlaying = false
+    private var isTweetPlaying = false
     
     weak var delegate: ChannelManagerDelegate?
     
@@ -54,6 +60,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                     if let queueWrapper = tweetsPriorityQueues![currItem!.topic!] {
                         // queue exists for topic
                         if queueWrapper.queue != nil && queueWrapper.queue!.count > numItemsBeforeFetch {
+                            debugPrint("[ChannelManager] Twitter enabled")
                             playNextTweet(currItem)
                             return
                         }
@@ -63,11 +70,15 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 fetchMoreTweetsItems({[weak self] (error) -> () in
                     if let strongSelf = self {
                         if error != nil {return}
+                        
+                        debugPrint("[ChannelManager] Twitter enabled")
                         strongSelf.playNextTweet(strongSelf.currItem)
                     }
                 })
                 
             } else {
+                debugPrint("[ChannelManager] Twitter disabled")
+                isTweetPlaying = false
                 tweetPlayerView?.stopItem()
             }
         }
@@ -116,16 +127,22 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         self.spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
         
         fetchMoreTweetsItems(nil)
-        ChannelClient.sharedInstance.getChannel(channelId) { (channel, error) -> () in
-            if channel != nil && channel!.items!.count > 0 {
-                
-                self.priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
-                
-                if autoplay {
-                    self.playNextItem()
+        
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            ChannelClient.sharedInstance.getChannel(channelId) {[weak self] (channel, error) -> () in
+                if let strongSelf = self {
+                    if channel != nil && channel!.items!.count > 0 {
+                        
+                        strongSelf.priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
+                        
+                        if autoplay {
+                            strongSelf.playNextItem()
+                        }
+                    }
                 }
             }
-        }
+        })
         
         showSpinner(0)
     }
@@ -147,10 +164,45 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         
         spinnerShowing = false
         twitterOn = false
+        isPlaying = false
+        isTweetPlaying = false
+    }
+    
+    func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
+        if playerType == .Tweet {
+            if status == .DidEnd {
+                isTweetPlaying = false
+                prevTweetItem = currTweetItem
+                if twitterOn {
+                    playNextTweet(currItem)
+                }
+            } else if status == .Playing {
+                isTweetPlaying = true
+            }
+        } else {
+            if status == .WillEnd {
+                prepareNextItem()
+            } else if status == .DidEnd {
+                isPlaying = false
+                prevItem = currItem
+                showSpinner(Int64(1.0 * Double(NSEC_PER_SEC)))
+                playNextItem()
+            } else if status == .Playing {
+                isPlaying = true
+                let progressStr = String(format: "%.2f", progress)
+                let totalDurationStr = String(format: "%.2f", totalDuration)
+                debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
+                delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
+                
+                if spinnerShowing {
+                    removeSpinner()
+                }
+            }
+        }
     }
     
     // Prepare for next item
-    var currCueId: String! = ""
+    private var currCueId: String! = ""
     func prepareNextItem() {
         let item = priorityQueue!.peek()
         if item == nil || item!.native_id == nil || currCueId == item!.native_id! {return}
@@ -165,9 +217,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
-    var prevItem: ChannelItem?
     func playNextItem() {
-        if priorityQueue == nil {return}
+        if isPlaying || priorityQueue == nil {return}
         
         var item: ChannelItem? = nil
         while true {
@@ -178,7 +229,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                     // remove back-to-back duplicate items
                     continue
                 }
-                prevItem = item
                 break
             }
         }
@@ -204,9 +254,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
-    var prevTweet: Tweet?
     func playNextTweet(channelItem: ChannelItem?) {
-        if channelItem == nil || channelItem?.topic == nil {return}
+        if isTweetPlaying || channelItem == nil || channelItem?.topic == nil {return}
         
         if let queueWrapper = tweetsPriorityQueues![channelItem!.topic!] {
             if queueWrapper.queue == nil {return}
@@ -217,17 +266,17 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 tweetItem = queueWrapper.queue!.pop()
                 //debugPrint("[MANAGER] queue.count = \(queueWrapper.queue!.count)")
                 if tweetItem != nil && tweetItem?.native_id != nil && tweetItem?.extractor == "twitter" {
-                    if prevTweet != nil && tweetItem?.tweet != nil && prevTweet?.text == tweetItem?.tweet?.text {
+                    if prevTweetItem != nil && prevTweetItem!.tweet != nil && tweetItem!.tweet != nil && prevTweetItem!.tweet!.text == tweetItem!.tweet!.text {
                         // remove back-to-back duplicate tweets
                         continue
                     }
-                    prevTweet = tweetItem?.tweet
                     break
                 }
             }
             if tweetItem == nil {return}
             debugPrint("[MANAGER] extractor = \(tweetItem!.extractor); id = \(tweetItem!.native_id)")
             
+            currTweetItem = tweetItem
             tweetPlayerView?.startItem(tweetItem!)
             
             if queueWrapper.queue!.count <= numItemsBeforeFetch {
@@ -250,33 +299,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         spinner?.frame = playerContainerView!.bounds
     }
     
-    var isPlaying = false
-    func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
-        if playerType == .Tweet {
-            if status == .DidEnd && twitterOn {
-                playNextTweet(currItem)
-            }
-        } else {
-            if status == .WillEnd {
-                prepareNextItem()
-            } else if status == .DidEnd {
-                isPlaying = false
-                showSpinner(Int64(1.0 * Double(NSEC_PER_SEC)))
-                playNextItem()
-            } else if status == .Playing {
-                isPlaying = true
-                let progressStr = String(format: "%.2f", progress)
-                let totalDurationStr = String(format: "%.2f", totalDuration)
-                debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
-                delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
-                
-                if spinnerShowing {
-                    removeSpinner()
-                }
-            }
-        }
-    }
-    
     func play() {
         if currItem == nil {return}
         currPlayer?.playItem()
@@ -291,8 +313,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func stop() {
         if currItem == nil {return}
+        
         currPlayer?.stopItem()
         tweetPlayerView?.stopItem()
+        
+        currItem = nil
+        currTweetItem = nil
     }
     
     func next() {
@@ -303,7 +329,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         showSpinner(0)
     }
     
-    var twitterPausedDueToRotation = false
+    private var twitterPausedDueToRotation = false
     func onRotation(isPortrait: Bool) {
         if self.isPortrait == isPortrait {return}
         self.isPortrait = isPortrait

@@ -59,6 +59,8 @@ extension TweetPlayerView: SmartuPlayer {
     func startItem(item: ChannelItem!) {
         debugPrint("[TWEETPLAYER] play next TweetItem")
         
+        playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: 0, totalDuration: 0)
+        
         dispatch_async(dispatch_get_main_queue(),{
             
             self.tableView.hidden = false
