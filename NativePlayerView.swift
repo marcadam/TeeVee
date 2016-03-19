@@ -16,15 +16,16 @@ class NativePlayerView: NSObject {
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView?
     
-    let myContext = UnsafeMutablePointer<()>()
-    var nativePlayer: AVQueuePlayer!
-    var nativePlayerLayer: AVPlayerLayer!
-    var nativePlayerView: UIView!
-    var nativePlayerOverlay: UIView!
-    var timeObserver: AnyObject?
+    private var nativePlayerView: UIView!
+    private var nativePlayerLayer: AVPlayerLayer!
+    private var nativePlayerOverlay: UIView!
     
-    var currItem: ChannelItem?
-    var isPlaying = false
+    private let myContext = UnsafeMutablePointer<()>()
+    private var nativePlayer: AVQueuePlayer!
+    private var timeObserver: AnyObject?
+    
+    private var currItem: ChannelItem?
+    private var isPlaying = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
@@ -68,8 +69,6 @@ class NativePlayerView: NSObject {
             if self.nativePlayer != nil && self.nativePlayer!.currentItem != nil {
                 let currentSecond = self.nativePlayer!.currentItem!.currentTime().value / Int64(self.nativePlayer!.currentItem!.currentTime().timescale)
                 let totalDuration = CMTimeGetSeconds(self.nativePlayer!.currentItem!.duration)
-                let totalDurationStr = String(format: "%.2f", totalDuration)
-                //debugPrint("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
                 
                 if !self.isPlaying {
                     self.isPlaying = true
@@ -106,12 +105,12 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func startItem(item: ChannelItem!) {
-        debugPrint("[NATIVEPLAYER] play next nativeItem")
+        debugPrint("[NATIVEPLAYER] startItem()")
         if item == currItem {return}
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
         //        nativePlayer?.advanceToNextItem()
         dispatch_async(dispatch_get_main_queue(),{
-            self.currItem = item
+            self.currItem = item.copy() as! ChannelItem
             //nativePlayer?.removeAllItems()
             //debugPrint(item.url!)
             self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
@@ -120,14 +119,17 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func playItem() {
+        debugPrint("[NATIVEPLAYER] playItem()")
         nativePlayer.play()
     }
     
     func pauseItem() {
+        debugPrint("[NATIVEPLAYER] pauseItem()")
         nativePlayer.pause()
     }
     
     func stopItem() {
+        debugPrint("[NATIVEPLAYER] stopItem()")
         currItem = nil
         isPlaying = false
         nativePlayer.pause()
@@ -136,10 +138,12 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func nextItem() {
+        debugPrint("[NATIVEPLAYER] nextItem()")
         //stopItem()
     }
     
     func resetBounds(bounds: CGRect) {
+        debugPrint("[NATIVEPLAYER] resetBounds()")
         nativePlayerLayer.frame = bounds
     }
     

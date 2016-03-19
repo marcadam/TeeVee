@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Fabric
-import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Theme.applyTheme()
 
-        Fabric.with([Twitter.self])
+        //Fabric.with([Twitter.self])
 
         return true
     }

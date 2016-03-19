@@ -24,15 +24,16 @@ class YoutubePlayerView: NSObject {
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView?
     
-    var youtubePlayerView: YTPlayerView!
-    var youtubePlayerOverlay: UIView!
-    var youtubeWebviewLoaded = false
+    private var youtubePlayerView: YTPlayerView!
+    private var youtubePlayerOverlay: UIView!
     
-    var currItem: ChannelItem?
-    var videoAlreadyCued = false
-    var currBounds: CGRect
-    var isPlaying = false
-    var isBuffering = false
+    private var youtubeWebviewLoaded = false
+    
+    private var currItem: ChannelItem?
+    private var videoAlreadyCued = false
+    private var currBounds: CGRect
+    private var isPlaying = false
+    private var isBuffering = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
@@ -76,7 +77,7 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func startItem(item: ChannelItem!) {
-        debugPrint("[YOUTUBEPLAYER] play next YoutubeItem")
+        debugPrint("[YOUTUBEPLAYER] startItem()")
         if item == currItem {return}
         
         dispatch_async(dispatch_get_main_queue(),{
@@ -93,16 +94,18 @@ extension YoutubePlayerView: SmartuPlayer {
                     self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
                 }
             }
-            self.currItem = item
+            self.currItem = item.copy() as! ChannelItem
             
         })
     }
     
     func playItem() {
+        debugPrint("[YOUTUBEPLAYER] playItem()")
         youtubePlayerView.playVideo()
     }
     
     func stopItem() {
+        debugPrint("[YOUTUBEPLAYER] stopItem()")
         currItem = nil
         youtubePlayerView.stopVideo()
         isBuffering = false
@@ -111,17 +114,20 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func pauseItem() {
+        debugPrint("[YOUTUBEPLAYER] pauseItem()")
         youtubePlayerView.pauseVideo()
     }
     
     func nextItem() {
+        debugPrint("[YOUTUBEPLAYER] nextItem()")
         //stopItem()
     }
     
     func resetBounds(bounds: CGRect) {
         if currBounds == bounds {return}
+        currBounds = bounds
         
-        debugPrint("[YOUTUBEPLAYER] resetBounds")
+        debugPrint("[YOUTUBEPLAYER] resetBounds()")
         if youtubePlayerView != nil && youtubePlayerView.webView != nil {
             youtubePlayerView.webView.frame = bounds
         }
@@ -211,10 +217,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     
     func playerView(playerView: YTPlayerView!, didPlayTime playTime: Float) {
         if currItem == nil {return}
-        let currentSecond = String(format: "%.2f", playTime)
         let totalDuration = playerView.duration()
-        let totalDurationStr = String(format: "%.2f", playerView.duration())
-        //debugPrint("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
         
         if !isPlaying {
             isPlaying = true

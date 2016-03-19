@@ -25,15 +25,16 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var bottomButtonsWrapperView: UIView!
     @IBOutlet weak var progressBarView: ProgressbarView!
     
-    var channelManager: ChannelManager!
     var channelTitle: String!
-    var channelId: String! = "0"
+    var channelId: String? = "0"
+    private var channelManager: ChannelManager?
     
-    var playerViewTopConstantPortraitTwitterOn: CGFloat!
-    var playerViewTopConstantPortraitTwitterOff: CGFloat!
-    var playerViewTopConstantLandscape: CGFloat!
-    var controlsHidden = false
-    var latestTimer:NSTimer?
+    private var playerViewTopConstantPortraitTwitterOn: CGFloat!
+    private var playerViewTopConstantPortraitTwitterOff: CGFloat!
+    private var playerViewTopConstantLandscape: CGFloat!
+    private var controlsHidden = false
+    private var latestTimer: NSTimer?
+    private var isPortrait = true
     
     let backgroundColor = Theme.Colors.BackgroundColor.color
     let application = UIApplication.sharedApplication()
@@ -46,15 +47,16 @@ class PlayerViewController: UIViewController {
         progressBarView.progressbarColor = Theme.Colors.HighlightColor.color
         
         channelManager = ChannelManager(channelId: channelId, autoplay: true)
-        channelManager.delegate = self
-        channelManager.playerContainerView = playerView
-        channelManager.tweetsContainerView = tweetsView
+        channelManager!.delegate = self
+        playerView.autoresizesSubviews = true
+        tweetsView.autoresizesSubviews = true
+        channelManager!.playerContainerView = playerView
+        channelManager!.tweetsContainerView = tweetsView
         
-        let headerHeight = topHeaderView.bounds.height
         playerViewTopConstantLandscape = 0
-        playerViewTopConstantPortraitTwitterOn = headerHeight
+        playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
         playerViewTopConstantPortraitTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
-        playerViewTopConstraint.constant = getPlayerTopConstant(self.channelManager.twitterOn)
+        playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
         
         view.backgroundColor = backgroundColor
         channelTitleLabel.text = channelTitle
@@ -67,6 +69,8 @@ class PlayerViewController: UIViewController {
         bottomButtonsWrapperView.backgroundColor = UIColor.clearColor()
         gradientView.colors = [UIColor.clearColor(), backgroundColor]
         gradientView.layer.opacity = 0
+        
+        isPortrait = application.statusBarOrientation.isPortrait
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
@@ -87,32 +91,46 @@ class PlayerViewController: UIViewController {
     
     func rotated()
     {
-        viewWillLayoutSubviews()
-        if (UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
+        if isPortrait == application.statusBarOrientation.isPortrait {return}
+        isPortrait = application.statusBarOrientation.isPortrait
+        
+        if (application.statusBarOrientation.isPortrait) {
             debugPrint("Portrait")
             application.statusBarHidden = true
             gradientView.hidden = false
             twitterButton.enabled = true
-        } else if (UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
+        } else {
             debugPrint("Landscape")
             gradientView.hidden = true
             twitterButton.enabled = false
         }
-        channelManager.onRotation(application, isPortrait: UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
+        
+        viewWillLayoutSubviews()
+        channelManager?.onRotation(application.statusBarOrientation.isPortrait)
     }
     
     deinit {
+        debugPrint("[PlayerViewController] deinit()")
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        channelManager.stop()
+        for subview in playerView.subviews {
+            subview.removeFromSuperview()
+        }
+        for subview in tweetsView.subviews {
+            subview.removeFromSuperview()
+        }
+        channelManager?.stop()
+        channelManager = nil
     }
     
     override func viewWillLayoutSubviews() {
         let newTopConstantTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
         if newTopConstantTwitterOff != playerViewTopConstantPortraitTwitterOff {
             playerViewTopConstantPortraitTwitterOff = newTopConstantTwitterOff
-            playerViewTopConstraint.constant = getPlayerTopConstant(self.channelManager.twitterOn)
+            if channelManager != nil {
+                playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
+            }
         }
-        channelManager.updateBounds(playerView, tweetsContainerView: tweetsView)
+        channelManager?.updateBounds(playerView, tweetsContainerView: tweetsView)
     }
     
     func getPlayerTopConstant(twitterOn: Bool) -> CGFloat! {
@@ -128,35 +146,38 @@ class PlayerViewController: UIViewController {
     }
     
     @IBAction func onTwitterTapped(sender: UIButton) {
-        playerViewTopConstraint.constant = getPlayerTopConstant(!self.channelManager.twitterOn)
-        if channelManager.twitterOn {
+        if channelManager == nil {return}
+        playerViewTopConstraint.constant = getPlayerTopConstant(!channelManager!.twitterOn)
+        if channelManager!.twitterOn {
             gradientView.layer.opacity = 1
         } else {
             gradientView.layer.opacity = 0
         }
         UIView.animateWithDuration(0.5, animations: { () -> Void in
+            if self.channelManager == nil {return}
+            
             self.view.layoutIfNeeded()
-            if self.channelManager.twitterOn {
+            if self.channelManager!.twitterOn {
                 self.gradientView.layer.opacity = 0
             } else {
                 self.gradientView.layer.opacity = 1
             }
             }, completion: { (bool: Bool) -> Void in
-                self.channelManager.twitterOn = !self.channelManager.twitterOn
+                self.channelManager!.twitterOn = !self.channelManager!.twitterOn
         })
         
         setTimerToFadeOut()
     }
     
     @IBAction func onPlayTapped(sender: AnyObject) {
-        self.channelManager.play()
+        self.channelManager?.play()
         playButton.hidden = true
         pauseButton.hidden = false
         setTimerToFadeOut()
     }
     
     @IBAction func onStopTapped(sender: AnyObject) {
-        self.channelManager.pause()
+        self.channelManager?.pause()
         playButton.hidden = false
         pauseButton.hidden = true
         setTimerToFadeOut()
@@ -164,7 +185,7 @@ class PlayerViewController: UIViewController {
     
     @IBAction func onNextTapped(sender: AnyObject) {
         progressBarView.updateProgressBar(0, totalDuration: 1)
-        self.channelManager.next()
+        self.channelManager?.next()
         setTimerToFadeOut()
     }
     

@@ -35,8 +35,8 @@ class ProgressbarView: UIView {
         progressView.layer.removeAllAnimations()
         UIView.animateWithDuration(1, animations: { () -> Void in
             self.progressView.transform = CGAffineTransformMakeScale(widthScale * 2, 1)
-            print("PROGRESS: \(self.progressView.frame.width)")
-            print("PROGRESS BAR: \(self.frame.width)")
+            //debugPrint("PROGRESS: \(self.progressView.frame.width)")
+            //debugPrint("PROGRESS BAR: \(self.frame.width)")
         })
         
     }

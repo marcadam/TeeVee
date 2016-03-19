@@ -17,11 +17,11 @@ class TweetPlayerView: NSObject {
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView?
     
-    var tableView: UITableView!
-    var currItem: ChannelItem?
-    var items = [ChannelItem]()
+    private var tableView: UITableView!
+    private var currItem: ChannelItem?
+    private var items = [ChannelItem]()
     
-    var paused = false
+    private var paused = false
     
     init(playerId: Int, containerView: UIView?, playerDelegate: SmartuPlayerDelegate?) {
         
@@ -56,7 +56,7 @@ extension TweetPlayerView: SmartuPlayer {
             
             self.tableView.hidden = false
             self.tableView.layer.opacity = 1
-            self.currItem = item
+            self.currItem = item.copy() as! ChannelItem
 
             UIView.beginAnimations("incomingTweet", context: nil)
             UIView.setAnimationDuration(1.2)
@@ -132,7 +132,10 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func endTweet() {
+        if currItem == nil {return}
+        
         if !self.paused {
+            debugPrint("[TWEETPLAYER] endTweet()")
             self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
         }
     }
