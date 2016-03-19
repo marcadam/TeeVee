@@ -49,8 +49,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         didSet {
             if twitterOn {
                 if tweetsPriorityQueues == nil {
-                    
-                    self.tweetsPriorityQueues = [String: QueueWrapper]()
                     fetchMoreTweetsItems({ (error) -> () in
                         if error != nil {return}
                         
@@ -58,7 +56,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                             self.playNextTweet(self.currItem)
                         })
                     })
-                    
                 } else {
                     self.playNextTweet(currItem)
                 }
@@ -98,6 +95,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         self.channelId = channelId
         self.spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
         
+        fetchMoreTweetsItems(nil)
         ChannelClient.sharedInstance.getChannel(channelId) { (channel, error) -> () in
             if channel != nil && channel!.items!.count > 0 {
                 self.channel = channel
@@ -338,6 +336,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func fetchMoreTweetsItems(completion: ((error: NSError?) -> ())?) {
         debugPrint("[MANAGER] fetchMoreTweetItems()")
+        
+        if self.tweetsPriorityQueues == nil {
+            self.tweetsPriorityQueues = [String: QueueWrapper]()
+        }
+        
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             ChannelClient.sharedInstance.getTweetsForChannel(self.channelId) { (channel, error) -> () in
