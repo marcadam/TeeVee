@@ -105,22 +105,28 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func playItem() {
-        debugPrint("[YOUTUBEPLAYER] playItem()")
-        youtubePlayerView.playVideo()
+        dispatch_async(dispatch_get_main_queue(),{
+            debugPrint("[YOUTUBEPLAYER] playItem()")
+            self.youtubePlayerView.playVideo()
+        })
     }
     
     func stopItem() {
-        debugPrint("[YOUTUBEPLAYER] stopItem()")
-        currItem = nil
-        youtubePlayerView.stopVideo()
-        isBuffering = false
-        isPlaying = false
-        hide(0.0)
+        dispatch_async(dispatch_get_main_queue(),{
+            debugPrint("[YOUTUBEPLAYER] stopItem()")
+            self.currItem = nil
+            self.youtubePlayerView.stopVideo()
+            self.isBuffering = false
+            self.isPlaying = false
+            self.hide(0.0)
+        })
     }
     
     func pauseItem() {
-        debugPrint("[YOUTUBEPLAYER] pauseItem()")
-        youtubePlayerView.pauseVideo()
+        dispatch_async(dispatch_get_main_queue(),{
+            debugPrint("[YOUTUBEPLAYER] pauseItem()")
+            self.youtubePlayerView.pauseVideo()
+        })
     }
     
     func nextItem() {
@@ -134,7 +140,9 @@ extension YoutubePlayerView: SmartuPlayer {
         
         debugPrint("[YOUTUBEPLAYER] resetBounds()")
         if youtubePlayerView != nil && youtubePlayerView.webView != nil {
-            youtubePlayerView.webView.frame = bounds
+            dispatch_async(dispatch_get_main_queue(),{
+                self.youtubePlayerView.webView.frame = bounds
+            })
         }
     }
     
