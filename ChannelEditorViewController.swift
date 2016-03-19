@@ -212,8 +212,7 @@ class ChannelEditorViewController: UIViewController {
             }
         }
     }
-    // MARK: - Navigation
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         debugPrint(segue.identifier!)
@@ -253,7 +252,9 @@ class ChannelEditorViewController: UIViewController {
     }
 }
 
-extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, FiltersViewDelegate, MyChannelTableViewCellDelegate {
+// MARK: - UITableViewDataSource, UITableViewDelegate
+
+extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return topics.count
     }
@@ -266,17 +267,22 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
     }
-    
-    func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
-        newFilters = filters
-    }
-    
+
+}
+
+// MARK: - MyChannelTableViewCellDelegate
+
+extension ChannelEditorViewController: MyChannelTableViewCellDelegate {
     func myChannelCell(myChannelCell: MyChannelTableViewCell) {
         let indexPath = tableView.indexPathForCell(myChannelCell)
         topics.removeAtIndex(indexPath!.row)
         tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
     }
-    
+}
+
+// MARK: - UITextFieldDelegate
+
+extension ChannelEditorViewController: UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField.tag == 0 {
             if let topic = searchTextField.text {
@@ -289,6 +295,14 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
             }
         }
         return true
+    }
+}
+
+// MARK: - FiltersViewDelegate
+
+extension ChannelEditorViewController: FiltersViewDelegate {
+    func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
+        newFilters = filters
     }
 }
 
