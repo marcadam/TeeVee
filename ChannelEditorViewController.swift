@@ -35,6 +35,7 @@ class ChannelEditorViewController: UIViewController {
     private let formTextColor = Theme.Colors.HighlightColor.color
     private let formPlaceholderColor = Theme.Colors.HighlightLightColor.color
     private var keyboardTimer: NSTimer?
+    private var keyboardInputAccessory: UIView?
     
     var channel: Channel? {
         didSet {
@@ -100,10 +101,10 @@ class ChannelEditorViewController: UIViewController {
         tableView.alwaysBounceVertical = false
         
         titleTextField.autocorrectionType = .No
-        titleTextField.inputAccessoryView = keyboardInputAccessory()
+        titleTextField.inputAccessoryView = keyboardInputAccessoryView()
 
         searchTextField.autocorrectionType = .No
-        searchTextField.inputAccessoryView = keyboardInputAccessory()
+        searchTextField.inputAccessoryView = keyboardInputAccessoryView()
     }
 
     func setDefaults() {
@@ -228,15 +229,19 @@ class ChannelEditorViewController: UIViewController {
         }
     }
 
-    func keyboardInputAccessory() -> UIView {
-        let accessoryView = UIButton(frame: CGRectMake(0.0, 0.0, view.bounds.width, 44.0))
-        accessoryView.backgroundColor = UIColor(red: 0/255.0, green: 122/255.0, blue: 255.0, alpha: 1.0)
-        let buttonTitle = isEdit ? "Save" : "Save & Play"
-        let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
-        accessoryView.setTitle(buttonTitle, forState: .Normal)
-        accessoryView.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
+    func keyboardInputAccessoryView() -> UIView {
+        if keyboardInputAccessory == nil {
+            let accessoryView = UIButton(frame: CGRectMake(0.0, 0.0, view.bounds.width, 44.0))
+            accessoryView.backgroundColor = UIColor(red: 0/255.0, green: 122/255.0, blue: 255.0, alpha: 1.0)
+            let buttonTitle = isEdit ? "Save" : "Save & Play"
+            let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
+            accessoryView.setTitle(buttonTitle, forState: .Normal)
+            accessoryView.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
 
-        return accessoryView
+            return accessoryView
+        } else {
+            return keyboardInputAccessory!
+        }
     }
 
     override func shouldAutorotate() -> Bool {
