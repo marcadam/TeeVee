@@ -16,11 +16,12 @@ class NativePlayerView: NSObject {
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView?
     
+    var nativePlayerView: UIView!
+    var nativePlayerLayer: AVPlayerLayer!
+    var nativePlayerOverlay: UIView!
+    
     let myContext = UnsafeMutablePointer<()>()
     var nativePlayer: AVQueuePlayer!
-    var nativePlayerLayer: AVPlayerLayer!
-    var nativePlayerView: UIView!
-    var nativePlayerOverlay: UIView!
     var timeObserver: AnyObject?
     
     var currItem: ChannelItem?

@@ -26,6 +26,7 @@ class YoutubePlayerView: NSObject {
     
     var youtubePlayerView: YTPlayerView!
     var youtubePlayerOverlay: UIView!
+    
     var youtubeWebviewLoaded = false
     
     var currItem: ChannelItem?

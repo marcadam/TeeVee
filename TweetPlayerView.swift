@@ -132,7 +132,10 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func endTweet() {
+        if currItem == nil {return}
+        
         if !self.paused {
+            debugPrint("[TWEETPLAYER] endTweet()")
             self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
         }
     }
