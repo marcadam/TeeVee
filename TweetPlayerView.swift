@@ -48,6 +48,9 @@ class TweetPlayerView: NSObject {
     
     deinit {
         debugPrint("[TWEETPLAYER] deinit()")
+        currItem = nil
+        items.removeAll()
+        tableView.removeFromSuperview()
     }
 }
 

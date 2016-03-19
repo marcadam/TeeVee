@@ -68,21 +68,24 @@ class NativePlayerView: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "nativePlayerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
         
         // an observer for every second playback
-        timeObserver = nativePlayer!.addPeriodicTimeObserverForInterval(CMTimeMake(1,1), queue: nil, usingBlock: { (time: CMTime) -> Void in
-            if self.nativePlayer != nil && self.nativePlayer!.currentItem != nil {
-                let currentSecond = self.nativePlayer!.currentItem!.currentTime().value / Int64(self.nativePlayer!.currentItem!.currentTime().timescale)
-                let totalDuration = CMTimeGetSeconds(self.nativePlayer!.currentItem!.duration)
-                
-                if !self.isPlaying {
-                    self.isPlaying = true
-                    self.show(nil)
-                }
-                
-                self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
-                
-                if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
-                    self.playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
-                    NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "endItem", userInfo: nil, repeats: false)
+        timeObserver = nativePlayer!.addPeriodicTimeObserverForInterval(CMTimeMake(1,1), queue: nil, usingBlock: {[weak self] (time: CMTime) -> Void in
+            
+            if let strongSelf = self {
+                if strongSelf.nativePlayer != nil && strongSelf.nativePlayer!.currentItem != nil {
+                    let currentSecond = strongSelf.nativePlayer!.currentItem!.currentTime().value / Int64(strongSelf.nativePlayer!.currentItem!.currentTime().timescale)
+                    let totalDuration = CMTimeGetSeconds(strongSelf.nativePlayer!.currentItem!.duration)
+                    
+                    if !strongSelf.isPlaying {
+                        strongSelf.isPlaying = true
+                        strongSelf.show(nil)
+                    }
+                    
+                    strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
+                    
+                    if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
+                        strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
+                        NSTimer.scheduledTimerWithTimeInterval(2.0, target: strongSelf, selector: "endItem", userInfo: nil, repeats: false)
+                    }
                 }
             }
         })
@@ -100,6 +103,9 @@ class NativePlayerView: NSObject {
         nativePlayer.removeObserver(self, forKeyPath: "presentationSize")
         nativePlayer.removeObserver(self, forKeyPath: "error")
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        nativePlayerView.layer.sublayers = nil
+        nativePlayerView.removeFromSuperview()
+        nativePlayerOverlay.removeFromSuperview()
     }
 }
 

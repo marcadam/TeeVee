@@ -45,7 +45,7 @@ class YoutubePlayerView: NSObject {
         youtubePlayerView = YTPlayerView(frame: containerView!.bounds)
         youtubePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         youtubePlayerView.backgroundColor = UIColor.clearColor()
-        containerView!.addSubview(self.youtubePlayerView)
+        containerView!.addSubview(youtubePlayerView)
         
         youtubePlayerOverlay = UIView(frame: containerView!.bounds)
         youtubePlayerOverlay.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
@@ -62,6 +62,8 @@ class YoutubePlayerView: NSObject {
     
     deinit {
         debugPrint("[YOUTUBEPLAYER] deinit()")
+        youtubePlayerView.removeFromSuperview()
+        youtubePlayerOverlay.removeFromSuperview()
     }
 }
 
