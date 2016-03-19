@@ -36,6 +36,7 @@ class ChannelEditorViewController: UIViewController {
     private let formPlaceholderColor = Theme.Colors.HighlightLightColor.color
     private var keyboardTimer: NSTimer?
     private var latestTitle = "My Awesome Channel"
+    private var keyboardInputAccessory: UIView?
     
     var channel: Channel? {
         didSet {
@@ -64,11 +65,6 @@ class ChannelEditorViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        let buttonTitle = isEdit ? "Save" : "Save & Play"
-        let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
-        channelMainActionButton.setTitle(buttonTitle, forState: .Normal)
-        channelMainActionButton.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
-        
         keyboardTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
     }
 
@@ -107,7 +103,11 @@ class ChannelEditorViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         tableView.alwaysBounceVertical = false
         
-        channelMainActionButton.setTitleColor(formTextColor, forState: .Normal)
+        titleTextField.autocorrectionType = .No
+        titleTextField.inputAccessoryView = keyboardInputAccessoryView()
+
+        searchTextField.autocorrectionType = .No
+        searchTextField.inputAccessoryView = keyboardInputAccessoryView()
     }
 
     func setDefaults() {
@@ -215,8 +215,7 @@ class ChannelEditorViewController: UIViewController {
             }
         }
     }
-    // MARK: - Navigation
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         //debugPrint(segue.identifier!)
@@ -232,6 +231,21 @@ class ChannelEditorViewController: UIViewController {
         }
     }
 
+    func keyboardInputAccessoryView() -> UIView {
+        if keyboardInputAccessory == nil {
+            let accessoryView = UIButton(frame: CGRectMake(0.0, 0.0, view.bounds.width, 44.0))
+            accessoryView.backgroundColor = view.tintColor
+            let buttonTitle = isEdit ? "Save" : "Save & Play"
+            let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
+            accessoryView.setTitle(buttonTitle, forState: .Normal)
+            accessoryView.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
+
+            return accessoryView
+        } else {
+            return keyboardInputAccessory!
+        }
+    }
+
     override func shouldAutorotate() -> Bool {
         return false
     }
@@ -241,7 +255,9 @@ class ChannelEditorViewController: UIViewController {
     }
 }
 
-extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, FiltersViewDelegate, MyChannelTableViewCellDelegate {
+// MARK: - UITableViewDataSource, UITableViewDelegate
+
+extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return topics.count
     }
@@ -254,17 +270,22 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
     }
-    
-    func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
-        newFilters = filters
-    }
-    
+
+}
+
+// MARK: - MyChannelTableViewCellDelegate
+
+extension ChannelEditorViewController: MyChannelTableViewCellDelegate {
     func myChannelCell(myChannelCell: MyChannelTableViewCell) {
         let indexPath = tableView.indexPathForCell(myChannelCell)
         topics.removeAtIndex(indexPath!.row)
         tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
     }
-    
+}
+
+// MARK: - UITextFieldDelegate
+
+extension ChannelEditorViewController: UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField.tag == 0 {
             if let topic = searchTextField.text {
@@ -293,6 +314,14 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
                 titleTextField.text = latestTitle
             }
         }
+    }
+}
+
+// MARK: - FiltersViewDelegate
+
+extension ChannelEditorViewController: FiltersViewDelegate {
+    func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
+        newFilters = filters
     }
 }
 
