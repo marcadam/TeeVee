@@ -61,11 +61,6 @@ class ChannelEditorViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        let buttonTitle = isEdit ? "Save" : "Save & Play"
-        let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
-        channelMainActionButton.setTitle(buttonTitle, forState: .Normal)
-        channelMainActionButton.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
-        
         keyboardTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
     }
 
@@ -104,8 +99,11 @@ class ChannelEditorViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         tableView.alwaysBounceVertical = false
         
-        channelMainActionButton.setTitleColor(formTextColor, forState: .Normal)
-        
+        titleTextField.autocorrectionType = .No
+        titleTextField.inputAccessoryView = keyboardInputAccessory()
+
+        searchTextField.autocorrectionType = .No
+        searchTextField.inputAccessoryView = keyboardInputAccessory()
     }
 
     func setDefaults() {
@@ -228,6 +226,17 @@ class ChannelEditorViewController: UIViewController {
             let channel = sender as! Channel
             destination.channelId = channel.channel_id // substitue with actual channelId
         }
+    }
+
+    func keyboardInputAccessory() -> UIView {
+        let accessoryView = UIButton(frame: CGRectMake(0.0, 0.0, view.bounds.width, 44.0))
+        accessoryView.backgroundColor = UIColor(red: 0/255.0, green: 122/255.0, blue: 255.0, alpha: 1.0)
+        let buttonTitle = isEdit ? "Save" : "Save & Play"
+        let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
+        accessoryView.setTitle(buttonTitle, forState: .Normal)
+        accessoryView.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
+
+        return accessoryView
     }
 
     override func shouldAutorotate() -> Bool {
