@@ -266,10 +266,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func next() {
-        showSpinner(Int64(Double(NSEC_PER_SEC) / 4))
+        isPlaying = false
         currPlayer?.stopItem()
         tweetPlayerView?.stopItem()
         playNextItem()
+        showSpinner(0)
     }
     
     var twitterPausedDueToRotation = false
