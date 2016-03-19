@@ -221,8 +221,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 }
             }
             if tweetItem == nil {return}
-            
-            let extractor = tweetItem!.extractor
             debugPrint("[MANAGER] extractor = \(tweetItem!.extractor); id = \(tweetItem!.native_id)")
             
             tweetPlayerView?.startItem(tweetItem!)

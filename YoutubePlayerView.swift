@@ -217,10 +217,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     
     func playerView(playerView: YTPlayerView!, didPlayTime playTime: Float) {
         if currItem == nil {return}
-        let currentSecond = String(format: "%.2f", playTime)
         let totalDuration = playerView.duration()
-        let totalDurationStr = String(format: "%.2f", playerView.duration())
-        //debugPrint("[YOUTUBEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
         
         if !isPlaying {
             isPlaying = true

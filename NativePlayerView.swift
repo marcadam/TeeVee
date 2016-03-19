@@ -69,8 +69,6 @@ class NativePlayerView: NSObject {
             if self.nativePlayer != nil && self.nativePlayer!.currentItem != nil {
                 let currentSecond = self.nativePlayer!.currentItem!.currentTime().value / Int64(self.nativePlayer!.currentItem!.currentTime().timescale)
                 let totalDuration = CMTimeGetSeconds(self.nativePlayer!.currentItem!.duration)
-                let totalDurationStr = String(format: "%.2f", totalDuration)
-                //debugPrint("[NATIVEPLAYER] progress: \(currentSecond) / \(totalDurationStr) secs")
                 
                 if !self.isPlaying {
                     self.isPlaying = true
