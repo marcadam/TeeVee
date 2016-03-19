@@ -293,7 +293,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func next() {
         isPlaying = false
         currPlayer?.stopItem()
-        tweetPlayerView?.stopItem()
+        tweetPlayerView?.nextItem()
         playNextItem()
         showSpinner(0)
     }
