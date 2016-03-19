@@ -48,17 +48,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     var twitterOn = false {
         didSet {
             if twitterOn {
-                if tweetsPriorityQueues == nil {
-                    fetchMoreTweetsItems({ (error) -> () in
-                        if error != nil {return}
-                        
-                        dispatch_async(dispatch_get_main_queue(),{
-                            self.playNextTweet(self.currItem)
-                        })
+                fetchMoreTweetsItems({ (error) -> () in
+                    if error != nil {return}
+                    
+                    dispatch_async(dispatch_get_main_queue(),{
+                        self.playNextTweet(self.currItem)
                     })
-                } else {
-                    self.playNextTweet(currItem)
-                }
+                })
             } else {
                 self.tweetPlayerView?.stopItem()
             }
@@ -335,7 +331,19 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         })
     }
     
+    var pendingRequests = Array<((error: NSError?) -> ())>()
+    var numTweetsRequests = 0
     func fetchMoreTweetsItems(completion: ((error: NSError?) -> ())?) {
+        if completion != nil {
+            pendingRequests.append(completion!)
+        }
+        numTweetsRequests++
+        if numTweetsRequests > 1 {
+            // guard against duplicate fetch
+            debugPrint("[MANAGER] already fetching Tweets, numRequests = \(numTweetsRequests)")
+            return
+        }
+        
         debugPrint("[MANAGER] fetchMoreTweetItems()")
         
         if self.tweetsPriorityQueues == nil {
@@ -361,7 +369,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         }
                     }
                     
-                    completion?(error: error)
+                    for request in self.pendingRequests {
+                        request(error: error)
+                    }
+                    self.pendingRequests.removeAll()
+                    self.numTweetsRequests = 0
                 }
             }
         })
