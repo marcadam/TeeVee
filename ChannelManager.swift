@@ -273,8 +273,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         showSpinner(0)
     }
     
+    var isPortrait = true
     var twitterPausedDueToRotation = false
     func onRotation(isPortrait: Bool) {
+        if self.isPortrait == isPortrait {return}
+        self.isPortrait = isPortrait
+        
         if twitterOn {
             if isPortrait {
                 if twitterPausedDueToRotation {
