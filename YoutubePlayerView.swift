@@ -105,6 +105,9 @@ extension YoutubePlayerView: SmartuPlayer {
     func stopItem() {
         currItem = nil
         youtubePlayerView.stopVideo()
+        isBuffering = false
+        isPlaying = false
+        hide(0.0)
     }
     
     func pauseItem() {
@@ -112,10 +115,7 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func nextItem() {
-        stopItem()
-        isBuffering = false
-        isPlaying = false
-        hide(0.0)
+        //stopItem()
     }
     
     func resetBounds(bounds: CGRect) {

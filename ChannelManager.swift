@@ -267,9 +267,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func next() {
         showSpinner(Int64(Double(NSEC_PER_SEC) / 4))
-        pause()
-        currPlayer?.nextItem()
-        tweetPlayerView?.nextItem()
+        currPlayer?.stopItem()
+        tweetPlayerView?.stopItem()
         playNextItem()
     }
     

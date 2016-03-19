@@ -132,17 +132,11 @@ extension NativePlayerView: SmartuPlayer {
         isPlaying = false
         nativePlayer.pause()
         nativePlayer.replaceCurrentItemWithPlayerItem(nil)
+        hide(0.0)
     }
     
     func nextItem() {
-        nativePlayer.pause()
-        isPlaying = false
-        hide(0.0)
-        
-        if nativePlayer.currentItem != nil {
-            nativePlayer.removeItem(nativePlayer.currentItem!)
-            currItem = nil
-        }
+        //stopItem()
     }
     
     func resetBounds(bounds: CGRect) {
