@@ -35,6 +35,10 @@
                                 <rect key="frame" x="0.0" y="340" width="600" height="260"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Y1-of-0OC">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2nR-wN-DLw">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
@@ -198,12 +202,16 @@
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QfX-Hc-Y6O"/>
                             <constraint firstItem="Fne-8W-XJa" firstAttribute="leading" secondItem="c6s-au-H2R" secondAttribute="leading" id="RHb-Tj-aMC"/>
                             <constraint firstItem="c6s-au-H2R" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Snn-Gz-emH"/>
+                            <constraint firstItem="4Y1-of-0OC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UGW-Pp-gbd"/>
                             <constraint firstAttribute="bottom" secondItem="c6s-au-H2R" secondAttribute="bottom" id="VVA-Qr-Lec"/>
                             <constraint firstAttribute="trailing" secondItem="WQ7-ED-tQR" secondAttribute="trailing" id="YMc-15-rUJ"/>
                             <constraint firstItem="Fne-8W-XJa" firstAttribute="width" secondItem="c6s-au-H2R" secondAttribute="width" id="a39-zO-xgA"/>
+                            <constraint firstItem="4Y1-of-0OC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aC8-yf-BVQ"/>
                             <constraint firstAttribute="trailing" secondItem="2nR-wN-DLw" secondAttribute="trailing" id="aem-uu-byZ"/>
+                            <constraint firstAttribute="trailing" secondItem="4Y1-of-0OC" secondAttribute="trailing" id="kFA-D3-0go"/>
                             <constraint firstItem="WQ7-ED-tQR" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="lN7-Ke-rf6"/>
                             <constraint firstAttribute="trailing" secondItem="c6s-au-H2R" secondAttribute="trailing" id="sqO-lN-rfM"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="4Y1-of-0OC" secondAttribute="bottom" id="yte-TW-pKz"/>
                         </constraints>
                     </view>
                     <connections>
@@ -218,6 +226,7 @@
                         <outlet property="playerView" destination="WeQ-Ok-9nI" id="8fE-Wq-d2O"/>
                         <outlet property="playerViewTopConstraint" destination="IWR-q4-Vkf" id="giv-xd-wSu"/>
                         <outlet property="progressBarView" destination="WQ7-ED-tQR" id="9Qu-Yf-ZHi"/>
+                        <outlet property="spinnerView" destination="4Y1-of-0OC" id="ahv-UM-ith"/>
                         <outlet property="topHeaderView" destination="Qsl-U8-Nzk" id="SE1-gS-O5c"/>
                         <outlet property="tweetsView" destination="c6s-au-H2R" id="ghH-rj-FaC"/>
                         <outlet property="twitterButton" destination="J4o-qg-QhF" id="JCc-AU-87g"/>

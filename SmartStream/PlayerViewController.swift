@@ -12,6 +12,7 @@ class PlayerViewController: UIViewController {
 
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var tweetsView: UIView!
+    @IBOutlet weak var spinnerView: UIView!
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var twitterButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
@@ -47,6 +48,7 @@ class PlayerViewController: UIViewController {
         tweetsView.autoresizesSubviews = true
         playerView.clipsToBounds = true
         tweetsView.clipsToBounds = true
+        spinnerView.backgroundColor = UIColor.clearColor()
         
         playerViewTopConstantLandscape = 0
         playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
@@ -77,7 +79,7 @@ class PlayerViewController: UIViewController {
         channelManager!.delegate = self
         channelManager!.playerContainerView = playerView
         channelManager!.tweetsContainerView = tweetsView
-        channelManager!.spinnerContainerView = overlayView
+        channelManager!.spinnerContainerView = spinnerView
         playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
     }
     
