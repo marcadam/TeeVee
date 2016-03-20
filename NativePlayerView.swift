@@ -125,7 +125,6 @@ extension NativePlayerView: SmartuPlayer {
             
             self.nativePlayer.removeAllItems()
             self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
-            self.playItem()
         })
     }
     
