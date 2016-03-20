@@ -9,6 +9,8 @@
 import UIKit
 import MBProgressHUD
 
+let RotateFeaturedChannelViewNotificatonKey = "com.smartstream.RotateFeaturedChannelViewNotificaton"
+
 protocol ExploreViewControllerDelegate: class {
     func exploreVC(sender: ExploreViewController, didPlayChannel channel: Channel)
 }
@@ -62,7 +64,7 @@ class ExploreViewController: UIViewController {
     }
 
     func rotateFeaturedChannelView() {
-        NSNotificationCenter.defaultCenter().postNotificationName("RotateFeaturedChannelViewNotificaton", object: self, userInfo: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(RotateFeaturedChannelViewNotificatonKey, object: self, userInfo: nil)
     }
 
     override func didReceiveMemoryWarning() {
