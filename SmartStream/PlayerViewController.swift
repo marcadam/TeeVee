@@ -38,6 +38,7 @@ class PlayerViewController: UIViewController {
     private var isPortrait = true
     
     let backgroundColor = Theme.Colors.BackgroundColor.color
+    let highlightColor = Theme.Colors.HighlightColor.color
     let application = UIApplication.sharedApplication()
     
     override func viewDidLoad() {
@@ -59,7 +60,7 @@ class PlayerViewController: UIViewController {
         
         view.backgroundColor = backgroundColor
         channelTitleLabel.text = channelTitle
-        channelTitleLabel.textColor = Theme.Colors.HighlightColor.color
+        channelTitleLabel.textColor = highlightColor
         channelTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         
         bottomButtonsWrapperView.backgroundColor = UIColor.clearColor()
@@ -71,7 +72,9 @@ class PlayerViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         playButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
+        playButton.tintColor = Theme.Colors.HighlightLightColor.color
         pauseButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
+        pauseButton.tintColor = Theme.Colors.HighlightLightColor.color
         
         setTimerToFadeOut()
         setupChannel()
