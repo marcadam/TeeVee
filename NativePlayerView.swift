@@ -123,7 +123,7 @@ extension NativePlayerView: SmartuPlayer {
         dispatch_async(dispatch_get_main_queue(),{
             self.currItem = item.copy() as! ChannelItem
             
-            //self.nativePlayer.removeAllItems()
+            self.nativePlayer.removeAllItems()
             self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
             self.playItem()
         })
