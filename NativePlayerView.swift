@@ -128,7 +128,7 @@ extension NativePlayerView: SmartuPlayer {
         asset.loadValuesAsynchronouslyForKeys(["playable"], completionHandler: { () -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.nativePlayer.insertItem(AVPlayerItem(asset: asset), afterItem: nil)
-                //self.playItem()
+                self.playItem()
             })
         })
     }
