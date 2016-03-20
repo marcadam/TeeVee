@@ -90,13 +90,13 @@ extension YoutubePlayerView: SmartuPlayer {
                 self.youtubeWebviewLoaded = true
                 self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
             } else {
-                if self.videoAlreadyCued {
-                    debugPrint("[YOUTUBEPLAYER] YoutubeItem already cued - play now")
-                    self.youtubePlayerView.playVideo()
-                    self.videoAlreadyCued = false
-                } else {
+//                if self.videoAlreadyCued {
+//                    debugPrint("[YOUTUBEPLAYER] YoutubeItem already cued - play now")
+//                    self.youtubePlayerView.playVideo()
+//                    self.videoAlreadyCued = false
+//                } else {
                     self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
-                }
+//                }
             }
             self.currItem = item.copy() as! ChannelItem
         })
