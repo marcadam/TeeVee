@@ -51,7 +51,6 @@ class PlayerViewController: UIViewController {
         playerViewTopConstantLandscape = 0
         playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
         playerViewTopConstantPortraitTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
-        playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
         
         progressBarView.backgroundColor = Theme.Colors.LightBackgroundColor.color
         progressBarView.progressbarColor = Theme.Colors.HighlightColor.color
@@ -78,6 +77,7 @@ class PlayerViewController: UIViewController {
         channelManager!.delegate = self
         channelManager!.playerContainerView = playerView
         channelManager!.tweetsContainerView = tweetsView
+        playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
     }
     
     override func viewWillAppear(animated: Bool) {
