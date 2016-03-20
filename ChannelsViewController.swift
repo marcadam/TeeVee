@@ -170,10 +170,10 @@ extension ChannelsViewController {
         negativeSpacer.width = -10
         
         createChannelButton = UIButton(type: .System)
-        createChannelButton.frame = CGRectMake(0, 0, 50, 50);
+        createChannelButton.frame = CGRectMake(0, 0, 40, 40)
         let composeImage = UIImage(named: "icon_add_channel")
         createChannelButton.setImage(composeImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
-        createChannelButton.addTarget(self, action: "addChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        createChannelButton.addTarget(self, action: "createChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
         
         let createChannelBarButton = UIBarButtonItem(customView: createChannelButton)
         navigationItem.rightBarButtonItems = [negativeSpacer, createChannelBarButton]
@@ -181,8 +181,8 @@ extension ChannelsViewController {
         enableAddChannelBtn(false)
     }
     
-    func addChannelTapped() {
-        debugPrint("addChannelTapped")
+    func createChannelTapped() {
+        delegate?.shouldPresentEditor(self, withChannel: nil)
     }
     
     func myChannelsVC(sender: MyChannelsViewController, shouldEnableAddChannelBtn: Bool) {
@@ -192,7 +192,7 @@ extension ChannelsViewController {
     func enableAddChannelBtn(shouldEnableAddChannelBtn: Bool) {
         if shouldEnableAddChannelBtn {
             if !createChannelButton.enabled {
-                debugPrint("addChannelBtn enabled")
+                //debugPrint("addChannelBtn enabled")
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
                     self.createChannelButton.enabled = true
                     self.createChannelButton.tintColor = UIColor.whiteColor()
@@ -200,7 +200,7 @@ extension ChannelsViewController {
             }
         } else {
             if createChannelButton.enabled {
-                debugPrint("addChannelBtn disabled")
+                //debugPrint("addChannelBtn disabled")
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
                     self.createChannelButton.enabled = false
                     self.createChannelButton.tintColor = UIColor.clearColor()
