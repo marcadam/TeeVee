@@ -17,6 +17,8 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
 
+    private var scrollViewTimer: NSTimer?
+
     var featuredChannels: [Channel]! {
         didSet {
             let pageWidth = scrollView.bounds.width
@@ -45,6 +47,26 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
         let scrollViewWidth = UIScreen.mainScreen().bounds.width
         scrollView.frame = CGRect(x: 0, y: 0, width: scrollViewWidth, height: 200)
         scrollView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotateFeaturedChannelView", name: "RotateFeaturedChannelViewNotificaton", object: nil)
+
+    }
+
+    func rotateFeaturedChannelView() {
+        debugPrint("rotateFeaturedChannelView called")
+
+        let pageWidth = scrollView.bounds.width
+        let pageHeight = scrollView.bounds.height
+        let numberOfPages = featuredChannels.count
+        var index = pageControl.currentPage
+        if index < numberOfPages - 1 {
+            index += 1
+        } else {
+            index = 0
+        }
+        let scrollToRect = CGRectMake(pageWidth * CGFloat(index), 0, pageWidth, pageHeight)
+        scrollView.scrollRectToVisible(scrollToRect, animated: true)
+        pageControl.currentPage = index
     }
 
     @IBAction func pageControlDidPage(sender: UIPageControl) {

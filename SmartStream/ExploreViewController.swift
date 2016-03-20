@@ -23,7 +23,7 @@ class ExploreViewController: UIViewController {
     
     private var channels: [Channel] = []
     private var featuredChannels: [Channel] = []
-    
+    private var nextFeaturedChannelTimer: NSTimer?
     weak var delegate: ExploreViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -42,7 +42,29 @@ class ExploreViewController: UIViewController {
         
         getChannels()
     }
-    
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        debugPrint("EVC: viewDidAppear")
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        nextFeaturedChannelTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "rotateFeaturedChannelView", userInfo: nil, repeats: true)
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        debugPrint("EVC: viewWillDisappear")
+
+        if let nextFeaturedChannelTimer = nextFeaturedChannelTimer {
+            nextFeaturedChannelTimer.invalidate()
+        }
+    }
+
+    func rotateFeaturedChannelView() {
+        NSNotificationCenter.defaultCenter().postNotificationName("RotateFeaturedChannelViewNotificaton", object: self, userInfo: nil)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
