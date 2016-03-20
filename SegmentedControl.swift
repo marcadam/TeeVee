@@ -68,7 +68,7 @@ import UIKit
 
         for index in 0..<items.count {
             let label = UILabel(frame: CGRectZero)
-            label.font = UIFont.systemFontOfSize(fontSize)
+            label.font = index == 0 ? UIFont.boldSystemFontOfSize(fontSize) : UIFont.systemFontOfSize(fontSize)
             label.text = items[index]
             label.textAlignment = .Center
             label.textColor = index == selectedSegmentIndex ? onTextColor : offTextColor
@@ -125,9 +125,11 @@ import UIKit
     func displayNewSelectedSegment() {
         for label in labels {
             label.textColor = offTextColor
+            label.font = UIFont.systemFontOfSize(fontSize)
         }
         let label = labels[selectedSegmentIndex]
         label.textColor = onTextColor
+        label.font = UIFont.boldSystemFontOfSize(fontSize)
 
         UIView.animateWithDuration(0.3,
             delay: 0,
