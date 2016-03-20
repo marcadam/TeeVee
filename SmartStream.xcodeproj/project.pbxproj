@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B11DD251C8E43B300012E85 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11DD241C8E43B300012E85 /* SpinnerView.swift */; };
 		0B2CD8AA1C8844C60055BD50 /* ChannelClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8A91C8844C60055BD50 /* ChannelClient.swift */; };
 		0B2CD8AD1C8846270055BD50 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AC1C8846270055BD50 /* Channel.swift */; };
 		0B2CD8AF1C8846650055BD50 /* ChannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AE1C8846650055BD50 /* ChannelItem.swift */; };
@@ -78,7 +77,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B11DD241C8E43B300012E85 /* SpinnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		0B2CD8A91C8844C60055BD50 /* ChannelClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChannelClient.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0B2CD8AC1C8846270055BD50 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		0B2CD8AE1C8846650055BD50 /* ChannelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelItem.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 				A2A3A3C21C8ACC7A00D1173C /* Player.storyboard */,
 				0B597B521C844AD900D4AC57 /* PlayerViewController.swift */,
 				0B40EE741C8BC05C00E6B65E /* ChannelManager.swift */,
-				0B11DD241C8E43B300012E85 /* SpinnerView.swift */,
 				0B951B231C96B0580068C6AF /* SmartuPlayer.swift */,
 				0B951B211C96ACD10068C6AF /* YoutubePlayerView.swift */,
 				9AF70B0C1C973D9200302187 /* NativePlayerView.swift */,
@@ -703,7 +700,6 @@
 				A29BA4971C9120FD00ED13A5 /* User.swift in Sources */,
 				0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */,
 				A2B9E15D1C9A509A009FD91B /* ExploreSectionCollectionReusableView.swift in Sources */,
-				0B11DD251C8E43B300012E85 /* SpinnerView.swift in Sources */,
 				A2B9E15F1C9AC09D009FD91B /* GradientView.swift in Sources */,
 				A2B9E1621C9B5274009FD91B /* ProfileAvatarCell.swift in Sources */,
 				49E805671C9D139F009249CF /* UINavigationControllerNoRotate.swift in Sources */,
