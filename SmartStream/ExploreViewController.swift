@@ -9,6 +9,8 @@
 import UIKit
 import MBProgressHUD
 
+let RotateFeaturedChannelNotificatonKey = "com.smartchannel.RotateFeaturedChannelNotificaton"
+
 protocol ExploreViewControllerDelegate: class {
     func exploreVC(sender: ExploreViewController, didPlayChannel channel: Channel)
 }
@@ -23,7 +25,7 @@ class ExploreViewController: UIViewController {
     
     private var channels: [Channel] = []
     private var featuredChannels: [Channel] = []
-    
+    private var featuredChannelTimer: NSTimer?
     weak var delegate: ExploreViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -42,7 +44,27 @@ class ExploreViewController: UIViewController {
         
         getChannels()
     }
-    
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        featuredChannelTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "rotateFeaturedChannelView", userInfo: nil, repeats: true)
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let featuredChannelTimer = featuredChannelTimer {
+            featuredChannelTimer.invalidate()
+        }
+    }
+
+    func rotateFeaturedChannelView() {
+        NSNotificationCenter.defaultCenter().postNotificationName(RotateFeaturedChannelNotificatonKey, object: self, userInfo: nil)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -184,5 +206,9 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
 extension ExploreViewController: ChannelCollectionPagingViewCellDelegate {
     func channelCollectionPageView(sender: ChannelCollectionPagingViewCell, didPlayChannel channel: Channel) {
         delegate?.exploreVC(self, didPlayChannel: channel)
+    }
+
+    func shouldInvalidateFeaturedChannelTimer(sender: ChannelCollectionPagingViewCell) {
+        featuredChannelTimer?.invalidate()
     }
 }

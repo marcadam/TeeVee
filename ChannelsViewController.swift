@@ -61,12 +61,6 @@ class ChannelsViewController: UIViewController {
         myChannelsViewController = myChannelsVC
         addChildViewController(myChannelsViewController)
 
-        // Instantiate and add Explore view controller
-        let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
-        let exploreVC = exploreStoryboard.instantiateInitialViewController() as! ExploreViewController
-        exploreVC.delegate = self
-        exploreChannelsViewController = exploreVC
-        addChildViewController(exploreChannelsViewController)
         setupNavigationBar()
     }
 
@@ -102,6 +96,14 @@ class ChannelsViewController: UIViewController {
                 }
             )
         } else {
+            if exploreChannelsViewController == nil {
+                // Instantiate and add Explore view controller
+                let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
+                let exploreVC = exploreStoryboard.instantiateInitialViewController() as! ExploreViewController
+                exploreVC.delegate = self
+                exploreChannelsViewController = exploreVC
+            }
+
             myChannelsViewController.willMoveToParentViewController(nil)
             addChildViewController(exploreChannelsViewController)
             exploreChannelsView.addSubview(exploreChannelsViewController.view)
