@@ -175,9 +175,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 prevTweetItem = currTweetItem
                 if twitterOn {
                     playNextTweet(currItem)
+                    isTweetPlaying = true
                 }
             } else if status == .Playing {
-                isTweetPlaying = true
+                // Tweet
             }
         } else {
             if status == .WillEnd {
@@ -187,8 +188,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 prevItem = currItem
                 showSpinner(Int64(1.0 * Double(NSEC_PER_SEC)))
                 playNextItem()
-            } else if status == .Playing {
                 isPlaying = true
+            } else if status == .Playing {
+                
                 let progressStr = String(format: "%.2f", progress)
                 let totalDurationStr = String(format: "%.2f", totalDuration)
                 debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")

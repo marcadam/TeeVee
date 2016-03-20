@@ -22,6 +22,8 @@ class TweetPlayerView: NSObject {
     private var items = [ChannelItem]()
     
     private var paused = false
+    private var aboutToEndTimer: NSTimer?
+    private var endTimer: NSTimer?
     
     init(playerId: Int, containerView: UIView?) {
         debugPrint("[TWEETPLAYER] init()")
@@ -49,6 +51,10 @@ class TweetPlayerView: NSObject {
     deinit {
         debugPrint("[TWEETPLAYER] deinit()")
         currItem = nil
+        aboutToEndTimer?.invalidate()
+        endTimer?.invalidate()
+        aboutToEndTimer = nil
+        endTimer = nil
         items.removeAll()
         tableView.removeFromSuperview()
     }
@@ -88,7 +94,7 @@ extension TweetPlayerView: SmartuPlayer {
             
             self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, 0)
             
-            NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
+            self.aboutToEndTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
         })
     }
     
@@ -98,7 +104,7 @@ extension TweetPlayerView: SmartuPlayer {
         debugPrint("[TWEETPLAYER] aboutToEndTweet()")
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
         
-        NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)
+        self.endTimer = NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)
     }
     
     func prepareToStart(item: ChannelItem!) {
@@ -113,6 +119,8 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func pauseItem() {
+        aboutToEndTimer?.invalidate()
+        endTimer?.invalidate()
         self.paused = true
     }
     
