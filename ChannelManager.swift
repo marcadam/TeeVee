@@ -125,7 +125,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         super.init()
         self.channelId = channelId
         
-        
+        showSpinner(0)
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             
