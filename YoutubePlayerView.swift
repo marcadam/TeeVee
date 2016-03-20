@@ -85,19 +85,21 @@ extension YoutubePlayerView: SmartuPlayer {
         debugPrint("[YOUTUBEPLAYER] startItem()")
         if item == currItem {return}
         
-        if !self.youtubeWebviewLoaded {
-            self.youtubeWebviewLoaded = true
-            self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
-        } else {
-            if self.videoAlreadyCued {
-                debugPrint("[YOUTUBEPLAYER] YoutubeItem already cued - play now")
-                self.youtubePlayerView.playVideo()
-                self.videoAlreadyCued = false
+        dispatch_async(dispatch_get_main_queue(),{
+            if !self.youtubeWebviewLoaded {
+                self.youtubeWebviewLoaded = true
+                self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
             } else {
-                self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
+                if self.videoAlreadyCued {
+                    debugPrint("[YOUTUBEPLAYER] YoutubeItem already cued - play now")
+                    self.youtubePlayerView.playVideo()
+                    self.videoAlreadyCued = false
+                } else {
+                    self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
+                }
             }
-        }
-        self.currItem = item.copy() as! ChannelItem
+            self.currItem = item.copy() as! ChannelItem
+        })
     }
     
     func playItem() {
