@@ -139,18 +139,7 @@
                             <outletCollection property="gestureRecognizers" destination="z4f-PP-toO" appends="YES" id="g0m-i9-MYZ"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Channel" id="A4O-hG-BGl">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="w2G-Ra-6mu">
-                            <connections>
-                                <action selector="onBackTapped:" destination="BRQ-9W-LhL" id="W97-uo-WJ4"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="qt7-yT-A6T" userLabel="Filters">
-                            <connections>
-                                <segue destination="r98-P7-qa7" kind="show" identifier="filtersSegue" id="gkP-Yk-RSD"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Create Channel" id="A4O-hG-BGl"/>
                     <connections>
                         <outlet property="addButton" destination="hCJ-Hy-hqx" id="VUu-YM-d5R"/>
                         <outlet property="editIcon" destination="8aG-l4-iQ4" id="T5L-kt-7Zb"/>
@@ -159,6 +148,7 @@
                         <outlet property="tableView" destination="ucu-k2-WAx" id="Xa0-sO-8rs"/>
                         <outlet property="titleTextField" destination="KJG-Cb-VNa" id="Oqy-xv-TDj"/>
                         <outlet property="titleWrapperView" destination="FdL-pM-EQd" id="6la-YS-ATa"/>
+                        <segue destination="r98-P7-qa7" kind="show" identifier="EditorToFilters" id="g3s-Zy-oe7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HG7-sd-E6r" userLabel="First Responder" sceneMemberID="firstResponder"/>

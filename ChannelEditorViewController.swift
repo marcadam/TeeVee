@@ -22,12 +22,12 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var editIcon: UIImageView!
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleTextField: UITextField!
     
     @IBOutlet weak var channelMainActionButton: UIButton!
-
+    
     private var topics:[String] = []
     private var newFilters: Filters?
     private var isEdit = false
@@ -63,12 +63,13 @@ class ChannelEditorViewController: UIViewController {
         // Do any additional setup after loading the view.
         uiSetup()
         setDefaults()
+        setupNavigationBar()
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         keyboardTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
     }
-
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -83,7 +84,7 @@ class ChannelEditorViewController: UIViewController {
     func uiSetup() {
         titleWrapperView.backgroundColor = bgDarkColor
         searchWrapperView.backgroundColor = bgDarkColor
-
+        
         titleTextField.font = formTextFont
         searchTextField.font = formTextFont
         
@@ -106,14 +107,14 @@ class ChannelEditorViewController: UIViewController {
         
         titleTextField.autocorrectionType = .No
         titleTextField.inputAccessoryView = keyboardInputAccessoryView()
-
+        
         searchTextField.autocorrectionType = .No
         searchTextField.inputAccessoryView = keyboardInputAccessoryView()
         
         editIcon.tintColor = formTextColor
         editIcon.layer.opacity = 0.3
     }
-
+    
     func setDefaults() {
         if newFilters == nil {
             // TODO : if this is a new channel, fetch available filters from server
@@ -203,12 +204,6 @@ class ChannelEditorViewController: UIViewController {
         buttonAction(true)
     }
     
-    @IBAction func onBackTapped(sender: AnyObject) {
-        dismissViewControllerAnimated(true) { () -> Void in
-            //
-        }
-    }
-    
     @IBAction func onKeywordTapped(sender: AnyObject) {
         if let topic = searchTextField.text {
             if topic != "" {
@@ -219,11 +214,11 @@ class ChannelEditorViewController: UIViewController {
             }
         }
     }
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         //debugPrint(segue.identifier!)
-        if segue.identifier == "filtersSegue" {
+        if segue.identifier == "EditorToFilters" {
             let filtersVC = segue.destinationViewController as! FiltersViewController
             //let filtersVC = filtersNC.topViewController as! FiltersViewController
             filtersVC.delegate = self
@@ -234,7 +229,7 @@ class ChannelEditorViewController: UIViewController {
             destination.channelId = channel.channel_id // substitue with actual channelId
         }
     }
-
+    
     func keyboardInputAccessoryView() -> UIView {
         if keyboardInputAccessory == nil {
             let accessoryView = UIButton(frame: CGRectMake(0.0, 0.0, view.bounds.width, 44.0))
@@ -243,17 +238,17 @@ class ChannelEditorViewController: UIViewController {
             let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
             accessoryView.setTitle(buttonTitle, forState: .Normal)
             accessoryView.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
-
+            
             return accessoryView
         } else {
             return keyboardInputAccessory!
         }
     }
-
+    
     override func shouldAutorotate() -> Bool {
         return false
     }
-
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .Portrait
     }
@@ -275,18 +270,18 @@ extension ChannelEditorViewController {
             })
         }
     }
-
+    
     func updateChannel(isPlay: Bool, completion: (error: NSError?, channel: Channel?) -> ()) {
         if let channel = channel {
             var count = 0
             var dictionary = [String: AnyObject]()
-
+            
             // set default dictionary items
             dictionary["channel_id"] = channel.channel_id!
             dictionary["topics"] = channel.topics!
             dictionary["title"] = channel.title!
             dictionary["filters"] = channel.filters!
-
+            
             if topics != channel.topics! {
                 dictionary["topics"] = topics
                 count++
@@ -317,7 +312,7 @@ extension ChannelEditorViewController {
             }
         }
     }
-
+    
     func deleteChannel(completion: (error: NSError?, channelId: String?) -> ()) {
         MBProgressHUD.showHUDAddedTo(view, animated: true)
         if let channel = channel {
@@ -349,7 +344,7 @@ extension ChannelEditorViewController: UITableViewDataSource, UITableViewDelegat
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
     }
-
+    
 }
 
 // MARK: - MyChannelTableViewCellDelegate
@@ -417,5 +412,41 @@ extension ChannelEditorViewController: UITextFieldDelegate {
 extension ChannelEditorViewController: FiltersViewDelegate {
     func filtersView(filtersView: FiltersViewController, didSetFilters filters: Filters) {
         newFilters = filters
+    }
+}
+
+extension ChannelEditorViewController {
+    func setupNavigationBar() {
+        let negativeSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+        negativeSpacer.width = -10
+        
+        let createCancelButton = UIButton(type: .System)
+        createCancelButton.frame = CGRectMake(0, 0, 30, 30)
+        let composeImage = UIImage(named: "icon_dismiss")
+        createCancelButton.setImage(composeImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        createCancelButton.addTarget(self, action: "cancelTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let createCancelBarButton = UIBarButtonItem(customView: createCancelButton)
+        navigationItem.leftBarButtonItems = [negativeSpacer, createCancelBarButton]
+        
+        let createSettingsButton = UIButton(type: .System)
+        createSettingsButton.frame = CGRectMake(0, 0, 30, 30)
+        let newImage = UIImage(named: "icon_settings")
+        createSettingsButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        createSettingsButton.addTarget(self, action: "settingsTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let createSettingsBarButton = UIBarButtonItem(customView: createSettingsButton)
+        navigationItem.rightBarButtonItems = [negativeSpacer, createSettingsBarButton]
+        
+    }
+    
+    func cancelTapped() {
+        dismissViewControllerAnimated(true) { () -> Void in
+            //
+        }
+    }
+    
+    func settingsTapped() {
+        performSegueWithIdentifier("EditorToFilters", sender: nil)
     }
 }

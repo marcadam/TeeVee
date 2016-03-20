@@ -68,10 +68,6 @@ class ChannelsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func didTapMenu(sender: UIBarButtonItem) {
-        delegate?.channelsView(self, didTapMenuButton: sender)
-    }
 
     @IBAction func onValueChanged(sender: SegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -179,10 +175,25 @@ extension ChannelsViewController {
         navigationItem.rightBarButtonItems = [negativeSpacer, createChannelBarButton]
         
         enableAddChannelBtn(false)
+        
+        let negativeSpacerLeft = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+        negativeSpacerLeft.width = -3
+        let createProfileButton = UIButton(type: .System)
+        createProfileButton.frame = CGRectMake(0, 0, 25, 25)
+        let newImage = UIImage(named: "icon_profile")
+        createProfileButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        createProfileButton.addTarget(self, action: "profileMenuTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let createProfileBarButton = UIBarButtonItem(customView: createProfileButton)
+        navigationItem.leftBarButtonItems = [negativeSpacerLeft, createProfileBarButton]
     }
     
     func createChannelTapped() {
         delegate?.shouldPresentEditor(self, withChannel: nil)
+    }
+    
+    func profileMenuTapped(sender: UIBarButtonItem) {
+        delegate?.channelsView(self, didTapMenuButton: sender)
     }
     
     func myChannelsVC(sender: MyChannelsViewController, shouldEnableAddChannelBtn: Bool) {

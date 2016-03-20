@@ -184,16 +184,31 @@ class PlayerViewController: UIViewController {
     
     @IBAction func onPlayTapped(sender: AnyObject) {
         self.channelManager?.play()
-        playButton.hidden = true
+        playButton.enabled = false
         pauseButton.hidden = false
-        setTimerToFadeOut()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.playButton.layer.opacity = 0
+            self.pauseButton.layer.opacity = 1
+            }) { (finished) -> Void in
+                self.playButton.hidden = true
+                self.pauseButton.enabled = true
+                self.setTimerToFadeOut()
+        }
+        
     }
     
     @IBAction func onStopTapped(sender: AnyObject) {
         self.channelManager?.pause()
+        pauseButton.enabled = false
         playButton.hidden = false
-        pauseButton.hidden = true
-        setTimerToFadeOut()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.playButton.layer.opacity = 1
+            self.pauseButton.layer.opacity = 0
+            }) { (finished) -> Void in
+                self.pauseButton.hidden = true
+                self.playButton.enabled = true
+                self.setTimerToFadeOut()
+        }
     }
     
     @IBAction func onNextTapped(sender: AnyObject) {
