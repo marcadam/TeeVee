@@ -43,28 +43,23 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-        progressBarView.backgroundColor = Theme.Colors.LightBackgroundColor.color
-        progressBarView.progressbarColor = Theme.Colors.HighlightColor.color
-        
-        channelManager = ChannelManager(channelId: channelId, autoplay: true)
-        channelManager!.delegate = self
         playerView.autoresizesSubviews = true
         tweetsView.autoresizesSubviews = true
-        channelManager!.playerContainerView = playerView
-        channelManager!.tweetsContainerView = tweetsView
+        playerView.clipsToBounds = true
+        tweetsView.clipsToBounds = true
         
         playerViewTopConstantLandscape = 0
         playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
         playerViewTopConstantPortraitTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
         playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
         
+        progressBarView.backgroundColor = Theme.Colors.LightBackgroundColor.color
+        progressBarView.progressbarColor = Theme.Colors.HighlightColor.color
+        
         view.backgroundColor = backgroundColor
         channelTitleLabel.text = channelTitle
         channelTitleLabel.textColor = Theme.Colors.HighlightColor.color
         channelTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
-        
-        playerView.clipsToBounds = true
-        tweetsView.clipsToBounds = true
         
         bottomButtonsWrapperView.backgroundColor = UIColor.clearColor()
         gradientView.colors = [UIColor.clearColor(), backgroundColor]
@@ -75,6 +70,14 @@ class PlayerViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         setTimerToFadeOut()
+        setupChannel()
+    }
+    
+    func setupChannel() {
+        channelManager = ChannelManager(channelId: channelId, autoplay: true)
+        channelManager!.delegate = self
+        channelManager!.playerContainerView = playerView
+        channelManager!.tweetsContainerView = tweetsView
     }
     
     override func viewWillAppear(animated: Bool) {
