@@ -67,35 +67,32 @@ extension TweetPlayerView: SmartuPlayer {
         
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: 0, totalDuration: 0)
         
-        dispatch_async(dispatch_get_main_queue(),{
+        self.tableView.hidden = false
+        self.tableView.layer.opacity = 1
+        self.currItem = item.copy() as! ChannelItem
+        
+        UIView.beginAnimations("incomingTweet", context: nil)
+        UIView.setAnimationDuration(1.2)
+        CATransaction.begin()
+        CATransaction.setCompletionBlock({ () -> Void in
             
-            self.tableView.hidden = false
-            self.tableView.layer.opacity = 1
-            self.currItem = item.copy() as! ChannelItem
-
-            UIView.beginAnimations("incomingTweet", context: nil)
-            UIView.setAnimationDuration(1.2)
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                
-            })
-            self.tableView.beginUpdates()
-            if self.items.count == maxNumTweets {
-                let lastIndexPath = NSIndexPath(forRow: self.items.count - 1, inSection: 0)
-                self.items.removeLast()
-                self.tableView.deleteRowsAtIndexPaths([lastIndexPath], withRowAnimation: .Fade)
-            }
-            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-            self.items.insert(item, atIndex: 0)
-            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
-            self.tableView.endUpdates()
-            CATransaction.commit()
-            UIView.commitAnimations()
-            
-            self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, 0)
-            
-            self.aboutToEndTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
         })
+        self.tableView.beginUpdates()
+        if self.items.count == maxNumTweets {
+            let lastIndexPath = NSIndexPath(forRow: self.items.count - 1, inSection: 0)
+            self.items.removeLast()
+            self.tableView.deleteRowsAtIndexPaths([lastIndexPath], withRowAnimation: .Fade)
+        }
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        self.items.insert(item, atIndex: 0)
+        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+        self.tableView.endUpdates()
+        CATransaction.commit()
+        UIView.commitAnimations()
+        
+        self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, 0)
+        
+        self.aboutToEndTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
     }
     
     func aboutToEndTweet() {
@@ -126,17 +123,15 @@ extension TweetPlayerView: SmartuPlayer {
     
     func stopItem() {
         self.paused = false
-        dispatch_async(dispatch_get_main_queue(),{
-            self.tableView.layer.opacity = 1
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.tableView.layer.opacity = 0
-                }, completion: { (bool: Bool) -> Void in
-                    self.tableView.hidden = true
-                    self.currItem = nil
-                    self.items.removeAll()
-                    self.tableView.reloadData()
-                    self.endTweet()
-            })
+        self.tableView.layer.opacity = 1
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.tableView.layer.opacity = 0
+            }, completion: { (bool: Bool) -> Void in
+                self.tableView.hidden = true
+                self.currItem = nil
+                self.items.removeAll()
+                self.tableView.reloadData()
+                self.endTweet()
         })
     }
     

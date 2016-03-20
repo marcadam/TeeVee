@@ -120,36 +120,33 @@ extension NativePlayerView: SmartuPlayer {
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
         //        nativePlayer?.advanceToNextItem()
         
-        self.currItem = item.copy() as! ChannelItem
-        //nativePlayer?.removeAllItems()
-        //debugPrint(item.url!)
-        self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
-        self.playItem()
+        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        dispatch_async(backgroundQueue, {
+            self.currItem = item.copy() as! ChannelItem
+            
+            self.nativePlayer.removeAllItems()
+            self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
+            //self.playItem()
+        })
     }
     
     func playItem() {
-        dispatch_async(dispatch_get_main_queue(),{
-            debugPrint("[NATIVEPLAYER] playItem()")
-            self.nativePlayer.play()
-        })
+        debugPrint("[NATIVEPLAYER] playItem()")
+        self.nativePlayer.play()
     }
     
     func pauseItem() {
-        dispatch_async(dispatch_get_main_queue(),{
-            debugPrint("[NATIVEPLAYER] pauseItem()")
-            self.nativePlayer.pause()
-        })
+        debugPrint("[NATIVEPLAYER] pauseItem()")
+        self.nativePlayer.pause()
     }
     
     func stopItem() {
-        dispatch_async(dispatch_get_main_queue(),{
-            debugPrint("[NATIVEPLAYER] stopItem()")
-            self.currItem = nil
-            self.isPlaying = false
-            self.nativePlayer.pause()
-            self.nativePlayer.replaceCurrentItemWithPlayerItem(nil)
-            self.hide(0.0)
-        })
+        debugPrint("[NATIVEPLAYER] stopItem()")
+        self.currItem = nil
+        self.isPlaying = false
+        self.nativePlayer.pause()
+        self.nativePlayer.replaceCurrentItemWithPlayerItem(nil)
+        self.hide(0.0)
     }
     
     func nextItem() {
@@ -161,10 +158,8 @@ extension NativePlayerView: SmartuPlayer {
         if currBounds == bounds {return}
         currBounds = bounds
         
-        dispatch_async(dispatch_get_main_queue(),{
-            debugPrint("[NATIVEPLAYER] resetBounds()")
-            self.nativePlayerLayer.frame = bounds
-        })
+        debugPrint("[NATIVEPLAYER] resetBounds()")
+        self.nativePlayerLayer.frame = bounds
     }
     
     func show(duration: NSTimeInterval?) {

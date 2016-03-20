@@ -85,48 +85,38 @@ extension YoutubePlayerView: SmartuPlayer {
         debugPrint("[YOUTUBEPLAYER] startItem()")
         if item == currItem {return}
         
-        dispatch_async(dispatch_get_main_queue(),{
-            
-            if !self.youtubeWebviewLoaded {
-                self.youtubeWebviewLoaded = true
-                self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
+        if !self.youtubeWebviewLoaded {
+            self.youtubeWebviewLoaded = true
+            self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
+        } else {
+            if self.videoAlreadyCued {
+                debugPrint("[YOUTUBEPLAYER] YoutubeItem already cued - play now")
+                self.youtubePlayerView.playVideo()
+                self.videoAlreadyCued = false
             } else {
-                if self.videoAlreadyCued {
-                    debugPrint("[YOUTUBEPLAYER] YoutubeItem already cued - play now")
-                    self.youtubePlayerView.playVideo()
-                    self.videoAlreadyCued = false
-                } else {
-                    self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
-                }
+                self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
             }
-            self.currItem = item.copy() as! ChannelItem
-            
-        })
+        }
+        self.currItem = item.copy() as! ChannelItem
     }
     
     func playItem() {
-        dispatch_async(dispatch_get_main_queue(),{
-            debugPrint("[YOUTUBEPLAYER] playItem()")
-            self.youtubePlayerView.playVideo()
-        })
+        debugPrint("[YOUTUBEPLAYER] playItem()")
+        self.youtubePlayerView.playVideo()
     }
     
     func stopItem() {
-        dispatch_async(dispatch_get_main_queue(),{
-            debugPrint("[YOUTUBEPLAYER] stopItem()")
-            self.currItem = nil
-            self.youtubePlayerView.stopVideo()
-            self.isBuffering = false
-            self.isPlaying = false
-            self.hide(0.0)
-        })
+        debugPrint("[YOUTUBEPLAYER] stopItem()")
+        self.currItem = nil
+        self.youtubePlayerView.stopVideo()
+        self.isBuffering = false
+        self.isPlaying = false
+        self.hide(0.0)
     }
     
     func pauseItem() {
-        dispatch_async(dispatch_get_main_queue(),{
-            debugPrint("[YOUTUBEPLAYER] pauseItem()")
-            self.youtubePlayerView.pauseVideo()
-        })
+        debugPrint("[YOUTUBEPLAYER] pauseItem()")
+        self.youtubePlayerView.pauseVideo()
     }
     
     func nextItem() {
@@ -140,9 +130,7 @@ extension YoutubePlayerView: SmartuPlayer {
         
         debugPrint("[YOUTUBEPLAYER] resetBounds()")
         if youtubePlayerView != nil && youtubePlayerView.webView != nil {
-            dispatch_async(dispatch_get_main_queue(),{
-                self.youtubePlayerView.webView.frame = bounds
-            })
+            self.youtubePlayerView.webView.frame = bounds
         }
     }
     
