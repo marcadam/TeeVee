@@ -47,9 +47,7 @@ class MyChannelsViewController: UIViewController {
 
         // Hide empty tableView rows
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.contentInset = UIEdgeInsets(top: createChannelView.bounds.height, left: 0, bottom: 0, right: 0) 
-
-        offsetHeaderViewStop = createChannelView.bounds.height
+        tableView.contentInset = UIEdgeInsets(top: createChannelView.bounds.height, left: 0, bottom: 0, right: 0)
         
         setupUI()
         getChannels()
@@ -73,6 +71,9 @@ class MyChannelsViewController: UIViewController {
 
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         createChannelLabel.textColor = Theme.Colors.HighlightColor.color
+        
+        offsetHeaderViewStop = createChannelView.bounds.height
+        createChannelButton.addTarget(self, action: "createChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
     }
 
     func getChannels() {
@@ -216,6 +217,11 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
 
 
 extension MyChannelsViewController {
+    
+    func createChannelTapped() {
+        delegate?.myChannelsVC(self, didEditChannel: nil)
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if initialOffset == nil {
             initialOffset = scrollView.contentOffset.y
@@ -233,7 +239,7 @@ extension MyChannelsViewController {
         }
         
         offsetHeader = newOffset
-        debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
+        //debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
         
         var headerTransform = CATransform3DIdentity
         headerTransform = CATransform3DTranslate(headerTransform, 0, offsetHeader!, 0)
