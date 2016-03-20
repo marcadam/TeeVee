@@ -49,7 +49,7 @@ class ChannelsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        segmentedControl.items = ["My Streams", "Explore"]
+        segmentedControl.items = ["My Channels", "Discover"]
 
         // Push Explore scene off screen to the right
         exploreChannelsViewLeadingConstraint.constant = view.bounds.width
