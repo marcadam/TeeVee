@@ -72,9 +72,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="r9J-RZ-Epc"/>
                                 <exclude reference="X3N-Qe-1bK"/>
                                 <exclude reference="hql-Rj-xi0"/>
-                                <exclude reference="r9J-RZ-Epc"/>
                             </mask>
                         </variation>
                     </view>
