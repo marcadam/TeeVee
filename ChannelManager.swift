@@ -200,7 +200,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
                 delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
                 
-                if spinnerShowing {
+                if spinnerShowing && !totalDuration.isNaN {
                     removeSpinner()
                 }
             }
