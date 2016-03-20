@@ -102,6 +102,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 youtubePlayer.playerDelegate = self
                 players.append(youtubePlayerView!)
             }
+            
+            if spinner == nil {
+                spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
+                playerContainerView?.addSubview(spinner!)
+                showSpinner(0)
+            }
         }
     }
     
@@ -124,12 +130,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         debugPrint("[ChannelManager] init()")
         super.init()
         self.channelId = channelId
-        self.spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
         
-        fetchMoreTweetsItems(nil)
         
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
+            
+            self.fetchMoreTweetsItems(nil)
             ChannelClient.sharedInstance.getChannel(channelId) {[weak self] (channel, error) -> () in
                 if let strongSelf = self {
                     if channel != nil && channel!.items!.count > 0 {
@@ -143,8 +149,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 }
             }
         })
-        
-        showSpinner(0)
     }
     
     deinit {
@@ -363,7 +367,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 strongSelf.spinnerShowing = true
                 strongSelf.spinner!.hidden = false
                 strongSelf.spinner!.startAnimating()
-                strongSelf.playerContainerView?.addSubview(strongSelf.spinner!)
                 strongSelf.playerContainerView?.bringSubviewToFront(strongSelf.spinner!)
             }
         })
@@ -377,10 +380,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 if let strongSelf = self {
                     if !strongSelf.spinnerShowing || strongSelf.spinner == nil {return}
                     debugPrint("[MANAGER] removeSpinner()")
+                    strongSelf.spinner!.stopAnimating()
                     strongSelf.spinnerShowing = false
                     strongSelf.spinner!.hidden = true
-                    strongSelf.spinner!.stopAnimating()
-                    strongSelf.spinner!.removeFromSuperview()
                 }
             })
         }
