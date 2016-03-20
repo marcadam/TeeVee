@@ -48,7 +48,7 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
         scrollView.frame = CGRect(x: 0, y: 0, width: scrollViewWidth, height: 200)
         scrollView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotateFeaturedChannelView", name: RotateFeaturedChannelViewNotificatonKey, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotateFeaturedChannelView", name: RotateFeaturedChannelNotificatonKey, object: nil)
 
     }
 
