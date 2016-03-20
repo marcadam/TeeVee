@@ -162,35 +162,29 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func show(duration: NSTimeInterval?) {
-        dispatch_async(dispatch_get_main_queue(),{
-            //if !nativePlayerView.hidden && nativePlayerOverlay.alpha < 0.1 {return}
-            
-            debugPrint("[NATIVEPLAYER] fades in native player")
-            var du = fadeInTimeConstant
-            if duration != nil {
-                du = duration!
-            }
-            self.nativePlayerOverlay.alpha = 1.0
-            self.containerView?.bringSubviewToFront(self.nativePlayerView)
-            self.containerView?.bringSubviewToFront(self.nativePlayerOverlay)
-            UIView.animateWithDuration(du) { () -> Void in
-                self.nativePlayerOverlay.alpha = 0.0
-            }
-        })
+        debugPrint("[NATIVEPLAYER] fades in native player")
+        var du = fadeInTimeConstant
+        if duration != nil {
+            du = duration!
+        }
+        self.nativePlayerOverlay.alpha = 1.0
+        self.containerView?.bringSubviewToFront(self.nativePlayerView)
+        self.containerView?.bringSubviewToFront(self.nativePlayerOverlay)
+        UIView.animateWithDuration(du) { () -> Void in
+            self.nativePlayerOverlay.alpha = 0.0
+        }
     }
     
     func hide(duration: NSTimeInterval?) {
-        dispatch_async(dispatch_get_main_queue(),{
-            debugPrint("[NATIVEPLAYER] fades out native player")
-            var du = fadeOutTimeConstant
-            if duration != nil {
-                du = duration!
-            }
-            self.nativePlayerOverlay.alpha = 0.0
-            UIView.animateWithDuration(du) { () -> Void in
-                self.nativePlayerOverlay.alpha = 1.0
-            }
-        })
+        debugPrint("[NATIVEPLAYER] fades out native player")
+        var du = fadeOutTimeConstant
+        if duration != nil {
+            du = duration!
+        }
+        self.nativePlayerOverlay.alpha = 0.0
+        UIView.animateWithDuration(du) { () -> Void in
+            self.nativePlayerOverlay.alpha = 1.0
+        }
     }
     
     func endItem() {

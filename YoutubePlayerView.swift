@@ -137,38 +137,30 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func show(duration: NSTimeInterval?) {
-        dispatch_async(dispatch_get_main_queue(),{
-            //if !youtubePlayerView.hidden && youtubePlayerOverlay.alpha < 0.1 {return}
-            
-            debugPrint("[YOUTUBEPLAYER] fades in youtube player")
-            var du = fadeInTimeConstant
-            if duration != nil {
-                du = duration!
-            }
-            
-            self.youtubePlayerOverlay.alpha = 1.0
-            self.containerView?.bringSubviewToFront(self.youtubePlayerView)
-            self.containerView?.bringSubviewToFront(self.youtubePlayerOverlay)
-            UIView.animateWithDuration(du) { () -> Void in
-                self.youtubePlayerOverlay.alpha = 0.0
-            }
-        })
+        debugPrint("[YOUTUBEPLAYER] fades in youtube player")
+        var du = fadeInTimeConstant
+        if duration != nil {
+            du = duration!
+        }
+        
+        self.youtubePlayerOverlay.alpha = 1.0
+        self.containerView?.bringSubviewToFront(self.youtubePlayerView)
+        self.containerView?.bringSubviewToFront(self.youtubePlayerOverlay)
+        UIView.animateWithDuration(du) { () -> Void in
+            self.youtubePlayerOverlay.alpha = 0.0
+        }
     }
     
     func hide(duration: NSTimeInterval?) {
-        dispatch_async(dispatch_get_main_queue(),{
-            //if !youtubePlayerView.hidden && youtubePlayerOverlay.alpha < 0.1 {return}
-            
-            debugPrint("[YOUTUBEPLAYER] fades out youtube player")
-            var du = fadeOutTimeConstant
-            if duration != nil {
-                du = duration!
-            }
-            self.youtubePlayerOverlay.alpha = 0.0
-            UIView.animateWithDuration(du) { () -> Void in
-                self.youtubePlayerOverlay.alpha = 1.0
-            }
-        })
+        debugPrint("[YOUTUBEPLAYER] fades out youtube player")
+        var du = fadeOutTimeConstant
+        if duration != nil {
+            du = duration!
+        }
+        self.youtubePlayerOverlay.alpha = 0.0
+        UIView.animateWithDuration(du) { () -> Void in
+            self.youtubePlayerOverlay.alpha = 1.0
+        }
     }
     
     func endItem() {
