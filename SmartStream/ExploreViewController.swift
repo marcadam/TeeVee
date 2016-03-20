@@ -25,7 +25,7 @@ class ExploreViewController: UIViewController {
     
     private var channels: [Channel] = []
     private var featuredChannels: [Channel] = []
-    private var nextFeaturedChannelTimer: NSTimer?
+    private var featuredChannelTimer: NSTimer?
     weak var delegate: ExploreViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -47,19 +47,17 @@ class ExploreViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        debugPrint("EVC: viewDidAppear")
     }
 
     override func viewWillAppear(animated: Bool) {
-        nextFeaturedChannelTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "rotateFeaturedChannelView", userInfo: nil, repeats: true)
+        featuredChannelTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "rotateFeaturedChannelView", userInfo: nil, repeats: true)
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        debugPrint("EVC: viewWillDisappear")
 
-        if let nextFeaturedChannelTimer = nextFeaturedChannelTimer {
-            nextFeaturedChannelTimer.invalidate()
+        if let featuredChannelTimer = featuredChannelTimer {
+            featuredChannelTimer.invalidate()
         }
     }
 
@@ -208,5 +206,9 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
 extension ExploreViewController: ChannelCollectionPagingViewCellDelegate {
     func channelCollectionPageView(sender: ChannelCollectionPagingViewCell, didPlayChannel channel: Channel) {
         delegate?.exploreVC(self, didPlayChannel: channel)
+    }
+
+    func shouldInvalidateFeaturedChannelTimer(sender: ChannelCollectionPagingViewCell) {
+        featuredChannelTimer?.invalidate()
     }
 }

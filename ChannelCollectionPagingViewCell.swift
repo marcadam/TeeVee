@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChannelCollectionPagingViewCellDelegate: class {
     func channelCollectionPageView(sender: ChannelCollectionPagingViewCell, didPlayChannel channel: Channel)
+    func shouldInvalidateFeaturedChannelTimer(sender: ChannelCollectionPagingViewCell)
 }
 
 class ChannelCollectionPagingViewCell: UICollectionViewCell {
@@ -49,12 +50,9 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
         scrollView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotateFeaturedChannelView", name: RotateFeaturedChannelNotificatonKey, object: nil)
-
     }
 
     func rotateFeaturedChannelView() {
-        debugPrint("rotateFeaturedChannelView called")
-
         let pageWidth = scrollView.bounds.width
         let pageHeight = scrollView.bounds.height
         let numberOfPages = featuredChannels.count
@@ -78,6 +76,10 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
 }
 
 extension ChannelCollectionPagingViewCell: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        delegate?.shouldInvalidateFeaturedChannelTimer(self)
+    }
+
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
     }
