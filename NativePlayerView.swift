@@ -217,7 +217,9 @@ extension NativePlayerView: SmartuPlayer {
             
             if self.nativePlayer.status == AVPlayerStatus.ReadyToPlay {
                 debugPrint("[NATIVEPLAYER] ready to play")
-                self.playItem()
+                dispatch_async(dispatch_get_main_queue(),{
+                    self.playItem()
+                })
                 
             } else if self.nativePlayer.status == AVPlayerStatus.Failed {
                 debugPrint("[NATIVEPLAYER] failed to play")
