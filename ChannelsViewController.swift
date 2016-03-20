@@ -25,6 +25,9 @@ class ChannelsViewController: UIViewController {
 
     @IBOutlet weak var segmentedControl: SegmentedControl!
 
+    var createChannelButton: UIButton!
+    var createChannelButtonEnabledForMyChannels = false
+    
     var myChannelsViewController: UIViewController! {
         didSet {
             view.layoutIfNeeded()
@@ -64,6 +67,7 @@ class ChannelsViewController: UIViewController {
         exploreVC.delegate = self
         exploreChannelsViewController = exploreVC
         addChildViewController(exploreChannelsViewController)
+        setupNavigationBar()
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,6 +96,9 @@ class ChannelsViewController: UIViewController {
                     self.exploreChannelsViewController.view.removeFromSuperview()
                     self.exploreChannelsViewController.removeFromParentViewController()
                     self.myChannelsViewController.didMoveToParentViewController(self)
+                    
+                    // restore AddChannel's current state
+                    self.enableAddChannelBtn(self.createChannelButtonEnabledForMyChannels)
                 }
             )
         } else {
@@ -110,6 +117,10 @@ class ChannelsViewController: UIViewController {
                     self.myChannelsViewController.view.removeFromSuperview()
                     self.myChannelsViewController.removeFromParentViewController()
                     self.exploreChannelsViewController.didMoveToParentViewController(self)
+                    
+                    // save AddChannel's current state
+                    self.createChannelButtonEnabledForMyChannels = self.createChannelButton.enabled
+                    self.enableAddChannelBtn(true)
             })
         }
     }
@@ -139,6 +150,7 @@ extension ChannelsViewController: MyChannelsViewControllerDelegate {
     func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?) {
         delegate?.shouldPresentAlert(self, withAlert: alert, completion: completion)
     }
+    
 }
 
 // MARK: - ExploreViewControllerDelegate
@@ -146,5 +158,48 @@ extension ChannelsViewController: MyChannelsViewControllerDelegate {
 extension ChannelsViewController: ExploreViewControllerDelegate {
     func exploreVC(sender: ExploreViewController, didPlayChannel channel: Channel) {
         delegate?.shouldPresentPlayer(self, withChannel: channel)
+    }
+}
+
+extension ChannelsViewController {
+    
+    func setupNavigationBar() {
+        let negativeSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+        negativeSpacer.width = -10
+        
+        createChannelButton = UIButton(type: .System)
+        createChannelButton.frame = CGRectMake(0, 0, 50, 50);
+        let composeImage = UIImage(named: "icon_add_channel")
+        createChannelButton.setImage(composeImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        createChannelButton.tintColor = UIColor.clearColor()
+        createChannelButton.enabled = false
+        createChannelButton.addTarget(self, action: "addChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let createChannelBarButton = UIBarButtonItem(customView: createChannelButton)
+        navigationItem.rightBarButtonItems = [negativeSpacer, createChannelBarButton]
+    }
+    
+    func addChannelTapped() {
+        debugPrint("addChannelTapped")
+    }
+    
+    func myChannelsVC(sender: MyChannelsViewController, shouldEnableAddChannelBtn: Bool) {
+        enableAddChannelBtn(shouldEnableAddChannelBtn)
+    }
+    
+    func enableAddChannelBtn(shouldEnableAddChannelBtn: Bool) {
+        if shouldEnableAddChannelBtn {
+            if !createChannelButton.enabled {
+                debugPrint("addChannelBtn enabled")
+                createChannelButton.enabled = true
+                createChannelButton.tintColor = UIColor.whiteColor()
+            }
+        } else {
+            if createChannelButton.enabled {
+                debugPrint("addChannelBtn disabled")
+                createChannelButton.enabled = false
+                createChannelButton.tintColor = UIColor.clearColor()
+            }
+        }
     }
 }

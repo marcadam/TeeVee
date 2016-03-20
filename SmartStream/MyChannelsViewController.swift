@@ -14,6 +14,7 @@ protocol MyChannelsViewControllerDelegate: class {
     func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?)
     func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel)
     func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?)
+    func myChannelsVC(sender: MyChannelsViewController, shouldEnableAddChannelBtn: Bool)
 }
 
 class MyChannelsViewController: UIViewController {
@@ -21,6 +22,7 @@ class MyChannelsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var createChannelView: UIView!
     @IBOutlet weak var createChannelLabel: UILabel!
+    @IBOutlet weak var createChannelButton: UIButton!
 
     let channelCellID = "com.smartchannel.ChannelTableViewCell"
 
@@ -29,6 +31,10 @@ class MyChannelsViewController: UIViewController {
     weak var delegate: MyChannelsViewControllerDelegate?
     
     private var channelsArray: [Channel] = []
+    
+    var initialOffset: CGFloat? = nil
+    var offsetHeaderViewStop: CGFloat!
+    var offsetHeader: CGFloat?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +47,10 @@ class MyChannelsViewController: UIViewController {
 
         // Hide empty tableView rows
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.contentInset = UIEdgeInsets(top: createChannelView.bounds.height, left: 0, bottom: 0, right: 0) 
 
+        offsetHeaderViewStop = createChannelView.bounds.height
+        
         setupUI()
         getChannels()
     }
@@ -201,5 +210,34 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     
     func channelEditor(channelEditor: ChannelEditorViewController, shouldPlayChannel channel: Channel) {
         delegate?.myChannelsVC(self, didPlayChannel: channel)
+    }
+
+}
+
+
+extension MyChannelsViewController {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if initialOffset == nil {
+            initialOffset = scrollView.contentOffset.y
+        }
+        
+        if offsetHeaderViewStop == nil {return}
+        
+        let offset = scrollView.contentOffset.y - initialOffset!
+        let newOffset = max(-offsetHeaderViewStop, -offset)
+        if offsetHeader == newOffset {
+            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: true)
+            return
+        } else {
+            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: false)
+        }
+        
+        offsetHeader = newOffset
+        debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
+        
+        var headerTransform = CATransform3DIdentity
+        headerTransform = CATransform3DTranslate(headerTransform, 0, offsetHeader!, 0)
+        createChannelView.layer.transform = headerTransform
+        
     }
 }
