@@ -36,7 +36,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Y1-of-0OC">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2nR-wN-DLw">
@@ -208,11 +208,23 @@
                             <constraint firstItem="Fne-8W-XJa" firstAttribute="width" secondItem="c6s-au-H2R" secondAttribute="width" id="a39-zO-xgA"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aC8-yf-BVQ"/>
                             <constraint firstAttribute="trailing" secondItem="2nR-wN-DLw" secondAttribute="trailing" id="aem-uu-byZ"/>
+                            <constraint firstItem="4Y1-of-0OC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ec6-Sz-YQe"/>
+                            <constraint firstItem="4Y1-of-0OC" firstAttribute="height" secondItem="WeQ-Ok-9nI" secondAttribute="height" id="jwx-Au-2Sz"/>
                             <constraint firstAttribute="trailing" secondItem="4Y1-of-0OC" secondAttribute="trailing" id="kFA-D3-0go"/>
                             <constraint firstItem="WQ7-ED-tQR" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="lN7-Ke-rf6"/>
+                            <constraint firstItem="4Y1-of-0OC" firstAttribute="baseline" secondItem="WeQ-Ok-9nI" secondAttribute="baseline" id="nYQ-vx-M5I"/>
+                            <constraint firstItem="4Y1-of-0OC" firstAttribute="width" secondItem="WeQ-Ok-9nI" secondAttribute="width" id="qoh-yp-jWQ"/>
                             <constraint firstAttribute="trailing" secondItem="c6s-au-H2R" secondAttribute="trailing" id="sqO-lN-rfM"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="4Y1-of-0OC" secondAttribute="bottom" id="yte-TW-pKz"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="UGW-Pp-gbd"/>
+                                <exclude reference="aC8-yf-BVQ"/>
+                                <exclude reference="kFA-D3-0go"/>
+                                <exclude reference="yte-TW-pKz"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="bottomButtonsView" destination="HwZ-QQ-aK9" id="T7w-vX-JnL"/>
