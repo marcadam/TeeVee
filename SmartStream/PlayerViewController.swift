@@ -70,6 +70,9 @@ class PlayerViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
+        playButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
+        pauseButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
+        
         setTimerToFadeOut()
         setupChannel()
     }
