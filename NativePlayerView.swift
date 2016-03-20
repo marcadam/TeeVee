@@ -120,14 +120,11 @@ extension NativePlayerView: SmartuPlayer {
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
         //        nativePlayer?.advanceToNextItem()
         
-        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
-        dispatch_async(backgroundQueue, {
-            self.currItem = item.copy() as! ChannelItem
-            
-            self.nativePlayer.removeAllItems()
-            self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
-            //self.playItem()
-        })
+        self.currItem = item.copy() as! ChannelItem
+        
+        //self.nativePlayer.removeAllItems()
+        self.nativePlayer.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: nil)
+        self.playItem()
     }
     
     func playItem() {
