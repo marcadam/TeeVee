@@ -25,6 +25,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var bottomButtonsWrapperView: UIView!
     @IBOutlet weak var progressBarView: ProgressbarView!
+    @IBOutlet weak var nextButton: UIButton!
     
     var channelTitle: String!
     var channelId: String! = "0"
@@ -67,14 +68,15 @@ class PlayerViewController: UIViewController {
         gradientView.colors = [UIColor.clearColor(), backgroundColor]
         gradientView.layer.opacity = 0
         
+        playButton.tintColor = highlightColor
+        pauseButton.tintColor = highlightColor
+        nextButton.tintColor = highlightColor
+        twitterButton.tintColor = highlightColor
+        dismissButton.tintColor = highlightColor
+        
         isPortrait = application.statusBarOrientation.isPortrait
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
-        
-        playButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
-        playButton.tintColor = Theme.Colors.HighlightLightColor.color
-        pauseButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
-        pauseButton.tintColor = Theme.Colors.HighlightLightColor.color
         
         setTimerToFadeOut()
         setupChannel()
