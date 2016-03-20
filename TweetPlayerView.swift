@@ -122,6 +122,8 @@ extension TweetPlayerView: SmartuPlayer {
     }
     
     func stopItem() {
+        aboutToEndTimer?.invalidate()
+        endTimer?.invalidate()
         self.paused = false
         self.tableView.layer.opacity = 1
         UIView.animateWithDuration(0.5, animations: { () -> Void in
