@@ -21,6 +21,7 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet weak var titleWrapperView: UIView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var editIcon: UIImageView!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleTextField: UITextField!
@@ -108,6 +109,9 @@ class ChannelEditorViewController: UIViewController {
 
         searchTextField.autocorrectionType = .No
         searchTextField.inputAccessoryView = keyboardInputAccessoryView()
+        
+        editIcon.tintColor = formTextColor
+        editIcon.layer.opacity = 0.3
     }
 
     func setDefaults() {
@@ -380,6 +384,13 @@ extension ChannelEditorViewController: UITextFieldDelegate {
             if !isEdit {
                 titleTextField.text = ""
             }
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.editIcon.layer.opacity = 1
+            })
+        } else {
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.addButton.layer.opacity = 1
+            })
         }
     }
     
@@ -390,6 +401,13 @@ extension ChannelEditorViewController: UITextFieldDelegate {
             } else {
                 titleTextField.text = latestTitle
             }
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.editIcon.layer.opacity = 0.3
+            })
+        } else {
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.addButton.layer.opacity = 0.3
+            })
         }
     }
 }

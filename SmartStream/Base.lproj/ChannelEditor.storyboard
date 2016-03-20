@@ -63,20 +63,30 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="50"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a Channel Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KJG-Cb-VNa">
-                                        <rect key="frame" x="8" y="10" width="584" height="30"/>
+                                        <rect key="frame" x="8" y="10" width="550" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
                                         <connections>
                                             <outlet property="delegate" destination="BRQ-9W-LhL" id="ZXU-wg-DPY"/>
                                         </connections>
                                     </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_edit_1" translatesAutoresizingMaskIntoConstraints="NO" id="8aG-l4-iQ4">
+                                        <rect key="frame" x="566" y="12" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="26" id="2ZU-wu-4ih"/>
+                                            <constraint firstAttribute="height" constant="26" id="Azw-Fb-81H"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="KJG-Cb-VNa" firstAttribute="leading" secondItem="FdL-pM-EQd" secondAttribute="leading" constant="8" id="C1i-Kn-d33"/>
+                                    <constraint firstItem="8aG-l4-iQ4" firstAttribute="leading" secondItem="KJG-Cb-VNa" secondAttribute="trailing" constant="8" id="KlJ-SH-gKG"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="VBF-rS-kJn"/>
                                     <constraint firstItem="KJG-Cb-VNa" firstAttribute="top" secondItem="FdL-pM-EQd" secondAttribute="top" constant="10" id="Yr4-sR-lN2"/>
                                     <constraint firstAttribute="bottom" secondItem="KJG-Cb-VNa" secondAttribute="bottom" constant="10" id="Z5B-79-nTk"/>
+                                    <constraint firstItem="8aG-l4-iQ4" firstAttribute="centerY" secondItem="FdL-pM-EQd" secondAttribute="centerY" id="ZAL-jp-bdF"/>
+                                    <constraint firstAttribute="trailing" secondItem="8aG-l4-iQ4" secondAttribute="trailing" constant="8" id="emp-9W-Wko"/>
                                     <constraint firstAttribute="height" constant="50" id="leg-zM-9Qp"/>
                                     <constraint firstAttribute="trailing" secondItem="KJG-Cb-VNa" secondAttribute="trailing" constant="8" id="nav-ld-20m"/>
                                     <constraint firstAttribute="trailing" secondItem="KJG-Cb-VNa" secondAttribute="trailing" constant="8" id="qV0-bM-Ay9"/>
@@ -84,6 +94,7 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="nav-ld-20m"/>
+                                        <exclude reference="qV0-bM-Ay9"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -142,6 +153,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="hCJ-Hy-hqx" id="VUu-YM-d5R"/>
+                        <outlet property="editIcon" destination="8aG-l4-iQ4" id="T5L-kt-7Zb"/>
                         <outlet property="searchTextField" destination="Iry-pM-F1e" id="BJc-Sl-e3X"/>
                         <outlet property="searchWrapperView" destination="5ug-65-odw" id="7BV-bQ-3xU"/>
                         <outlet property="tableView" destination="ucu-k2-WAx" id="Xa0-sO-8rs"/>
@@ -189,5 +201,6 @@
     </scenes>
     <resources>
         <image name="Add" width="20" height="20"/>
+        <image name="icon_edit_1" width="180" height="180"/>
     </resources>
 </document>

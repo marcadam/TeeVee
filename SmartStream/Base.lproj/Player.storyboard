@@ -179,11 +179,17 @@
                                                     <constraint firstItem="cUh-zA-aoo" firstAttribute="top" secondItem="sNZ-ZF-lLI" secondAttribute="bottom" constant="-50" id="5hB-zQ-mfH"/>
                                                     <constraint firstItem="sNZ-ZF-lLI" firstAttribute="centerX" secondItem="HwZ-QQ-aK9" secondAttribute="centerX" id="9fy-Yw-Lu0"/>
                                                     <constraint firstItem="sNZ-ZF-lLI" firstAttribute="centerY" secondItem="HwZ-QQ-aK9" secondAttribute="centerY" id="Pg1-M1-coI"/>
+                                                    <constraint firstItem="cUh-zA-aoo" firstAttribute="centerY" secondItem="sNZ-ZF-lLI" secondAttribute="centerY" id="PnV-Zk-VrW"/>
                                                     <constraint firstItem="sNZ-ZF-lLI" firstAttribute="leading" secondItem="JNp-VH-ZxS" secondAttribute="trailing" id="YUH-Jr-2ba"/>
                                                     <constraint firstAttribute="height" constant="65" id="a9H-fA-NxZ"/>
                                                     <constraint firstItem="cUh-zA-aoo" firstAttribute="leading" secondItem="sNZ-ZF-lLI" secondAttribute="trailing" id="n74-5U-08c"/>
                                                     <constraint firstItem="JNp-VH-ZxS" firstAttribute="centerY" secondItem="sNZ-ZF-lLI" secondAttribute="centerY" id="y7r-sz-g4Q"/>
                                                 </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="5hB-zQ-mfH"/>
+                                                    </mask>
+                                                </variation>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -288,6 +294,6 @@
         <image name="icon_next" width="180" height="180"/>
         <image name="icon_pause" width="180" height="180"/>
         <image name="icon_play" width="180" height="180"/>
-        <image name="icon_twitter" width="180" height="180"/>
+        <image name="icon_twitter" width="60" height="60"/>
     </resources>
 </document>
