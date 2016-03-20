@@ -120,12 +120,19 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
+    weak var spinnerContainerView: UIView? {
+        didSet {
+            if spinnerContainerView == nil {return}
+            showSpinner(0)
+        }
+    }
+    
     init(channelId: String, autoplay: Bool) {
         debugPrint("[ChannelManager] init()")
         super.init()
         self.channelId = channelId
         
-        showSpinner(0)
+        
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             
@@ -357,7 +364,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 if strongSelf.isPlaying {return}
                 
                 debugPrint("[MANAGER] showSpinner()")
-                MBProgressHUD.showHUDAddedTo(strongSelf.playerContainerView, animated: true)
+                MBProgressHUD.showHUDAddedTo(strongSelf.spinnerContainerView, animated: true)
                 strongSelf.spinnerShowing = true
             }
         })
@@ -370,7 +377,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if let strongSelf = self {
                 if !strongSelf.spinnerShowing  {return}
                 debugPrint("[MANAGER] removeSpinner()")
-                MBProgressHUD.hideHUDForView(strongSelf.playerContainerView, animated: true)
+                MBProgressHUD.hideHUDForView(strongSelf.spinnerContainerView, animated: true)
                 strongSelf.spinnerShowing = false
             }
         })

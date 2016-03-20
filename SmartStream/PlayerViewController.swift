@@ -77,6 +77,7 @@ class PlayerViewController: UIViewController {
         channelManager!.delegate = self
         channelManager!.playerContainerView = playerView
         channelManager!.tweetsContainerView = tweetsView
+        channelManager!.spinnerContainerView = overlayView
         playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
     }
     
