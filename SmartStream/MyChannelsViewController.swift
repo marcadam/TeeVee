@@ -69,13 +69,12 @@ class MyChannelsViewController: UIViewController {
     func getChannels() {
         MBProgressHUD.showHUDAddedTo(view, animated: true)
         ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let channels = channels {
                 self.channelsArray = channels
                 self.tableView.reloadData()
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
             } else {
                 debugPrint(error)
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
             }
         }
     }

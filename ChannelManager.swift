@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftPriorityQueue
+import MBProgressHUD
 
 protocol ChannelManagerDelegate: class {
     func channelManager(channelManager: ChannelManager, progress: Double, totalDuration: Double)
@@ -25,7 +26,6 @@ class QueueWrapper: NSObject {
 class ChannelManager: NSObject, SmartuPlayerDelegate {
 
     let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-    private var spinner: SpinnerView?
     private var spinnerShowing = false
     
     private var players = [SmartuPlayer]()
@@ -102,12 +102,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 youtubePlayer.playerDelegate = self
                 players.append(youtubePlayerView!)
             }
-            
-            if spinner == nil {
-                spinner = SpinnerView(frame: UIScreen.mainScreen().bounds)
-                playerContainerView?.addSubview(spinner!)
-                showSpinner(0)
-            }
         }
     }
     
@@ -161,7 +155,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         
         priorityQueue = nil
         tweetsPriorityQueues = nil
-        spinner = nil
         
         pendingRequests.removeAll()
         numTweetsRequests = 0
@@ -302,7 +295,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             self.tweetsContainerView?.bounds = tweetsContainerView!.bounds
             tweetPlayerView?.resetBounds(tweetsContainerView!.bounds)
         }
-        spinner?.frame = playerContainerView!.bounds
     }
     
     func play() {
@@ -357,35 +349,31 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func showSpinner(delay: Int64) {
         if spinnerShowing {return}
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(),{
             [weak self] in
             
             if let strongSelf = self {
-                if strongSelf.isPlaying || strongSelf.spinner == nil {return}
+                if strongSelf.isPlaying {return}
                 
                 debugPrint("[MANAGER] showSpinner()")
+                MBProgressHUD.showHUDAddedTo(strongSelf.playerContainerView, animated: true)
                 strongSelf.spinnerShowing = true
-                strongSelf.spinner!.hidden = false
-                strongSelf.spinner!.startAnimating()
-                strongSelf.playerContainerView?.bringSubviewToFront(strongSelf.spinner!)
             }
         })
     }
     
     func removeSpinner() {
-        if spinner != nil && spinner!.isDescendantOfView(playerContainerView!) {
-            dispatch_async(dispatch_get_main_queue(),{
-                [weak self] in
-                
-                if let strongSelf = self {
-                    if !strongSelf.spinnerShowing || strongSelf.spinner == nil {return}
-                    debugPrint("[MANAGER] removeSpinner()")
-                    strongSelf.spinner!.stopAnimating()
-                    strongSelf.spinnerShowing = false
-                    strongSelf.spinner!.hidden = true
-                }
-            })
-        }
+        dispatch_async(dispatch_get_main_queue(),{
+            [weak self] in
+            
+            if let strongSelf = self {
+                if !strongSelf.spinnerShowing  {return}
+                debugPrint("[MANAGER] removeSpinner()")
+                MBProgressHUD.hideHUDForView(strongSelf.playerContainerView, animated: true)
+                strongSelf.spinnerShowing = false
+            }
+        })
     }
     
     func fetchMoreItems(autoplay: Bool) {
