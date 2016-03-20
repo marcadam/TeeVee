@@ -21,7 +21,7 @@ class ExploreViewController: UIViewController {
     
     let channelPagingCellID = "com.smartchannel.ChannelCollectionPagingViewCell"
     let channelCellID = "com.smartchannel.ChannelCollectionViewCell"
-    let sectionTitleArray = ["blank_title", "Curated Channels"]
+    let sectionTitleArray = ["blank_title", "Suggested Channels"]
     
     private var channels: [Channel] = []
     private var featuredChannels: [Channel] = []
