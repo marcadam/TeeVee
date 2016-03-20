@@ -171,12 +171,12 @@ extension ChannelsViewController {
         createChannelButton.frame = CGRectMake(0, 0, 50, 50);
         let composeImage = UIImage(named: "icon_add_channel")
         createChannelButton.setImage(composeImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
-        createChannelButton.tintColor = UIColor.clearColor()
-        createChannelButton.enabled = false
         createChannelButton.addTarget(self, action: "addChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
         
         let createChannelBarButton = UIBarButtonItem(customView: createChannelButton)
         navigationItem.rightBarButtonItems = [negativeSpacer, createChannelBarButton]
+        
+        enableAddChannelBtn(false)
     }
     
     func addChannelTapped() {
