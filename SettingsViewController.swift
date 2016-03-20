@@ -15,7 +15,7 @@ protocol SettingsViewControllerDelegate: class {
 class SettingsViewController: UIViewController {
 
     var containerViewController: HomeViewController!
-    var delegate: SettingsViewControllerDelegate?
+    weak var delegate: SettingsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -15,7 +15,7 @@ protocol ProfileViewControllerDelegate: class {
 class ProfileViewController: UIViewController {
 
     var containerViewController: HomeViewController!
-    var delegate: ProfileViewControllerDelegate?
+    weak var delegate: ProfileViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

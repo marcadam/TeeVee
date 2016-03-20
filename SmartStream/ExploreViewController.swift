@@ -24,7 +24,7 @@ class ExploreViewController: UIViewController {
     private var channels: [Channel] = []
     private var featuredChannels: [Channel] = []
     
-    var delegate: ExploreViewControllerDelegate?
+    weak var delegate: ExploreViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

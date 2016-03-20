@@ -26,7 +26,7 @@ class MyChannelsViewController: UIViewController {
 
     var containerViewController: HomeViewController!
 
-    var delegate: MyChannelsViewControllerDelegate?
+    weak var delegate: MyChannelsViewControllerDelegate?
     
     private var channelsArray: [Channel] = []
 

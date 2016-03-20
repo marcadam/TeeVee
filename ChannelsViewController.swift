@@ -41,7 +41,7 @@ class ChannelsViewController: UIViewController {
         }
     }
 
-    var delegate: ChannelsViewControllerDelegate?
+    weak var delegate: ChannelsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
