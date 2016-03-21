@@ -47,7 +47,7 @@ class ExploreViewController: UIViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         collectionView.backgroundColor = UIColor.clearColor()
         
-        getChannels { () -> () in
+        getChannels(true) { () -> () in
             //
         }
     }
@@ -77,14 +77,18 @@ class ExploreViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getChannels(completion: ()->()) {
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
+    func getChannels(isFirst: Bool, completion: ()->()) {
+        if isFirst {
+            MBProgressHUD.showHUDAddedTo(view, animated: true)
+        }
         ChannelClient.sharedInstance.getExploreChannels { (channels, error) -> () in
             if let channels = channels {
                 self.channels = channels
                 self.featuredChannels = self.getFeaturedChannels(channels)
                 self.collectionView.reloadData()
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                if isFirst {
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                }
                 completion()
             } else {
                 debugPrint(error)
@@ -153,9 +157,9 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func refreshControlAction(refreshControl: UIRefreshControl) {
-        self.getChannels({ () -> () in
+        getChannels(false) { () -> () in
             self.refreshControl.endRefreshing()
-        })
+        }
     }
 }
 
