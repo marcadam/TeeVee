@@ -27,11 +27,16 @@ class ExploreViewController: UIViewController {
     private var featuredChannels: [Channel] = []
     private var featuredChannelTimer: NSTimer?
     weak var delegate: ExploreViewControllerDelegate?
+    private var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        collectionView.insertSubview(refreshControl, atIndex: 0)
+        
         let channelPagingCellNIB = UINib(nibName: "ChannelCollectionPagingViewCell", bundle: NSBundle.mainBundle())
         collectionView.registerNib(channelPagingCellNIB, forCellWithReuseIdentifier: channelPagingCellID)
         
@@ -141,6 +146,18 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         delegate?.exploreVC(self, didPlayChannel: channels[indexPath.row])
+    }
+    
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        
+        ChannelClient.sharedInstance.getExploreChannels { (channels, error) -> () in
+            if error != nil {
+                print(error)
+                self.refreshControl.endRefreshing()
+            } else {
+                self.refreshControl.endRefreshing()
+            }
+        }
     }
 }
 
