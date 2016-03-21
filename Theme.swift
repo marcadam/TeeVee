@@ -47,7 +47,7 @@ struct Theme {
 
         var font: UIFont {
             switch self {
-            case .TitleBoldTypeFace: return UIFont.systemFontOfSize(24, weight: UIFontWeightBold)
+            case .TitleBoldTypeFace: return UIFont.systemFontOfSize(20, weight: UIFontWeightBold)
             case .TitleThinTypeFace: return UIFont.systemFontOfSize(24, weight: UIFontWeightThin)
             case .TitleTypeFace: return UIFont.systemFontOfSize(24, weight: UIFontWeightRegular)
             case .NormalTypeFace: return UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
