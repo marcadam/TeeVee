@@ -35,6 +35,7 @@ class ChannelEditorViewController: UIViewController {
     private let formTextFont = Theme.Fonts.NormalTypeFace.font
     private let formTextColor = Theme.Colors.HighlightColor.color
     private let formPlaceholderColor = Theme.Colors.HighlightLightColor.color
+    private let backgroundColor = Theme.Colors.BackgroundColor.color
     private var keyboardTimer: NSTimer?
     private var latestTitle = "My Awesome Channel"
     private var keyboardInputAccessory: UIView?
@@ -94,7 +95,7 @@ class ChannelEditorViewController: UIViewController {
         titleTextField.text = latestTitle
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a topic to this channel", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
-        view.backgroundColor = Theme.Colors.BackgroundColor.color
+        view.backgroundColor = backgroundColor
         tableView.backgroundColor = UIColor.clearColor()
         tableView.rowHeight = 70
         tableView.alwaysBounceVertical = false
@@ -225,11 +226,13 @@ class ChannelEditorViewController: UIViewController {
     func keyboardInputAccessoryView() -> UIView {
         if keyboardInputAccessory == nil {
             let accessoryView = UIButton(frame: CGRectMake(0.0, 0.0, view.bounds.width, 44.0))
-            accessoryView.backgroundColor = Theme.Colors.EditColor.color
+            accessoryView.backgroundColor = backgroundColor
             let buttonTitle = isEdit ? "Save" : "Save & Play"
             let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
             accessoryView.setTitle(buttonTitle, forState: .Normal)
             accessoryView.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
+            accessoryView.titleLabel!.font = Theme.Fonts.TitleBoldTypeFace.font
+            accessoryView.titleLabel!.textColor = formTextColor
             
             return accessoryView
         } else {
