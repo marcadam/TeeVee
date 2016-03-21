@@ -425,6 +425,7 @@ extension ChannelEditorViewController {
         let composeImage = UIImage(named: "icon_dismiss")
         createCancelButton.setImage(composeImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         createCancelButton.addTarget(self, action: "cancelTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        createCancelButton.tintColor = formTextColor
         
         let createCancelBarButton = UIBarButtonItem(customView: createCancelButton)
         navigationItem.leftBarButtonItems = [negativeSpacer, createCancelBarButton]
@@ -434,6 +435,7 @@ extension ChannelEditorViewController {
         let newImage = UIImage(named: "icon_settings")
         createSettingsButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         createSettingsButton.addTarget(self, action: "settingsTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        createSettingsButton.tintColor = formTextColor
         
         let createSettingsBarButton = UIBarButtonItem(customView: createSettingsButton)
         navigationItem.rightBarButtonItems = [negativeSpacer, createSettingsBarButton]

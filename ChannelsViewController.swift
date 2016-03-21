@@ -27,6 +27,7 @@ class ChannelsViewController: UIViewController {
 
     var createChannelButton: UIButton!
     var createChannelButtonEnabledForMyChannels = false
+    private var highlightedColor = Theme.Colors.HighlightColor.color
     
     var myChannelsViewController: UIViewController! {
         didSet {
@@ -92,6 +93,10 @@ class ChannelsViewController: UIViewController {
                 }
             )
         } else {
+            let myc = myChannelsViewController as! MyChannelsViewController
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                myc.createChannelButton.layer.opacity = 0
+            })
             if exploreChannelsViewController == nil {
                 // Instantiate and add Explore view controller
                 let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
@@ -183,6 +188,7 @@ extension ChannelsViewController {
         let newImage = UIImage(named: "icon_profile")
         createProfileButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         createProfileButton.addTarget(self, action: "profileMenuTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        createProfileButton.tintColor = highlightedColor
         
         let createProfileBarButton = UIBarButtonItem(customView: createProfileButton)
         navigationItem.leftBarButtonItems = [negativeSpacerLeft, createProfileBarButton]
@@ -206,7 +212,7 @@ extension ChannelsViewController {
                 //debugPrint("addChannelBtn enabled")
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
                     self.createChannelButton.enabled = true
-                    self.createChannelButton.tintColor = UIColor.whiteColor()
+                    self.createChannelButton.tintColor = self.highlightedColor
                 })
             }
         } else {

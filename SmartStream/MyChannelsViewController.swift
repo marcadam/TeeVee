@@ -35,6 +35,7 @@ class MyChannelsViewController: UIViewController {
     var initialOffset: CGFloat? = nil
     var offsetHeaderViewStop: CGFloat!
     var offsetHeader: CGFloat?
+    private var highlightColor = Theme.Colors.HighlightColor.color
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +59,17 @@ class MyChannelsViewController: UIViewController {
         
         self.tableView.editing = false
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "toggleFadeIn", userInfo: nil, repeats: false)
+    }
+    
+    func toggleFadeIn() {
+        UIView.animateWithDuration(0.3) { () -> Void in
+            self.createChannelButton.layer.opacity = 1
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -70,10 +82,11 @@ class MyChannelsViewController: UIViewController {
         tableView.separatorColor = Theme.Colors.SeparatorColor.color
 
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
-        createChannelLabel.textColor = Theme.Colors.HighlightColor.color
+        createChannelLabel.textColor = highlightColor
         
         offsetHeaderViewStop = createChannelView.bounds.height
         createChannelButton.addTarget(self, action: "createChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        createChannelButton.tintColor = highlightColor
     }
 
     func getChannels() {
