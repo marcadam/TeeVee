@@ -95,7 +95,7 @@ class ChannelEditorViewController: UIViewController {
         
         titleTextField.text = latestTitle
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
-        searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a new topic to this channel", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
+        searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a topic to this channel", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
         tableView.rowHeight = 70
