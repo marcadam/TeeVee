@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Saq-Tx-wvM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Saq-Tx-wvM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -21,43 +21,22 @@
                                 <rect key="frame" x="0.0" y="144" width="600" height="50"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iry-pM-F1e">
-                                        <rect key="frame" x="8" y="10" width="550" height="30"/>
+                                        <rect key="frame" x="8" y="10" width="584" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
                                         <connections>
                                             <outlet property="delegate" destination="BRQ-9W-LhL" id="RcI-l2-CMK"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCJ-Hy-hqx">
-                                        <rect key="frame" x="566" y="12" width="26" height="26"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="26" id="c7c-8d-fMx"/>
-                                            <constraint firstAttribute="height" constant="26" id="y5b-2Z-4u6"/>
-                                        </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="Add"/>
-                                        <connections>
-                                            <action selector="onKeywordTapped:" destination="BRQ-9W-LhL" eventType="touchUpInside" id="4ed-fy-FBV"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="5Lc-iT-JWg"/>
                                     <constraint firstAttribute="bottom" secondItem="Iry-pM-F1e" secondAttribute="bottom" constant="10" id="8RH-sm-5Xa"/>
                                     <constraint firstItem="Iry-pM-F1e" firstAttribute="leading" secondItem="5ug-65-odw" secondAttribute="leading" constant="8" id="Dyf-ba-Z4U"/>
-                                    <constraint firstAttribute="trailing" secondItem="hCJ-Hy-hqx" secondAttribute="trailing" constant="8" id="F6u-Rx-vTw"/>
-                                    <constraint firstItem="hCJ-Hy-hqx" firstAttribute="top" secondItem="5ug-65-odw" secondAttribute="top" constant="12" id="HF3-pn-ClX"/>
-                                    <constraint firstAttribute="trailing" secondItem="Iry-pM-F1e" secondAttribute="trailing" constant="8" id="SsQ-PW-yAh"/>
-                                    <constraint firstAttribute="bottom" secondItem="hCJ-Hy-hqx" secondAttribute="bottom" constant="12" id="gdD-2c-dn1"/>
+                                    <constraint firstAttribute="trailing" secondItem="Iry-pM-F1e" secondAttribute="trailing" constant="8" id="EXf-XA-cVm"/>
                                     <constraint firstItem="Iry-pM-F1e" firstAttribute="top" secondItem="5ug-65-odw" secondAttribute="top" constant="10" id="wGK-Q5-c8z"/>
-                                    <constraint firstItem="hCJ-Hy-hqx" firstAttribute="leading" secondItem="Iry-pM-F1e" secondAttribute="trailing" constant="8" id="xDL-3K-ads"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="SsQ-PW-yAh"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FdL-pM-EQd">
                                 <rect key="frame" x="0.0" y="64" width="600" height="50"/>
@@ -141,7 +120,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Create Channel" id="A4O-hG-BGl"/>
                     <connections>
-                        <outlet property="addButton" destination="hCJ-Hy-hqx" id="VUu-YM-d5R"/>
                         <outlet property="editIcon" destination="8aG-l4-iQ4" id="T5L-kt-7Zb"/>
                         <outlet property="searchTextField" destination="Iry-pM-F1e" id="BJc-Sl-e3X"/>
                         <outlet property="searchWrapperView" destination="5ug-65-odw" id="7BV-bQ-3xU"/>
@@ -191,7 +169,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Add" width="20" height="20"/>
         <image name="icon_edit_1" width="180" height="180"/>
     </resources>
 </document>

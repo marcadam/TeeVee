@@ -20,7 +20,6 @@ class ChannelEditorViewController: UIViewController {
     @IBOutlet weak var searchWrapperView: UIView!
     @IBOutlet weak var titleWrapperView: UIView!
     @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var editIcon: UIImageView!
     
     @IBOutlet weak var tableView: UITableView!
@@ -91,7 +90,6 @@ class ChannelEditorViewController: UIViewController {
         
         titleTextField.textColor = formTextColor
         searchTextField.textColor = formTextColor
-        addButton.tintColor = formTextColor
         
         titleTextField.text = latestTitle
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
@@ -207,17 +205,6 @@ class ChannelEditorViewController: UIViewController {
     
     func onSaveAndPlayTapped(sender: AnyObject) {
         buttonAction(true)
-    }
-    
-    @IBAction func onKeywordTapped(sender: AnyObject) {
-        if let topic = searchTextField.text {
-            if topic != "" {
-                topics.insert(topic, atIndex: 0)
-                let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                searchTextField.text = ""
-            }
-        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -385,10 +372,6 @@ extension ChannelEditorViewController: UITextFieldDelegate {
             UIView.animateWithDuration(0.5, animations: { () -> Void in
                 self.editIcon.layer.opacity = 1
             })
-        } else {
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.addButton.layer.opacity = 1
-            })
         }
     }
     
@@ -401,10 +384,6 @@ extension ChannelEditorViewController: UITextFieldDelegate {
             }
             UIView.animateWithDuration(0.5, animations: { () -> Void in
                 self.editIcon.layer.opacity = 0.3
-            })
-        } else {
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.addButton.layer.opacity = 0.3
             })
         }
     }
