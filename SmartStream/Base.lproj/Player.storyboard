@@ -55,13 +55,14 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbd-lh-AnI">
-                                                <rect key="frame" x="8" y="8" width="35" height="35"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbd-lh-AnI">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="35" id="3sf-QF-gBw"/>
-                                                    <constraint firstAttribute="height" constant="35" id="ceC-ZG-hEl"/>
+                                                    <constraint firstAttribute="width" constant="50" id="3sf-QF-gBw"/>
+                                                    <constraint firstAttribute="height" constant="50" id="ceC-ZG-hEl"/>
                                                 </constraints>
-                                                <state key="normal" backgroundImage="icon_dismiss"/>
+                                                <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
+                                                <state key="normal" image="icon_dismiss"/>
                                                 <connections>
                                                     <action selector="onDismiss:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1e6-wQ-J0j"/>
                                                 </connections>
@@ -69,7 +70,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="Pbd-lh-AnI" firstAttribute="centerY" secondItem="Qsl-U8-Nzk" secondAttribute="centerY" id="7mz-GT-75D"/>
-                                            <constraint firstItem="Pbd-lh-AnI" firstAttribute="leading" secondItem="Qsl-U8-Nzk" secondAttribute="leading" constant="8" id="R2g-gp-ZJc"/>
+                                            <constraint firstItem="Pbd-lh-AnI" firstAttribute="leading" secondItem="Qsl-U8-Nzk" secondAttribute="leading" id="R2g-gp-ZJc"/>
                                             <constraint firstAttribute="height" constant="50" id="bjw-lR-b9j"/>
                                             <constraint firstItem="hSO-Ch-0H0" firstAttribute="centerY" secondItem="Qsl-U8-Nzk" secondAttribute="centerY" id="fbf-3J-T7C"/>
                                             <constraint firstItem="hSO-Ch-0H0" firstAttribute="centerX" secondItem="Qsl-U8-Nzk" secondAttribute="centerX" id="plt-dQ-Jl9"/>
@@ -298,10 +299,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_dismiss" width="180" height="180"/>
-        <image name="icon_next" width="180" height="180"/>
-        <image name="icon_pause" width="180" height="180"/>
-        <image name="icon_play" width="180" height="180"/>
+        <image name="icon_dismiss" width="44" height="44"/>
+        <image name="icon_next" width="46" height="44"/>
+        <image name="icon_pause" width="39" height="44"/>
+        <image name="icon_play" width="39" height="44"/>
         <image name="icon_twitter" width="60" height="60"/>
     </resources>
 </document>
