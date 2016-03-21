@@ -25,6 +25,7 @@ class ChannelEditorViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var tableviewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var channelMainActionButton: UIButton!
     
@@ -98,6 +99,7 @@ class ChannelEditorViewController: UIViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
         tableView.rowHeight = 70
+        tableView.alwaysBounceVertical = false
         
         let myChannelCellNib = UINib(nibName: "MyChannelTableViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(myChannelCellNib, forCellReuseIdentifier: "MyChannelTableViewCell")
@@ -112,6 +114,10 @@ class ChannelEditorViewController: UIViewController {
         
         editIcon.tintColor = formTextColor
         editIcon.layer.opacity = 0.3
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func setDefaults() {
@@ -232,7 +238,7 @@ class ChannelEditorViewController: UIViewController {
     func keyboardInputAccessoryView() -> UIView {
         if keyboardInputAccessory == nil {
             let accessoryView = UIButton(frame: CGRectMake(0.0, 0.0, view.bounds.width, 44.0))
-            accessoryView.backgroundColor = view.tintColor
+            accessoryView.backgroundColor = Theme.Colors.EditColor.color
             let buttonTitle = isEdit ? "Save" : "Save & Play"
             let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
             accessoryView.setTitle(buttonTitle, forState: .Normal)
@@ -427,15 +433,15 @@ extension ChannelEditorViewController {
         let createCancelBarButton = UIBarButtonItem(customView: createCancelButton)
         navigationItem.leftBarButtonItems = [negativeSpacer, createCancelBarButton]
         
-//        let createSettingsButton = UIButton(type: .System)
-//        createSettingsButton.frame = CGRectMake(0, 0, 30, 30)
-//        let newImage = UIImage(named: "icon_settings")
-//        createSettingsButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
-//        createSettingsButton.addTarget(self, action: "settingsTapped", forControlEvents: UIControlEvents.TouchUpInside)
-//        createSettingsButton.tintColor = formTextColor
-//        
-//        let createSettingsBarButton = UIBarButtonItem(customView: createSettingsButton)
-//        navigationItem.rightBarButtonItems = [negativeSpacer, createSettingsBarButton]
+        //        let createSettingsButton = UIButton(type: .System)
+        //        createSettingsButton.frame = CGRectMake(0, 0, 30, 30)
+        //        let newImage = UIImage(named: "icon_settings")
+        //        createSettingsButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        //        createSettingsButton.addTarget(self, action: "settingsTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        //        createSettingsButton.tintColor = formTextColor
+        //
+        //        let createSettingsBarButton = UIBarButtonItem(customView: createSettingsButton)
+        //        navigationItem.rightBarButtonItems = [negativeSpacer, createSettingsBarButton]
         
     }
     
@@ -447,5 +453,40 @@ extension ChannelEditorViewController {
     
     func settingsTapped() {
         performSegueWithIdentifier("EditorToFilters", sender: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        animatetextViewWithKeyboard(notification)
+    }
+    func keyboardWillHide(notification: NSNotification) {
+        animatetextViewWithKeyboard(notification)
+    }
+    
+    func animatetextViewWithKeyboard(notification: NSNotification) {
+        // change the view's height to accept the size of the keyboard
+        let userInfo = notification.userInfo!
+        
+        let keyboardSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        
+        let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! Double
+        let curve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! UInt
+        
+        if notification.name == UIKeyboardWillShowNotification {
+            let keyHeight = keyboardSize.height // move up
+            // self.view.frame = CGRect(x: 0, y: 0, width: originalFrame!.width, height: originalFrame!.height - keyHeight)
+            tableviewBottomConstraint.constant = keyHeight
+        } else {
+            tableviewBottomConstraint.constant = 0
+        }
+        
+        view.setNeedsUpdateConstraints()
+        
+        let options = UIViewAnimationOptions(rawValue: curve << 16)
+        UIView.animateWithDuration(duration, delay: 0, options: options,
+            animations: {
+                self.view.layoutIfNeeded()
+            },
+            completion: nil
+        )
     }
 }

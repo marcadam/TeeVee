@@ -194,7 +194,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             })
 
         }
-        deleteAction.backgroundColor = UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
+        deleteAction.backgroundColor = Theme.Colors.DeleteColor.color
         
         return [deleteAction, editAction, playAction]
     }

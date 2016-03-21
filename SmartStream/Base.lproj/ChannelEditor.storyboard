@@ -146,6 +146,7 @@
                         <outlet property="searchTextField" destination="Iry-pM-F1e" id="BJc-Sl-e3X"/>
                         <outlet property="searchWrapperView" destination="5ug-65-odw" id="7BV-bQ-3xU"/>
                         <outlet property="tableView" destination="ucu-k2-WAx" id="Xa0-sO-8rs"/>
+                        <outlet property="tableviewBottomConstraint" destination="7n5-qV-A1f" id="kZ6-Ee-e9S"/>
                         <outlet property="titleTextField" destination="KJG-Cb-VNa" id="Oqy-xv-TDj"/>
                         <outlet property="titleWrapperView" destination="FdL-pM-EQd" id="6la-YS-ATa"/>
                         <segue destination="r98-P7-qa7" kind="show" identifier="EditorToFilters" id="g3s-Zy-oe7"/>
