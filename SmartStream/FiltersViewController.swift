@@ -54,6 +54,7 @@ class FiltersViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
         tableView.alwaysBounceVertical = false
+        navigationItem.title = "Settings"
     }
     
     override func viewWillDisappear(animated: Bool) {

@@ -103,7 +103,6 @@ class ChannelEditorViewController: UIViewController {
         tableView.registerNib(myChannelCellNib, forCellReuseIdentifier: "MyChannelTableViewCell")
         tableView.separatorStyle = .None
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
-        tableView.alwaysBounceVertical = false
         
         titleTextField.autocorrectionType = .No
         titleTextField.inputAccessoryView = keyboardInputAccessoryView()
@@ -428,15 +427,15 @@ extension ChannelEditorViewController {
         let createCancelBarButton = UIBarButtonItem(customView: createCancelButton)
         navigationItem.leftBarButtonItems = [negativeSpacer, createCancelBarButton]
         
-        let createSettingsButton = UIButton(type: .System)
-        createSettingsButton.frame = CGRectMake(0, 0, 30, 30)
-        let newImage = UIImage(named: "icon_settings")
-        createSettingsButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
-        createSettingsButton.addTarget(self, action: "settingsTapped", forControlEvents: UIControlEvents.TouchUpInside)
-        createSettingsButton.tintColor = formTextColor
-        
-        let createSettingsBarButton = UIBarButtonItem(customView: createSettingsButton)
-        navigationItem.rightBarButtonItems = [negativeSpacer, createSettingsBarButton]
+//        let createSettingsButton = UIButton(type: .System)
+//        createSettingsButton.frame = CGRectMake(0, 0, 30, 30)
+//        let newImage = UIImage(named: "icon_settings")
+//        createSettingsButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+//        createSettingsButton.addTarget(self, action: "settingsTapped", forControlEvents: UIControlEvents.TouchUpInside)
+//        createSettingsButton.tintColor = formTextColor
+//        
+//        let createSettingsBarButton = UIBarButtonItem(customView: createSettingsButton)
+//        navigationItem.rightBarButtonItems = [negativeSpacer, createSettingsBarButton]
         
     }
     
