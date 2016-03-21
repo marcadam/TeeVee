@@ -184,7 +184,7 @@ extension ChannelsViewController {
         let negativeSpacerLeft = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
         negativeSpacerLeft.width = -3
         let createProfileButton = UIButton(type: .System)
-        createProfileButton.frame = CGRectMake(0, 0, 22, 22)
+        createProfileButton.frame = CGRectMake(0, 0, 20, 20)
         let newImage = UIImage(named: "icon_menu")
         createProfileButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         createProfileButton.addTarget(self, action: "profileMenuTapped:", forControlEvents: UIControlEvents.TouchUpInside)
