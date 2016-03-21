@@ -252,7 +252,12 @@ extension MyChannelsViewController {
         }
         
         offsetHeader = newOffset
-        //debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
+        debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
+        
+        let opacity = 1.0 - Float(offset*4)/100.0
+        if opacity >= 0 || opacity <= 1 {
+            createChannelButton.layer.opacity = opacity
+        }
         
         var headerTransform = CATransform3DIdentity
         headerTransform = CATransform3DTranslate(headerTransform, 0, offsetHeader!, 0)
