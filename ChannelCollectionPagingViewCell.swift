@@ -68,11 +68,6 @@ class ChannelCollectionPagingViewCell: UICollectionViewCell {
         scrollView.scrollRectToVisible(scrollToRect, animated: true)
         pageControl.currentPage = index
     }
-
-    @IBAction func pageControlDidPage(sender: UIPageControl) {
-        let xOffset = scrollView.bounds.width * CGFloat(pageControl.currentPage)
-        scrollView.setContentOffset(CGPointMake(xOffset, 0) , animated: true)
-    }
 }
 
 extension ChannelCollectionPagingViewCell: UIScrollViewDelegate {
