@@ -31,7 +31,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="I9W-kx-ILb">
-                        <barButtonItem key="leftBarButtonItem" image="Menu" id="mdM-S1-Qu5">
+                        <barButtonItem key="leftBarButtonItem" image="icon_menu" id="mdM-S1-Qu5">
                             <connections>
                                 <action selector="didTapMenu:" destination="L29-9I-G3Z" id="GNv-fj-Apk"/>
                             </connections>
@@ -62,6 +62,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Menu" width="21" height="18"/>
+        <image name="icon_menu" width="46" height="44"/>
     </resources>
 </document>

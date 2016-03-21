@@ -185,7 +185,7 @@ extension ChannelsViewController {
         negativeSpacerLeft.width = -3
         let createProfileButton = UIButton(type: .System)
         createProfileButton.frame = CGRectMake(0, 0, 22, 22)
-        let newImage = UIImage(named: "icon_profile")
+        let newImage = UIImage(named: "icon_menu")
         createProfileButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         createProfileButton.addTarget(self, action: "profileMenuTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         createProfileButton.tintColor = highlightedColor

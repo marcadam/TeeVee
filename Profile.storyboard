@@ -31,7 +31,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ffa-Cr-Ikp">
-                        <barButtonItem key="leftBarButtonItem" image="Menu" id="WWi-eU-UoH">
+                        <barButtonItem key="leftBarButtonItem" image="icon_menu" id="WWi-eU-UoH">
                             <connections>
                                 <action selector="didTapMenu:" destination="a1I-gw-ZPj" id="7zF-zJ-FD0"/>
                             </connections>
@@ -62,6 +62,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Menu" width="21" height="18"/>
+        <image name="icon_menu" width="46" height="44"/>
     </resources>
 </document>
