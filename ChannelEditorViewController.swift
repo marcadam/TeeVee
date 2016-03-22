@@ -105,16 +105,9 @@ class ChannelEditorViewController: UIViewController {
         tableView.separatorStyle = .None
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
-        titleTextField.autocorrectionType = .No
-        titleTextField.inputAccessoryView = keyboardInputAccessoryView()
-        
-        searchTextField.autocorrectionType = .No
-        searchTextField.inputAccessoryView = keyboardInputAccessoryView()
-        
         editIcon.tintColor = formTextColor
         editIcon.layer.opacity = 0.3
-        
-        
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
@@ -223,23 +216,15 @@ class ChannelEditorViewController: UIViewController {
         }
     }
     
-    func keyboardInputAccessoryView() -> UIView {
-        if keyboardInputAccessory == nil {
-            let accessoryView = UIButton(frame: CGRectMake(0.0, 0.0, view.bounds.width, 44.0))
-            accessoryView.backgroundColor = UIColor(red: 43/255, green: 43/255, blue: 45/255, alpha: 1)
-            let buttonTitle = isEdit ? "Save" : "Save & Play"
-            let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
-            accessoryView.setTitle(buttonTitle, forState: .Normal)
-            accessoryView.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
-            accessoryView.titleLabel!.font = Theme.Fonts.TitleBoldTypeFace.font
-            accessoryView.titleLabel!.textColor = formTextColor
-            
-            return accessoryView
-        } else {
-            return keyboardInputAccessory!
-        }
+    func configureSaveButtonBarItem() {
+        let buttonTitle = isEdit ? "Save" : "Save & Play"
+        let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
+//        accessoryView.setTitle(buttonTitle, forState: .Normal)
+//        accessoryView.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
+//        accessoryView.titleLabel!.font = Theme.Fonts.TitleBoldTypeFace.font
+//        accessoryView.titleLabel!.textColor = formTextColor
     }
-    
+
     override func shouldAutorotate() -> Bool {
         return false
     }
@@ -402,31 +387,14 @@ extension ChannelEditorViewController: FiltersViewDelegate {
 
 extension ChannelEditorViewController {
     func setupNavigationBar() {
-        let negativeSpacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
-        negativeSpacer.width = -10
-        
-        let createCancelButton = UIButton(type: .System)
-        createCancelButton.frame = CGRectMake(0, 0, 30, 30)
-        let composeImage = UIImage(named: "icon_dismiss")
-        createCancelButton.setImage(composeImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
-        createCancelButton.addTarget(self, action: "cancelTapped", forControlEvents: UIControlEvents.TouchUpInside)
-        createCancelButton.tintColor = formTextColor
-        
-        let createCancelBarButton = UIBarButtonItem(customView: createCancelButton)
-        navigationItem.leftBarButtonItems = [negativeSpacer, createCancelBarButton]
-        
-        //        let createSettingsButton = UIButton(type: .System)
-        //        createSettingsButton.frame = CGRectMake(0, 0, 30, 30)
-        //        let newImage = UIImage(named: "icon_settings")
-        //        createSettingsButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
-        //        createSettingsButton.addTarget(self, action: "settingsTapped", forControlEvents: UIControlEvents.TouchUpInside)
-        //        createSettingsButton.tintColor = formTextColor
-        //
-        //        let createSettingsBarButton = UIBarButtonItem(customView: createSettingsButton)
-        //        navigationItem.rightBarButtonItems = [negativeSpacer, createSettingsBarButton]
-        
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: "cancelTapped")
+        navigationItem.leftBarButtonItem = cancelButton
+
+        let saveButtonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
+        let saveButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: Selector(saveButtonAction))
+        navigationItem.rightBarButtonItem = saveButton
     }
-    
+
     func cancelTapped() {
         dismissViewControllerAnimated(true) { () -> Void in
             //
