@@ -83,6 +83,8 @@ class ChannelEditorViewController: UIViewController {
     }
     
     func uiSetup() {
+        view.backgroundColor = backgroundColor
+
         titleWrapperView.backgroundColor = bgDarkColor
         searchWrapperView.backgroundColor = bgDarkColor
         
@@ -91,11 +93,14 @@ class ChannelEditorViewController: UIViewController {
         
         titleTextField.textColor = formTextColor
         searchTextField.textColor = formTextColor
-        
+
         titleTextField.text = latestTitle
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a topic to this channel", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
-        view.backgroundColor = backgroundColor
+
+        titleTextField.autocorrectionType = .No
+        searchTextField.autocorrectionType = .No
+
         tableView.backgroundColor = UIColor.clearColor()
         tableView.rowHeight = 70
         tableView.alwaysBounceVertical = false
@@ -104,7 +109,7 @@ class ChannelEditorViewController: UIViewController {
         tableView.registerNib(myChannelCellNib, forCellReuseIdentifier: "MyChannelTableViewCell")
         tableView.separatorStyle = .None
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
-        
+
         editIcon.tintColor = formTextColor
         editIcon.layer.opacity = 0.3
 
