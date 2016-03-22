@@ -245,10 +245,8 @@ extension MyChannelsViewController {
         let offset = scrollView.contentOffset.y - initialOffset!
         let newOffset = max(-offsetHeaderViewStop, -offset)
         if offsetHeader == newOffset {
-            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: true)
+            // already reach maximum offset allowed, do nothing
             return
-        } else {
-            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: false)
         }
         
         offsetHeader = newOffset
@@ -257,6 +255,12 @@ extension MyChannelsViewController {
         let opacity = 1.0 - Float(offset*4)/100.0
         if opacity >= 0 || opacity <= 1 {
             createChannelButton.layer.opacity = opacity
+        }
+        
+        if opacity <= 0 {
+            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: true)
+        } else {
+            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: false)
         }
         
         var headerTransform = CATransform3DIdentity
