@@ -210,7 +210,7 @@ extension ChannelsViewController {
         if shouldEnableAddChannelBtn {
             if !createChannelButton.enabled {
                 //debugPrint("addChannelBtn enabled")
-                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                UIView.animateWithDuration(0.5, animations: { () -> Void in
                     self.createChannelButton.enabled = true
                     self.createChannelButton.tintColor = self.highlightedColor
                 })
@@ -218,7 +218,7 @@ extension ChannelsViewController {
         } else {
             if createChannelButton.enabled {
                 //debugPrint("addChannelBtn disabled")
-                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                UIView.animateWithDuration(0.5, animations: { () -> Void in
                     self.createChannelButton.enabled = false
                     self.createChannelButton.tintColor = UIColor.clearColor()
                 })
