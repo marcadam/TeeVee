@@ -359,7 +359,9 @@ extension ChannelEditorViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField == titleTextField {
-            titleTextField.text = ""
+            if !isEdit {
+                titleTextField.text = ""
+            }
             UIView.animateWithDuration(0.5, animations: { () -> Void in
                 self.editIcon.layer.opacity = 1
             })

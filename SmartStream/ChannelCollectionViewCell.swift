@@ -13,6 +13,8 @@ class ChannelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var channelImageView: UIImageView!
     @IBOutlet weak var infoContainerView: UIView!
     @IBOutlet weak var channelNameLabel: UILabel!
+    
+    var highlightedOverlay:UIView?
 
     var channel: Channel! {
         didSet {
@@ -40,5 +42,21 @@ class ChannelCollectionViewCell: UICollectionViewCell {
         backgroundColor = Theme.Colors.LightBackgroundColor.color
         infoContainerView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         channelNameLabel.textColor = Theme.Colors.HighlightColor.color
+        let rect = CGRectMake(0, 0, bounds.width, bounds.height)
+        highlightedOverlay = UIView(frame: rect)
+        highlightedOverlay!.backgroundColor = Theme.Colors.LightBackgroundColor.color
+        highlightedOverlay!.bringSubviewToFront(self)
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        
+        
+        print("clicked")
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesEnded(touches, withEvent: event)
+        //
     }
 }
