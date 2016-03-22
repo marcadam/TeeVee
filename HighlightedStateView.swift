@@ -10,8 +10,6 @@ import UIKit
 
 class HighlightedStateView: UIView {
     
-    private var highlighted = false
-    
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -27,6 +25,12 @@ class HighlightedStateView: UIView {
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.layer.opacity = 1
+        })
+    }
+    
+    override func didMoveToWindow() {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.layer.opacity = 1
         })

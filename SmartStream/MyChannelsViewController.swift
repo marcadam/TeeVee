@@ -60,9 +60,6 @@ class MyChannelsViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         self.tableView.editing = false
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.createChannelView.layer.opacity = 1
-        })
     }
     
     override func viewDidAppear(animated: Bool) {
