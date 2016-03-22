@@ -35,6 +35,8 @@ class MyChannelsViewController: UIViewController {
     var initialOffset: CGFloat? = nil
     var offsetHeaderViewStop: CGFloat!
     var offsetHeader: CGFloat?
+    var createChannelButtonOpacity: Float = 1.0
+    
     private var highlightColor = Theme.Colors.HighlightColor.color
 
     override func viewDidLoad() {
@@ -65,9 +67,14 @@ class MyChannelsViewController: UIViewController {
         NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "toggleFadeIn", userInfo: nil, repeats: false)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        
+    }
+    
     func toggleFadeIn() {
         UIView.animateWithDuration(0.3) { () -> Void in
-            self.createChannelButton.layer.opacity = 1
+            // set or restore header btn Opacity
+            self.createChannelButton.layer.opacity = self.createChannelButtonOpacity
         }
     }
 
@@ -252,12 +259,12 @@ extension MyChannelsViewController {
         offsetHeader = newOffset
         //debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
         
-        let opacity = 1.0 - Float(offset*4)/100.0
-        if opacity >= 0 || opacity <= 1 {
-            createChannelButton.layer.opacity = opacity
+        createChannelButtonOpacity = 1.0 - Float(offset*4)/100.0
+        if createChannelButtonOpacity >= 0 || createChannelButtonOpacity <= 1 {
+            createChannelButton.layer.opacity = createChannelButtonOpacity
         }
         
-        if opacity <= 0 {
+        if createChannelButtonOpacity <= 0 {
             delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: true)
         } else {
             delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: false)
