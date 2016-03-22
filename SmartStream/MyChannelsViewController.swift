@@ -64,7 +64,7 @@ class MyChannelsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "toggleFadeIn", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(addBtnFadeDuration, target: self, selector: "toggleFadeIn", userInfo: nil, repeats: false)
     }
     
     override func viewWillAppear(animated: Bool) {
