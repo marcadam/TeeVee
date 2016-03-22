@@ -67,10 +67,6 @@ class MyChannelsViewController: UIViewController {
         NSTimer.scheduledTimerWithTimeInterval(addBtnFadeDuration, target: self, selector: "toggleFadeIn", userInfo: nil, repeats: false)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        
-    }
-    
     func toggleFadeIn() {
         UIView.animateWithDuration(0.3) { () -> Void in
             // set or restore header btn Opacity
