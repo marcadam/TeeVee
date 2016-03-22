@@ -198,13 +198,27 @@ class ChannelEditorViewController: UIViewController {
         titleTextField.resignFirstResponder()
     }
     
-    func onSaveTapped(sender: UIButton) {
+    func updateLastOpenedTimestamp() {
+        ChannelClient.sharedInstance.updateChannel(channel?.channel_id!, channelDict: nil) { (channel, error) -> () in
+            if error != nil {
+                debugPrint("[ChannelManager] updateLastOpenedTimestamp() failed")
+                debugPrint("[ChannelManager] error = \(error.debugDescription)")
+            }
+        }
+    }
+    
+    func onSave() {
         insertTopic()
+        updateLastOpenedTimestamp()
+    }
+    
+    func onSaveTapped(sender: UIButton) {
+        onSave()
         buttonAction(false)
     }
     
     func onSaveAndPlayTapped(sender: AnyObject) {
-        insertTopic()
+        onSave()
         buttonAction(true)
     }
     

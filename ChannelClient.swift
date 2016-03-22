@@ -44,7 +44,7 @@ class ChannelClient {
     }
     
     
-    func updateChannel(channelId: String!, channelDict: NSDictionary!, completion: (channel: Channel?, error: NSError?) -> ()) {
+    func updateChannel(channelId: String!, channelDict: NSDictionary?, completion: (channel: Channel?, error: NSError?) -> ()) {
         
         manager.PUT(String("channels/" + channelId), parameters: channelDict, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
             //debugPrint(response)
