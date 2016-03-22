@@ -131,7 +131,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         debugPrint("[ChannelManager] init()")
         super.init()
         self.channelId = channelId
-        self.priorityQueue = PriorityQueue()
+        self.priorityQueue = PriorityQueue(ascending: true, startingValues: [])
         
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
@@ -140,8 +140,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             ChannelClient.sharedInstance.getChannel(channelId) {[weak self] (channel, error) -> () in
                 if let strongSelf = self {
                     if channel != nil && channel!.items!.count > 0 {
+                        debugPrint("[ChannelManager] loading initial channel items...")
                         
                         for item in channel!.items! {
+                            debugPrint("[ChannelManager] inserting \(item.extractor!) item: \(item.native_id!)")
                             self!.priorityQueue!.push(item)
                         }
                         
@@ -443,6 +445,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         if let queueWrapper = self!.tweetsPriorityQueues![item.topic!] {
                             // queue exists for topic
                             queueWrapper.queue?.push(item)
+                            debugPrint("[ChannelManager] TWEET inserting \(item.extractor!) item: \(item.native_id!)")
                         } else {
                             queue = PriorityQueue<ChannelItem>(ascending: true, startingValues: [])
                             queue!.push(item)
