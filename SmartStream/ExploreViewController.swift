@@ -81,7 +81,7 @@ class ExploreViewController: UIViewController {
         if isFirst {
             MBProgressHUD.showHUDAddedTo(view, animated: true)
         }
-        ChannelClient.sharedInstance.getExploreChannels { (channels, error) -> () in
+        ChannelClient.sharedInstance.getDiscoverChannels { (channels, error) -> () in
             if let channels = channels {
                 self.channels = channels
                 self.featuredChannels = self.getFeaturedChannels(channels)
