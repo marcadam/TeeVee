@@ -131,7 +131,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         debugPrint("[ChannelManager] init()")
         super.init()
         self.channelId = channelId
-        self.priorityQueue = PriorityQueue()
+        self.priorityQueue = PriorityQueue(ascending: true, startingValues: [])
         
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
