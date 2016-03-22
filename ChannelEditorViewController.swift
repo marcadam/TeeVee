@@ -68,7 +68,7 @@ class ChannelEditorViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        keyboardTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
+        keyboardTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
     }
     
     override func viewWillDisappear(animated: Bool) {
