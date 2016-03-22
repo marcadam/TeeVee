@@ -15,7 +15,7 @@ class ChannelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var channelNameLabel: UILabel!
     
     var highlightedOverlay:UIView?
-
+    
     var channel: Channel! {
         didSet {
             channelNameLabel.text = channel.title
@@ -35,28 +35,60 @@ class ChannelCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         backgroundColor = Theme.Colors.LightBackgroundColor.color
         infoContainerView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         channelNameLabel.textColor = Theme.Colors.HighlightColor.color
-        let rect = CGRectMake(0, 0, bounds.width, bounds.height)
-        highlightedOverlay = UIView(frame: rect)
-        highlightedOverlay!.backgroundColor = Theme.Colors.LightBackgroundColor.color
-        highlightedOverlay!.bringSubviewToFront(self)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         
-        
-        print("clicked")
+        if let overlay = highlightedOverlay {
+            overlay.layer.removeAllAnimations()
+            highlightedOverlay = nil
+            createOverlayWithAnimation()
+        } else {
+            createOverlayWithAnimation()
+        }
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
-        //
+        
+        removeOverlayWithAnimation()
+    }
+    
+    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+        super.touchesCancelled(touches, withEvent: event)
+        
+        removeOverlayWithAnimation()
+    }
+    
+    func createOverlayWithAnimation() {
+        let rect = CGRectMake(0, 0, bounds.width, bounds.height)
+        highlightedOverlay = UIView(frame: rect)
+        if let overlay = highlightedOverlay {
+            overlay.backgroundColor = Theme.Colors.LightButtonColor.color
+            overlay.layer.opacity = 0
+            self.addSubview(overlay)
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                overlay.layer.opacity = 0.5
+            })
+        }
+    }
+    
+    func removeOverlayWithAnimation() {
+        if let overlay = highlightedOverlay {
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                overlay.layer.opacity = 0
+                }, completion: { (finished) -> Void in
+                    overlay.removeFromSuperview()
+                    self.highlightedOverlay = nil
+            })
+        }
     }
 }
