@@ -220,15 +220,6 @@ class ChannelEditorViewController: UIViewController {
             destination.channelId = channel.channel_id // substitue with actual channelId
         }
     }
-    
-    func configureSaveButtonBarItem() {
-        let buttonTitle = isEdit ? "Save" : "Save & Play"
-        let buttonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
-//        accessoryView.setTitle(buttonTitle, forState: .Normal)
-//        accessoryView.addTarget(self, action: Selector(buttonAction), forControlEvents: .TouchUpInside)
-//        accessoryView.titleLabel!.font = Theme.Fonts.TitleBoldTypeFace.font
-//        accessoryView.titleLabel!.textColor = formTextColor
-    }
 
     override func shouldAutorotate() -> Bool {
         return false
