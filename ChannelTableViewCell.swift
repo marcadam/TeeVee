@@ -49,16 +49,19 @@ class ChannelTableViewCell: UITableViewCell {
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
     
     override func setHighlighted(highlighted: Bool, animated: Bool) {
         if highlighted {
-            contentView.backgroundColor = UIColor.grayColor()
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.contentView.backgroundColor = Theme.Colors.LightBackgroundColor.color
+            })
         } else {
-            contentView.backgroundColor = UIColor.clearColor()
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.contentView.backgroundColor = UIColor.clearColor()
+            })
         }
     }
     

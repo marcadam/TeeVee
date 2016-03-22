@@ -61,6 +61,7 @@
 		A2A3A3DB1C8AD9E500D1173C /* Filters.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3D91C8AD9E500D1173C /* Filters.storyboard */; };
 		A2A3A3DD1C8AE1C200D1173C /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2A3A3DC1C8AE1C200D1173C /* Home.storyboard */; };
 		A2A3A3DF1C8AF74500D1173C /* ChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A3A3DE1C8AF74500D1173C /* ChannelCollectionViewCell.swift */; };
+		A2AD4ECD1CA1D80B00810E96 /* HighlightedStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AD4ECC1CA1D80B00810E96 /* HighlightedStateView.swift */; };
 		A2B9E1551C9A14D9009FD91B /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9E1541C9A14D9009FD91B /* TweetCell.swift */; };
 		A2B9E1581C9A1540009FD91B /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2B9E1571C9A1540009FD91B /* TweetCell.xib */; };
 		A2B9E15D1C9A509A009FD91B /* ExploreSectionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9E15C1C9A509A009FD91B /* ExploreSectionCollectionReusableView.swift */; };
@@ -136,6 +137,7 @@
 		A2A3A3DA1C8AD9E500D1173C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SmartStream/Base.lproj/Filters.storyboard; sourceTree = "<group>"; };
 		A2A3A3DC1C8AE1C200D1173C /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		A2A3A3DE1C8AF74500D1173C /* ChannelCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelCollectionViewCell.swift; path = SmartStream/ChannelCollectionViewCell.swift; sourceTree = "<group>"; };
+		A2AD4ECC1CA1D80B00810E96 /* HighlightedStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedStateView.swift; sourceTree = "<group>"; };
 		A2B9E1541C9A14D9009FD91B /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		A2B9E1571C9A1540009FD91B /* TweetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetCell.xib; sourceTree = "<group>"; };
 		A2B9E15C1C9A509A009FD91B /* ExploreSectionCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreSectionCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 			children = (
 				A2B9E15E1C9AC09D009FD91B /* GradientView.swift */,
 				A2B9E16C1C9BBDE5009FD91B /* ProgressbarView.swift */,
+				A2AD4ECC1CA1D80B00810E96 /* HighlightedStateView.swift */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				A2B9E16D1C9BBDE5009FD91B /* ProgressbarView.swift in Sources */,
 				0B951B2D1C99307C0068C6AF /* TweetUser.swift in Sources */,
 				A2A3A3CA1C8AD8B900D1173C /* FiltersViewController.swift in Sources */,
+				A2AD4ECD1CA1D80B00810E96 /* HighlightedStateView.swift in Sources */,
 				9A68103F1CA0E15A003B0E38 /* Constants.swift in Sources */,
 				492D02A71C8D188F000AAF17 /* ChannelsViewController.swift in Sources */,
 				492D029D1C8BE119000AAF17 /* SettingsViewController.swift in Sources */,
