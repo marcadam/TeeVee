@@ -12,7 +12,7 @@ class ChannelTableViewCell: UITableViewCell {
     
     @IBOutlet weak var channelImageView: UIImageView!
     @IBOutlet weak var channelNameLabel: UILabel!
-    @IBOutlet weak var channelCreatedByLabel: UILabel!
+    @IBOutlet weak var channelTopicsLabel: UILabel!
     
     var channel: Channel! {
         didSet {
@@ -31,7 +31,10 @@ class ChannelTableViewCell: UITableViewCell {
                         //
                 })
             }
-            channelCreatedByLabel.text = "Created by Unknown"
+
+            if let topics = channel.topics where topics.count > 0 {
+                channelTopicsLabel.text = topics.joinWithSeparator(", ")
+            }
         }
     }
     
@@ -41,7 +44,7 @@ class ChannelTableViewCell: UITableViewCell {
         channelImageView.image = UIImage(named: "placeholder")
         backgroundColor = UIColor.clearColor()
         channelNameLabel.textColor = Theme.Colors.HighlightColor.color
-        channelCreatedByLabel.textColor = Theme.Colors.HighlightLightColor.color
+        channelTopicsLabel.textColor = Theme.Colors.HighlightLightColor.color
         channelImageView.layer.cornerRadius = 6.0
     }
     

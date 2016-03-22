@@ -28,7 +28,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJe-VF-s5G">
-                        <rect key="frame" x="70" y="25.5" width="242" height="14.5"/>
+                        <rect key="frame" x="70" y="25.5" width="238" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -40,16 +40,16 @@
                     <constraint firstItem="5h5-mp-Pfr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="W0j-Fh-dOs"/>
                     <constraint firstItem="oFk-84-jzy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="bAz-uK-r6s"/>
                     <constraint firstItem="GJe-VF-s5G" firstAttribute="top" secondItem="oFk-84-jzy" secondAttribute="bottom" id="jGU-Kr-x9W"/>
-                    <constraint firstAttribute="trailing" secondItem="GJe-VF-s5G" secondAttribute="trailing" constant="8" id="oLt-qh-VIK"/>
+                    <constraint firstAttribute="trailing" secondItem="GJe-VF-s5G" secondAttribute="trailing" constant="12" id="oLt-qh-VIK"/>
                     <constraint firstItem="GJe-VF-s5G" firstAttribute="leading" secondItem="5h5-mp-Pfr" secondAttribute="trailing" constant="8" id="wk3-mx-2Iy"/>
                     <constraint firstAttribute="bottom" secondItem="5h5-mp-Pfr" secondAttribute="bottom" constant="8.5" id="yRZ-9w-pW8"/>
                     <constraint firstItem="oFk-84-jzy" firstAttribute="leading" secondItem="5h5-mp-Pfr" secondAttribute="trailing" constant="8" id="zSl-9h-jKW"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="channelCreatedByLabel" destination="GJe-VF-s5G" id="niV-WN-VpQ"/>
                 <outlet property="channelImageView" destination="5h5-mp-Pfr" id="OrZ-Ln-xWA"/>
                 <outlet property="channelNameLabel" destination="oFk-84-jzy" id="Szz-Qu-s7Y"/>
+                <outlet property="channelTopicsLabel" destination="GJe-VF-s5G" id="41l-sQ-iSG"/>
             </connections>
             <point key="canvasLocation" x="512" y="269.5"/>
         </tableViewCell>
