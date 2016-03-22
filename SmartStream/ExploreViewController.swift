@@ -47,16 +47,14 @@ class ExploreViewController: UIViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         collectionView.backgroundColor = UIColor.clearColor()
         
-        getChannels(true) { () -> () in
+        getChannels(withHUD: true) { () -> () in
             //
         }
     }
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         featuredChannelTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "rotateFeaturedChannelView", userInfo: nil, repeats: true)
     }
 
@@ -77,8 +75,8 @@ class ExploreViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getChannels(isFirst: Bool, completion: ()->()) {
-        if isFirst {
+    func getChannels(withHUD showHUD: Bool, completion: ()->()) {
+        if showHUD {
             MBProgressHUD.showHUDAddedTo(view, animated: true)
         }
         ChannelClient.sharedInstance.getDiscoverChannels { (channels, error) -> () in
@@ -86,13 +84,15 @@ class ExploreViewController: UIViewController {
                 self.channels = channels
                 self.featuredChannels = self.getFeaturedChannels(channels)
                 self.collectionView.reloadData()
-                if isFirst {
+                if showHUD {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                 }
                 completion()
             } else {
                 debugPrint(error)
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                if showHUD {
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                }
                 completion()
             }
         }
@@ -157,7 +157,7 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func refreshControlAction(refreshControl: UIRefreshControl) {
-        getChannels(false) { () -> () in
+        getChannels(withHUD: false) { () -> () in
             self.refreshControl.endRefreshing()
         }
     }
