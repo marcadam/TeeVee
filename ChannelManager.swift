@@ -131,7 +131,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         debugPrint("[ChannelManager] init()")
         super.init()
         self.channelId = channelId
-        
+        self.priorityQueue = PriorityQueue()
         
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
@@ -141,11 +141,15 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 if let strongSelf = self {
                     if channel != nil && channel!.items!.count > 0 {
                         
-                        strongSelf.priorityQueue = PriorityQueue(ascending: true, startingValues: channel!.items!)
+                        for item in channel!.items! {
+                            self!.priorityQueue!.push(item)
+                        }
                         
                         if autoplay {
                             strongSelf.playNextItem()
                         }
+                    } else {
+                        strongSelf.fetchMoreItems(autoplay)
                     }
                 }
             }
@@ -396,6 +400,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 if channel != nil && channel!.items!.count > 0 {
                     for item in channel!.items! {
                         self!.priorityQueue!.push(item)
+                    }
+                    
+                    if autoplay {
+                        self!.playNextItem()
                     }
                 }
             }
