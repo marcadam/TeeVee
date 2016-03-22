@@ -19,8 +19,9 @@ class ChannelClient {
         self.baseURL = baseURL
         self.manager = AFHTTPSessionManager(baseURL: NSURL(string: channelBaseUrl))
         self.manager.requestSerializer = AFJSONRequestSerializer()
-        self.manager.responseSerializer = AFJSONResponseSerializer()
-        self.manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/plain") as! Set<String>
+        self.manager.responseSerializer = AFJSONResponseSerializer(readingOptions: NSJSONReadingOptions.AllowFragments)
+        let contentTypes = NSSet(array: ["text/plain", "text/html"])
+        self.manager.responseSerializer.acceptableContentTypes = contentTypes as! Set<String>
     }
     
     

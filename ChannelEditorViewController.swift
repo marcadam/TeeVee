@@ -199,10 +199,12 @@ class ChannelEditorViewController: UIViewController {
     }
     
     func onSaveTapped(sender: UIButton) {
+        insertTopic()
         buttonAction(false)
     }
     
     func onSaveAndPlayTapped(sender: AnyObject) {
+        insertTopic()
         buttonAction(true)
     }
     
@@ -336,16 +338,21 @@ extension ChannelEditorViewController: MyChannelTableViewCellDelegate {
 // MARK: - UITextFieldDelegate
 
 extension ChannelEditorViewController: UITextFieldDelegate {
+    
+    func insertTopic() {
+        if let topic = searchTextField.text {
+            if topic != "" {
+                topics.insert(topic, atIndex: 0)
+                let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                searchTextField.text = ""
+            }
+        }
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField.tag == 0 {
-            if let topic = searchTextField.text {
-                if topic != "" {
-                    topics.insert(topic, atIndex: 0)
-                    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-                    tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                    searchTextField.text = ""
-                }
-            }
+            insertTopic()
         }
         return true
     }
