@@ -83,7 +83,7 @@
 		0B2CD8AE1C8846650055BD50 /* ChannelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelItem.swift; sourceTree = "<group>"; };
 		0B2CD8BB1C8AFC500055BD50 /* SmartChannel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartChannel-Bridging-Header.h"; sourceTree = "<group>"; };
 		0B40EE741C8BC05C00E6B65E /* ChannelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManager.swift; sourceTree = "<group>"; };
-		0B597B4D1C844AD900D4AC57 /* SmartStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B597B4D1C844AD900D4AC57 /* TeeVee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeeVee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B597B501C844AD900D4AC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B597B521C844AD900D4AC57 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = SmartStream/PlayerViewController.swift; sourceTree = "<group>"; };
 		0B597B551C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
@@ -304,7 +304,7 @@
 		0B597B4E1C844AD900D4AC57 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0B597B4D1C844AD900D4AC57 /* SmartStream.app */,
+				0B597B4D1C844AD900D4AC57 /* TeeVee.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -512,9 +512,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0B597B4C1C844AD900D4AC57 /* SmartStream */ = {
+		0B597B4C1C844AD900D4AC57 /* TeeVee */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0B597B5F1C844AD900D4AC57 /* Build configuration list for PBXNativeTarget "SmartStream" */;
+			buildConfigurationList = 0B597B5F1C844AD900D4AC57 /* Build configuration list for PBXNativeTarget "TeeVee" */;
 			buildPhases = (
 				C8C9B1B5814EABE0FAE3542D /* 📦 Check Pods Manifest.lock */,
 				0B597B491C844AD900D4AC57 /* Sources */,
@@ -528,9 +528,9 @@
 			);
 			dependencies = (
 			);
-			name = SmartStream;
+			name = TeeVee;
 			productName = SmartStream;
-			productReference = 0B597B4D1C844AD900D4AC57 /* SmartStream.app */;
+			productReference = 0B597B4D1C844AD900D4AC57 /* TeeVee.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -548,7 +548,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0B597B481C844AD900D4AC57 /* Build configuration list for PBXProject "SmartStream" */;
+			buildConfigurationList = 0B597B481C844AD900D4AC57 /* Build configuration list for PBXProject "TeeVee" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -561,7 +561,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0B597B4C1C844AD900D4AC57 /* SmartStream */,
+				0B597B4C1C844AD900D4AC57 /* TeeVee */,
 			);
 		};
 /* End PBXProject section */
@@ -862,7 +862,7 @@
 				INFOPLIST_FILE = SmartStream/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.SmartStream;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TeeVee;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream/SmartChannel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -881,7 +881,7 @@
 				INFOPLIST_FILE = SmartStream/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.SmartStream;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TeeVee;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream/SmartChannel-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -891,7 +891,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0B597B481C844AD900D4AC57 /* Build configuration list for PBXProject "SmartStream" */ = {
+		0B597B481C844AD900D4AC57 /* Build configuration list for PBXProject "TeeVee" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B597B5D1C844AD900D4AC57 /* Debug */,
@@ -900,7 +900,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0B597B5F1C844AD900D4AC57 /* Build configuration list for PBXNativeTarget "SmartStream" */ = {
+		0B597B5F1C844AD900D4AC57 /* Build configuration list for PBXNativeTarget "TeeVee" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B597B601C844AD900D4AC57 /* Debug */,
