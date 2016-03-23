@@ -344,8 +344,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         isPlaying = false
         currPlayer?.stopItem()
         tweetPlayerView?.nextItem()
-        playNextItem()
+        
         showSpinner(0)
+        playNextItem()
     }
     
     private var twitterPausedDueToRotation = false
