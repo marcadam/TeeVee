@@ -200,17 +200,6 @@ class ChannelEditorViewController: UIViewController {
         titleTextField.resignFirstResponder()
     }
     
-    func updateLastOpenedTimestamp() {
-        if topics.count > 0 {
-            ChannelClient.sharedInstance.updateChannel(channel?.channel_id!, channelDict: nil) { (channel, error) -> () in
-                if error != nil {
-                    debugPrint("[ChannelManager] updateLastOpenedTimestamp() failed")
-                    debugPrint("[ChannelManager] error = \(error.debugDescription)")
-                }
-            }
-        }
-    }
-    
     func onSave() {
         insertTopic()
     }

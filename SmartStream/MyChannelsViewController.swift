@@ -135,7 +135,28 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         delegate?.myChannelsVC(self, didPlayChannel: channelsArray[indexPath.row])
         
+<<<<<<< HEAD
         reorderToTop(indexPath)
+=======
+        let channel = channelsArray[indexPath.row]
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        channelsArray.removeAtIndex(indexPath.row)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        
+        channelsArray.insert(channel, atIndex: 0)
+        let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+        tableView.insertRowsAtIndexPaths([topIndexPath], withRowAnimation: .Fade)
+        
+        // Update last_opened timestamp on the backend
+        ChannelClient.sharedInstance.updateChannel(channel.channel_id!, channelDict: nil) { (channel, error) -> () in
+            if error != nil {
+                debugPrint("updateChannel() failed")
+                debugPrint("error = \(error.debugDescription)")
+            }
+        }
+>>>>>>> origin/master
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -216,6 +237,14 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
+        
+        ChannelClient.sharedInstance.updateChannel(channel.channel_id!, channelDict: nil) { (channel, error) -> () in
+            if error != nil {
+                debugPrint("[update last_opened timestamp")
+                debugPrint("error = \(error.debugDescription)")
+            }
+        }
+        
         completion()
     }
     
