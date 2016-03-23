@@ -1,0 +1,6 @@
+framework module Pods_TeeVee {
+  umbrella header "Pods-TeeVee-umbrella.h"
+
+  export *
+  module * { export * }
+}

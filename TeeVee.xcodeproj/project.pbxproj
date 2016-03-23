@@ -74,7 +74,7 @@
 		A2F231F01C8D6AB20053956D /* FilterSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F231EF1C8D6AB20053956D /* FilterSwitchCell.swift */; };
 		A2F231F31C8D7A590053956D /* FilterSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F231F21C8D7A590053956D /* FilterSelectCell.swift */; };
 		A2F231F51C8D7A670053956D /* FilterSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F231F41C8D7A670053956D /* FilterSelectCell.xib */; };
-		C9E3D48B04934B609D4EBA78 /* Pods_SmartStream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60ACCFF50C60CCC4519D3769 /* Pods_SmartStream.framework */; };
+		EC301C8EF77F940651D7034B /* Pods_TeeVee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0715D39343243A2CF77246 /* Pods_TeeVee.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +117,7 @@
 		9A68103E1CA0E15A003B0E38 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9AF70B0C1C973D9200302187 /* NativePlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlayerView.swift; sourceTree = "<group>"; };
 		9AF70B0E1C974F9200302187 /* TweetPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetPlayerView.swift; sourceTree = "<group>"; };
+		9B0715D39343243A2CF77246 /* Pods_TeeVee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeeVee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChannelTableViewCell.swift; sourceTree = "<group>"; };
 		A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyChannelTableViewCell.xib; sourceTree = "<group>"; };
 		A29BA4941C900D8200ED13A5 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
@@ -149,6 +150,8 @@
 		A2F231EF1C8D6AB20053956D /* FilterSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSwitchCell.swift; sourceTree = "<group>"; };
 		A2F231F21C8D7A590053956D /* FilterSelectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSelectCell.swift; sourceTree = "<group>"; };
 		A2F231F41C8D7A670053956D /* FilterSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterSelectCell.xib; sourceTree = "<group>"; };
+		A3F3374B6CB8B1F208AFBD3F /* Pods-TeeVee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeeVee.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeeVee/Pods-TeeVee.release.xcconfig"; sourceTree = "<group>"; };
+		BD8A1B57173A91FCB99CEDED /* Pods-TeeVee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeeVee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeeVee/Pods-TeeVee.debug.xcconfig"; sourceTree = "<group>"; };
 		E0DC4BD47051E71BBC37FC60 /* Pods-SmartStream.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.release.xcconfig"; sourceTree = "<group>"; };
 		FF526339D509361611EFB68C /* Pods-SmartStream.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartStream.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,7 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9E3D48B04934B609D4EBA78 /* Pods_SmartStream.framework in Frameworks */,
+				EC301C8EF77F940651D7034B /* Pods_TeeVee.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				60ACCFF50C60CCC4519D3769 /* Pods_SmartStream.framework */,
+				9B0715D39343243A2CF77246 /* Pods_TeeVee.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -505,6 +509,8 @@
 			children = (
 				FF526339D509361611EFB68C /* Pods-SmartStream.debug.xcconfig */,
 				E0DC4BD47051E71BBC37FC60 /* Pods-SmartStream.release.xcconfig */,
+				BD8A1B57173A91FCB99CEDED /* Pods-TeeVee.debug.xcconfig */,
+				A3F3374B6CB8B1F208AFBD3F /* Pods-TeeVee.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -623,7 +629,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeeVee/Pods-TeeVee-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ADC2E3A204F20946D90DCF31 /* 📦 Embed Pods Frameworks */ = {
@@ -638,7 +644,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartStream/Pods-SmartStream-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeeVee/Pods-TeeVee-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C8C9B1B5814EABE0FAE3542D /* 📦 Check Pods Manifest.lock */ = {
@@ -853,7 +859,7 @@
 		};
 		0B597B601C844AD900D4AC57 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF526339D509361611EFB68C /* Pods-SmartStream.debug.xcconfig */;
+			baseConfigurationReference = BD8A1B57173A91FCB99CEDED /* Pods-TeeVee.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -872,7 +878,7 @@
 		};
 		0B597B611C844AD900D4AC57 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0DC4BD47051E71BBC37FC60 /* Pods-SmartStream.release.xcconfig */;
+			baseConfigurationReference = A3F3374B6CB8B1F208AFBD3F /* Pods-TeeVee.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
