@@ -174,20 +174,22 @@ class ChannelEditorViewController: UIViewController {
                 })
             }
         } else {
-            createChannel { (error, channel) -> () in
-                if error != nil {
-                    debugPrint(error)
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
-                } else {
-                    // Show latest added channel on MyFeed using delegate pattern
-                    self.delegate?.channelEditor(self, didSetChannel: channel!, completion: { () -> () in
+            if topics.count > 0 {
+                createChannel { (error, channel) -> () in
+                    if error != nil {
+                        debugPrint(error)
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
-                        self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                            if isPlay {
-                                self.delegate?.channelEditor(self, shouldPlayChannel: channel!)
-                            }
+                    } else {
+                        // Show latest added channel on MyFeed using delegate pattern
+                        self.delegate?.channelEditor(self, didSetChannel: channel!, completion: { () -> () in
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                                if isPlay {
+                                    self.delegate?.channelEditor(self, shouldPlayChannel: channel!)
+                                }
+                            })
                         })
-                    })
+                    }
                 }
             }
         }
@@ -211,7 +213,6 @@ class ChannelEditorViewController: UIViewController {
     
     func onSave() {
         insertTopic()
-        updateLastOpenedTimestamp()
     }
     
     func onSaveTapped(sender: UIButton) {
@@ -252,17 +253,16 @@ class ChannelEditorViewController: UIViewController {
 
 extension ChannelEditorViewController {
     func createChannel(completion: (error: NSError?, channel: Channel?) -> ()) {
-        if topics.count > 0 {
-            MBProgressHUD.showHUDAddedTo(view, animated: true)
-            let channelDictionary = ["title": titleTextField.text!, "topics": topics, "filters": newFilters!] as NSDictionary
-            DataLayer.createChannel(withDictionary: channelDictionary, completion: { (error, channel) -> () in
-                if error != nil {
-                    completion(error: error!, channel: nil)
-                } else {
-                    completion(error: nil, channel: channel!)
-                }
-            })
-        }
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        let channelDictionary = ["title": titleTextField.text!, "topics": topics, "filters": newFilters!] as NSDictionary
+        DataLayer.createChannel(withDictionary: channelDictionary, completion: { (error, channel) -> () in
+            if error != nil {
+                completion(error: error!, channel: nil)
+            } else {
+                completion(error: nil, channel: channel!)
+            }
+        })
+        
     }
     
     func updateChannel(isPlay: Bool, completion: (error: NSError?, channel: Channel?) -> ()) {
@@ -290,6 +290,7 @@ extension ChannelEditorViewController {
             }
             if count > 0 {
                 MBProgressHUD.showHUDAddedTo(view, animated: true)
+                updateLastOpenedTimestamp()
                 DataLayer.updateChannel(withDictionary: dictionary, completion: { (error, channel) -> () in
                     if error != nil {
                         completion(error: error, channel: nil)
