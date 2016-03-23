@@ -48,6 +48,10 @@ class ExploreViewController: UIViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         collectionView.backgroundColor = UIColor.clearColor()
         
+        getChannels(withHUD: true) { () -> () in
+            //
+        }
+        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -58,11 +62,10 @@ class ExploreViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         if isFirst {
-            getChannels(withHUD: true) { () -> () in
-                self.isFirst = !self.isFirst
-            }
+            self.isFirst = !self.isFirst
+            MBProgressHUD.showHUDAddedTo(view, animated: true)
         }
     }
 
@@ -84,9 +87,6 @@ class ExploreViewController: UIViewController {
     }
     
     func getChannels(withHUD showHUD: Bool, completion: ()->()) {
-        if showHUD {
-            MBProgressHUD.showHUDAddedTo(view, animated: true)
-        }
         ChannelClient.sharedInstance.getDiscoverChannels { (channels, error) -> () in
             if let channels = channels {
                 self.channels = channels
