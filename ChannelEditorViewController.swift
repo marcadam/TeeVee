@@ -84,7 +84,7 @@ class ChannelEditorViewController: UIViewController {
     
     func uiSetup() {
         view.backgroundColor = backgroundColor
-
+        
         titleWrapperView.backgroundColor = bgDarkColor
         searchWrapperView.backgroundColor = bgDarkColor
         
@@ -93,14 +93,14 @@ class ChannelEditorViewController: UIViewController {
         
         titleTextField.textColor = formTextColor
         searchTextField.textColor = formTextColor
-
+        
         titleTextField.text = latestTitle
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Enter a channel title", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Add a topic to this channel", attributes: [NSForegroundColorAttributeName: formPlaceholderColor])
-
+        
         titleTextField.autocorrectionType = .No
         searchTextField.autocorrectionType = .No
-
+        
         tableView.backgroundColor = UIColor.clearColor()
         tableView.rowHeight = 70
         tableView.alwaysBounceVertical = false
@@ -109,10 +109,10 @@ class ChannelEditorViewController: UIViewController {
         tableView.registerNib(myChannelCellNib, forCellReuseIdentifier: "MyChannelTableViewCell")
         tableView.separatorStyle = .None
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
-
+        
         editIcon.tintColor = formTextColor
         editIcon.layer.opacity = 0.3
-
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
@@ -199,10 +199,12 @@ class ChannelEditorViewController: UIViewController {
     }
     
     func updateLastOpenedTimestamp() {
-        ChannelClient.sharedInstance.updateChannel(channel?.channel_id!, channelDict: nil) { (channel, error) -> () in
-            if error != nil {
-                debugPrint("[ChannelManager] updateLastOpenedTimestamp() failed")
-                debugPrint("[ChannelManager] error = \(error.debugDescription)")
+        if topics.count > 0 {
+            ChannelClient.sharedInstance.updateChannel(channel?.channel_id!, channelDict: nil) { (channel, error) -> () in
+                if error != nil {
+                    debugPrint("[ChannelManager] updateLastOpenedTimestamp() failed")
+                    debugPrint("[ChannelManager] error = \(error.debugDescription)")
+                }
             }
         }
     }
@@ -236,7 +238,7 @@ class ChannelEditorViewController: UIViewController {
             destination.channelId = channel.channel_id // substitue with actual channelId
         }
     }
-
+    
     override func shouldAutorotate() -> Bool {
         return false
     }
@@ -408,12 +410,12 @@ extension ChannelEditorViewController {
     func setupNavigationBar() {
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: "cancelTapped")
         navigationItem.leftBarButtonItem = cancelButton
-
+        
         let saveButtonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"
         let saveButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: Selector(saveButtonAction))
         navigationItem.rightBarButtonItem = saveButton
     }
-
+    
     func cancelTapped() {
         dismissViewControllerAnimated(true) { () -> Void in
             //
