@@ -34,6 +34,7 @@ class YoutubePlayerView: NSObject {
     private var currBounds: CGRect
     private var isPlaying = false
     private var isBuffering = false
+    private var bufferingTimer: NSTimer?
     
     init(playerId: Int, containerView: UIView?) {
         debugPrint("[YOUTUBEPLAYER] init()")
@@ -188,6 +189,15 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         self.youtubePlayerView.playVideo()
     }
     
+    func setPlaying() {
+        if !isPlaying {
+            isPlaying = true
+            self.show(nil)
+            
+            playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: 0, totalDuration: Double.NaN)
+        }
+    }
+    
     func playerView(playerView: YTPlayerView!, didChangeToState state: YTPlayerState) {
         if currItem == nil {return}
         debugPrint("[YOUTUBEPLAYER] didChangeToState \(state.rawValue)")
@@ -200,12 +210,24 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         } else if state == .Playing {
             debugPrint("[YOUTUBEPLAYER] video playing")
         } else if state == .Buffering {
-            debugPrint("[YOUTUBEPLAYER] video buffering")
+            debugPrint("[YOUTUBEPLAYER] video buffering; playback quality = \(youtubePlayerView.playbackQuality().rawValue)")
             isBuffering = true
+            
+            self.bufferingTimer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: "checkForAds", userInfo: nil, repeats: false)
         } else if state == .Unstarted {
             if isBuffering {
                 onPlaybackError()
             }
+        }
+    }
+    
+    func checkForAds() {
+        debugPrint("[YOUTUBEPLAYER] player State = \(youtubePlayerView.playerState().rawValue); fraction = \(youtubePlayerView.videoLoadedFraction()); playback quality = \(youtubePlayerView.playbackQuality().rawValue)")
+        
+        // this is a guess of whether ads is showing, based on the way youtube library currently works
+        if youtubePlayerView.playerState() == .Buffering && youtubePlayerView.playbackQuality() != .Unknown {
+            debugPrint("[YOUTUBEPLAYER] Ads is probably playing... show player")
+            setPlaying()
         }
     }
     
@@ -218,12 +240,9 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         if currItem == nil {return}
         let totalDuration = playerView.duration()
         
-        if !isPlaying {
-            isPlaying = true
-            self.show(nil)
-        }
-        
+        setPlaying()
         isBuffering = false
+        
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: Double(playTime), totalDuration: totalDuration)
         
         if Int(totalDuration) - Int(playTime) == bufferTimeConstant {
