@@ -133,9 +133,18 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         delegate?.myChannelsVC(self, didPlayChannel: channelsArray[indexPath.row])
         
+        let channel = channelsArray[indexPath.row]
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        channelsArray.removeAtIndex(indexPath.row)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        
+        channelsArray.insert(channel, atIndex: 0)
+        let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+        tableView.insertRowsAtIndexPaths([topIndexPath], withRowAnimation: .Fade)
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
