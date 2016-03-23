@@ -91,7 +91,7 @@
                                                                     <constraint firstAttribute="height" constant="50" id="Bh4-Cu-BXp"/>
                                                                     <constraint firstAttribute="width" constant="90" id="wr8-AV-V5D"/>
                                                                 </constraints>
-                                                                <inset key="contentEdgeInsets" minX="20" minY="7" maxX="35" maxY="8"/>
+                                                                <inset key="contentEdgeInsets" minX="36" minY="11" maxX="27" maxY="12"/>
                                                                 <state key="normal" image="icon_twitter"/>
                                                                 <connections>
                                                                     <action selector="onTwitterTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nI3-q6-Mfi"/>
@@ -114,7 +114,7 @@
                                                                     <constraint firstAttribute="width" constant="100" id="O2m-mq-OuP"/>
                                                                     <constraint firstAttribute="height" constant="50" id="hsC-PG-4mH"/>
                                                                 </constraints>
-                                                                <inset key="contentEdgeInsets" minX="35" minY="7" maxX="35" maxY="8"/>
+                                                                <inset key="contentEdgeInsets" minX="39" minY="11" maxX="39" maxY="12"/>
                                                                 <state key="normal" image="icon_pause"/>
                                                                 <connections>
                                                                     <action selector="onStopTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cKH-Vi-1jR"/>
@@ -126,7 +126,7 @@
                                                                     <constraint firstAttribute="width" constant="100" id="WCw-BM-Q88"/>
                                                                     <constraint firstAttribute="height" constant="50" id="aCm-Nm-RGz"/>
                                                                 </constraints>
-                                                                <inset key="contentEdgeInsets" minX="35" minY="7" maxX="35" maxY="8"/>
+                                                                <inset key="contentEdgeInsets" minX="39" minY="11" maxX="39" maxY="12"/>
                                                                 <state key="normal" image="icon_play"/>
                                                                 <connections>
                                                                     <action selector="onPlayTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q0e-XL-d8C"/>
@@ -159,7 +159,7 @@
                                                                     <constraint firstAttribute="width" constant="25" id="hgT-6f-FZE"/>
                                                                     <constraint firstAttribute="width" constant="90" id="mX1-aa-XPT"/>
                                                                 </constraints>
-                                                                <inset key="contentEdgeInsets" minX="28" minY="0.0" maxX="12" maxY="0.0"/>
+                                                                <inset key="contentEdgeInsets" minX="20" minY="4" maxX="28" maxY="4"/>
                                                                 <state key="normal" image="icon_next"/>
                                                                 <variation key="default">
                                                                     <mask key="constraints">
