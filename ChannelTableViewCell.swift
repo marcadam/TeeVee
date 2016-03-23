@@ -48,18 +48,13 @@ class ChannelTableViewCell: UITableViewCell {
         channelImageView.layer.cornerRadius = 6.0
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
-        
-        // Configure the view for the selected state
-    }
-    
     override func setHighlighted(highlighted: Bool, animated: Bool) {
         if highlighted {
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
                 self.contentView.backgroundColor = Theme.Colors.LightBackgroundColor.color
             })
         } else {
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
                 self.contentView.backgroundColor = UIColor.clearColor()
             })
         }

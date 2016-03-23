@@ -19,19 +19,19 @@ class HighlightedStateView: UIView {
     */
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.layer.opacity = 0.5
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.layer.opacity = 0.3
         })
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.layer.opacity = 1
         })
     }
     
     override func didMoveToWindow() {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.layer.opacity = 1
         })
     }

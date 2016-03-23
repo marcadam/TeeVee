@@ -135,6 +135,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         delegate?.myChannelsVC(self, didPlayChannel: channelsArray[indexPath.row])
+        
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -205,11 +206,12 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel, completion: () -> ()) {
         for (index, arrayChannel) in channelsArray.enumerate() {
             if arrayChannel.channel_id == channel.channel_id {
-                channelsArray[index] = channel
+                channelsArray.removeAtIndex(index)
+                channelsArray.insert(channel, atIndex: 0)
             }
         }
         if !channelsArray.contains(channel) {
-            channelsArray.append(channel)
+            channelsArray.insert(channel, atIndex: 0)
         }
         tableView.reloadData()
         completion()
