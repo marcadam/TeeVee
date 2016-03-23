@@ -214,6 +214,7 @@ class PlayerViewController: UIViewController {
     @IBAction func onNextTapped(sender: AnyObject) {
         progressBarView.updateProgressBar(0, totalDuration: 1)
         self.channelManager?.next()
+        self.onPlayTapped(self)
         setTimerToFadeOut()
     }
     
