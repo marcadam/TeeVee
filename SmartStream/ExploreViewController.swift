@@ -28,6 +28,7 @@ class ExploreViewController: UIViewController {
     private var featuredChannelTimer: NSTimer?
     weak var delegate: ExploreViewControllerDelegate?
     private var refreshControl: UIRefreshControl!
+    private var isFirst: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,15 +48,22 @@ class ExploreViewController: UIViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         collectionView.backgroundColor = UIColor.clearColor()
         
-        getChannels(withHUD: true) { () -> () in
-            //
-        }
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         featuredChannelTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "rotateFeaturedChannelView", userInfo: nil, repeats: true)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if isFirst {
+            getChannels(withHUD: true) { () -> () in
+                self.isFirst = !self.isFirst
+            }
+        }
     }
 
     override func viewWillDisappear(animated: Bool) {
