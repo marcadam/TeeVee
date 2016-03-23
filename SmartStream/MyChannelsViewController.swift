@@ -133,22 +133,13 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        delegate?.myChannelsVC(self, didPlayChannel: channelsArray[indexPath.row])
-        
-<<<<<<< HEAD
-        reorderToTop(indexPath)
-=======
         let channel = channelsArray[indexPath.row]
+        delegate?.myChannelsVC(self, didPlayChannel: channel)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        channelsArray.removeAtIndex(indexPath.row)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        
-        channelsArray.insert(channel, atIndex: 0)
-        let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-        tableView.insertRowsAtIndexPaths([topIndexPath], withRowAnimation: .Fade)
-        
+        reorderToTop(indexPath)
+    
         // Update last_opened timestamp on the backend
         ChannelClient.sharedInstance.updateChannel(channel.channel_id!, channelDict: nil) { (channel, error) -> () in
             if error != nil {
@@ -156,7 +147,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
                 debugPrint("error = \(error.debugDescription)")
             }
         }
->>>>>>> origin/master
+
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -230,11 +221,12 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             if arrayChannel.channel_id == channel.channel_id {
                 let indexPath = NSIndexPath(forRow: index, inSection: 0)
                 reorderToTop(indexPath)
+                break
             }
         }
         if !channelsArray.contains(channel) {
-            channelsArray.insert(channel, atIndex: 0)
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            channelsArray.insert(channel, atIndex: indexPath.row)
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
         
@@ -252,9 +244,11 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         for (index, arrayChannel) in channelsArray.enumerate() {
             if arrayChannel.channel_id == channelId {
                 channelsArray.removeAtIndex(index)
+                let indexPath = NSIndexPath(forRow: index, inSection: 0)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                break
             }
         }
-        tableView.reloadData()
         completion()
     }
     
@@ -269,8 +263,6 @@ extension MyChannelsViewController {
     
     func reorderToTop(indexPath: NSIndexPath) {
         let channel = channelsArray[indexPath.row]
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         channelsArray.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)

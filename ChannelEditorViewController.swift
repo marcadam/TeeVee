@@ -161,7 +161,14 @@ class ChannelEditorViewController: UIViewController {
                 deleteChannel({ (error, channelId) -> () in
                     if error != nil {
                         debugPrint(error)
-                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        // Delete from mychannel even with error response
+                        self.delegate?.channelEditor(self, didDeleteChannel: self.channel!.channel_id!, completion: { () -> () in
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            self.isEdit = false
+                            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                                //
+                            })
+                        })
                     } else {
                         self.delegate?.channelEditor(self, didDeleteChannel: channelId!, completion: { () -> () in
                             MBProgressHUD.hideHUDForView(self.view, animated: true)
@@ -279,7 +286,6 @@ extension ChannelEditorViewController {
             }
             if count > 0 {
                 MBProgressHUD.showHUDAddedTo(view, animated: true)
-                updateLastOpenedTimestamp()
                 DataLayer.updateChannel(withDictionary: dictionary, completion: { (error, channel) -> () in
                     if error != nil {
                         completion(error: error, channel: nil)
