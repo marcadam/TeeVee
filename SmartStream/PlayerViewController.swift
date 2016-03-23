@@ -24,7 +24,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var bottomButtonsWrapperView: UIView!
-    @IBOutlet weak var progressBarView: ProgressbarView!
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var nextButton: UIButton!
     
     var channelTitle: String!
@@ -56,8 +56,9 @@ class PlayerViewController: UIViewController {
         playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
         playerViewTopConstantPortraitTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
         
-        progressBarView.backgroundColor = Theme.Colors.LightBackgroundColor.color
-        progressBarView.progressbarColor = Theme.Colors.HighlightColor.color
+        progressView.trackTintColor = Theme.Colors.LightBackgroundColor.color
+        progressView.progressTintColor = Theme.Colors.HighlightColor.color
+        progressView.setProgress(0, animated: false)
         
         view.backgroundColor = backgroundColor
         channelTitleLabel.text = channelTitle
@@ -212,7 +213,7 @@ class PlayerViewController: UIViewController {
     }
     
     @IBAction func onNextTapped(sender: AnyObject) {
-        progressBarView.updateProgressBar(0, totalDuration: 1)
+        progressView.setProgress(0, animated: false)
         self.channelManager?.next()
         self.onPlayTapped(self)
         setTimerToFadeOut()
@@ -235,7 +236,6 @@ class PlayerViewController: UIViewController {
     }
     
     func animateFade() {
-        progressBarView.layer.removeAllAnimations()
         bottomButtonsView.layer.removeAllAnimations()
         dismissButton.layer.removeAllAnimations()
         channelTitleLabel.layer.removeAllAnimations()
@@ -244,8 +244,7 @@ class PlayerViewController: UIViewController {
                 // show everything
                 self.bottomButtonsView.hidden = false
                 self.dismissButton.hidden = false
-                self.progressBarView.hidden = false
-                self.progressBarView.layer.opacity = 1
+                self.progressView.hidden = false
                 self.bottomButtonsView.layer.opacity = 1
                 self.dismissButton.layer.opacity = 1
                 self.channelTitleLabel.layer.opacity = 1
@@ -254,7 +253,6 @@ class PlayerViewController: UIViewController {
                 // hide everything
                 self.bottomButtonsView.layer.opacity = 0
                 self.dismissButton.layer.opacity = 0
-                self.progressBarView.layer.opacity = 0
                 self.channelTitleLabel.layer.opacity = 0.3
                 if let timer = self.latestTimer {
                     timer.invalidate()
@@ -265,7 +263,7 @@ class PlayerViewController: UIViewController {
                     // hide everything
                     self.bottomButtonsView.hidden = true
                     self.dismissButton.hidden = true
-                    self.progressBarView.hidden = true
+                    self.progressView.hidden = true
                 }
                 self.controlsHidden = !self.controlsHidden
         }
@@ -282,7 +280,8 @@ class PlayerViewController: UIViewController {
 
 extension PlayerViewController: ChannelManagerDelegate {
     func channelManager(channelManager: ChannelManager, progress: Double, totalDuration: Double) {
-        progressBarView.updateProgressBar(progress, totalDuration: totalDuration)
+        let newProgress:Float = totalDuration.isNaN ? 0.0 : Float(progress/totalDuration)
+        progressView.setProgress(newProgress, animated: true)
     }
 }
 

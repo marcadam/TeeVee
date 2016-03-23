@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -24,13 +24,9 @@
                                     <constraint firstAttribute="width" secondItem="WeQ-Ok-9nI" secondAttribute="height" multiplier="16:9" id="vBI-Kt-wAj"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQ7-ED-tQR" customClass="ProgressbarView" customModule="SmartStream" customModuleProvider="target">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iNa-21-m5T">
                                 <rect key="frame" x="0.0" y="336" width="600" height="2"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="VXT-Zo-ZWW"/>
-                                </constraints>
-                            </view>
+                            </progressView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6s-au-H2R">
                                 <rect key="frame" x="0.0" y="338" width="600" height="262"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -50,7 +46,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSO-Ch-0H0">
-                                                <rect key="frame" x="236" y="15" width="129" height="21"/>
+                                                <rect key="frame" x="236" y="15" width="128.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -229,10 +225,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="c6s-au-H2R" firstAttribute="top" secondItem="WQ7-ED-tQR" secondAttribute="bottom" id="0gK-3E-Ddo"/>
                             <constraint firstItem="2nR-wN-DLw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1eC-ns-fm2"/>
                             <constraint firstItem="2nR-wN-DLw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="94S-Qn-2je"/>
-                            <constraint firstItem="WQ7-ED-tQR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="CJx-ov-Xa2"/>
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="IWR-q4-Vkf"/>
                             <constraint firstItem="Fne-8W-XJa" firstAttribute="top" secondItem="c6s-au-H2R" secondAttribute="top" id="In9-F7-5pH"/>
                             <constraint firstAttribute="trailing" secondItem="WeQ-Ok-9nI" secondAttribute="trailing" id="JcE-aX-9MW"/>
@@ -243,15 +237,15 @@
                             <constraint firstItem="c6s-au-H2R" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Snn-Gz-emH"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UGW-Pp-gbd"/>
                             <constraint firstAttribute="bottom" secondItem="c6s-au-H2R" secondAttribute="bottom" id="VVA-Qr-Lec"/>
-                            <constraint firstItem="WQ7-ED-tQR" firstAttribute="bottom" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="YHR-Hj-wJd"/>
-                            <constraint firstAttribute="trailing" secondItem="WQ7-ED-tQR" secondAttribute="trailing" id="YMc-15-rUJ"/>
                             <constraint firstItem="Fne-8W-XJa" firstAttribute="width" secondItem="c6s-au-H2R" secondAttribute="width" id="a39-zO-xgA"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aC8-yf-BVQ"/>
                             <constraint firstAttribute="trailing" secondItem="2nR-wN-DLw" secondAttribute="trailing" id="aem-uu-byZ"/>
+                            <constraint firstItem="iNa-21-m5T" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eW4-LX-419"/>
+                            <constraint firstAttribute="trailing" secondItem="iNa-21-m5T" secondAttribute="trailing" id="eat-ob-Xhy"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ec6-Sz-YQe"/>
+                            <constraint firstItem="iNa-21-m5T" firstAttribute="baseline" secondItem="WeQ-Ok-9nI" secondAttribute="baseline" id="haF-ju-5Lx"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="height" secondItem="WeQ-Ok-9nI" secondAttribute="height" id="jwx-Au-2Sz"/>
                             <constraint firstAttribute="trailing" secondItem="4Y1-of-0OC" secondAttribute="trailing" id="kFA-D3-0go"/>
-                            <constraint firstItem="WQ7-ED-tQR" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="lN7-Ke-rf6"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="baseline" secondItem="WeQ-Ok-9nI" secondAttribute="baseline" id="nYQ-vx-M5I"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="width" secondItem="WeQ-Ok-9nI" secondAttribute="width" id="qoh-yp-jWQ"/>
                             <constraint firstItem="c6s-au-H2R" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="rcW-h1-JEg"/>
@@ -263,8 +257,6 @@
                                 <exclude reference="UGW-Pp-gbd"/>
                                 <exclude reference="aC8-yf-BVQ"/>
                                 <exclude reference="kFA-D3-0go"/>
-                                <exclude reference="lN7-Ke-rf6"/>
-                                <exclude reference="0gK-3E-Ddo"/>
                                 <exclude reference="yte-TW-pKz"/>
                             </mask>
                         </variation>
@@ -281,7 +273,7 @@
                         <outlet property="playButton" destination="f2C-8Z-7ve" id="6CA-v8-xf8"/>
                         <outlet property="playerView" destination="WeQ-Ok-9nI" id="8fE-Wq-d2O"/>
                         <outlet property="playerViewTopConstraint" destination="IWR-q4-Vkf" id="giv-xd-wSu"/>
-                        <outlet property="progressBarView" destination="WQ7-ED-tQR" id="9Qu-Yf-ZHi"/>
+                        <outlet property="progressView" destination="iNa-21-m5T" id="l6c-z0-Lcu"/>
                         <outlet property="spinnerView" destination="4Y1-of-0OC" id="ahv-UM-ith"/>
                         <outlet property="topHeaderView" destination="Qsl-U8-Nzk" id="SE1-gS-O5c"/>
                         <outlet property="tweetsView" destination="c6s-au-H2R" id="ghH-rj-FaC"/>

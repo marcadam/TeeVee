@@ -69,7 +69,6 @@
 		A2B9E1621C9B5274009FD91B /* ProfileAvatarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9E1611C9B5274009FD91B /* ProfileAvatarCell.swift */; };
 		A2B9E1661C9B611D009FD91B /* MenuView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2B9E1651C9B611D009FD91B /* MenuView.storyboard */; };
 		A2B9E1681C9B618C009FD91B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9E1671C9B618C009FD91B /* MenuViewController.swift */; };
-		A2B9E16D1C9BBDE5009FD91B /* ProgressbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9E16C1C9BBDE5009FD91B /* ProgressbarView.swift */; };
 		A2F231E81C8D22060053956D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F231E71C8D22060053956D /* Theme.swift */; };
 		A2F231EE1C8D69D10053956D /* FilterSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F231ED1C8D69D10053956D /* FilterSwitchCell.xib */; };
 		A2F231F01C8D6AB20053956D /* FilterSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F231EF1C8D6AB20053956D /* FilterSwitchCell.swift */; };
@@ -145,7 +144,6 @@
 		A2B9E1611C9B5274009FD91B /* ProfileAvatarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileAvatarCell.swift; sourceTree = "<group>"; };
 		A2B9E1651C9B611D009FD91B /* MenuView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MenuView.storyboard; sourceTree = "<group>"; };
 		A2B9E1671C9B618C009FD91B /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		A2B9E16C1C9BBDE5009FD91B /* ProgressbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressbarView.swift; sourceTree = "<group>"; };
 		A2F231E71C8D22060053956D /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A2F231ED1C8D69D10053956D /* FilterSwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterSwitchCell.xib; sourceTree = "<group>"; };
 		A2F231EF1C8D6AB20053956D /* FilterSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSwitchCell.swift; sourceTree = "<group>"; };
@@ -462,7 +460,6 @@
 			isa = PBXGroup;
 			children = (
 				A2B9E15E1C9AC09D009FD91B /* GradientView.swift */,
-				A2B9E16C1C9BBDE5009FD91B /* ProgressbarView.swift */,
 				A2AD4ECC1CA1D80B00810E96 /* HighlightedStateView.swift */,
 			);
 			name = CustomViews;
@@ -692,7 +689,6 @@
 				9AF70B0D1C973D9200302187 /* NativePlayerView.swift in Sources */,
 				A2F231E81C8D22060053956D /* Theme.swift in Sources */,
 				0B951B1E1C94ED520068C6AF /* CuratedInfo.swift in Sources */,
-				A2B9E16D1C9BBDE5009FD91B /* ProgressbarView.swift in Sources */,
 				0B951B2D1C99307C0068C6AF /* TweetUser.swift in Sources */,
 				A2A3A3CA1C8AD8B900D1173C /* FiltersViewController.swift in Sources */,
 				A2AD4ECD1CA1D80B00810E96 /* HighlightedStateView.swift in Sources */,
