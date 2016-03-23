@@ -156,13 +156,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 }
             }
             
-            // Update last_opened timestamp on the backend
-            ChannelClient.sharedInstance.updateChannel(channelId, channelDict: nil) { (channel, error) -> () in
-                if error != nil {
-                    debugPrint("[ChannelManager] updateChannel() failed")
-                    debugPrint("[ChannelManager] error = \(error.debugDescription)")
-                }
-            }
         })
     }
     

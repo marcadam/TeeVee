@@ -145,6 +145,14 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         channelsArray.insert(channel, atIndex: 0)
         let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
         tableView.insertRowsAtIndexPaths([topIndexPath], withRowAnimation: .Fade)
+        
+        // Update last_opened timestamp on the backend
+        ChannelClient.sharedInstance.updateChannel(channel.channel_id!, channelDict: nil) { (channel, error) -> () in
+            if error != nil {
+                debugPrint("updateChannel() failed")
+                debugPrint("error = \(error.debugDescription)")
+            }
+        }
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -223,6 +231,14 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             channelsArray.insert(channel, atIndex: 0)
         }
         tableView.reloadData()
+        
+        ChannelClient.sharedInstance.updateChannel(channel.channel_id!, channelDict: nil) { (channel, error) -> () in
+            if error != nil {
+                debugPrint("[update last_opened timestamp")
+                debugPrint("error = \(error.debugDescription)")
+            }
+        }
+        
         completion()
     }
     
