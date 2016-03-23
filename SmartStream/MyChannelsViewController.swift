@@ -18,16 +18,16 @@ protocol MyChannelsViewControllerDelegate: class {
 }
 
 class MyChannelsViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var createChannelView: UIView!
     @IBOutlet weak var createChannelLabel: UILabel!
     @IBOutlet weak var createChannelButton: UIButton!
-
+    
     let channelCellID = "com.smartchannel.ChannelTableViewCell"
-
+    
     var containerViewController: HomeViewController!
-
+    
     weak var delegate: MyChannelsViewControllerDelegate?
     
     private var channelsArray: [Channel] = []
@@ -38,16 +38,16 @@ class MyChannelsViewController: UIViewController {
     var createChannelButtonOpacity: Float = 1.0
     
     private var highlightColor = Theme.Colors.HighlightColor.color
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
         tableView.estimatedRowHeight = 67
         tableView.rowHeight = UITableViewAutomaticDimension
-
+        
         // Hide empty tableView rows
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.contentInset = UIEdgeInsets(top: createChannelView.bounds.height, left: 0, bottom: 0, right: 0)
@@ -73,7 +73,7 @@ class MyChannelsViewController: UIViewController {
             self.createChannelButton.layer.opacity = self.createChannelButtonOpacity
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -83,7 +83,7 @@ class MyChannelsViewController: UIViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorColor = Theme.Colors.SeparatorColor.color
-
+        
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         createChannelLabel.textColor = highlightColor
         
@@ -91,7 +91,7 @@ class MyChannelsViewController: UIViewController {
         createChannelButton.addTarget(self, action: "createChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
         createChannelButton.tintColor = highlightColor
     }
-
+    
     func getChannels() {
         MBProgressHUD.showHUDAddedTo(view, animated: true)
         ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
@@ -111,7 +111,7 @@ class MyChannelsViewController: UIViewController {
     override func shouldAutorotate() -> Bool {
         return false
     }
-
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .Portrait
     }
@@ -123,7 +123,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return channelsArray.count
     }
-
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelTableViewCell
         let channel = channelsArray[indexPath.row]
@@ -131,15 +131,15 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         cell.selectionStyle = .None
         return cell
     }
-
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let channel = channelsArray[indexPath.row]
         delegate?.myChannelsVC(self, didPlayChannel: channel)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        reorderToTop(indexPath)
-    
+        reorderToTop(channel, toRemove: indexPath)
+        
         // Update last_opened timestamp on the backend
         ChannelClient.sharedInstance.updateChannel(channel.channel_id!, channelDict: nil) { (channel, error) -> () in
             if error != nil {
@@ -147,14 +147,15 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
                 debugPrint("error = \(error.debugDescription)")
             }
         }
-
+        
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         // Play
         let playAction = UITableViewRowAction(style: .Normal, title: " Play    ") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-            self.delegate?.myChannelsVC(self, didPlayChannel: self.channelsArray[indexPath.row])
-            self.reorderToTop(indexPath)
+            let channel = self.channelsArray[indexPath.row]
+            self.delegate?.myChannelsVC(self, didPlayChannel: channel)
+            self.reorderToTop(channel, toRemove: indexPath)
         }
         playAction.backgroundColor = Theme.Colors.PlayColor.color
         
@@ -167,7 +168,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         // Delete
         let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             let channel = self.channelsArray[indexPath.row]
-
+            
             let alert = UIAlertController(title: "", message: "", preferredStyle: .Alert)
             let title = NSAttributedString(string: "Delete Channel?", attributes: [
                 NSFontAttributeName : UIFont.boldSystemFontOfSize(17),
@@ -188,7 +189,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
             alertContentView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
             alertContentView.layer.cornerRadius = 13
             alertContentView.alpha = 0.8
-
+            
             let alertDeleteAction = UIAlertAction(title: "Delete", style: .Default, handler: { (action) -> Void in
                 DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
                     self.channelsArray.removeAtIndex(indexPath.row)
@@ -199,17 +200,17 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
                 })
             })
             alert.addAction(alertDeleteAction)
-
+            
             let alertCancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
                 self.tableView.editing = false
             })
             alert.addAction(alertCancelAction)
-
+            
             self.delegate?.myChannelsVC(self, shouldPresentAlert: alert, completion: { () -> Void in
                 // Bugfix: iOS9 - Tint not fully Applied without Reapplying
                 alert.view.tintColor = Theme.Colors.HighlightColor.color
             })
-
+            
         }
         deleteAction.backgroundColor = Theme.Colors.DeleteColor.color
         
@@ -217,14 +218,17 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     }
     
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel, completion: () -> ()) {
+        var channelExist = false
         for (index, arrayChannel) in channelsArray.enumerate() {
             if arrayChannel.channel_id == channel.channel_id {
                 let indexPath = NSIndexPath(forRow: index, inSection: 0)
-                reorderToTop(indexPath)
+                reorderToTop(channel, toRemove: indexPath)
+                channelExist = true
                 break
             }
         }
-        if !channelsArray.contains(channel) {
+        
+        if !channelExist {
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
             channelsArray.insert(channel, atIndex: indexPath.row)
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
@@ -255,19 +259,17 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     func channelEditor(channelEditor: ChannelEditorViewController, shouldPlayChannel channel: Channel) {
         delegate?.myChannelsVC(self, didPlayChannel: channel)
     }
-
+    
 }
 
 
 extension MyChannelsViewController {
     
-    func reorderToTop(indexPath: NSIndexPath) {
-        let channel = channelsArray[indexPath.row]
-        
+    func reorderToTop(newChannel: Channel, toRemove indexPath: NSIndexPath) {
         channelsArray.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         
-        channelsArray.insert(channel, atIndex: 0)
+        channelsArray.insert(newChannel, atIndex: 0)
         let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
         tableView.insertRowsAtIndexPaths([topIndexPath], withRowAnimation: .Fade)
     }
