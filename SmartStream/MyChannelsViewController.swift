@@ -56,22 +56,15 @@ class MyChannelsViewController: UIViewController {
         getChannels()
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.tableView.editing = false
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         NSTimer.scheduledTimerWithTimeInterval(addBtnFadeDuration, target: self, selector: "toggleFadeIn", userInfo: nil, repeats: false)
     }
     
-    func toggleFadeIn() {
-        UIView.animateWithDuration(0.3) { () -> Void in
-            // set or restore header btn Opacity
-            self.createChannelButton.layer.opacity = self.createChannelButtonOpacity
-        }
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tableView.editing = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,35 +72,6 @@ class MyChannelsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setupUI() {
-        view.backgroundColor = Theme.Colors.BackgroundColor.color
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorColor = Theme.Colors.SeparatorColor.color
-        
-        createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
-        createChannelLabel.textColor = highlightColor
-        
-        offsetHeaderViewStop = createChannelView.bounds.height
-        createChannelButton.addTarget(self, action: "createChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
-        createChannelButton.tintColor = highlightColor
-    }
-    
-    func getChannels() {
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
-        ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
-            if let channels = channels {
-                self.channelsArray = channels
-                self.tableView.reloadData()
-            } else {
-                debugPrint(error)
-            }
-        }
-    }
-    
-    @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
-        delegate?.myChannelsVC(self, didEditChannel: nil)
-    }
     override func shouldAutorotate() -> Bool {
         return false
     }
@@ -115,11 +79,15 @@ class MyChannelsViewController: UIViewController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .Portrait
     }
+    
+    @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
+        delegate?.myChannelsVC(self, didEditChannel: nil)
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, ChannelEditorDelegate {
+extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return channelsArray.count
     }
@@ -217,6 +185,45 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
         return [deleteAction, editAction, playAction]
     }
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if initialOffset == nil {
+            initialOffset = scrollView.contentOffset.y
+        }
+        
+        if offsetHeaderViewStop == nil {return}
+        
+        let offset = scrollView.contentOffset.y - initialOffset!
+        let newOffset = max(-offsetHeaderViewStop, -offset)
+        if offsetHeader == newOffset {
+            // already reach maximum offset allowed, do nothing
+            return
+        }
+        
+        offsetHeader = newOffset
+        //debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
+        
+        createChannelButtonOpacity = 1.0 - Float(offset*4)/100.0
+        if createChannelButtonOpacity >= 0 || createChannelButtonOpacity <= 1 {
+            createChannelButton.layer.opacity = createChannelButtonOpacity
+        }
+        
+        if createChannelButtonOpacity <= 0 {
+            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: true)
+        } else {
+            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: false)
+        }
+        
+        var headerTransform = CATransform3DIdentity
+        headerTransform = CATransform3DTranslate(headerTransform, 0, offsetHeader!, 0)
+        createChannelView.layer.transform = headerTransform
+        
+    }
+    
+}
+
+// MARK: - ChannelEditorDelegate
+
+extension MyChannelsViewController: ChannelEditorDelegate {
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel, completion: () -> ()) {
         var channelExist = false
         for (index, arrayChannel) in channelsArray.enumerate() {
@@ -259,11 +266,24 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate, 
     func channelEditor(channelEditor: ChannelEditorViewController, shouldPlayChannel channel: Channel) {
         delegate?.myChannelsVC(self, didPlayChannel: channel)
     }
-    
 }
 
+// MARK: - General Functions
 
 extension MyChannelsViewController {
+    
+    func setupUI() {
+        view.backgroundColor = Theme.Colors.BackgroundColor.color
+        tableView.backgroundColor = UIColor.clearColor()
+        tableView.separatorColor = Theme.Colors.SeparatorColor.color
+        
+        createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+        createChannelLabel.textColor = highlightColor
+        
+        offsetHeaderViewStop = createChannelView.bounds.height
+        createChannelButton.addTarget(self, action: "createChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        createChannelButton.tintColor = highlightColor
+    }
     
     func reorderToTop(newChannel: Channel, toRemove indexPath: NSIndexPath) {
         channelsArray.removeAtIndex(indexPath.row)
@@ -274,41 +294,28 @@ extension MyChannelsViewController {
         tableView.insertRowsAtIndexPaths([topIndexPath], withRowAnimation: .Fade)
     }
     
+    func toggleFadeIn() {
+        UIView.animateWithDuration(0.3) { () -> Void in
+            // set or restore header btn Opacity
+            self.createChannelButton.layer.opacity = self.createChannelButtonOpacity
+        }
+    }
+    
+    func getChannels() {
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        ChannelClient.sharedInstance.getMyChannels { (channels, error) -> () in
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            if let channels = channels {
+                self.channelsArray = channels
+                self.tableView.reloadData()
+            } else {
+                debugPrint(error)
+            }
+        }
+    }
+    
     func createChannelTapped() {
         delegate?.myChannelsVC(self, didEditChannel: nil)
     }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if initialOffset == nil {
-            initialOffset = scrollView.contentOffset.y
-        }
-        
-        if offsetHeaderViewStop == nil {return}
-        
-        let offset = scrollView.contentOffset.y - initialOffset!
-        let newOffset = max(-offsetHeaderViewStop, -offset)
-        if offsetHeader == newOffset {
-            // already reach maximum offset allowed, do nothing
-            return
-        }
-        
-        offsetHeader = newOffset
-        //debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
-        
-        createChannelButtonOpacity = 1.0 - Float(offset*4)/100.0
-        if createChannelButtonOpacity >= 0 || createChannelButtonOpacity <= 1 {
-            createChannelButton.layer.opacity = createChannelButtonOpacity
-        }
-        
-        if createChannelButtonOpacity <= 0 {
-            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: true)
-        } else {
-            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: false)
-        }
-        
-        var headerTransform = CATransform3DIdentity
-        headerTransform = CATransform3DTranslate(headerTransform, 0, offsetHeader!, 0)
-        createChannelView.layer.transform = headerTransform
-        
-    }
+
 }
