@@ -7,17 +7,15 @@
 //
 
 import UIKit
-import FBSDKCoreKit
-import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet var loginBackgroundView: UIView!
     @IBOutlet var loginLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         
@@ -31,12 +29,12 @@ class LoginViewController: UIViewController {
         loginLabel.textColor = Theme.Colors.HighlightColor.color
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "segueHome" {
             let homeVC = segue.destinationViewController as! HomeViewController
@@ -44,7 +42,7 @@ class LoginViewController: UIViewController {
             let channelsStoryboard = UIStoryboard(name: "Channels", bundle: nil)
             let menuVC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
             //let menuVC = menuNC.topViewController as! MenuViewController
-
+            
             let channelsNC = channelsStoryboard.instantiateViewControllerWithIdentifier("ChannelsNavigationController") as! UINavigationController
             let channelsVC = channelsNC.topViewController as! ChannelsViewController
             channelsVC.delegate = homeVC
@@ -54,26 +52,24 @@ class LoginViewController: UIViewController {
             homeVC.contentViewController = channelsNC
         }
     }
-
+    
     override func shouldAutorotate() -> Bool {
         return false
     }
-
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .Portrait
     }
     
     func onLoginTapped(sender: UITapGestureRecognizer) {
-        let login = FBSDKLoginManager()
-        login.logInWithReadPermissions(["public_profile"], fromViewController: self) { (result, error) -> Void in
-            if error != nil {
-                // Not Logged in
-            } else if result.isCancelled {
-                // Cancelled
-            } else {
-                // Logged in
-                self.performSegueWithIdentifier("segueHome", sender: self)
-            }
+        FacebookLoginClient.sharedInstance.loginToFacebookWithSuccess(self, successBlock: { (result) -> () in
+            self.performSegueWithIdentifier("segueHome", sender: self)
+            }) { (error) -> () in
+                if let error = error {
+                    print(error)
+                } else {
+                    // User Cancelled or not all permissions were granted
+                }
         }
     }
 }

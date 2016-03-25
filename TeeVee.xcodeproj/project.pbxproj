@@ -42,6 +42,7 @@
 		9A68103F1CA0E15A003B0E38 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A68103E1CA0E15A003B0E38 /* Constants.swift */; };
 		9AF70B0D1C973D9200302187 /* NativePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF70B0C1C973D9200302187 /* NativePlayerView.swift */; };
 		9AF70B0F1C974F9200302187 /* TweetPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF70B0E1C974F9200302187 /* TweetPlayerView.swift */; };
+		A22F63A11CA5280000AAA126 /* FacebookLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22F63A01CA5280000AAA126 /* FacebookLoginClient.swift */; };
 		A23EC38F1C968BB800398BF2 /* MyChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */; };
 		A23EC3911C968BC700398BF2 /* MyChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */; };
 		A29BA4951C900D8200ED13A5 /* DataLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BA4941C900D8200ED13A5 /* DataLayer.swift */; };
@@ -118,6 +119,7 @@
 		9AF70B0C1C973D9200302187 /* NativePlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlayerView.swift; sourceTree = "<group>"; };
 		9AF70B0E1C974F9200302187 /* TweetPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetPlayerView.swift; sourceTree = "<group>"; };
 		9B0715D39343243A2CF77246 /* Pods_TeeVee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeeVee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A22F63A01CA5280000AAA126 /* FacebookLoginClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLoginClient.swift; sourceTree = "<group>"; };
 		A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChannelTableViewCell.swift; sourceTree = "<group>"; };
 		A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyChannelTableViewCell.xib; sourceTree = "<group>"; };
 		A29BA4941C900D8200ED13A5 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				0B2CD8A91C8844C60055BD50 /* ChannelClient.swift */,
+				A22F63A01CA5280000AAA126 /* FacebookLoginClient.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				0B2CD8AA1C8844C60055BD50 /* ChannelClient.swift in Sources */,
 				492D02B71C916F7E000AAF17 /* ChannelCollectionPageView.swift in Sources */,
 				0B951B2B1C9928690068C6AF /* DateManager.swift in Sources */,
+				A22F63A11CA5280000AAA126 /* FacebookLoginClient.swift in Sources */,
 				A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */,
 				0B951B261C9927EE0068C6AF /* Tweet.swift in Sources */,
 				492D02A21C8BE997000AAF17 /* ProfileViewController.swift in Sources */,
