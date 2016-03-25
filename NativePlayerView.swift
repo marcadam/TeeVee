@@ -65,7 +65,7 @@ class NativePlayerView: NSObject {
         nativePlayer.addObserver(self, forKeyPath: "loadedTimeRanges", options: [.New], context: self.myContext)
         nativePlayer.addObserver(self, forKeyPath: "presentationSize", options: [.New], context: self.myContext)
         nativePlayer.addObserver(self, forKeyPath: "error", options: [.New], context: self.myContext)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "nativePlayerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NativePlayerView.nativePlayerDidFinishPlaying(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
         
         // an observer for every second playback
         timeObserver = nativePlayer!.addPeriodicTimeObserverForInterval(CMTimeMake(1,1), queue: nil, usingBlock: {[weak self] (time: CMTime) -> Void in
@@ -84,7 +84,7 @@ class NativePlayerView: NSObject {
                     
                     if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
                         strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
-                        NSTimer.scheduledTimerWithTimeInterval(2.0, target: strongSelf, selector: "endItem", userInfo: nil, repeats: false)
+                        NSTimer.scheduledTimerWithTimeInterval(2.0, target: strongSelf, selector: #selector(strongSelf.endItem), userInfo: nil, repeats: false)
                     }
                 }
             }

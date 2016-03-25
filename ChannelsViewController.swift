@@ -174,7 +174,7 @@ extension ChannelsViewController {
         createChannelButton.frame = CGRectMake(0, 0, 40, 40)
         let composeImage = UIImage(named: "icon_add_channel")
         createChannelButton.setImage(composeImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
-        createChannelButton.addTarget(self, action: "createChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        createChannelButton.addTarget(self, action: #selector(createChannelTapped), forControlEvents: UIControlEvents.TouchUpInside)
         
         let createChannelBarButton = UIBarButtonItem(customView: createChannelButton)
         navigationItem.rightBarButtonItems = [negativeSpacer, createChannelBarButton]
@@ -187,7 +187,7 @@ extension ChannelsViewController {
         createProfileButton.frame = CGRectMake(0, 0, 20, 20)
         let newImage = UIImage(named: "icon_menu")
         createProfileButton.setImage(newImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
-        createProfileButton.addTarget(self, action: "profileMenuTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        createProfileButton.addTarget(self, action: #selector(profileMenuTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         createProfileButton.tintColor = highlightedColor
         
         let createProfileBarButton = UIBarButtonItem(customView: createProfileButton)

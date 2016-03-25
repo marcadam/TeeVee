@@ -180,7 +180,7 @@ extension HomeViewController: MenuViewControllerDelegate {
         if isTapped {
             FBSDKLoginManager().logOut()
             toggleMenu({ () -> () in
-                self.performSelector("delayDismiss", withObject: nil, afterDelay: 0.5)
+                self.performSelector(#selector(self.delayDismiss), withObject: nil, afterDelay: 0.5)
             })
         }
     }

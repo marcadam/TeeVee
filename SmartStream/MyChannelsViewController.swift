@@ -58,7 +58,7 @@ class MyChannelsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        NSTimer.scheduledTimerWithTimeInterval(addBtnFadeDuration, target: self, selector: "toggleFadeIn", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(addBtnFadeDuration, target: self, selector: #selector(toggleFadeIn), userInfo: nil, repeats: false)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -281,7 +281,7 @@ extension MyChannelsViewController {
         createChannelLabel.textColor = highlightColor
         
         offsetHeaderViewStop = createChannelView.bounds.height
-        createChannelButton.addTarget(self, action: "createChannelTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        createChannelButton.addTarget(self, action: #selector(createChannelTapped), forControlEvents: UIControlEvents.TouchUpInside)
         createChannelButton.tintColor = highlightColor
     }
     

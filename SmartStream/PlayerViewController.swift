@@ -77,7 +77,7 @@ class PlayerViewController: UIViewController {
         
         isPortrait = application.statusBarOrientation.isPortrait
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         setTimerToFadeOut()
         setupChannel()
@@ -232,7 +232,7 @@ class PlayerViewController: UIViewController {
         if let timer = latestTimer {
             timer.invalidate()
         }
-        latestTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "animateFade", userInfo: nil, repeats: false)
+        latestTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(animateFade), userInfo: nil, repeats: false)
     }
     
     func animateFade() {

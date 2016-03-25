@@ -421,7 +421,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         if completion != nil {
             pendingRequests.append(completion!)
         }
-        numTweetsRequests++
+        numTweetsRequests += 1
         if numTweetsRequests > 1 {
             // guard against duplicate fetch
             debugPrint("[MANAGER] already fetching Tweets, numRequests = \(numTweetsRequests)")

@@ -79,7 +79,7 @@ extension YoutubePlayerView: SmartuPlayer {
         debugPrint("[YOUTUBEPLAYER] buffering: extractor = \(item.extractor); id = \(item.native_id)")
         self.youtubePlayerView.cueVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
         videoAlreadyCued = true
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "prepareYoutubeVideo", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(prepareYoutubeVideo), userInfo: nil, repeats: false)
     }
     
     func startItem(item: ChannelItem!) {
@@ -213,7 +213,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
             debugPrint("[YOUTUBEPLAYER] video buffering; playback quality = \(youtubePlayerView.playbackQuality().rawValue)")
             isBuffering = true
             
-            self.bufferingTimer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: "checkForAds", userInfo: nil, repeats: false)
+            self.bufferingTimer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: #selector(checkForAds), userInfo: nil, repeats: false)
         } else if state == .Unstarted {
             if isBuffering {
                 onPlaybackError()
@@ -247,7 +247,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         
         if Int(totalDuration) - Int(playTime) == bufferTimeConstant {
             playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
-            NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "endItem", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(endItem), userInfo: nil, repeats: false)
         }
     }
     

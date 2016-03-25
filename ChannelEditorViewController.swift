@@ -68,7 +68,7 @@ class ChannelEditorViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        keyboardTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "showFirstResponder", userInfo: nil, repeats: false)
+        keyboardTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: #selector(showFirstResponder), userInfo: nil, repeats: false)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -113,8 +113,8 @@ class ChannelEditorViewController: UIViewController {
         editIcon.tintColor = formTextColor
         editIcon.layer.opacity = 0.3
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func setDefaults() {
@@ -274,15 +274,15 @@ extension ChannelEditorViewController {
             
             if topics != channel.topics! {
                 dictionary["topics"] = topics
-                count++
+                count += 1
             }
             if titleTextField.text != channel.title && titleTextField.text != "" {
                 dictionary["title"] = titleTextField.text
-                count++
+                count += 1
             }
             if newFilters != channel.filters {
                 dictionary["filters"] = newFilters
-                count++
+                count += 1
             }
             if count > 0 {
                 MBProgressHUD.showHUDAddedTo(view, animated: true)
@@ -404,7 +404,7 @@ extension ChannelEditorViewController: FiltersViewDelegate {
 
 extension ChannelEditorViewController {
     func setupNavigationBar() {
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: "cancelTapped")
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(cancelTapped))
         navigationItem.leftBarButtonItem = cancelButton
         
         let saveButtonAction = isEdit ? "onSaveTapped:" : "onSaveAndPlayTapped:"

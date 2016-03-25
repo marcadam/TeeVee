@@ -35,7 +35,7 @@ class ExploreViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
         collectionView.insertSubview(refreshControl, atIndex: 0)
         
         let channelPagingCellNIB = UINib(nibName: "ChannelCollectionPagingViewCell", bundle: NSBundle.mainBundle())
@@ -57,7 +57,7 @@ class ExploreViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        featuredChannelTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "rotateFeaturedChannelView", userInfo: nil, repeats: true)
+        featuredChannelTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: #selector(rotateFeaturedChannelView), userInfo: nil, repeats: true)
     }
     
     override func viewDidAppear(animated: Bool) {

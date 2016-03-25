@@ -92,7 +92,7 @@ extension TweetPlayerView: SmartuPlayer {
         
         self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, 0)
         
-        self.aboutToEndTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "aboutToEndTweet", userInfo: nil, repeats: false)
+        self.aboutToEndTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(aboutToEndTweet), userInfo: nil, repeats: false)
     }
     
     func aboutToEndTweet() {
@@ -101,7 +101,7 @@ extension TweetPlayerView: SmartuPlayer {
         debugPrint("[TWEETPLAYER] aboutToEndTweet()")
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
         
-        self.endTimer = NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: "endTweet", userInfo: nil, repeats: false)
+        self.endTimer = NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: #selector(endTweet), userInfo: nil, repeats: false)
     }
     
     func prepareToStart(item: ChannelItem!) {

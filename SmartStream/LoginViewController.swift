@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
         loginBackgroundView.backgroundColor = Theme.Colors.LightButtonColor.color
         loginBackgroundView.layer.cornerRadius = 8
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: "onLoginTapped:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onLoginTapped(_:)))
         loginBackgroundView.addGestureRecognizer(tapGesture)
         
         loginLabel.font = Theme.Fonts.BoldNormalTypeFace.font
