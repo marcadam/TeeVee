@@ -8,7 +8,7 @@
         <!--Login View Controller-->
         <scene sceneID="gKv-Lb-jjo">
             <objects>
-                <viewController id="kTk-Lk-Zrm" customClass="LoginViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kTk-Lk-Zrm" customClass="LoginViewController" customModule="TeeVee" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8xT-zQ-uqR"/>
                         <viewControllerLayoutGuide type="bottom" id="X2O-2y-N7l"/>
@@ -42,9 +42,6 @@
                                     <constraint firstItem="T8m-ym-qrW" firstAttribute="centerX" secondItem="P0W-GT-KJE" secondAttribute="centerX" id="sxB-Ob-dC9"/>
                                     <constraint firstItem="T8m-ym-qrW" firstAttribute="centerY" secondItem="P0W-GT-KJE" secondAttribute="centerY" id="wGM-Kb-9g9"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="NbC-Fb-0dr" appends="YES" id="TaP-tB-OTo"/>
-                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,14 +54,10 @@
                     <connections>
                         <outlet property="loginBackgroundView" destination="P0W-GT-KJE" id="bhC-Sh-8uM"/>
                         <outlet property="loginLabel" destination="T8m-ym-qrW" id="4E6-RS-sCM"/>
+                        <segue destination="yuV-Rz-IIf" kind="presentation" identifier="segueHome" modalTransitionStyle="flipHorizontal" id="DSX-Xt-rMX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KB9-IM-SrK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="NbC-Fb-0dr">
-                    <connections>
-                        <segue destination="yuV-Rz-IIf" kind="presentation" identifier="segueHome" modalTransitionStyle="flipHorizontal" id="UBm-79-oHv"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-65" y="237"/>
         </scene>

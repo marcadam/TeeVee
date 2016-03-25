@@ -86,6 +86,10 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$CONFIGURATION_BUILD_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/BDBOAuth1Manager/BDBOAuth1Manager.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/Bolts/Bolts.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/FBSDKCoreKit/FBSDKCoreKit.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/FBSDKLoginKit/FBSDKLoginKit.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/FBSDKShareKit/FBSDKShareKit.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/FXBlurView/FXBlurView.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/MBProgressHUD/MBProgressHUD.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/SwiftPriorityQueue/SwiftPriorityQueue.framework"
@@ -94,6 +98,10 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$CONFIGURATION_BUILD_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/BDBOAuth1Manager/BDBOAuth1Manager.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/Bolts/Bolts.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/FBSDKCoreKit/FBSDKCoreKit.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/FBSDKLoginKit/FBSDKLoginKit.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/FBSDKShareKit/FBSDKShareKit.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/FXBlurView/FXBlurView.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/MBProgressHUD/MBProgressHUD.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/SwiftPriorityQueue/SwiftPriorityQueue.framework"

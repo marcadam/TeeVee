@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
 
@@ -22,8 +24,12 @@ class LoginViewController: UIViewController {
         loginBackgroundView.backgroundColor = Theme.Colors.LightButtonColor.color
         loginBackgroundView.layer.cornerRadius = 8
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: "onLoginTapped:")
+        loginBackgroundView.addGestureRecognizer(tapGesture)
+        
         loginLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         loginLabel.textColor = Theme.Colors.HighlightColor.color
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,5 +61,19 @@ class LoginViewController: UIViewController {
 
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .Portrait
+    }
+    
+    func onLoginTapped(sender: UITapGestureRecognizer) {
+        let login = FBSDKLoginManager()
+        login.logInWithReadPermissions(["public_profile"], fromViewController: self) { (result, error) -> Void in
+            if error != nil {
+                // Not Logged in
+            } else if result.isCancelled {
+                // Cancelled
+            } else {
+                // Logged in
+                self.performSegueWithIdentifier("segueHome", sender: self)
+            }
+        }
     }
 }

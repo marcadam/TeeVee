@@ -8,7 +8,7 @@
         <!--Create Channel-->
         <scene sceneID="u7x-E5-oD1">
             <objects>
-                <viewController storyboardIdentifier="CreateChannel" id="BRQ-9W-LhL" customClass="ChannelEditorViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateChannel" id="BRQ-9W-LhL" customClass="ChannelEditorViewController" customModule="TeeVee" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7NR-M9-1tf"/>
                         <viewControllerLayoutGuide type="bottom" id="ADh-kj-RnR"/>
@@ -152,7 +152,7 @@
         <!--Navigation Controller No Rotate-->
         <scene sceneID="Uza-6f-2wx">
             <objects>
-                <navigationController storyboardIdentifier="ChannelEditorNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Saq-Tx-wvM" customClass="UINavigationControllerNoRotate" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ChannelEditorNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Saq-Tx-wvM" customClass="UINavigationControllerNoRotate" customModule="TeeVee" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5Tx-gJ-R4g">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

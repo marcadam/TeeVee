@@ -16,7 +16,19 @@ PODS:
     - AFNetworking/NSURLSession
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
+  - Bolts (1.6.0):
+    - Bolts/AppLinks (= 1.6.0)
+    - Bolts/Tasks (= 1.6.0)
+  - Bolts/AppLinks (1.6.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.6.0)
   - Fabric (1.6.7)
+  - FBSDKCoreKit (4.10.1):
+    - Bolts (~> 1.5)
+  - FBSDKLoginKit (4.10.1):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.10.1):
+    - FBSDKCoreKit
   - FXBlurView (1.6.4)
   - MBProgressHUD (0.9.2)
   - SwiftPriorityQueue (1.0.3)
@@ -25,7 +37,11 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
+  - Bolts
   - Fabric
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
   - FXBlurView
   - MBProgressHUD
   - SwiftPriorityQueue
@@ -44,12 +60,16 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
+  FBSDKCoreKit: d2aaed5e9ab7d8d6301c533376a1fbff1cf3deb5
+  FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
+  FBSDKShareKit: 2fd887cce0056bdda91f99b2021d724a4fed8e88
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   SwiftPriorityQueue: 3c3dd50743f33efa627cbe2ff8e274912b3962d2
   youtube-ios-player-helper: 921da8927a575debc293a94c678c658f38cde150
 
-PODFILE CHECKSUM: 580efea0e60851dffebd69e119207aafa040470a
+PODFILE CHECKSUM: 9a9e1e2e137294beaabff28498f943919bbad8d6
 
 COCOAPODS: 1.0.0.beta.5

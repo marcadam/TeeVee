@@ -12,5 +12,9 @@ target 'TeeVee' do
     pod 'Fabric'
     pod 'youtube-ios-player-helper', :git=>'https://github.com/youtube/youtube-ios-player-helper', :commit=>'head'
     pod 'MBProgressHUD'
+    pod 'Bolts'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKShareKit'
+    pod 'FBSDKLoginKit'
 end
 
