@@ -8,7 +8,7 @@
         <!--Home View Controller-->
         <scene sceneID="gfp-Z2-Vut">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" id="VpU-5g-3Xu" customClass="HomeViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="VpU-5g-3Xu" customClass="HomeViewController" customModule="TeeVee" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oFQ-jX-cQ8"/>
                         <viewControllerLayoutGuide type="bottom" id="EET-5A-dmX"/>

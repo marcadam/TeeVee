@@ -6,7 +6,7 @@
 //  Copyright © 2016 SmartStream. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 
@@ -16,13 +16,6 @@ class FacebookLoginClient {
     static let sharedInstance = FacebookLoginClient()
     
     func loginToFacebookWithSuccess(callingViewController: UIViewController, successBlock: (FBSDKLoginManagerLoginResult?) -> (), andFailure failureBlock: (NSError?) -> ()) {
-        
-        if FBSDKAccessToken.currentAccessToken() != nil {
-            //For debugging, when we want to ensure that facebook login always happens
-            //FBSDKLoginManager().logOut()
-            //Otherwise do:
-            // return
-        }
         
         FBSDKLoginManager().logInWithReadPermissions(facebookReadPermissions, fromViewController: callingViewController, handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
             if error != nil {

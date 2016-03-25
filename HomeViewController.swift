@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class HomeViewController: UIViewController {
 
@@ -19,11 +21,12 @@ class HomeViewController: UIViewController {
     var menuOpen = false
     var overlayLayer: UIView!
 
-    var menuViewController: UIViewController! {
+    var menuViewController: MenuViewController! {
         didSet {
             view.layoutIfNeeded()
             menuViewController.view.frame = menuView.bounds
             menuView.addSubview(menuViewController.view)
+            menuViewController.delegate = self
         }
     }
 
@@ -86,7 +89,7 @@ class HomeViewController: UIViewController {
 // MARK: - ChannelsViewControllerDelegate
 
 extension HomeViewController: ChannelsViewControllerDelegate {
-    private func toggleMenu() {
+    private func toggleMenu(completion: () -> ()) {
         originalContentViewLeftMargin = contentViewLeadingConstraint.constant
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             if self.menuOpen {
@@ -97,6 +100,7 @@ extension HomeViewController: ChannelsViewControllerDelegate {
                 self.menuOpen = true
             }
             self.view.layoutIfNeeded()
+            completion()
         })
     }
 
@@ -108,7 +112,9 @@ extension HomeViewController: ChannelsViewControllerDelegate {
             channelsView.view.addSubview(overlayLayer)
         }
         
-        toggleMenu()
+        toggleMenu { () -> () in
+            //
+        }
     }
 
     func shouldPresentEditor(sender: ChannelsViewController, withChannel channel: Channel?) {
@@ -153,7 +159,9 @@ extension HomeViewController: ChannelsViewControllerDelegate {
 
 extension HomeViewController: ProfileViewControllerDelegate {
     func profileView(profileView: ProfileViewController, didTapMenuButton: UIBarButtonItem) {
-        toggleMenu()
+        toggleMenu { () -> () in
+            //
+        }
     }
 }
 
@@ -161,6 +169,23 @@ extension HomeViewController: ProfileViewControllerDelegate {
 
 extension HomeViewController: SettingsViewControllerDelegate {
     func settingsView(profileView: SettingsViewController, didTapMenuButton: UIBarButtonItem) {
-        toggleMenu()
+        toggleMenu { () -> () in
+            //
+        }
+    }
+}
+
+extension HomeViewController: MenuViewControllerDelegate {
+    func menuView(menuView: MenuViewController, didTapLogout isTapped: Bool) {
+        if isTapped {
+            FBSDKLoginManager().logOut()
+            toggleMenu({ () -> () in
+                self.performSelector("delayDismiss", withObject: nil, afterDelay: 0.5)
+            })
+        }
+    }
+    
+    func delayDismiss() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }

@@ -9,7 +9,7 @@
         <!--Menu View Controller-->
         <scene sceneID="MNW-i1-DBl">
             <objects>
-                <viewController storyboardIdentifier="MenuViewController" id="7gZ-2I-Szj" customClass="MenuViewController" customModule="SmartStream" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuViewController" id="7gZ-2I-Szj" customClass="MenuViewController" customModule="TeeVee" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hqx-tt-UB8"/>
                         <viewControllerLayoutGuide type="bottom" id="5C1-0X-Rf5"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="550" height="550"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AvatarCell" rowHeight="254" id="KFj-6t-HBt" customClass="ProfileAvatarCell" customModule="SmartStream" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AvatarCell" rowHeight="254" id="KFj-6t-HBt" customClass="ProfileAvatarCell" customModule="TeeVee" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="550" height="254"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KFj-6t-HBt" id="6DU-FW-ZFo">
@@ -84,17 +84,18 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3iA-Cv-2vc">
                                 <rect key="frame" x="0.0" y="550" width="550" height="50"/>
                                 <subviews>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lk0-rJ-yFp">
-                                        <rect key="frame" x="248" y="14" width="54" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vA-fk-9PR">
+                                        <rect key="frame" x="251" y="10" width="48" height="30"/>
+                                        <state key="normal" title="Logout"/>
+                                        <connections>
+                                            <action selector="onLogoutTapped:" destination="7gZ-2I-Szj" eventType="touchUpInside" id="5im-xF-2Du"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="0g3-BU-cdC"/>
-                                    <constraint firstItem="Lk0-rJ-yFp" firstAttribute="centerX" secondItem="3iA-Cv-2vc" secondAttribute="centerX" id="mhJ-qh-lNb"/>
-                                    <constraint firstItem="Lk0-rJ-yFp" firstAttribute="centerY" secondItem="3iA-Cv-2vc" secondAttribute="centerY" id="wT8-Ir-8Hk"/>
+                                    <constraint firstItem="7vA-fk-9PR" firstAttribute="centerX" secondItem="3iA-Cv-2vc" secondAttribute="centerX" id="hoW-Q7-YA9"/>
+                                    <constraint firstItem="7vA-fk-9PR" firstAttribute="centerY" secondItem="3iA-Cv-2vc" secondAttribute="centerY" id="jSE-mD-aC8"/>
                                 </constraints>
                             </view>
                         </subviews>

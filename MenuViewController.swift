@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
+
+protocol MenuViewControllerDelegate: class {
+    func menuView(menuView: MenuViewController, didTapLogout isTapped: Bool)
+}
 
 class MenuViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     var containerViewController: HomeViewController!
     var user: User?
+    weak var delegate: MenuViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +54,7 @@ class MenuViewController: UIViewController {
     override func shouldAutorotate() -> Bool {
         return false
     }
-
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .Portrait
     }
@@ -68,5 +75,8 @@ extension MenuViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier("DefaultCell", forIndexPath: indexPath)
             return cell
         }
+    }
+    @IBAction func onLogoutTapped(sender: UIButton) {
+        delegate?.menuView(self, didTapLogout: true)
     }
 }

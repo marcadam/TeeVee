@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKCoreKit
 
 class LoginViewController: UIViewController {
     
@@ -28,6 +29,14 @@ class LoginViewController: UIViewController {
         loginLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         loginLabel.textColor = Theme.Colors.HighlightColor.color
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if FBSDKAccessToken.currentAccessToken() != nil {
+            performSegueWithIdentifier("segueHome", sender: nil)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,5 +80,9 @@ class LoginViewController: UIViewController {
                     // User Cancelled or not all permissions were granted
                 }
         }
+    }
+    
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+        // Leave empty
     }
 }
