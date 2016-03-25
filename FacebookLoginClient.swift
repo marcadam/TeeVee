@@ -15,7 +15,7 @@ class FacebookLoginClient {
     
     static let sharedInstance = FacebookLoginClient()
     
-    func loginToFacebookWithSuccess(callingViewController: UIViewController, successBlock: (FBSDKLoginManagerLoginResult?) -> (), andFailure failureBlock: (NSError?) -> ()) {
+    func loginToFacebookWithSuccess(callingViewController: UIViewController, successBlock: (User?) -> (), andFailure failureBlock: (NSError?) -> ()) {
         
         FBSDKLoginManager().logInWithReadPermissions(facebookReadPermissions, fromViewController: callingViewController, handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
             if error != nil {
@@ -44,6 +44,10 @@ class FacebookLoginClient {
                     // let fbToken = result.token.tokenString
                     // let fbUserID = result.token.userID
                     
+                    self.getUserData({ (user) -> () in
+                        successBlock(user!)
+                    })
+                    
                     //Send fbToken and fbUserID to your web API for processing, or just hang on to that locally if needed
                     //self.post("myserver/myendpoint", parameters: ["token": fbToken, "userID": fbUserId]) {(error: NSError?) ->() in
                     //  if error != nil {
@@ -52,8 +56,6 @@ class FacebookLoginClient {
                     //      successBlock(maybeSomeInfoHere?)
                     //  }
                     //}
-                    
-                    successBlock(result)
                 } else {
                     //The user did not grant all permissions requested
                     //Discover which permissions are granted
@@ -61,6 +63,19 @@ class FacebookLoginClient {
                     failureBlock(nil)
                 }
             }
+        })
+    }
+    
+    func getUserData(completion: (User?) -> ()) {
+        let FBGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "name,id"])
+        FBGraphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            let name = result["name"] as! String
+            let id = result["id"] as! String
+            let picture = "https://graph.facebook.com/\(id)/picture?type=large"
+            
+            let dictionary = ["name": name, "username": id, "imageurl": picture] as NSDictionary
+            let user = User(dictionary: dictionary)
+            completion(user)
         })
     }
 }

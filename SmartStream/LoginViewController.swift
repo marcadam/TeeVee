@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet var loginBackgroundView: UIView!
     @IBOutlet var loginLabel: UILabel!
+    private var user:User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,9 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if FBSDKAccessToken.currentAccessToken() != nil {
-            performSegueWithIdentifier("segueHome", sender: nil)
+            FacebookLoginClient.sharedInstance.getUserData({ (user) -> () in
+                self.performSegueWithIdentifier("segueHome", sender: user!)
+            })
         }
     }
     
@@ -50,7 +53,10 @@ class LoginViewController: UIViewController {
             let menuStoryboard = UIStoryboard(name: "MenuView", bundle: nil)
             let channelsStoryboard = UIStoryboard(name: "Channels", bundle: nil)
             let menuVC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
-            //let menuVC = menuNC.topViewController as! MenuViewController
+            
+            if let user = sender as? User {
+                menuVC.user = user
+            }
             
             let channelsNC = channelsStoryboard.instantiateViewControllerWithIdentifier("ChannelsNavigationController") as! UINavigationController
             let channelsVC = channelsNC.topViewController as! ChannelsViewController
@@ -71,8 +77,8 @@ class LoginViewController: UIViewController {
     }
     
     func onLoginTapped(sender: UITapGestureRecognizer) {
-        FacebookLoginClient.sharedInstance.loginToFacebookWithSuccess(self, successBlock: { (result) -> () in
-            self.performSegueWithIdentifier("segueHome", sender: self)
+        FacebookLoginClient.sharedInstance.loginToFacebookWithSuccess(self, successBlock: { (user) -> () in
+            self.user = user!
             }) { (error) -> () in
                 if let error = error {
                     print(error)
@@ -80,9 +86,5 @@ class LoginViewController: UIViewController {
                     // User Cancelled or not all permissions were granted
                 }
         }
-    }
-    
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
-        // Leave empty
     }
 }
