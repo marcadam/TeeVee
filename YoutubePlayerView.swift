@@ -99,7 +99,7 @@ extension YoutubePlayerView: SmartuPlayer {
                     self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
 //                }
             }
-            self.currItem = item.copy() as! ChannelItem
+            self.currItem = (item.copy() as! ChannelItem)
         })
     }
     

@@ -21,7 +21,7 @@ class ChannelClient {
         self.manager.requestSerializer = AFJSONRequestSerializer()
         self.manager.responseSerializer = AFJSONResponseSerializer(readingOptions: NSJSONReadingOptions.AllowFragments)
         let contentTypes = NSSet(array: ["text/plain", "text/html"])
-        self.manager.responseSerializer.acceptableContentTypes = contentTypes as! Set<String>
+        self.manager.responseSerializer.acceptableContentTypes = (contentTypes as! Set<String>)
     }
     
     
