@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
 //        window?.rootViewController = homeVC
 //        window?.makeKeyAndVisible()
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         Theme.applyTheme()

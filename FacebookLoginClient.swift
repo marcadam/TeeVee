@@ -15,7 +15,7 @@ class FacebookLoginClient {
     
     static let sharedInstance = FacebookLoginClient()
     
-    func loginToFacebookWithSuccess(fromViewController: UIViewController, successBlock: (User?) -> (), andFailure failureBlock: (NSError?) -> ()) {
+    func loginToFacebookWithSuccess(fromViewController: UIViewController?, successBlock: (User?) -> (), andFailure failureBlock: (NSError?) -> ()) {
         
         FBSDKLoginManager().logInWithReadPermissions(facebookReadPermissions, fromViewController: fromViewController, handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
             if error != nil {

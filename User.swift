@@ -35,7 +35,7 @@ class User: NSObject {
         self.imageUrl = imageUrl
     }
     
-    class func login(fromViewController: UIViewController, completion: (error: NSError?) -> ()) {
+    class func login(fromViewController: UIViewController?, completion: (error: NSError?) -> ()) {
         FacebookLoginClient.sharedInstance.loginToFacebookWithSuccess(fromViewController, successBlock: { (user: User?) in
             User.currentUser = user
             
@@ -50,7 +50,6 @@ class User: NSObject {
     func logout() {
         User.currentUser = nil
         FBSDKLoginManager().logOut()
-        //FBSDKAccessToken.setCurrentAccessToken(nil)
         
         NSNotificationCenter.defaultCenter().postNotificationName(userDidLogoutNotification, object: nil)
     }
