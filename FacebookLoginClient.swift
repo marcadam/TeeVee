@@ -15,9 +15,9 @@ class FacebookLoginClient {
     
     static let sharedInstance = FacebookLoginClient()
     
-    func loginToFacebookWithSuccess(callingViewController: UIViewController, successBlock: (User?) -> (), andFailure failureBlock: (NSError?) -> ()) {
+    func loginToFacebookWithSuccess(fromViewController: UIViewController, successBlock: (User?) -> (), andFailure failureBlock: (NSError?) -> ()) {
         
-        FBSDKLoginManager().logInWithReadPermissions(facebookReadPermissions, fromViewController: callingViewController, handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
+        FBSDKLoginManager().logInWithReadPermissions(facebookReadPermissions, fromViewController: fromViewController, handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
             if error != nil {
                 // Error
                 FBSDKLoginManager().logOut()
@@ -41,21 +41,18 @@ class FacebookLoginClient {
                 }
                 if allPermsGranted {
                     // Do work
-                    // let fbToken = result.token.tokenString
-                    // let fbUserID = result.token.userID
+                     let fbToken = result.token.tokenString
+                     //let fbUserID = result.token.userID
                     
-                    self.getUserData({ (user) -> () in
-                        successBlock(user!)
+                    //Send fbToken and fbUserID to your web API for processing
+                    ChannelClient.sharedInstance.authenticateFacebook(fbToken, completion: { (user, error) in
+                        if error != nil {
+                            failureBlock(error)
+                        } else {
+                            successBlock(user)
+                        }
                     })
                     
-                    //Send fbToken and fbUserID to your web API for processing, or just hang on to that locally if needed
-                    //self.post("myserver/myendpoint", parameters: ["token": fbToken, "userID": fbUserId]) {(error: NSError?) ->() in
-                    //  if error != nil {
-                    //      failureBlock(error)
-                    //  } else {
-                    //      successBlock(maybeSomeInfoHere?)
-                    //  }
-                    //}
                 } else {
                     //The user did not grant all permissions requested
                     //Discover which permissions are granted
@@ -66,16 +63,17 @@ class FacebookLoginClient {
         })
     }
     
-    func getUserData(completion: (User?) -> ()) {
-        let FBGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "name,id"])
-        FBGraphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-            let name = result["name"] as! String
-            let id = result["id"] as! String
-            let picture = "https://graph.facebook.com/\(id)/picture?type=large"
-            
-            let dictionary = ["name": name, "username": id, "imageurl": picture] as NSDictionary
-            let user = User(dictionary: dictionary)
-            completion(user)
-        })
-    }
+    // not used, this will be handled server-side
+//    func getUserData(completion: (User?) -> ()) {
+//        let FBGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "name,id"])
+//        FBGraphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+//            let name = result["name"] as! String
+//            let id = result["id"] as! String
+//            let picture = "https://graph.facebook.com/\(id)/picture?type=large"
+//            
+//            let dictionary = ["name": name, "username": id, "imageurl": picture] as NSDictionary
+//            let user = User(dictionary: dictionary)
+//            completion(user)
+//        })
+//    }
 }

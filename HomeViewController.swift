@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import FBSDKCoreKit
-import FBSDKLoginKit
 
 class HomeViewController: UIViewController {
 
@@ -178,7 +176,7 @@ extension HomeViewController: SettingsViewControllerDelegate {
 extension HomeViewController: MenuViewControllerDelegate {
     func menuView(menuView: MenuViewController, didTapLogout isTapped: Bool) {
         if isTapped {
-            FBSDKLoginManager().logOut()
+            User.currentUser?.logout()
             toggleMenu({ () -> () in
                 self.performSelector(#selector(self.delayDismiss), withObject: nil, afterDelay: 0.5)
             })

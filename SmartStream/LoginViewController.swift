@@ -7,13 +7,11 @@
 //
 
 import UIKit
-import FBSDKCoreKit
 
 class LoginViewController: UIViewController {
     
     @IBOutlet var loginBackgroundView: UIView!
     @IBOutlet var loginLabel: UILabel!
-    private var user:User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +33,8 @@ class LoginViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        if FBSDKAccessToken.currentAccessToken() != nil {
-            FacebookLoginClient.sharedInstance.getUserData({ (user) -> () in
-                self.performSegueWithIdentifier("segueHome", sender: user!)
-            })
+        if User.currentUser != nil {
+            self.performSegueWithIdentifier("segueHome", sender: User.currentUser!)
         }
     }
     
@@ -77,14 +73,12 @@ class LoginViewController: UIViewController {
     }
     
     func onLoginTapped(sender: UITapGestureRecognizer) {
-        FacebookLoginClient.sharedInstance.loginToFacebookWithSuccess(self, successBlock: { (user) -> () in
-            self.user = user!
-            }) { (error) -> () in
-                if let error = error {
-                    print(error)
-                } else {
-                    // User Cancelled or not all permissions were granted
-                }
+        User.login(self) { (error) in
+            if error != nil {
+                self.performSegueWithIdentifier("segueHome", sender: User.currentUser!)
+            } else {
+                // TODO : Display login error
+            }
         }
     }
 }
