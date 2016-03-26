@@ -31,8 +31,10 @@ class MenuViewController: UIViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        if user == nil {
+        if User.currentUser == nil {
             user = Mock.NewUser.Tom.user
+        } else {
+            user = User.currentUser
         }
         
         view.backgroundColor = Theme.Colors.LightBackgroundColor.color

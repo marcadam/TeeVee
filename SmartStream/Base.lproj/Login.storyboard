@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kTk-Lk-Zrm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kTk-Lk-Zrm">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -17,20 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRf-dt-RAR">
-                                <rect key="frame" x="279" y="378" width="43" height="30"/>
-                                <state key="normal" title="Player"/>
-                                <connections>
-                                    <segue destination="9I0-Hn-w0r" kind="presentation" identifier="seguePlayer" id="Pnw-0I-kYh"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0W-GT-KJE">
                                 <rect key="frame" x="225" y="275" width="150" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T8m-ym-qrW">
                                         <rect key="frame" x="54" y="15" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -48,7 +41,6 @@
                         <constraints>
                             <constraint firstItem="P0W-GT-KJE" firstAttribute="centerX" secondItem="eAe-Ef-AY0" secondAttribute="centerX" id="ZDe-Lj-zCl"/>
                             <constraint firstItem="P0W-GT-KJE" firstAttribute="centerY" secondItem="eAe-Ef-AY0" secondAttribute="centerY" id="ZgT-66-kFG"/>
-                            <constraint firstItem="KRf-dt-RAR" firstAttribute="centerX" secondItem="eAe-Ef-AY0" secondAttribute="centerX" id="uRC-qa-v3Q"/>
                         </constraints>
                     </view>
                     <connections>

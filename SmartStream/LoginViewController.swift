@@ -54,10 +54,6 @@ class LoginViewController: UIViewController {
             let channelsStoryboard = UIStoryboard(name: "Channels", bundle: nil)
             let menuVC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
             
-            if let user = sender as? User {
-                menuVC.user = user
-            }
-            
             let channelsNC = channelsStoryboard.instantiateViewControllerWithIdentifier("ChannelsNavigationController") as! UINavigationController
             let channelsVC = channelsNC.topViewController as! ChannelsViewController
             channelsVC.delegate = homeVC

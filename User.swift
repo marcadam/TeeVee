@@ -38,9 +38,8 @@ class User: NSObject {
     class func login(fromViewController: UIViewController?, completion: (error: NSError?) -> ()) {
         FacebookLoginClient.sharedInstance.loginToFacebookWithSuccess(fromViewController, successBlock: { (user: User?) in
             User.currentUser = user
-            
+
             NSNotificationCenter.defaultCenter().postNotificationName(userDidLoginNotification, object: nil)
-            
             completion(error: nil)
         }) { (error) -> () in
             completion(error: error)
@@ -51,6 +50,8 @@ class User: NSObject {
         if FBSDKAccessToken.currentAccessToken() != nil && FBSDKAccessToken.currentAccessToken().tokenString != nil {
             ChannelClient.sharedInstance.authenticateFacebook(FBSDKAccessToken.currentAccessToken().tokenString, completion: { (user, error) in
                 User.currentUser = user
+                
+                NSNotificationCenter.defaultCenter().postNotificationName(userDidLoginNotification, object: nil)
                 completion(error: error)
             })
         }
