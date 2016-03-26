@@ -38,6 +38,8 @@ class User: NSObject {
     class func login(fromViewController: UIViewController, completion: (error: NSError?) -> ()) {
         FacebookLoginClient.sharedInstance.loginToFacebookWithSuccess(fromViewController, successBlock: { (user: User?) in
             User.currentUser = user
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(userDidLoginNotification, object: nil)
         }) { (error) -> () in
             completion(error: error)
         }
