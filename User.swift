@@ -40,6 +40,8 @@ class User: NSObject {
             User.currentUser = user
             
             NSNotificationCenter.defaultCenter().postNotificationName(userDidLoginNotification, object: nil)
+            
+            completion(error: nil)
         }) { (error) -> () in
             completion(error: error)
         }
@@ -48,7 +50,7 @@ class User: NSObject {
     func logout() {
         User.currentUser = nil
         FBSDKLoginManager().logOut()
-        FBSDKAccessToken.setCurrentAccessToken(nil)
+        //FBSDKAccessToken.setCurrentAccessToken(nil)
         
         NSNotificationCenter.defaultCenter().postNotificationName(userDidLogoutNotification, object: nil)
     }
