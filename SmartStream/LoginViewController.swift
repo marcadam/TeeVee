@@ -78,6 +78,7 @@ class LoginViewController: UIViewController {
                 self.performSegueWithIdentifier("segueHome", sender: User.currentUser!)
             } else {
                 debugPrint("TODO : Display login error")
+                debugPrint(error.debugDescription)
             }
         }
     }
