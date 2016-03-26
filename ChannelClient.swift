@@ -20,8 +20,15 @@ class ChannelClient {
         self.manager = AFHTTPSessionManager(baseURL: NSURL(string: channelBaseUrl))
         self.manager.requestSerializer = AFJSONRequestSerializer()
         self.manager.responseSerializer = AFJSONResponseSerializer(readingOptions: NSJSONReadingOptions.AllowFragments)
-        let contentTypes = NSSet(array: ["text/plain", "text/html"])
-        self.manager.responseSerializer.acceptableContentTypes = (contentTypes as! Set<String>)
+        //self.manager.responseSerializer.acceptableContentTypes = nil
+        
+//        let contentTypes = NSSet(array: ["text/plain", "text/html"])
+//        self.manager.responseSerializer.acceptableContentTypes = (contentTypes as! Set<String>)
+        
+        var acceptableContentTypes = Set<String>()
+        acceptableContentTypes.insert("text/plain")
+        acceptableContentTypes.insert("text/html")
+        self.manager.responseSerializer.acceptableContentTypes = acceptableContentTypes
     }
     
     func authenticateFacebook(accessToken: String, completion: (user: User?, error: NSError?) -> ()) {
@@ -36,7 +43,10 @@ class ChannelClient {
             }
             
         }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-            debugPrint("error \(error.debugDescription)")
+            let response = dataTask?.response as? NSHTTPURLResponse
+            if response != nil {
+                debugPrint("authenticateFacebook() status code = \(response!.statusCode)")
+            }
             completion(user: nil, error: error)
         }
     }
@@ -53,7 +63,10 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                debugPrint("error \(error.debugDescription)")
+                let response = dataTask?.response as? NSHTTPURLResponse
+                if response != nil {
+                    debugPrint("createChannel() status code = \(response!.statusCode)")
+                }
                 completion(channel: nil, error: error)
         }
         
@@ -72,7 +85,10 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                debugPrint("error \(error.debugDescription)")
+                let response = dataTask?.response as? NSHTTPURLResponse
+                if response != nil {
+                    debugPrint("updateChannel() status code = \(response!.statusCode)")
+                }
                 completion(channel: nil, error: error)
         }
         
@@ -85,6 +101,10 @@ class ChannelClient {
             completion(channelId: channelId, error: nil)
             
             }) { (dataTask: NSURLSessionDataTask?, apiError: NSError) -> Void in
+                let response = dataTask?.response as? NSHTTPURLResponse
+                if response != nil {
+                    debugPrint("deleteChannel() status code = \(response!.statusCode)")
+                }
                 completion(channelId: channelId, error: apiError)
         }
         
@@ -103,7 +123,10 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                debugPrint("error \(error.debugDescription)")
+                let response = dataTask?.response as? NSHTTPURLResponse
+                if response != nil {
+                    debugPrint("getChannel() status code = \(response!.statusCode)")
+                }
                 completion(channel: nil, error: error)
         }
         
@@ -122,7 +145,10 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                debugPrint("error \(error.debugDescription)")
+                let response = dataTask?.response as? NSHTTPURLResponse
+                if response != nil {
+                    debugPrint("streamChannel() status code = \(response!.statusCode)")
+                }
                 completion(channel: nil, error: error)
         }
         
@@ -140,7 +166,10 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                debugPrint("error \(error.debugDescription)")
+                let response = dataTask?.response as? NSHTTPURLResponse
+                if response != nil {
+                    debugPrint("getTweetsForChannel() status code = \(response!.statusCode)")
+                }
                 completion(channel: nil, error: error)
         }
         
@@ -159,7 +188,10 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                debugPrint("error \(error.debugDescription)")
+                let response = dataTask?.response as? NSHTTPURLResponse
+                if response != nil {
+                    debugPrint("getMyChannels() status code = \(response!.statusCode)")
+                }
                 completion(channels: nil, error: error)
         }
         
@@ -177,7 +209,10 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                debugPrint("error \(error.debugDescription)")
+                let response = dataTask?.response as? NSHTTPURLResponse
+                if response != nil {
+                    debugPrint("getDiscoverChannels() status code = \(response!.statusCode)")
+                }
                 completion(channels: nil, error: error)
         }
         
@@ -195,7 +230,10 @@ class ChannelClient {
             }
             
             }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
-                debugPrint("error \(error.debugDescription)")
+                let response = dataTask?.response as? NSHTTPURLResponse
+                if response != nil {
+                    debugPrint("getAvailableFilters() status code = \(response!.statusCode)")
+                }
                 completion(filters: nil, error: error)
         }
         

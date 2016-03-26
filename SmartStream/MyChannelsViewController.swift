@@ -308,8 +308,6 @@ extension MyChannelsViewController {
             if let channels = channels {
                 self.channelsArray = channels
                 self.tableView.reloadData()
-            } else {
-                debugPrint(error)
             }
         }
     }
