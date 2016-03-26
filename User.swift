@@ -42,6 +42,9 @@ class User: NSObject {
             NSNotificationCenter.defaultCenter().postNotificationName(userDidLoginNotification, object: nil)
             completion(error: nil)
         }) { (error) -> () in
+            if error != nil {
+                debugPrint(error.debugDescription)
+            }
             completion(error: error)
         }
     }
@@ -49,6 +52,9 @@ class User: NSObject {
     class func relogin(completion: (error: NSError?) -> ()) {
         if FBSDKAccessToken.currentAccessToken() != nil && FBSDKAccessToken.currentAccessToken().tokenString != nil {
             ChannelClient.sharedInstance.authenticateFacebook(FBSDKAccessToken.currentAccessToken().tokenString, completion: { (user, error) in
+                if error != nil {
+                    debugPrint(error.debugDescription)
+                }
                 User.currentUser = user
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(userDidLoginNotification, object: nil)
