@@ -20,7 +20,7 @@ class NativePlayerView: NSObject {
     private var nativePlayerLayer: AVPlayerLayer!
     private var nativePlayerOverlay: UIView!
     
-    private let myContext = UnsafeMutablePointer<()>()
+    private let myContext: UnsafeMutablePointer<Void> = nil
     private var nativePlayer: AVQueuePlayer!
     private var timeObserver: AnyObject?
     private var currBounds: CGRect
