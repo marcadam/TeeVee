@@ -34,7 +34,11 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if User.currentUser != nil {
-            self.performSegueWithIdentifier("segueHome", sender: User.currentUser!)
+            User.relogin({ (error) in
+                if error == nil {
+                    self.performSegueWithIdentifier("segueHome", sender: User.currentUser!)
+                }
+            })
         }
     }
     

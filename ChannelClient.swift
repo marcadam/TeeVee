@@ -29,6 +29,7 @@ class ChannelClient {
         acceptableContentTypes.insert("text/plain")
         acceptableContentTypes.insert("text/html")
         self.manager.responseSerializer.acceptableContentTypes = acceptableContentTypes
+        
     }
     
     func authenticateFacebook(accessToken: String, completion: (user: User?, error: NSError?) -> ()) {

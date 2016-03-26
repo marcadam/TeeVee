@@ -47,7 +47,16 @@ class User: NSObject {
         }
     }
     
-    func logout() {
+    class func relogin(completion: (error: NSError?) -> ()) {
+        if FBSDKAccessToken.currentAccessToken() != nil && FBSDKAccessToken.currentAccessToken().tokenString != nil {
+            ChannelClient.sharedInstance.authenticateFacebook(FBSDKAccessToken.currentAccessToken().tokenString, completion: { (user, error) in
+                User.currentUser = user
+                completion(error: error)
+            })
+        }
+    }
+    
+    class func logout() {
         User.currentUser = nil
         FBSDKLoginManager().logOut()
         

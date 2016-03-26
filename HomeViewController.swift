@@ -176,7 +176,7 @@ extension HomeViewController: SettingsViewControllerDelegate {
 extension HomeViewController: MenuViewControllerDelegate {
     func menuView(menuView: MenuViewController, didTapLogout isTapped: Bool) {
         if isTapped {
-            User.currentUser?.logout()
+            User.logout()
             toggleMenu({ () -> () in
                 self.performSelector(#selector(self.delayDismiss), withObject: nil, afterDelay: 0.5)
             })
