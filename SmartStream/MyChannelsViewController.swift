@@ -344,9 +344,13 @@ extension MyChannelsViewController {
         if channelsArray.count > 0 {
             hasChannels(true)
         } else {
-            self.getDiscoverChannels(withHUD: true, completion: {
-                self.noChannels(true)
-            })
+            if featuredChannels == nil {
+                getDiscoverChannels(withHUD: true, completion: {
+                    self.noChannels(true)
+                })
+            } else {
+                noChannels(true)
+            }
         }
     }
     
