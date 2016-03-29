@@ -105,6 +105,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
         if showEmptyState {
             let cell = tableView.dequeueReusableCellWithIdentifier(emptyCellID, forIndexPath: indexPath) as! EmptyChannelTableViewCell
             cell.featuredChannels = featuredChannels
+            cell.selectionStyle = .None
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelTableViewCell
@@ -291,16 +292,17 @@ extension MyChannelsViewController {
     func setupTableViewContent() {
         tableView.estimatedRowHeight = 67
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorColor = Theme.Colors.SeparatorColor.color
     }
     
     func setupTableViewEmpty() {
         tableView.rowHeight = tableView.bounds.height - createChannelView.bounds.height
+        tableView.separatorColor = UIColor.clearColor()
     }
     
     func setupUI() {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorColor = Theme.Colors.SeparatorColor.color
         
         createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
         createChannelLabel.textColor = highlightColor
@@ -342,7 +344,9 @@ extension MyChannelsViewController {
         if channelsArray.count > 0 {
             hasChannels(true)
         } else {
-            noChannels(true)
+            self.getDiscoverChannels(withHUD: true, completion: {
+                self.noChannels(true)
+            })
         }
     }
     

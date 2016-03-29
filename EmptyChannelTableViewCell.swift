@@ -11,7 +11,7 @@ import UIKit
 class EmptyChannelTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var featuredChannels: [Channel]!
+    var featuredChannels: [Channel]?
     let bgColor = Theme.Colors.BackgroundColor.color
     let imageMargin: CGFloat = 12
     let imageRows: CGFloat = 3
@@ -38,12 +38,18 @@ class EmptyChannelTableViewCell: UITableViewCell {
 
 extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return featuredChannels.count
+        if let channels = featuredChannels {
+            return channels.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("EmptyChannelCollectionCell", forIndexPath: indexPath) as! EmptyChannelCollectionViewCell
-        cell.channel = featuredChannels[indexPath.item]
+        if let channels = featuredChannels {
+            cell.channel = channels[indexPath.item]
+        }
         
         return cell
     }
