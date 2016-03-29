@@ -404,6 +404,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A202E8DA1CA79F98005E7DED /* EmptyStates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = EmptyStates;
+			sourceTree = "<group>";
+		};
 		A23EC38D1C968BA100398BF2 /* MyChannelTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +431,7 @@
 		A2A3A3C01C8ACAB800D1173C /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				A202E8DA1CA79F98005E7DED /* EmptyStates */,
 				A2B9E1591C9A4FEC009FD91B /* ExploreCollectionViewHeader */,
 				A23EC38D1C968BA100398BF2 /* MyChannelTableViewCell */,
 				495B34531C937A8B002A4ADD /* CustomControlls */,
