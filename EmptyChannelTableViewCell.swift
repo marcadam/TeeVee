@@ -12,9 +12,10 @@ class EmptyChannelTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     var featuredChannels: [Channel]?
-    let bgColor = Theme.Colors.BackgroundColor.color
-    let imageMargin: CGFloat = 12
-    let imageRows: CGFloat = 3
+    private let bgColor = Theme.Colors.BackgroundColor.color
+    private let imageMargin: CGFloat = 12
+    private let imageColumns: CGFloat = 3
+    private let imageInnerMargin: CGFloat = 5
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,8 +56,16 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let size = (bounds.width - imageMargin*(imageRows+1)) / imageRows
+        let size = (bounds.width - imageMargin*2 - ((imageColumns - 1)*imageInnerMargin)) / imageColumns
         return CGSizeMake(size, size)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return imageInnerMargin
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return imageInnerMargin
     }
 
 }
