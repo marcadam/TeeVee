@@ -32,6 +32,7 @@ class MyChannelsViewController: UIViewController {
     weak var delegate: MyChannelsViewControllerDelegate?
     
     private var channelsArray: [Channel] = []
+    private var featuredChannels: [Channel]?
     
     var initialOffset: CGFloat? = nil
     var offsetHeaderViewStop: CGFloat!
@@ -53,7 +54,9 @@ class MyChannelsViewController: UIViewController {
                 self.channelsArray = channels
                 self.hasChannels(true)
             } else {
-                self.noChannels(true)
+                self.getDiscoverChannels(withHUD: true, completion: {
+                    self.noChannels(true)
+                })
             }
         }
     }
@@ -101,6 +104,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if showEmptyState {
             let cell = tableView.dequeueReusableCellWithIdentifier(emptyCellID, forIndexPath: indexPath) as! EmptyChannelTableViewCell
+            cell.featuredChannels = featuredChannels
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelTableViewCell
@@ -370,6 +374,24 @@ extension MyChannelsViewController {
                 }
             } else {
                 completion(channels: nil)
+            }
+        }
+    }
+    
+    func getDiscoverChannels(withHUD showHUD: Bool, completion: ()->()) {
+        ChannelClient.sharedInstance.getDiscoverChannels { (channels, error) -> () in
+            if let channels = channels {
+                self.featuredChannels = channels
+                if showHUD {
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                }
+                completion()
+            } else {
+                debugPrint(error)
+                if showHUD {
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                }
+                completion()
             }
         }
     }
