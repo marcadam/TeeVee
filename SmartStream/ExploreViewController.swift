@@ -23,7 +23,12 @@ class ExploreViewController: UIViewController {
     let channelCellID = "com.smartchannel.ChannelCollectionViewCell"
     let sectionTitleArray = ["blank_title", "Suggested Channels"]
     
-    private var channels: [Channel] = []
+    var channels: [Channel]? {
+        didSet {
+            let featured = getFeaturedChannels(channels!)
+            featuredChannels = featured
+        }
+    }
     private var featuredChannels: [Channel] = []
     private var featuredChannelTimer: NSTimer?
     weak var delegate: ExploreViewControllerDelegate?
@@ -48,8 +53,10 @@ class ExploreViewController: UIViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         collectionView.backgroundColor = UIColor.clearColor()
         
-        getChannels(withHUD: true) { () -> () in
+        if channels == nil {
+            getChannels(withHUD: true) { () -> () in
             //
+            }
         }
         
     }
@@ -63,7 +70,7 @@ class ExploreViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
-        if isFirst {
+        if isFirst && channels == nil {
             self.isFirst = !self.isFirst
             MBProgressHUD.showHUDAddedTo(view, animated: true)
         }
@@ -90,7 +97,6 @@ class ExploreViewController: UIViewController {
         ChannelClient.sharedInstance.getDiscoverChannels { (channels, error) -> () in
             if let channels = channels {
                 self.channels = channels
-                self.featuredChannels = self.getFeaturedChannels(channels)
                 self.collectionView.reloadData()
                 if showHUD {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
@@ -139,8 +145,8 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
         if section == 0 {
             return 1
         } else {
-            if channels.count > 0 {
-                return channels.count
+            if channels?.count > 0 {
+                return channels!.count
             } else {
                 return 0
             }
@@ -155,13 +161,13 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
             return cell
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelCollectionViewCell
-            cell.channel = channels[indexPath.row]
+            cell.channel = channels![indexPath.row]
             return cell
         }
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        delegate?.exploreVC(self, didPlayChannel: channels[indexPath.row])
+        delegate?.exploreVC(self, didPlayChannel: channels![indexPath.row])
     }
     
     func refreshControlAction(refreshControl: UIRefreshControl) {

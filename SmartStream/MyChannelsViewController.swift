@@ -15,6 +15,7 @@ protocol MyChannelsViewControllerDelegate: class {
     func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel)
     func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?)
     func myChannelsVC(sender: MyChannelsViewController, shouldEnableAddChannelBtn: Bool)
+    func myChannelsVC(sender: MyChannelsViewController, didLoadChannels channels: [Channel])
 }
 
 class MyChannelsViewController: UIViewController {
@@ -390,6 +391,7 @@ extension MyChannelsViewController {
         ChannelClient.sharedInstance.getDiscoverChannels { (channels, error) -> () in
             if let channels = channels {
                 self.featuredChannels = channels
+                self.delegate?.myChannelsVC(self, didLoadChannels: channels)
                 if showHUD {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                 }

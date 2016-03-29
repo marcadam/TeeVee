@@ -28,6 +28,7 @@ class ChannelsViewController: UIViewController {
     var createChannelButton: UIButton!
     var createChannelButtonEnabledForMyChannels = false
     private var highlightedColor = Theme.Colors.HighlightColor.color
+    private var featuredChannels: [Channel]?
     
     var myChannelsViewController: UIViewController! {
         didSet {
@@ -37,11 +38,14 @@ class ChannelsViewController: UIViewController {
         }
     }
 
-    var exploreChannelsViewController: UIViewController! {
+    var exploreChannelsViewController: ExploreViewController! {
         didSet {
             view.layoutIfNeeded()
             exploreChannelsViewController.view.frame = exploreChannelsView.bounds
             exploreChannelsView.addSubview(exploreChannelsViewController.view)
+            if let featured = featuredChannels {
+                exploreChannelsViewController.channels = featured
+            }
         }
     }
 
@@ -152,6 +156,9 @@ extension ChannelsViewController: MyChannelsViewControllerDelegate {
     }
     func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?) {
         delegate?.shouldPresentAlert(self, withAlert: alert, completion: completion)
+    }
+    func myChannelsVC(sender: MyChannelsViewController, didLoadChannels channels: [Channel]) {
+        featuredChannels = channels
     }
     
 }
