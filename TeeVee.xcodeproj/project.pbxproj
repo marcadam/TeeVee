@@ -879,7 +879,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SmartStream/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.SmartStream;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.teevee;
 				PRODUCT_NAME = TeeVee;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream/SmartChannel-Bridging-Header.h";
@@ -898,7 +898,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SmartStream/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.SmartStream;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.teevee;
 				PRODUCT_NAME = TeeVee;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream/SmartChannel-Bridging-Header.h";

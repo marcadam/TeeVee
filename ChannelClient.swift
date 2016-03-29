@@ -9,7 +9,7 @@
 import UIKit
 import AFNetworking
 
-let channelBaseUrl = "http://smartu.herokuapp.com/"
+let channelBaseUrl = "https://tokyo-ceiling-733.appspot.com/"
 class ChannelClient {
     var baseURL: String!
     
