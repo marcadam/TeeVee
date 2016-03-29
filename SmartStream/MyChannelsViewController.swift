@@ -46,18 +46,13 @@ class MyChannelsViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         setupUI()
-        let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
-        tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
-        
-        let emptyCellNib = UINib(nibName: "EmptyChannelTableViewCell", bundle: NSBundle.mainBundle())
-        tableView.registerNib(emptyCellNib, forCellReuseIdentifier: emptyCellID)
         
         getChannels { (channels) in
-            if channels != nil {
-                self.setupTableViewContent()
-                self.hasChannels(channels!, withReload: true)
+            self.setupTableVew()
+            if let channels = channels {
+                self.channelsArray = channels
+                self.hasChannels(true)
             } else {
-                self.setupTableViewEmpty()
                 self.noChannels(true)
             }
         }
@@ -179,9 +174,6 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
                     self.channelsArray.removeAtIndex(indexPath.row)
                     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
                     self.checkChannelCount()
-//                    self.dismissViewControllerAnimated(true, completion: { () -> Void in
-//                        //
-//                    })
                 })
             })
             alert.addAction(alertDeleteAction)
@@ -255,8 +247,6 @@ extension MyChannelsViewController: ChannelEditorDelegate {
         if !channelExist {
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
             channelsArray.insert(channel, atIndex: indexPath.row)
-            showEmptyState = false
-            tableView.reloadData()
             // tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
         
@@ -266,6 +256,7 @@ extension MyChannelsViewController: ChannelEditorDelegate {
                 debugPrint("error = \(error.debugDescription)")
             }
         }
+        hasChannels(true)
         
         completion()
     }
@@ -279,6 +270,8 @@ extension MyChannelsViewController: ChannelEditorDelegate {
                 break
             }
         }
+        checkChannelCount()
+        
         completion()
     }
     
@@ -294,16 +287,10 @@ extension MyChannelsViewController {
     func setupTableViewContent() {
         tableView.estimatedRowHeight = 67
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        // Hide empty tableView rows
-        tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.contentInset = UIEdgeInsets(top: createChannelView.bounds.height, left: 0, bottom: 0, right: 0)
     }
     
     func setupTableViewEmpty() {
         tableView.rowHeight = tableView.bounds.height - createChannelView.bounds.height
-        tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.contentInset = UIEdgeInsets(top: createChannelView.bounds.height, left: 0, bottom: 0, right: 0)
     }
     
     func setupUI() {
@@ -319,24 +306,39 @@ extension MyChannelsViewController {
         createChannelButton.tintColor = highlightColor
     }
     
-    func hasChannels(channels: [Channel], withReload reload: Bool) {
-        self.showEmptyState = false
-        self.channelsArray = channels
+    func setupTableVew() {
+        let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
+        tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
+        
+        let emptyCellNib = UINib(nibName: "EmptyChannelTableViewCell", bundle: NSBundle.mainBundle())
+        tableView.registerNib(emptyCellNib, forCellReuseIdentifier: emptyCellID)
+        
+        // Hide empty tableView rows
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.contentInset = UIEdgeInsets(top: createChannelView.bounds.height, left: 0, bottom: 0, right: 0)
+    }
+    
+    func hasChannels(reload: Bool) {
+        showEmptyState = false
+        setupTableViewContent()
         if reload {
-            self.tableView.reloadData()
+            tableView.reloadData()
         }
     }
     
     func noChannels(reload: Bool) {
-        self.showEmptyState = true
+        showEmptyState = true
+        setupTableViewEmpty()
         if reload {
-            self.tableView.reloadData()
+            tableView.reloadData()
         }
     }
     
     func checkChannelCount() {
-        if channelsArray.count == 0 {
-            showEmptyState = true
+        if channelsArray.count > 0 {
+            hasChannels(true)
+        } else {
+            noChannels(true)
         }
     }
     
