@@ -137,6 +137,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         self.channelId = channelId
         self.priorityQueue = PriorityQueue(ascending: true, startingValues: [])
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveItemInProgress), name: AppWillTerminateNotificationKey, object: nil)
+        
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             
@@ -174,15 +176,18 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         })
     }
     
-    deinit {
-        debugPrint("[ChannelManager] deinit()")
-        
+    func saveItemInProgress() {
         if currItem != nil && currTotalDuration != Double.NaN && currProgress != Double.NaN && currProgress < currTotalDuration {
             debugPrint("[ChannelManager] save item-in-progress")
             debugPrint("[ChannelManager] saving \(currItem!.extractor!) in-progress item: \(currItem!.native_id!); progress = \(currProgress)")
             self.channel.setItemInProgress(ItemInProgress(item: currItem, seconds: Float(currProgress)))
         }
+    }
+    
+    deinit {
+        debugPrint("[ChannelManager] deinit()")
         
+        saveItemInProgress()
         stop()
         
         youtubePlayerView = nil
@@ -199,6 +204,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         twitterOn = false
         isPlaying = false
         isTweetPlaying = false
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {

@@ -9,6 +9,8 @@
 import UIKit
 import FBSDKCoreKit
 
+let AppWillTerminateNotificationKey = "com.teevee.AppWillTerminateNotificaton"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -67,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        NSNotificationCenter.defaultCenter().postNotificationName(AppWillTerminateNotificationKey, object: self, userInfo: nil)
     }
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
