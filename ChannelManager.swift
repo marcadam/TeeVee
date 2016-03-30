@@ -12,7 +12,6 @@ import MBProgressHUD
 
 
 let TwitterEnabledKey = "kTwitterEnabled"
-var _twitterOn: Bool? = nil
 
 protocol ChannelManagerDelegate: class {
     func channelManager(channelManager: ChannelManager, progress: Double, totalDuration: Double)
