@@ -17,6 +17,7 @@ class ChannelItem: NSObject, NSCopying, Comparable {
     let timestamp: NSTimeInterval?
     let tweet: Tweet?
     var priority: Int = 100
+    var seekToSeconds: Float = Float.NaN
     
     required init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -36,7 +37,12 @@ class ChannelItem: NSObject, NSCopying, Comparable {
     }
     
     func copyWithZone(zone: NSZone) -> AnyObject {
-        return self.dynamicType.init(dictionary: dictionary)
+        let copy = self.dynamicType.init(dictionary: dictionary)
+        
+        copy.priority = priority
+        copy.seekToSeconds = seekToSeconds
+        
+        return copy
     }
     
     class func items(array array: [NSDictionary]) -> [ChannelItem] {

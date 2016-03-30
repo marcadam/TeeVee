@@ -62,7 +62,7 @@ class TweetPlayerView: NSObject {
 
 extension TweetPlayerView: SmartuPlayer {
     
-    func startItem(item: ChannelItem!, seekToSeconds: Float) {
+    func startItem(item: ChannelItem!) {
         debugPrint("[TWEETPLAYER] play next TweetItem")
         
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: 0, totalDuration: 0)

@@ -72,7 +72,8 @@ class NativePlayerView: NSObject {
             
             if let strongSelf = self {
                 if strongSelf.nativePlayer != nil && strongSelf.nativePlayer!.currentItem != nil {
-                    let currentSecond = strongSelf.nativePlayer!.currentItem!.currentTime().value / Int64(strongSelf.nativePlayer!.currentItem!.currentTime().timescale)
+                    //let currentSecond = strongSelf.nativePlayer!.currentItem!.currentTime().value / Int64(strongSelf.nativePlayer!.currentItem!.currentTime().timescale)
+                    let currentSecond = CMTimeGetSeconds(strongSelf.nativePlayer!.currentItem!.currentTime())
                     let totalDuration = CMTimeGetSeconds(strongSelf.nativePlayer!.currentItem!.duration)
                     
                     if !strongSelf.isPlaying {
@@ -82,7 +83,7 @@ class NativePlayerView: NSObject {
                     
                     strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
                     
-                    if totalDuration == totalDuration && Int64(totalDuration) - currentSecond == bufferTimeConstant {
+                    if totalDuration == totalDuration && Int64(totalDuration) - Int64(currentSecond) == bufferTimeConstant {
                         strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
                         NSTimer.scheduledTimerWithTimeInterval(2.0, target: strongSelf, selector: #selector(strongSelf.endItem), userInfo: nil, repeats: false)
                     }
@@ -114,7 +115,7 @@ extension NativePlayerView: SmartuPlayer {
         
     }
     
-    func startItem(item: ChannelItem!, seekToSeconds: Float) {
+    func startItem(item: ChannelItem!) {
         debugPrint("[NATIVEPLAYER] startItem()")
         if item == currItem {return}
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
@@ -128,6 +129,10 @@ extension NativePlayerView: SmartuPlayer {
         asset.loadValuesAsynchronouslyForKeys(["playable"], completionHandler: { () -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.nativePlayer.insertItem(AVPlayerItem(asset: asset), afterItem: nil)
+                
+                if !item.seekToSeconds.isNaN {
+                    self.nativePlayer.seekToTime(CMTimeMakeWithSeconds(Float64(item.seekToSeconds), 1))
+                }
                 self.playItem()
             })
         })

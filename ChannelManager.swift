@@ -150,8 +150,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         let itemInProgress = strongSelf.channel.getItemInProgress()
                         if itemInProgress.item != nil {
                             debugPrint("[ChannelManager] restore item-in-progress")
-                            debugPrint("[ChannelManager] inserting \(itemInProgress.item!.extractor!) in-progress item: \(itemInProgress.item!.native_id!)")
+                            debugPrint("[ChannelManager] inserting \(itemInProgress.item!.extractor!) in-progress item: \(itemInProgress.item!.native_id!); progress = \(itemInProgress.seconds)")
                             itemInProgress.item!.priority = 99
+                            itemInProgress.item!.seekToSeconds = itemInProgress.seconds
                             self!.priorityQueue!.push(itemInProgress.item!)
                             strongSelf.channel.setItemInProgress(ItemInProgress(item: nil, seconds: Float.NaN))
                         }
@@ -178,6 +179,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         
         if currItem != nil && currTotalDuration != Double.NaN && currProgress != Double.NaN && currProgress < currTotalDuration {
             debugPrint("[ChannelManager] save item-in-progress")
+            debugPrint("[ChannelManager] saving \(currItem!.extractor!) in-progress item: \(currItem!.native_id!); progress = \(currProgress)")
             self.channel.setItemInProgress(ItemInProgress(item: currItem, seconds: Float(currProgress)))
         }
         
@@ -281,10 +283,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         currItem = item
         if extractor == "youtube" {
             currPlayer = youtubePlayerView
-            youtubePlayerView?.startItem(item!, seekToSeconds: Float.NaN)
+            youtubePlayerView?.startItem(item!)
         } else if extractor != nil {
             currPlayer = nativePlayerView
-            nativePlayerView?.startItem(item!, seekToSeconds: Float.NaN)
+            nativePlayerView?.startItem(item!)
         }
         
         if priorityQueue!.count <= numItemsBeforeFetch {
@@ -315,7 +317,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             debugPrint("[MANAGER] extractor = \(tweetItem!.extractor); id = \(tweetItem!.native_id)")
             
             currTweetItem = tweetItem
-            tweetPlayerView?.startItem(tweetItem!, seekToSeconds: Float.NaN)
+            tweetPlayerView?.startItem(tweetItem!)
             
             if queueWrapper.queue!.count <= numItemsBeforeFetch {
                 fetchMoreTweetsItems(nil)
