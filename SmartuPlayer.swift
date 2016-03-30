@@ -25,7 +25,7 @@ enum PlaybackStatus: Int {
 
 protocol SmartuPlayer {
     func prepareToStart(item: ChannelItem!)
-    func startItem(item: ChannelItem!)
+    func startItem(item: ChannelItem!, seekToSeconds: Float)
     func playItem()
     func pauseItem()
     func stopItem()

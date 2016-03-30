@@ -259,10 +259,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         currItem = item
         if extractor == "youtube" {
             currPlayer = youtubePlayerView
-            youtubePlayerView?.startItem(item!)
+            youtubePlayerView?.startItem(item!, seekToSeconds: Float.NaN)
         } else if extractor != nil {
             currPlayer = nativePlayerView
-            nativePlayerView?.startItem(item!)
+            nativePlayerView?.startItem(item!, seekToSeconds: Float.NaN)
         }
         
         if priorityQueue!.count <= numItemsBeforeFetch {
@@ -293,7 +293,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             debugPrint("[MANAGER] extractor = \(tweetItem!.extractor); id = \(tweetItem!.native_id)")
             
             currTweetItem = tweetItem
-            tweetPlayerView?.startItem(tweetItem!)
+            tweetPlayerView?.startItem(tweetItem!, seekToSeconds: Float.NaN)
             
             if queueWrapper.queue!.count <= numItemsBeforeFetch {
                 fetchMoreTweetsItems(nil)

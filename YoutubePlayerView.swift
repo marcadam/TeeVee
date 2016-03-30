@@ -82,7 +82,7 @@ extension YoutubePlayerView: SmartuPlayer {
         NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(prepareYoutubeVideo), userInfo: nil, repeats: false)
     }
     
-    func startItem(item: ChannelItem!) {
+    func startItem(item: ChannelItem!, seekToSeconds: Float) {
         debugPrint("[YOUTUBEPLAYER] startItem()")
         if item == currItem {return}
         

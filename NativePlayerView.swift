@@ -114,7 +114,7 @@ extension NativePlayerView: SmartuPlayer {
         
     }
     
-    func startItem(item: ChannelItem!) {
+    func startItem(item: ChannelItem!, seekToSeconds: Float) {
         debugPrint("[NATIVEPLAYER] startItem()")
         if item == currItem {return}
         //        nativePlayer?.insertItem(AVPlayerItem(URL: NSURL(string: item.url!)!), afterItem: currItem)
