@@ -16,6 +16,7 @@ class ChannelItem: NSObject, NSCopying, Comparable {
     let topic: String?
     let timestamp: NSTimeInterval?
     let tweet: Tweet?
+    var priority: Int = 100
     
     required init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -56,9 +57,15 @@ class ChannelItem: NSObject, NSCopying, Comparable {
 //       at the timestamp for tie-breaker.
 // ==========================================================
 func < (lhs: ChannelItem, rhs: ChannelItem) -> Bool {
-    return lhs.timestamp < rhs.timestamp
+    if lhs.priority < rhs.priority {
+        return true
+    } else if lhs.priority == rhs.priority && lhs.timestamp < rhs.timestamp {
+        return true
+    }
+    
+    return false
 }
 
 func == (lhs: ChannelItem, rhs: ChannelItem) -> Bool {
-    return lhs.timestamp == rhs.timestamp
+    return lhs.priority == rhs.priority && lhs.timestamp == rhs.timestamp
 }

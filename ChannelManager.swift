@@ -147,10 +147,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         debugPrint("[ChannelManager] loading initial channel items...")
                         strongSelf.channel = channel!
                         
-                        if strongSelf.channel.itemInProgress != nil {
+                        let itemInProgress = strongSelf.channel.getItemInProgress()
+                        if itemInProgress.item != nil {
                             debugPrint("[ChannelManager] restore item-in-progress")
-                            self!.priorityQueue!.push(strongSelf.channel.itemInProgress!)
-                            strongSelf.channel.itemInProgress = nil
+                            debugPrint("[ChannelManager] inserting \(itemInProgress.item!.extractor!) in-progress item: \(itemInProgress.item!.native_id!)")
+                            itemInProgress.item!.priority = 99
+                            self!.priorityQueue!.push(itemInProgress.item!)
+                            strongSelf.channel.setItemInProgress(ItemInProgress(item: nil, seconds: Float.NaN))
                         }
                         
                         for item in channel!.items! {
@@ -175,8 +178,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         
         if currItem != nil && currTotalDuration != Double.NaN && currProgress != Double.NaN && currProgress < currTotalDuration {
             debugPrint("[ChannelManager] save item-in-progress")
-            self.channel.itemInProgress = currItem!
-            self.channel.secondsInProgress = Float(currProgress)
+            self.channel.setItemInProgress(ItemInProgress(item: currItem, seconds: Float(currProgress)))
         }
         
         stop()
