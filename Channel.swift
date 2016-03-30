@@ -64,5 +64,57 @@ class Channel: NSObject {
         
         return channels
     }
+    
+    var secondsInProgress: Float {
+        get {
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            if let keyExists = userDefaults.objectForKey("\(self.channel_id!)_inprogress_seconds") {
+                return userDefaults.floatForKey("\(self.channel_id!)_inprogress_seconds")
+            }
+            return Float.NaN
+        }
+        
+        set {
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            userDefaults.setFloat(secondsInProgress, forKey: "\(self.channel_id!)_inprogress_seconds")
+            userDefaults.synchronize()
+        }
+    }
+    var itemInProgress: ChannelItem? {
+        get {
+            let data = NSUserDefaults.standardUserDefaults().objectForKey("\(self.channel_id!)_inprogress") as? NSData
+            
+            if data != nil {
+                do {
+                    let dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! NSDictionary
+                    
+                    debugPrint("[DEBUG] itemInProgress NOT nil")
+                    return ChannelItem(dictionary: dictionary)
+                } catch {
+                    debugPrint("[DEBUG] itemInProgress == nil")
+                    return nil
+                }
+            }
+            
+            debugPrint("[DEBUG] itemInProgress == nil")
+            return nil
+        }
+        
+        set {
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+
+            if itemInProgress == nil {
+                userDefaults.setObject(nil, forKey: "\(self.channel_id!)_inprogress")
+            } else {
+                do {
+                    let data = try NSJSONSerialization.dataWithJSONObject(itemInProgress!.dictionary, options: []) as NSData
+                    userDefaults.setObject(data, forKey: "\(self.channel_id!)_inprogress")
+                } catch {
+                   userDefaults.setObject(nil, forKey: "\(self.channel_id!)_inprogress")
+                }
+            }
+            userDefaults.synchronize()
+        }
+    }
 }
 

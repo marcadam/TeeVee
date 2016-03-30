@@ -35,6 +35,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     private var currPlayer: SmartuPlayer?
     
     private var channelId: String!
+    private var channel: Channel!
     private var priorityQueue: PriorityQueue<ChannelItem>?
     
     private var tweetsPriorityQueues: [String: QueueWrapper]?
@@ -48,6 +49,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     private var prevTweetItem: ChannelItem?
     private var isPlaying = false
     private var isTweetPlaying = false
+    
+    private var currProgress: Double = Double.NaN
+    private var currTotalDuration: Double = Double.NaN
     
     weak var delegate: ChannelManagerDelegate?
     
@@ -141,6 +145,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 if let strongSelf = self {
                     if channel != nil && channel!.items!.count > 0 {
                         debugPrint("[ChannelManager] loading initial channel items...")
+                        strongSelf.channel = channel!
+                        
+                        if strongSelf.channel.itemInProgress != nil {
+                            debugPrint("[ChannelManager] restore item-in-progress")
+                            self!.priorityQueue!.push(strongSelf.channel.itemInProgress!)
+                            strongSelf.channel.itemInProgress = nil
+                        }
                         
                         for item in channel!.items! {
                             debugPrint("[ChannelManager] inserting \(item.extractor!) item: \(item.native_id!)")
@@ -161,6 +172,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     deinit {
         debugPrint("[ChannelManager] deinit()")
+        
+        if currItem != nil && currTotalDuration != Double.NaN && currProgress != Double.NaN && currProgress < currTotalDuration {
+            debugPrint("[ChannelManager] save item-in-progress")
+            self.channel.itemInProgress = currItem!
+            self.channel.secondsInProgress = Float(currProgress)
+        }
+        
         stop()
         
         youtubePlayerView = nil
@@ -201,6 +219,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 playNextItem()
                 isPlaying = true
             } else if status == .Playing {
+                currProgress = progress
+                currTotalDuration = totalDuration
                 
                 let progressStr = String(format: "%.2f", progress)
                 let totalDurationStr = String(format: "%.2f", totalDuration)
@@ -332,8 +352,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         currPlayer?.stopItem()
         tweetPlayerView?.stopItem()
         
-        currItem = nil
-        currTweetItem = nil
+        //currItem = nil
+        //currTweetItem = nil
     }
     
     func next() {
