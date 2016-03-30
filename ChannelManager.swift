@@ -10,6 +10,10 @@ import UIKit
 import SwiftPriorityQueue
 import MBProgressHUD
 
+
+let TwitterEnabledKey = "kTwitterEnabled"
+var _twitterOn: Bool? = nil
+
 protocol ChannelManagerDelegate: class {
     func channelManager(channelManager: ChannelManager, progress: Double, totalDuration: Double)
 }
@@ -55,8 +59,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     weak var delegate: ChannelManagerDelegate?
     
-    var twitterOn = false {
+    var twitterOn: Bool {
         didSet {
+            
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            userDefaults.setBool(twitterOn, forKey: TwitterEnabledKey)
+            userDefaults.synchronize()
+            debugPrint("[ChannelManager] save twitterEnabled to = \(self.twitterOn)")
             
             if twitterOn {
                 
@@ -85,6 +94,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 isTweetPlaying = false
                 tweetPlayerView?.stopItem()
             }
+            
         }
     }
     
@@ -133,9 +143,17 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     init(channelId: String, autoplay: Bool) {
         debugPrint("[ChannelManager] init()")
+        self.twitterOn = false
+
         super.init()
         self.channelId = channelId
         self.priorityQueue = PriorityQueue(ascending: true, startingValues: [])
+        
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if let keyExists = userDefaults.objectForKey(TwitterEnabledKey) {
+            self.twitterOn = userDefaults.boolForKey(TwitterEnabledKey)
+            debugPrint("[ChannelManager] restore twitterEnabled to = \(self.twitterOn)")
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveItemInProgress), name: AppWillTerminateNotificationKey, object: nil)
         
@@ -201,7 +219,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         numTweetsRequests = 0
         
         spinnerShowing = false
-        twitterOn = false
         isPlaying = false
         isTweetPlaying = false
         

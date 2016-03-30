@@ -9,7 +9,7 @@
 import UIKit
 import FBSDKCoreKit
 
-let AppWillTerminateNotificationKey = "com.teevee.AppWillTerminateNotificaton"
+let AppWillTerminateNotificationKey = "kAppWillTerminateNotificaton"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
