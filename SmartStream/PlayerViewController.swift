@@ -75,6 +75,10 @@ class PlayerViewController: UIViewController {
         twitterButton.tintColor = highlightColor
         dismissButton.tintColor = highlightColor
         
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(onSwipe))
+        swipeGestureRecognizer.direction = .Left
+        view.addGestureRecognizer(swipeGestureRecognizer)
+        
         isPortrait = application.statusBarOrientation.isPortrait
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
@@ -199,6 +203,15 @@ class PlayerViewController: UIViewController {
                 self.pauseButton.hidden = true
                 self.playButton.enabled = true
                 self.setTimerToFadeOut()
+        }
+    }
+    
+    func onSwipe(sender: UISwipeGestureRecognizer) {
+        if sender.direction.rawValue == 2 {
+            progressView.setProgress(0, animated: false)
+            self.channelManager?.next()
+            self.onPlayTapped(self)
+            setTimerToFadeOut()
         }
     }
     
