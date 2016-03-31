@@ -156,18 +156,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveItemInProgress), name: AppWillTerminateNotificationKey, object: nil)
         
+        let stopWatch = StopWatch()
+        let tweetsStopWatch = StopWatch()
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             
-            self.fetchMoreTweetsItems({[weak self] (error) -> () in
-                if let strongSelf = self {
-                    if error != nil {return}
-                    
-                    if strongSelf.twitterOn {
-                        debugPrint("[ChannelManager] init: Twitter enabled")
-                        strongSelf.playNextTweet(strongSelf.currItem)
-                    }
-                }
+            self.fetchMoreTweetsItems({ (error) in
+                debugPrint("[ChannelManager] tweets stream INITIALIZED in \(tweetsStopWatch.stop()) seconds")
             })
             
             ChannelClient.sharedInstance.getChannel(channelId) {[weak self] (channel, error) -> () in
@@ -179,7 +174,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         let itemInProgress = strongSelf.channel.getItemInProgress()
                         if itemInProgress.item != nil {
                             debugPrint("[ChannelManager] restore item-in-progress")
-                            debugPrint("[ChannelManager] inserting \(itemInProgress.item!.extractor!) in-progress item: \(itemInProgress.item!.native_id!); progress = \(itemInProgress.seconds)")
+                            //debugPrint("[ChannelManager] inserting \(itemInProgress.item!.extractor!) in-progress item: \(itemInProgress.item!.native_id!); progress = \(itemInProgress.seconds)")
                             itemInProgress.item!.priority = 99
                             itemInProgress.item!.seekToSeconds = itemInProgress.seconds
                             self!.priorityQueue!.push(itemInProgress.item!)
@@ -187,10 +182,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         }
                         
                         for item in channel!.items! {
-                            debugPrint("[ChannelManager] inserting \(item.extractor!) item: \(item.native_id!)")
+                            //debugPrint("[ChannelManager] inserting \(item.extractor!) item: \(item.native_id!)")
                             self!.priorityQueue!.push(item)
                         }
                         
+                        debugPrint("[ChannelManager] channel INITIALIZED in \(stopWatch.stop()) seconds")
+            
                         if autoplay {
                             strongSelf.playNextItem()
                         }
@@ -241,7 +238,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 prevTweetItem = currTweetItem
                 if twitterOn {
                     playNextTweet(currItem)
-                    isTweetPlaying = true
                 }
             } else if status == .Playing {
                 // Tweet
@@ -254,7 +250,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 prevItem = currItem
                 showSpinner(Int64(1.0 * Double(NSEC_PER_SEC)))
                 playNextItem()
-                isPlaying = true
             } else if status == .Playing {
                 currProgress = progress
                 currTotalDuration = totalDuration
@@ -269,6 +264,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         debugPrint("[MANAGER] totalDuration isNaN")
                     }
                     removeSpinner()
+                    if twitterOn {
+                        playNextTweet(currItem)
+                    }
                 }
             }
         }
@@ -293,6 +291,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func playNextItem() {
         if isPlaying || priorityQueue == nil {return}
         
+        isPlaying = true
         var item: ChannelItem? = nil
         while true {
             if priorityQueue!.count == 0 {break}
@@ -330,6 +329,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func playNextTweet(channelItem: ChannelItem?) {
         if isTweetPlaying || channelItem == nil || channelItem?.topic == nil {return}
         
+        isTweetPlaying = true
         if let queueWrapper = tweetsPriorityQueues![channelItem!.topic!] {
             if queueWrapper.queue == nil {return}
             
@@ -507,7 +507,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         if let queueWrapper = self!.tweetsPriorityQueues![item.topic!] {
                             // queue exists for topic
                             queueWrapper.queue?.push(item)
-                            debugPrint("[ChannelManager] TWEET inserting \(item.extractor!) item: \(item.native_id!)")
+                            //debugPrint("[ChannelManager] TWEET inserting \(item.extractor!) item: \(item.native_id!)")
                         } else {
                             queue = PriorityQueue<ChannelItem>(ascending: true, startingValues: [])
                             queue!.push(item)
