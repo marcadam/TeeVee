@@ -14,7 +14,6 @@ protocol MyChannelsViewControllerDelegate: class {
     func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?)
     func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel)
     func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?)
-    func myChannelsVC(sender: MyChannelsViewController, shouldEnableAddChannelBtn: Bool)
 }
 
 class MyChannelsViewController: UIViewController {
@@ -35,7 +34,6 @@ class MyChannelsViewController: UIViewController {
     var initialOffset: CGFloat? = nil
     var offsetHeaderViewStop: CGFloat!
     var offsetHeader: CGFloat?
-    var createChannelButtonOpacity: Float = 1.0
     
     private var highlightColor = Theme.Colors.HighlightColor.color
     
@@ -58,7 +56,6 @@ class MyChannelsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        NSTimer.scheduledTimerWithTimeInterval(addBtnFadeDuration, target: self, selector: #selector(toggleFadeIn), userInfo: nil, repeats: false)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -202,17 +199,6 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
         offsetHeader = newOffset
         //debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
         
-        createChannelButtonOpacity = 1.0 - Float(offset*4)/100.0
-        if createChannelButtonOpacity >= 0 || createChannelButtonOpacity <= 1 {
-            createChannelButton.layer.opacity = createChannelButtonOpacity
-        }
-        
-        if createChannelButtonOpacity <= 0 {
-            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: true)
-        } else {
-            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: false)
-        }
-        
         var headerTransform = CATransform3DIdentity
         headerTransform = CATransform3DTranslate(headerTransform, 0, offsetHeader!, 0)
         createChannelView.layer.transform = headerTransform
@@ -292,13 +278,6 @@ extension MyChannelsViewController {
         channelsArray.insert(newChannel, atIndex: 0)
         let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
         tableView.insertRowsAtIndexPaths([topIndexPath], withRowAnimation: .Fade)
-    }
-    
-    func toggleFadeIn() {
-        UIView.animateWithDuration(0.3) { () -> Void in
-            // set or restore header btn Opacity
-            self.createChannelButton.layer.opacity = self.createChannelButtonOpacity
-        }
     }
     
     func getChannels() {
