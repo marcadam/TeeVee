@@ -22,11 +22,15 @@ class LoginViewController: UIViewController {
         loginBackgroundView.backgroundColor = Theme.Colors.LightButtonColor.color
         loginBackgroundView.layer.cornerRadius = 8
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onLoginTapped(_:)))
-        loginBackgroundView.addGestureRecognizer(tapGesture)
-        
         loginLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         loginLabel.textColor = Theme.Colors.HighlightColor.color
+        
+        if User.currentUser == nil {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onLoginTapped(_:)))
+            loginBackgroundView.addGestureRecognizer(tapGesture)
+        } else {
+            loginLabel.text = "Logging in"
+        }
         
     }
     
