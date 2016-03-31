@@ -24,6 +24,7 @@
 		0B951B281C99280F0068C6AF /* TweetMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B271C99280F0068C6AF /* TweetMedia.swift */; };
 		0B951B2B1C9928690068C6AF /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B2A1C9928690068C6AF /* DateManager.swift */; };
 		0B951B2D1C99307C0068C6AF /* TweetUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B2C1C99307C0068C6AF /* TweetUser.swift */; };
+		0B9744C71CAD1DE5006C829E /* StopTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9744C61CAD1DE5006C829E /* StopTimer.swift */; };
 		492D02741C8B5E37000AAF17 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D02721C8B5E37000AAF17 /* ChannelTableViewCell.swift */; };
 		492D02751C8B5E37000AAF17 /* ChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492D02731C8B5E37000AAF17 /* ChannelTableViewCell.xib */; };
 		492D029B1C8BE100000AAF17 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 492D029A1C8BE100000AAF17 /* Settings.storyboard */; };
@@ -103,6 +104,7 @@
 		0B951B271C99280F0068C6AF /* TweetMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetMedia.swift; sourceTree = "<group>"; };
 		0B951B2A1C9928690068C6AF /* DateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		0B951B2C1C99307C0068C6AF /* TweetUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetUser.swift; sourceTree = "<group>"; };
+		0B9744C61CAD1DE5006C829E /* StopTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopTimer.swift; sourceTree = "<group>"; };
 		492D02721C8B5E37000AAF17 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		492D02731C8B5E37000AAF17 /* ChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelTableViewCell.xib; sourceTree = "<group>"; };
 		492D029A1C8BE100000AAF17 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 				0B951B2A1C9928690068C6AF /* DateManager.swift */,
 				49E805661C9D139F009249CF /* UINavigationControllerNoRotate.swift */,
 				9A68103E1CA0E15A003B0E38 /* Constants.swift */,
+				0B9744C61CAD1DE5006C829E /* StopTimer.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				492D02A21C8BE997000AAF17 /* ProfileViewController.swift in Sources */,
 				A29BA4951C900D8200ED13A5 /* DataLayer.swift in Sources */,
 				495B34551C937AC4002A4ADD /* SegmentedControl.swift in Sources */,
+				0B9744C71CAD1DE5006C829E /* StopTimer.swift in Sources */,
 				492D02B11C916D3A000AAF17 /* ChannelCollectionPagingViewCell.swift in Sources */,
 				A2F231F31C8D7A590053956D /* FilterSelectCell.swift in Sources */,
 				A29BA49B1C9124FD00ED13A5 /* Mock.swift in Sources */,

@@ -96,7 +96,12 @@ extension YoutubePlayerView: SmartuPlayer {
 //                    self.youtubePlayerView.playVideo()
 //                    self.videoAlreadyCued = false
 //                } else {
+                if item.seekToSeconds.isNaN {
                     self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
+                } else {
+                    self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: item.seekToSeconds, suggestedQuality: .Default)
+                    //self.youtubePlayerView.seekToSeconds(item.seekToSeconds, allowSeekAhead: true)
+                }
 //                }
             }
             self.currItem = (item.copy() as! ChannelItem)
@@ -186,7 +191,13 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     func playerViewDidBecomeReady(playerView: YTPlayerView!) {
         if currItem == nil {return}
         debugPrint("[YOUTUBEPLAYER] playerViewDidBecomeReady")
-        self.youtubePlayerView.playVideo()
+        
+        if currItem!.seekToSeconds.isNaN {
+            self.youtubePlayerView.playVideo()
+        } else {
+            debugPrint("[YOUTUBEPLAYER] seekToSeconds \(currItem!.seekToSeconds)")
+            self.youtubePlayerView.seekToSeconds(currItem!.seekToSeconds, allowSeekAhead: true)
+        }
     }
     
     func setPlaying() {

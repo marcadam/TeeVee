@@ -24,8 +24,8 @@ class FiltersViewController: UIViewController {
     }
     
     weak var delegate: FiltersViewDelegate?
-    private let filterCellID = "com.smartchannel.FilterSwitchCell"
-    private let filterSelectCellID = "com.smartchannel.FilterSelectCell"
+    private let filterCellID = "com.teevee.FilterSwitchCell"
+    private let filterSelectCellID = "com.teevee.FilterSelectCell"
     private let filterData = [
         "Max Duration": [
             ["Short",  "<", "1 min"],

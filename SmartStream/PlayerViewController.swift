@@ -67,7 +67,7 @@ class PlayerViewController: UIViewController {
         
         bottomButtonsWrapperView.backgroundColor = UIColor.clearColor()
         gradientView.colors = [UIColor.clearColor(), backgroundColor]
-        gradientView.layer.opacity = 0
+        gradientView.layer.opacity = 1
         
         playButton.tintColor = highlightColor
         pauseButton.tintColor = highlightColor
@@ -162,20 +162,10 @@ class PlayerViewController: UIViewController {
     @IBAction func onTwitterTapped(sender: UIButton) {
         if channelManager == nil {return}
         playerViewTopConstraint.constant = getPlayerTopConstant(!channelManager!.twitterOn)
-        if channelManager!.twitterOn {
-            gradientView.layer.opacity = 1
-        } else {
-            gradientView.layer.opacity = 0
-        }
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             if self.channelManager == nil {return}
             
             self.view.layoutIfNeeded()
-            if self.channelManager!.twitterOn {
-                self.gradientView.layer.opacity = 0
-            } else {
-                self.gradientView.layer.opacity = 1
-            }
             }, completion: { (bool: Bool) -> Void in
                 self.channelManager!.twitterOn = !self.channelManager!.twitterOn
         })
