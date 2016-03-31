@@ -13,9 +13,7 @@ class EmptyChannelTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     var featuredChannels: [Channel]?
     private let bgColor = Theme.Colors.BackgroundColor.color
-    private let imageMargin: CGFloat = 12
-    private let imageColumns: CGFloat = 3
-    private let imageInnerMargin: CGFloat = 5
+    private let cellID = "com.teevee.ChannelCollectionViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,8 +22,8 @@ class EmptyChannelTableViewCell: UITableViewCell {
         // Initialization code
         collectionView.delegate = self
         collectionView.dataSource = self
-        let channelCellNIB = UINib(nibName: "EmptyChannelCollectionViewCell", bundle: NSBundle.mainBundle())
-        collectionView.registerNib(channelCellNIB, forCellWithReuseIdentifier: "EmptyChannelCollectionCell")
+        let channelCellNIB = UINib(nibName: "ChannelCollectionViewCell", bundle: NSBundle.mainBundle())
+        collectionView.registerNib(channelCellNIB, forCellWithReuseIdentifier: cellID)
         collectionView.backgroundColor = bgColor
     }
 
@@ -38,6 +36,11 @@ class EmptyChannelTableViewCell: UITableViewCell {
 }
 
 extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    private var infoViewHeight: CGFloat { return 33.0 }
+    private var imageMargin: CGFloat { return 14.0 }
+    private var imageColumns: CGFloat { return 1.0 }
+    private var imageInnerMargin: CGFloat { return 14.0 }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let channels = featuredChannels {
             return channels.count
@@ -47,7 +50,7 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("EmptyChannelCollectionCell", forIndexPath: indexPath) as! EmptyChannelCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: indexPath) as! ChannelCollectionViewCell
         if let channels = featuredChannels {
             cell.channel = channels[indexPath.item]
         }
@@ -57,7 +60,7 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let size = (bounds.width - imageMargin*2 - ((imageColumns - 1)*imageInnerMargin)) / imageColumns
-        return CGSizeMake(size, size)
+        return CGSizeMake(size, size+infoViewHeight)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {

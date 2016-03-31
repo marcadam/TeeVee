@@ -118,21 +118,24 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let channel = channelsArray[indexPath.row]
-        delegate?.myChannelsVC(self, didPlayChannel: channel)
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        reorderToTop(channel, toRemove: indexPath)
-        
-        // Update last_opened timestamp on the backend
-        ChannelClient.sharedInstance.updateChannel(channel.channel_id!, channelDict: nil) { (channel, error) -> () in
-            if error != nil {
-                debugPrint("updateChannel() failed")
-                debugPrint("error = \(error.debugDescription)")
+        if !showEmptyState {
+            let channel = channelsArray[indexPath.row]
+            delegate?.myChannelsVC(self, didPlayChannel: channel)
+            
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            
+            reorderToTop(channel, toRemove: indexPath)
+            
+            // Update last_opened timestamp on the backend
+            ChannelClient.sharedInstance.updateChannel(channel.channel_id!, channelDict: nil) { (channel, error) -> () in
+                if error != nil {
+                    debugPrint("updateChannel() failed")
+                    debugPrint("error = \(error.debugDescription)")
+                }
             }
+        } else {
+            
         }
-        
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {

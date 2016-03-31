@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="UfV-nf-oDZ">
-                        <rect key="frame" x="12" y="12" width="327" height="167"/>
+                        <rect key="frame" x="14" y="12" width="323" height="167"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1U3-Y8-tfY">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -25,12 +25,12 @@
                     </collectionView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="UfV-nf-oDZ" firstAttribute="leading" secondItem="q5e-rj-343" secondAttribute="leading" constant="12" id="1Il-yt-QDd"/>
+                    <constraint firstItem="UfV-nf-oDZ" firstAttribute="leading" secondItem="q5e-rj-343" secondAttribute="leading" constant="14" id="1Il-yt-QDd"/>
                     <constraint firstAttribute="bottom" secondItem="UfV-nf-oDZ" secondAttribute="bottom" constant="12" id="HcE-LA-5d8"/>
                     <constraint firstAttribute="bottom" secondItem="UfV-nf-oDZ" secondAttribute="bottom" id="Nye-Km-QZW"/>
                     <constraint firstItem="UfV-nf-oDZ" firstAttribute="top" secondItem="q5e-rj-343" secondAttribute="top" constant="12" id="PY1-yE-eqh"/>
                     <constraint firstItem="UfV-nf-oDZ" firstAttribute="top" secondItem="q5e-rj-343" secondAttribute="top" id="PmZ-od-GZW"/>
-                    <constraint firstAttribute="trailing" secondItem="UfV-nf-oDZ" secondAttribute="trailing" constant="12" id="fcO-hh-Z8Z"/>
+                    <constraint firstAttribute="trailing" secondItem="UfV-nf-oDZ" secondAttribute="trailing" constant="14" id="fcO-hh-Z8Z"/>
                     <constraint firstAttribute="trailing" secondItem="UfV-nf-oDZ" secondAttribute="trailing" id="kDW-As-T3P"/>
                     <constraint firstItem="UfV-nf-oDZ" firstAttribute="leading" secondItem="q5e-rj-343" secondAttribute="leading" id="sJU-Kt-bQ8"/>
                 </constraints>
