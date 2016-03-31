@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-let RotateFeaturedChannelNotificatonKey = "com.smartchannel.RotateFeaturedChannelNotificaton"
+let RotateFeaturedChannelNotificatonKey = "com.teevee.RotateFeaturedChannelNotificaton"
 
 protocol ExploreViewControllerDelegate: class {
     func exploreVC(sender: ExploreViewController, didPlayChannel channel: Channel)
@@ -19,8 +19,8 @@ class ExploreViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let channelPagingCellID = "com.smartchannel.ChannelCollectionPagingViewCell"
-    let channelCellID = "com.smartchannel.ChannelCollectionViewCell"
+    let channelPagingCellID = "com.teevee.ChannelCollectionPagingViewCell"
+    let channelCellID = "com.teevee.ChannelCollectionViewCell"
     let sectionTitleArray = ["blank_title", "Suggested Channels"]
     
     private var channels: [Channel] = []

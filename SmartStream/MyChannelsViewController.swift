@@ -24,7 +24,7 @@ class MyChannelsViewController: UIViewController {
     @IBOutlet weak var createChannelLabel: UILabel!
     @IBOutlet weak var createChannelButton: UIButton!
     
-    let channelCellID = "com.smartchannel.ChannelTableViewCell"
+    let channelCellID = "com.teevee.ChannelTableViewCell"
     
     var containerViewController: HomeViewController!
     

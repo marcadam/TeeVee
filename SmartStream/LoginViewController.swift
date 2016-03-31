@@ -74,7 +74,7 @@ class LoginViewController: UIViewController {
     
     func onLoginTapped(sender: UITapGestureRecognizer) {
         User.login(self) { (error) in
-            if error == nil {
+            if error == nil && User.currentUser != nil {
                 self.performSegueWithIdentifier("segueHome", sender: User.currentUser!)
             } else {
                 debugPrint("TODO : Display login error")
