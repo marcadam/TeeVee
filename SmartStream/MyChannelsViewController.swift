@@ -19,9 +19,6 @@ protocol MyChannelsViewControllerDelegate: class {
 class MyChannelsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var createChannelView: UIView!
-    @IBOutlet weak var createChannelLabel: UILabel!
-    @IBOutlet weak var createChannelButton: UIButton!
     
     let channelCellID = "com.teevee.ChannelTableViewCell"
     
@@ -30,10 +27,6 @@ class MyChannelsViewController: UIViewController {
     weak var delegate: MyChannelsViewControllerDelegate?
     
     private var channelsArray: [Channel] = []
-    
-    var initialOffset: CGFloat? = nil
-    var offsetHeaderViewStop: CGFloat!
-    var offsetHeader: CGFloat?
     
     private var highlightColor = Theme.Colors.HighlightColor.color
     
@@ -48,7 +41,6 @@ class MyChannelsViewController: UIViewController {
         
         // Hide empty tableView rows
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.contentInset = UIEdgeInsets(top: createChannelView.bounds.height, left: 0, bottom: 0, right: 0)
         
         setupUI()
         getChannels()
@@ -182,29 +174,6 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
         return [deleteAction, editAction, playAction]
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if initialOffset == nil {
-            initialOffset = scrollView.contentOffset.y
-        }
-        
-        if offsetHeaderViewStop == nil {return}
-        
-        let offset = scrollView.contentOffset.y - initialOffset!
-        let newOffset = max(-offsetHeaderViewStop, -offset)
-        if offsetHeader == newOffset {
-            // already reach maximum offset allowed, do nothing
-            return
-        }
-        
-        offsetHeader = newOffset
-        //debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
-        
-        var headerTransform = CATransform3DIdentity
-        headerTransform = CATransform3DTranslate(headerTransform, 0, offsetHeader!, 0)
-        createChannelView.layer.transform = headerTransform
-        
-    }
-    
 }
 
 // MARK: - ChannelEditorDelegate
@@ -262,13 +231,6 @@ extension MyChannelsViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorColor = Theme.Colors.SeparatorColor.color
-        
-        createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
-        createChannelLabel.textColor = highlightColor
-        
-        offsetHeaderViewStop = createChannelView.bounds.height
-        createChannelButton.addTarget(self, action: #selector(createChannelTapped), forControlEvents: UIControlEvents.TouchUpInside)
-        createChannelButton.tintColor = highlightColor
     }
     
     func reorderToTop(newChannel: Channel, toRemove indexPath: NSIndexPath) {

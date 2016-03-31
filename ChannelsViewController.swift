@@ -90,9 +90,6 @@ class ChannelsViewController: UIViewController {
             )
         } else {
             let myc = myChannelsViewController as! MyChannelsViewController
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                myc.createChannelButton.layer.opacity = 0
-            })
             if exploreChannelsViewController == nil {
                 // Instantiate and add Explore view controller
                 let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -25,78 +25,23 @@
                                     <outlet property="delegate" destination="XVg-Ae-aKh" id="RYj-Em-1IE"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zvu-2i-osg" customClass="HighlightedStateView" customModule="TeeVee" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Create Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6WB-10-X09">
-                                        <rect key="frame" x="245" y="16" width="111" height="19"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qx6-TL-5Gn">
-                                        <rect key="frame" x="552" y="5" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="Bxl-Oe-WdX"/>
-                                            <constraint firstAttribute="width" constant="40" id="gZI-GZ-DGD"/>
-                                        </constraints>
-                                        <state key="normal" title="Button" image="icon_add_channel"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="qx6-TL-5Gn" firstAttribute="centerY" secondItem="zvu-2i-osg" secondAttribute="centerY" id="3r0-Xe-Foj"/>
-                                    <constraint firstAttribute="trailing" secondItem="qx6-TL-5Gn" secondAttribute="trailing" constant="8" id="ExQ-ih-3JN"/>
-                                    <constraint firstItem="6WB-10-X09" firstAttribute="centerY" secondItem="zvu-2i-osg" secondAttribute="centerY" id="KGg-di-kkz"/>
-                                    <constraint firstItem="6WB-10-X09" firstAttribute="centerX" secondItem="zvu-2i-osg" secondAttribute="centerX" id="Www-5a-1cc"/>
-                                    <constraint firstAttribute="height" constant="50" id="aXC-rf-E5d"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="EVJ-gu-S83" appends="YES" id="I8K-t9-V3I"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9Pd-Bx-FT7" firstAttribute="top" secondItem="7j7-QB-XqQ" secondAttribute="top" id="1Zs-9U-j6I"/>
                             <constraint firstAttribute="trailing" secondItem="9Pd-Bx-FT7" secondAttribute="trailing" id="NxG-e7-gbt"/>
-                            <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="oA4-yX-AvU" secondAttribute="bottom" id="X3N-Qe-1bK"/>
-                            <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="oA4-yX-AvU" secondAttribute="bottom" id="hql-Rj-xi0"/>
-                            <constraint firstAttribute="trailing" secondItem="zvu-2i-osg" secondAttribute="trailing" id="lNI-ka-VA1"/>
                             <constraint firstItem="YAg-VK-nIn" firstAttribute="top" secondItem="9Pd-Bx-FT7" secondAttribute="bottom" id="mt7-nI-r4P"/>
-                            <constraint firstItem="9Pd-Bx-FT7" firstAttribute="top" secondItem="zvu-2i-osg" secondAttribute="bottom" id="r9J-RZ-Epc"/>
-                            <constraint firstItem="zvu-2i-osg" firstAttribute="leading" secondItem="7j7-QB-XqQ" secondAttribute="leading" id="v6j-TT-F4U"/>
                             <constraint firstItem="9Pd-Bx-FT7" firstAttribute="leading" secondItem="7j7-QB-XqQ" secondAttribute="leading" id="whb-qi-hRU"/>
-                            <constraint firstItem="zvu-2i-osg" firstAttribute="top" secondItem="7j7-QB-XqQ" secondAttribute="top" id="zaW-fO-ajt"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="r9J-RZ-Epc"/>
-                                <exclude reference="X3N-Qe-1bK"/>
-                                <exclude reference="hql-Rj-xi0"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outlet property="createChannelButton" destination="qx6-TL-5Gn" id="sIq-cq-JGv"/>
-                        <outlet property="createChannelLabel" destination="6WB-10-X09" id="Oku-al-JGL"/>
-                        <outlet property="createChannelView" destination="zvu-2i-osg" id="HQW-qu-NzS"/>
                         <outlet property="tableView" destination="9Pd-Bx-FT7" id="wip-vC-i0c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qz-HK-rYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="EVJ-gu-S83">
-                    <connections>
-                        <action selector="didTapCreateNewChannel:" destination="XVg-Ae-aKh" id="s5o-o1-oxQ"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3101" y="237"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="icon_add_channel" width="40" height="40"/>
-    </resources>
 </document>
