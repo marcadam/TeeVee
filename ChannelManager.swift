@@ -58,7 +58,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     weak var delegate: ChannelManagerDelegate?
     
-    var twitterOn: Bool {
+    var twitterOn = false {
         didSet {
             
             let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -159,7 +159,17 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             
-            self.fetchMoreTweetsItems(nil)
+            self.fetchMoreTweetsItems({[weak self] (error) -> () in
+                if let strongSelf = self {
+                    if error != nil {return}
+                    
+                    if strongSelf.twitterOn {
+                        debugPrint("[ChannelManager] init: Twitter enabled")
+                        strongSelf.playNextTweet(strongSelf.currItem)
+                    }
+                }
+            })
+            
             ChannelClient.sharedInstance.getChannel(channelId) {[weak self] (channel, error) -> () in
                 if let strongSelf = self {
                     if channel != nil && channel!.items!.count > 0 {
