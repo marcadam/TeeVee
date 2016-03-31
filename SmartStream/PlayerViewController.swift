@@ -9,23 +9,19 @@
 import UIKit
 
 class PlayerViewController: UIViewController {
-
+    
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var tweetsView: UIView!
     @IBOutlet weak var spinnerView: UIView!
     @IBOutlet weak var overlayView: UIView!
-    @IBOutlet weak var twitterButton: UIButton!
-    @IBOutlet weak var pauseButton: UIButton!
-    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var channelTitleLabel: UILabel!
     @IBOutlet weak var playerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var bottomButtonsView: UIView!
     @IBOutlet weak var topHeaderView: UIView!
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var bottomButtonsWrapperView: UIView!
     @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var mediaOverlayView: UIView!
     
     var channelTitle: String!
     var channelId: String! = "0"
@@ -37,6 +33,8 @@ class PlayerViewController: UIViewController {
     private var controlsHidden = false
     private var latestTimer: NSTimer?
     private var isPortrait = true
+    private var isPlay = false
+    private var isTweetPlay = false
     
     let backgroundColor = Theme.Colors.BackgroundColor.color
     let highlightColor = Theme.Colors.HighlightColor.color
@@ -65,19 +63,20 @@ class PlayerViewController: UIViewController {
         channelTitleLabel.textColor = highlightColor
         channelTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         
-        bottomButtonsWrapperView.backgroundColor = UIColor.clearColor()
         gradientView.colors = [UIColor.clearColor(), backgroundColor]
         gradientView.layer.opacity = 1
         
-        playButton.tintColor = highlightColor
-        pauseButton.tintColor = highlightColor
-        nextButton.tintColor = highlightColor
-        twitterButton.tintColor = highlightColor
         dismissButton.tintColor = highlightColor
         
         let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(onSwipe))
         swipeGestureRecognizer.direction = .Left
         view.addGestureRecognizer(swipeGestureRecognizer)
+        
+        let mediaTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onMediaTap))
+        mediaOverlayView.addGestureRecognizer(mediaTapGestureRecognizer)
+        
+        let tweetTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTweetTap))
+        gradientView.addGestureRecognizer(tweetTapGestureRecognizer)
         
         isPortrait = application.statusBarOrientation.isPortrait
         
@@ -108,8 +107,7 @@ class PlayerViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    func rotated()
-    {
+    func rotated() {
         if isPortrait == application.statusBarOrientation.isPortrait {return}
         isPortrait = application.statusBarOrientation.isPortrait
         
@@ -117,11 +115,9 @@ class PlayerViewController: UIViewController {
             debugPrint("Portrait")
             application.statusBarHidden = true
             gradientView.hidden = false
-            twitterButton.enabled = true
         } else {
             debugPrint("Landscape")
             gradientView.hidden = true
-            twitterButton.enabled = false
         }
         
         viewWillLayoutSubviews()
@@ -163,63 +159,34 @@ class PlayerViewController: UIViewController {
         }
     }
     
-    @IBAction func onTwitterTapped(sender: UIButton) {
-        if channelManager == nil {return}
-        playerViewTopConstraint.constant = getPlayerTopConstant(!channelManager!.twitterOn)
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            if self.channelManager == nil {return}
-            
-            self.view.layoutIfNeeded()
-            }, completion: { (bool: Bool) -> Void in
-                self.channelManager!.twitterOn = !self.channelManager!.twitterOn
-        })
-        
-        setTimerToFadeOut()
-    }
-    
-    @IBAction func onPlayTapped(sender: AnyObject) {
-        self.channelManager?.play()
-        playButton.enabled = false
-        pauseButton.hidden = false
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.playButton.layer.opacity = 0
-            self.pauseButton.layer.opacity = 1
-            }) { (finished) -> Void in
-                self.playButton.hidden = true
-                self.pauseButton.enabled = true
-                self.setTimerToFadeOut()
-        }
-        
-    }
-    
-    @IBAction func onStopTapped(sender: AnyObject) {
-        self.channelManager?.pause()
-        pauseButton.enabled = false
-        playButton.hidden = false
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.playButton.layer.opacity = 1
-            self.pauseButton.layer.opacity = 0
-            }) { (finished) -> Void in
-                self.pauseButton.hidden = true
-                self.playButton.enabled = true
-                self.setTimerToFadeOut()
-        }
-    }
-    
     func onSwipe(sender: UISwipeGestureRecognizer) {
         if sender.direction.rawValue == 2 {
             progressView.setProgress(0, animated: false)
             self.channelManager?.next()
-            self.onPlayTapped(self)
             setTimerToFadeOut()
         }
     }
     
-    @IBAction func onNextTapped(sender: AnyObject) {
-        progressView.setProgress(0, animated: false)
-        self.channelManager?.next()
-        self.onPlayTapped(self)
-        setTimerToFadeOut()
+    func onMediaTap(sender: UITapGestureRecognizer) {
+        guard let manager = channelManager else { return }
+        if isPlay {
+            manager.play()
+        } else {
+            manager.pause()
+        }
+        animateFade()
+        isPlay = !isPlay
+    }
+    
+    func onTweetTap(sender: UITapGestureRecognizer) {
+        guard let manager = channelManager else { return }
+        if isTweetPlay {
+            manager.playTweet()
+        } else {
+            manager.pauseTweet()
+        }
+        animateFade()
+        isTweetPlay = !isTweetPlay
     }
     
     @IBAction func onDismiss(sender: AnyObject) {
@@ -239,43 +206,48 @@ class PlayerViewController: UIViewController {
     }
     
     func animateFade() {
-        bottomButtonsView.layer.removeAllAnimations()
         dismissButton.layer.removeAllAnimations()
         channelTitleLabel.layer.removeAllAnimations()
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             if self.controlsHidden {
                 // show everything
-                self.bottomButtonsView.hidden = false
                 self.dismissButton.hidden = false
                 self.progressView.hidden = false
-                self.bottomButtonsView.layer.opacity = 1
                 self.dismissButton.layer.opacity = 1
                 self.channelTitleLabel.layer.opacity = 1
+                self.progressView.layer.opacity = 1
                 self.setTimerToFadeOut()
             } else {
                 // hide everything
-                self.bottomButtonsView.layer.opacity = 0
-                self.dismissButton.layer.opacity = 0
-                self.channelTitleLabel.layer.opacity = 0.3
+                if !self.isPortrait {
+                    self.dismissButton.layer.opacity = 0
+                    self.channelTitleLabel.layer.opacity = 0
+                    self.progressView.layer.opacity = 0
+                } else {
+                    self.dismissButton.layer.opacity = 0.3
+                    self.channelTitleLabel.layer.opacity = 0.3
+                    self.progressView.layer.opacity = 0
+                }
                 if let timer = self.latestTimer {
                     timer.invalidate()
                 }
             }
-            }) { (bool: Bool) -> Void in
-                if !self.controlsHidden {
-                    // hide everything
-                    self.bottomButtonsView.hidden = true
+        }) { (bool: Bool) -> Void in
+            if !self.controlsHidden {
+                // hide everything
+                if !self.isPortrait {
                     self.dismissButton.hidden = true
                     self.progressView.hidden = true
                 }
-                self.controlsHidden = !self.controlsHidden
+            }
+            self.controlsHidden = !self.controlsHidden
         }
     }
-
+    
     override func shouldAutorotate() -> Bool {
         return true
     }
-
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .AllButUpsideDown
     }

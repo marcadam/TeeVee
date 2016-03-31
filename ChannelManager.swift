@@ -374,12 +374,18 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func play() {
         if currItem == nil {return}
         currPlayer?.playItem()
+    }
+    
+    func playTweet() {
         tweetPlayerView?.playItem()
     }
     
     func pause() {
         if currItem == nil {return}
         currPlayer?.pauseItem()
+    }
+    
+    func pauseTweet() {
         tweetPlayerView?.pauseItem()
     }
     
