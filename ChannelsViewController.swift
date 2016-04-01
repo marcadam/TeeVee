@@ -26,7 +26,6 @@ class ChannelsViewController: UIViewController {
     @IBOutlet weak var segmentedControl: SegmentedControl!
 
     var createChannelButton: UIButton!
-    var createChannelButtonEnabledForMyChannels = false
     private var highlightedColor = Theme.Colors.HighlightColor.color
     private var featuredChannels: [Channel]?
     
@@ -91,16 +90,10 @@ class ChannelsViewController: UIViewController {
                     self.exploreChannelsViewController.view.removeFromSuperview()
                     self.exploreChannelsViewController.removeFromParentViewController()
                     self.myChannelsViewController.didMoveToParentViewController(self)
-                    
-                    // restore AddChannel's current state
-                    self.enableAddChannelBtn(self.createChannelButtonEnabledForMyChannels)
                 }
             )
         } else {
             let myc = myChannelsViewController as! MyChannelsViewController
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                myc.createChannelButton.layer.opacity = 0
-            })
             if exploreChannelsViewController == nil {
                 // Instantiate and add Explore view controller
                 let exploreStoryboard = UIStoryboard(name: "Explore", bundle: nil)
@@ -124,10 +117,6 @@ class ChannelsViewController: UIViewController {
                     self.myChannelsViewController.view.removeFromSuperview()
                     self.myChannelsViewController.removeFromParentViewController()
                     self.exploreChannelsViewController.didMoveToParentViewController(self)
-                    
-                    // save AddChannel's current state
-                    self.createChannelButtonEnabledForMyChannels = self.createChannelButton.enabled
-                    self.enableAddChannelBtn(true)
             })
         }
     }
@@ -182,11 +171,11 @@ extension ChannelsViewController {
         let composeImage = UIImage(named: "icon_add_channel")
         createChannelButton.setImage(composeImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         createChannelButton.addTarget(self, action: #selector(createChannelTapped), forControlEvents: UIControlEvents.TouchUpInside)
+        createChannelButton.enabled = true
+        createChannelButton.tintColor = self.highlightedColor
         
         let createChannelBarButton = UIBarButtonItem(customView: createChannelButton)
         navigationItem.rightBarButtonItems = [negativeSpacer, createChannelBarButton]
-        
-        enableAddChannelBtn(false)
         
         let negativeSpacerLeft = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
         negativeSpacerLeft.width = -3
@@ -209,27 +198,4 @@ extension ChannelsViewController {
         delegate?.channelsView(self, didTapMenuButton: sender)
     }
     
-    func myChannelsVC(sender: MyChannelsViewController, shouldEnableAddChannelBtn: Bool) {
-        enableAddChannelBtn(shouldEnableAddChannelBtn)
-    }
-    
-    func enableAddChannelBtn(shouldEnableAddChannelBtn: Bool) {
-        if shouldEnableAddChannelBtn {
-            if !createChannelButton.enabled {
-                //debugPrint("addChannelBtn enabled")
-                UIView.animateWithDuration(addBtnFadeDuration, animations: { () -> Void in
-                    self.createChannelButton.enabled = true
-                    self.createChannelButton.tintColor = self.highlightedColor
-                })
-            }
-        } else {
-            if createChannelButton.enabled {
-                //debugPrint("addChannelBtn disabled")
-                UIView.animateWithDuration(addBtnFadeDuration, animations: { () -> Void in
-                    self.createChannelButton.enabled = false
-                    self.createChannelButton.tintColor = UIColor.clearColor()
-                })
-            }
-        }
-    }
 }

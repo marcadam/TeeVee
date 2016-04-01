@@ -14,16 +14,12 @@ protocol MyChannelsViewControllerDelegate: class {
     func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?)
     func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel)
     func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?)
-    func myChannelsVC(sender: MyChannelsViewController, shouldEnableAddChannelBtn: Bool)
     func myChannelsVC(sender: MyChannelsViewController, didLoadChannels channels: [Channel])
 }
 
 class MyChannelsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var createChannelView: UIView!
-    @IBOutlet weak var createChannelLabel: UILabel!
-    @IBOutlet weak var createChannelButton: UIButton!
     
     let channelCellID = "com.smartchannel.ChannelTableViewCell"
     let emptyCellID = "com.smartchannel.EmptyChannelTableViewCell"
@@ -34,19 +30,20 @@ class MyChannelsViewController: UIViewController {
     
     private var channelsArray: [Channel] = []
     private var featuredChannels: [Channel]?
-    
-    var initialOffset: CGFloat? = nil
-    var offsetHeaderViewStop: CGFloat!
-    var offsetHeader: CGFloat?
-    var createChannelButtonOpacity: Float = 1.0
     private var showEmptyState = false
-    
     private var highlightColor = Theme.Colors.HighlightColor.color
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
+        tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
+        tableView.estimatedRowHeight = 67
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        // Hide empty tableView rows
+        tableView.tableFooterView = UIView(frame: CGRectZero)
         setupUI()
         
         getChannels { (channels) in
@@ -64,7 +61,6 @@ class MyChannelsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        NSTimer.scheduledTimerWithTimeInterval(addBtnFadeDuration, target: self, selector: #selector(toggleFadeIn), userInfo: nil, repeats: false)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -203,40 +199,6 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
         return [deleteAction, editAction, playAction]
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if initialOffset == nil {
-            initialOffset = scrollView.contentOffset.y
-        }
-        
-        if offsetHeaderViewStop == nil {return}
-        
-        let offset = scrollView.contentOffset.y - initialOffset!
-        let newOffset = max(-offsetHeaderViewStop, -offset)
-        if offsetHeader == newOffset {
-            // already reach maximum offset allowed, do nothing
-            return
-        }
-        
-        offsetHeader = newOffset
-        //debugPrint("offset = \(offset); offsetHeader = \(offsetHeader)")
-        
-        createChannelButtonOpacity = 1.0 - Float(offset*4)/100.0
-        if createChannelButtonOpacity >= 0 || createChannelButtonOpacity <= 1 {
-            createChannelButton.layer.opacity = createChannelButtonOpacity
-        }
-        
-        if createChannelButtonOpacity <= 0 {
-            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: true)
-        } else {
-            delegate?.myChannelsVC(self, shouldEnableAddChannelBtn: false)
-        }
-        
-        var headerTransform = CATransform3DIdentity
-        headerTransform = CATransform3DTranslate(headerTransform, 0, offsetHeader!, 0)
-        createChannelView.layer.transform = headerTransform
-        
-    }
-    
 }
 
 // MARK: - ChannelEditorDelegate
@@ -300,20 +262,14 @@ extension MyChannelsViewController {
     }
     
     func setupTableViewEmpty() {
-        tableView.rowHeight = tableView.bounds.height - createChannelView.bounds.height
+        tableView.rowHeight = tableView.bounds.height
         tableView.separatorColor = UIColor.clearColor()
     }
     
     func setupUI() {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
-        
-        createChannelView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
-        createChannelLabel.textColor = highlightColor
-        
-        offsetHeaderViewStop = createChannelView.bounds.height
-        createChannelButton.addTarget(self, action: #selector(createChannelTapped), forControlEvents: UIControlEvents.TouchUpInside)
-        createChannelButton.tintColor = highlightColor
+        tableView.separatorColor = Theme.Colors.SeparatorColor.color
     }
     
     func setupTableVew() {
@@ -325,7 +281,7 @@ extension MyChannelsViewController {
         
         // Hide empty tableView rows
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.contentInset = UIEdgeInsets(top: createChannelView.bounds.height, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     func hasChannels(reload: Bool) {
@@ -365,13 +321,6 @@ extension MyChannelsViewController {
         channelsArray.insert(newChannel, atIndex: 0)
         let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
         tableView.insertRowsAtIndexPaths([topIndexPath], withRowAnimation: .Fade)
-    }
-    
-    func toggleFadeIn() {
-        UIView.animateWithDuration(0.3) { () -> Void in
-            // set or restore header btn Opacity
-            self.createChannelButton.layer.opacity = self.createChannelButtonOpacity
-        }
     }
     
     func getChannels(completion: (channels: [Channel]?)->()) {
