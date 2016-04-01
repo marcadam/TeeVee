@@ -35,7 +35,7 @@ class ChannelClient {
     func authenticateFacebook(accessToken: String, completion: (user: User?, error: NSError?) -> ()) {
         let params = ["access_token": accessToken, "refresh_token": accessToken]
         manager.POST("auth/facebook/token", parameters: params, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            debugPrint(response)
+            //debugPrint(response)
             if let json = response as? NSDictionary {
                 let user = User(dictionary: json)
                 completion(user: user, error: nil)
