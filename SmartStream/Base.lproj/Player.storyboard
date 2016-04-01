@@ -38,6 +38,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2nR-wN-DLw">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGB-gN-0Wn">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="l4A-1s-D6j"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qsl-U8-Nzk">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                         <subviews>
@@ -108,8 +115,11 @@
                                     <constraint firstItem="Qsl-U8-Nzk" firstAttribute="leading" secondItem="2nR-wN-DLw" secondAttribute="leading" id="D5M-5C-VNp"/>
                                     <constraint firstAttribute="trailing" secondItem="UQT-H6-cBz" secondAttribute="trailing" id="FTa-Ak-yaU"/>
                                     <constraint firstItem="UQT-H6-cBz" firstAttribute="top" secondItem="Qsl-U8-Nzk" secondAttribute="bottom" id="KvL-Lo-DXa"/>
+                                    <constraint firstItem="RGB-gN-0Wn" firstAttribute="leading" secondItem="2nR-wN-DLw" secondAttribute="leading" id="Mfc-av-6Ok"/>
+                                    <constraint firstAttribute="trailing" secondItem="RGB-gN-0Wn" secondAttribute="trailing" id="WfX-KL-ZhA"/>
                                     <constraint firstItem="Fne-8W-XJa" firstAttribute="top" secondItem="Wa0-ox-4Kl" secondAttribute="bottom" id="bd5-Nc-9xo"/>
                                     <constraint firstItem="UQT-H6-cBz" firstAttribute="leading" secondItem="2nR-wN-DLw" secondAttribute="leading" id="i4C-ja-B8K"/>
+                                    <constraint firstItem="RGB-gN-0Wn" firstAttribute="top" secondItem="2nR-wN-DLw" secondAttribute="top" id="kBS-cF-3rT"/>
                                     <constraint firstItem="Wa0-ox-4Kl" firstAttribute="top" secondItem="Qsl-U8-Nzk" secondAttribute="bottom" id="l6Z-lr-9cc"/>
                                     <constraint firstItem="Fne-8W-XJa" firstAttribute="top" secondItem="UQT-H6-cBz" secondAttribute="bottom" id="okd-R9-q1q"/>
                                     <constraint firstItem="Wa0-ox-4Kl" firstAttribute="leading" secondItem="2nR-wN-DLw" secondAttribute="leading" id="vco-TY-usX"/>
@@ -162,6 +172,7 @@
                         <outlet property="descriptionView" destination="UQT-H6-cBz" id="Gmy-bc-sae"/>
                         <outlet property="dismissButton" destination="Pbd-lh-AnI" id="FYj-oh-kJD"/>
                         <outlet property="gradientView" destination="Fne-8W-XJa" id="TDL-TZ-RUD"/>
+                        <outlet property="landscapeHeaderView" destination="RGB-gN-0Wn" id="j3w-Ek-EoW"/>
                         <outlet property="mediaOverlayView" destination="Wa0-ox-4Kl" id="7Ha-CS-47j"/>
                         <outlet property="mediaTitleLabel" destination="Aki-8O-Jkl" id="JYi-Pn-zZf"/>
                         <outlet property="overlayView" destination="2nR-wN-DLw" id="ZOU-fb-99J"/>

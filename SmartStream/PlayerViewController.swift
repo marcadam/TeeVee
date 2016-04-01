@@ -23,6 +23,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var mediaOverlayView: UIView!
     @IBOutlet weak var mediaTitleLabel: UILabel!
     @IBOutlet weak var descriptionView: UIView!
+    @IBOutlet weak var landscapeHeaderView: UIView!
     
     var channelTitle: String!
     var channelId: String! = "0"
@@ -37,9 +38,10 @@ class PlayerViewController: UIViewController {
     private var isPlay = false
     private var isTweetPlay = false
     
-    let backgroundColor = Theme.Colors.BackgroundColor.color
-    let highlightColor = Theme.Colors.HighlightColor.color
-    let application = UIApplication.sharedApplication()
+    private let normalBoldFont = Theme.Fonts.BoldNormalTypeFace.font
+    private let backgroundColor = Theme.Colors.BackgroundColor.color
+    private let highlightColor = Theme.Colors.HighlightColor.color
+    private let application = UIApplication.sharedApplication()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +57,13 @@ class PlayerViewController: UIViewController {
         playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
         
         progressView.trackTintColor = Theme.Colors.LightBackgroundColor.color
-        progressView.progressTintColor = Theme.Colors.HighlightColor.color
+        progressView.progressTintColor = highlightColor
         progressView.setProgress(0, animated: false)
         
         view.backgroundColor = backgroundColor
         channelTitleLabel.text = channelTitle
         channelTitleLabel.textColor = highlightColor
-        channelTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
+        channelTitleLabel.font = normalBoldFont
         
         gradientView.colors = [UIColor.clearColor(), backgroundColor]
         gradientView.layer.opacity = 1
@@ -82,10 +84,13 @@ class PlayerViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
-        descriptionView.backgroundColor = Theme.Colors.BackgroundColor.color
+        landscapeHeaderView.backgroundColor = backgroundColor
+        landscapeHeaderView.hidden = true
+        
+        descriptionView.backgroundColor = backgroundColor
         descriptionView.layer.opacity = 0
-        mediaTitleLabel.textColor = Theme.Colors.HighlightColor.color
-        mediaTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
+        mediaTitleLabel.textColor = highlightColor
+        mediaTitleLabel.font = normalBoldFont
         
         setTimerToFadeOut()
         setupChannel()
@@ -168,15 +173,19 @@ class PlayerViewController: UIViewController {
         if isPlay {
             manager.play()
             UIView.animateWithDuration(0.3, animations: {
+                self.landscapeHeaderView.layer.opacity = 0
                 self.descriptionView.layer.opacity = 0
                 }, completion: { (finished) in
                     self.descriptionView.hidden = true
+                    self.landscapeHeaderView.hidden = true
             })
         } else {
             manager.pause()
             self.descriptionView.hidden = false
+            self.landscapeHeaderView.hidden = false
             UIView.animateWithDuration(0.3, animations: {
                 self.descriptionView.layer.opacity = 0.95
+                self.landscapeHeaderView.layer.opacity = 0.95
             })
         }
         animateFadeIn()
