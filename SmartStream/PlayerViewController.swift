@@ -52,7 +52,6 @@ class PlayerViewController: UIViewController {
         
         playerViewTopConstantLandscape = 0
         playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
-        playerViewTopConstantPortraitTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
         
         progressView.trackTintColor = Theme.Colors.LightBackgroundColor.color
         progressView.progressTintColor = Theme.Colors.HighlightColor.color
@@ -92,7 +91,8 @@ class PlayerViewController: UIViewController {
         channelManager!.playerContainerView = playerView
         channelManager!.tweetsContainerView = tweetsView
         channelManager!.spinnerContainerView = spinnerView
-        playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
+        channelManager!.twitterOn = true
+        playerViewTopConstraint.constant = getPlayerTopConstant()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -137,11 +137,11 @@ class PlayerViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
+        playerViewTopConstraint.constant = getPlayerTopConstant()
         channelManager?.updateBounds(playerView, tweetsContainerView: tweetsView)
     }
     
-    func getPlayerTopConstant(twitterOn: Bool) -> CGFloat! {
+    func getPlayerTopConstant() -> CGFloat! {
         if application.statusBarOrientation.isPortrait {
             return playerViewTopConstantPortraitTwitterOn
         } else {
