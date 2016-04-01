@@ -137,23 +137,13 @@ class PlayerViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        let newTopConstantTwitterOff = view.bounds.height/2 - playerView.bounds.height/2
-        if newTopConstantTwitterOff != playerViewTopConstantPortraitTwitterOff {
-            playerViewTopConstantPortraitTwitterOff = newTopConstantTwitterOff
-            if channelManager != nil {
-                playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
-            }
-        }
+        playerViewTopConstraint.constant = getPlayerTopConstant(channelManager!.twitterOn)
         channelManager?.updateBounds(playerView, tweetsContainerView: tweetsView)
     }
     
     func getPlayerTopConstant(twitterOn: Bool) -> CGFloat! {
         if application.statusBarOrientation.isPortrait {
-            if twitterOn {
-                return playerViewTopConstantPortraitTwitterOn
-            } else {
-                return playerViewTopConstantPortraitTwitterOff
-            }
+            return playerViewTopConstantPortraitTwitterOn
         } else {
             return playerViewTopConstantLandscape
         }
