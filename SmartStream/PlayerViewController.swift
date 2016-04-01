@@ -19,9 +19,10 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var topHeaderView: UIView!
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var gradientView: GradientView!
-    @IBOutlet weak var bottomButtonsWrapperView: UIView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var mediaOverlayView: UIView!
+    @IBOutlet weak var mediaTitleLabel: UILabel!
+    @IBOutlet weak var descriptionView: UIView!
     
     var channelTitle: String!
     var channelId: String! = "0"
@@ -80,6 +81,11 @@ class PlayerViewController: UIViewController {
         isPortrait = application.statusBarOrientation.isPortrait
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        
+        descriptionView.backgroundColor = Theme.Colors.BackgroundColor.color
+        descriptionView.layer.opacity = 0
+        mediaTitleLabel.textColor = Theme.Colors.HighlightColor.color
+        mediaTitleLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         
         setTimerToFadeOut()
         setupChannel()
@@ -161,10 +167,19 @@ class PlayerViewController: UIViewController {
         guard let manager = channelManager else { return }
         if isPlay {
             manager.play()
+            UIView.animateWithDuration(0.3, animations: {
+                self.descriptionView.layer.opacity = 0
+                }, completion: { (finished) in
+                    self.descriptionView.hidden = true
+            })
         } else {
             manager.pause()
+            self.descriptionView.hidden = false
+            UIView.animateWithDuration(0.3, animations: {
+                self.descriptionView.layer.opacity = 0.95
+            })
         }
-        animateFade()
+        animateFadeIn()
         isPlay = !isPlay
     }
     
@@ -175,7 +190,7 @@ class PlayerViewController: UIViewController {
         } else {
             manager.pauseTweet()
         }
-        animateFade()
+        animateFadeIn()
         isTweetPlay = !isTweetPlay
     }
     
@@ -185,51 +200,55 @@ class PlayerViewController: UIViewController {
     }
     
     @IBAction func onBackgroundTapped(sender: UITapGestureRecognizer) {
-        animateFade()
+        if controlsHidden {
+            animateFadeIn()
+        } else {
+            animateFadeOut()
+        }
+        controlsHidden = !controlsHidden
     }
     
     func setTimerToFadeOut() {
         if let timer = latestTimer {
             timer.invalidate()
         }
-        latestTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(animateFade), userInfo: nil, repeats: false)
+        latestTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(animateFadeOut), userInfo: nil, repeats: false)
     }
     
-    func animateFade() {
+    func animateFadeIn() {
         dismissButton.layer.removeAllAnimations()
         channelTitleLabel.layer.removeAllAnimations()
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            if self.controlsHidden {
-                // show everything
-                self.dismissButton.hidden = false
-                self.progressView.hidden = false
-                self.dismissButton.layer.opacity = 1
-                self.channelTitleLabel.layer.opacity = 1
-                self.progressView.layer.opacity = 1
-                self.setTimerToFadeOut()
+        progressView.layer.removeAllAnimations()
+        UIView.animateWithDuration(0.5) {
+            // show everything
+            self.dismissButton.hidden = false
+            self.progressView.hidden = false
+            self.dismissButton.layer.opacity = 1
+            self.channelTitleLabel.layer.opacity = 1
+            self.progressView.layer.opacity = 1
+            self.setTimerToFadeOut()
+        }
+    }
+    
+    func animateFadeOut() {
+        UIView.animateWithDuration(0.5, animations: {
+            // hide everything
+            if !self.isPortrait {
+                self.dismissButton.layer.opacity = 0
+                self.channelTitleLabel.layer.opacity = 0
+                self.progressView.layer.opacity = 0
             } else {
-                // hide everything
-                if !self.isPortrait {
-                    self.dismissButton.layer.opacity = 0
-                    self.channelTitleLabel.layer.opacity = 0
-                    self.progressView.layer.opacity = 0
-                } else {
-                    self.dismissButton.layer.opacity = 0
-                    self.channelTitleLabel.layer.opacity = 0.3
-                    self.progressView.layer.opacity = 0
-                }
-                if let timer = self.latestTimer {
-                    timer.invalidate()
-                }
+                self.dismissButton.layer.opacity = 0
+                self.channelTitleLabel.layer.opacity = 0.3
+                self.progressView.layer.opacity = 0
             }
-        }) { (bool: Bool) -> Void in
-            if !self.controlsHidden {
-                // hide everything
-                self.dismissButton.hidden = true
-                self.progressView.hidden = true
-                
+            if let timer = self.latestTimer {
+                timer.invalidate()
             }
-            self.controlsHidden = !self.controlsHidden
+        }) { (finished) in
+            // hide everything
+            self.dismissButton.hidden = true
+            self.progressView.hidden = true
         }
     }
     

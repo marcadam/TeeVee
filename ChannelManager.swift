@@ -324,6 +324,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         if priorityQueue!.count <= numItemsBeforeFetch {
             fetchMoreItems(false)
         }
+        
+        //print(currItem?.title ?? "Title 1")
     }
     
     func playNextTweet(channelItem: ChannelItem?) {

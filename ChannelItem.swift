@@ -13,6 +13,8 @@ class ChannelItem: NSObject, NSCopying, Comparable {
     let url: String?
     let native_id: String?
     let extractor: String?
+    //let title: String?
+    //let desc: String?
     let topic: String?
     let timestamp: NSTimeInterval?
     let tweet: Tweet?
@@ -21,7 +23,9 @@ class ChannelItem: NSObject, NSCopying, Comparable {
     
     required init(dictionary: NSDictionary) {
         self.dictionary = dictionary
-
+        
+        //title = dictionary["title"] as? String
+        //desc = dictionary["desc"] as? String
         url = dictionary["url"] as? String
         native_id = dictionary["native_id"] as? String
         extractor = dictionary["extractor"] as? String
