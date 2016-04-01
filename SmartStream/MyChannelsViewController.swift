@@ -14,6 +14,7 @@ protocol MyChannelsViewControllerDelegate: class {
     func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?)
     func myChannelsVC(sender: MyChannelsViewController, didPlayChannel channel: Channel)
     func myChannelsVC(sender: MyChannelsViewController, shouldPresentAlert alert: UIAlertController, completion: (() -> Void)?)
+    func myChannelsVC(sender: MyChannelsViewController, didLoadChannels channels: [Channel])
 }
 
 class MyChannelsViewController: UIViewController {
