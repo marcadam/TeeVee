@@ -235,10 +235,9 @@ class PlayerViewController: UIViewController {
         }) { (bool: Bool) -> Void in
             if !self.controlsHidden {
                 // hide everything
-                if !self.isPortrait {
-                    self.dismissButton.hidden = true
-                    self.progressView.hidden = true
-                }
+                self.dismissButton.hidden = true
+                self.progressView.hidden = true
+                
             }
             self.controlsHidden = !self.controlsHidden
         }
