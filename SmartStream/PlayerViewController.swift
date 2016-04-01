@@ -224,7 +224,7 @@ class PlayerViewController: UIViewController {
                     self.channelTitleLabel.layer.opacity = 0
                     self.progressView.layer.opacity = 0
                 } else {
-                    self.dismissButton.layer.opacity = 0.3
+                    self.dismissButton.layer.opacity = 0
                     self.channelTitleLabel.layer.opacity = 0.3
                     self.progressView.layer.opacity = 0
                 }
