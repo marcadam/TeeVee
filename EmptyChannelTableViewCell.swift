@@ -38,7 +38,7 @@ class EmptyChannelTableViewCell: UITableViewCell {
 extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private var infoViewHeight: CGFloat { return 33.0 }
     private var imageMargin: CGFloat { return 14.0 }
-    private var imageColumns: CGFloat { return 1.0 }
+    private var imageColumns: CGFloat { return 2.0 }
     private var imageInnerMargin: CGFloat { return 14.0 }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

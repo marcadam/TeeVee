@@ -45,8 +45,6 @@
 		9AF70B0F1C974F9200302187 /* TweetPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF70B0E1C974F9200302187 /* TweetPlayerView.swift */; };
 		A202E8DD1CAA7665005E7DED /* EmptyChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A202E8DC1CAA7665005E7DED /* EmptyChannelTableViewCell.xib */; };
 		A202E8DF1CAA772A005E7DED /* EmptyChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A202E8DE1CAA772A005E7DED /* EmptyChannelTableViewCell.swift */; };
-		A202E8E11CAA78D6005E7DED /* EmptyChannelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A202E8E01CAA78D6005E7DED /* EmptyChannelCollectionViewCell.xib */; };
-		A202E8E31CAA791F005E7DED /* EmptyChannelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A202E8E21CAA791F005E7DED /* EmptyChannelCollectionViewCell.swift */; };
 		A22F63A11CA5280000AAA126 /* FacebookLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22F63A01CA5280000AAA126 /* FacebookLoginClient.swift */; };
 		A23EC38F1C968BB800398BF2 /* MyChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */; };
 		A23EC3911C968BC700398BF2 /* MyChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */; };
@@ -127,8 +125,6 @@
 		9B0715D39343243A2CF77246 /* Pods_TeeVee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeeVee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A202E8DC1CAA7665005E7DED /* EmptyChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyChannelTableViewCell.xib; sourceTree = "<group>"; };
 		A202E8DE1CAA772A005E7DED /* EmptyChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyChannelTableViewCell.swift; sourceTree = "<group>"; };
-		A202E8E01CAA78D6005E7DED /* EmptyChannelCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyChannelCollectionViewCell.xib; sourceTree = "<group>"; };
-		A202E8E21CAA791F005E7DED /* EmptyChannelCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyChannelCollectionViewCell.swift; sourceTree = "<group>"; };
 		A22F63A01CA5280000AAA126 /* FacebookLoginClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLoginClient.swift; sourceTree = "<group>"; };
 		A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChannelTableViewCell.swift; sourceTree = "<group>"; };
 		A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyChannelTableViewCell.xib; sourceTree = "<group>"; };
@@ -421,8 +417,6 @@
 			children = (
 				A202E8DC1CAA7665005E7DED /* EmptyChannelTableViewCell.xib */,
 				A202E8DE1CAA772A005E7DED /* EmptyChannelTableViewCell.swift */,
-				A202E8E01CAA78D6005E7DED /* EmptyChannelCollectionViewCell.xib */,
-				A202E8E21CAA791F005E7DED /* EmptyChannelCollectionViewCell.swift */,
 			);
 			name = EmptyState;
 			sourceTree = "<group>";
@@ -624,7 +618,6 @@
 				A2B9E1581C9A1540009FD91B /* TweetCell.xib in Resources */,
 				A23EC3911C968BC700398BF2 /* MyChannelTableViewCell.xib in Resources */,
 				492D02AA1C8FD7BD000AAF17 /* ChannelCollectionViewCell.xib in Resources */,
-				A202E8E11CAA78D6005E7DED /* EmptyChannelCollectionViewCell.xib in Resources */,
 				A2A3A3D81C8AD9C200D1173C /* ChannelEditor.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -737,7 +730,6 @@
 				0B2CD8AF1C8846650055BD50 /* ChannelItem.swift in Sources */,
 				A2A3A3C81C8AD50B00D1173C /* HomeViewController.swift in Sources */,
 				A2B9E1551C9A14D9009FD91B /* TweetCell.swift in Sources */,
-				A202E8E31CAA791F005E7DED /* EmptyChannelCollectionViewCell.swift in Sources */,
 				0B951B221C96ACD10068C6AF /* YoutubePlayerView.swift in Sources */,
 				A29BA4971C9120FD00ED13A5 /* User.swift in Sources */,
 				0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */,

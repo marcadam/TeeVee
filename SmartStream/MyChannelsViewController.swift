@@ -31,7 +31,8 @@ class MyChannelsViewController: UIViewController {
     private var channelsArray: [Channel] = []
     private var featuredChannels: [Channel]?
     private var showEmptyState = false
-    private var highlightColor = Theme.Colors.HighlightColor.color
+    private let highlightColor = Theme.Colors.HighlightColor.color
+    private let darkBackground = Theme.Colors.DarkBackgroundColor.color
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,7 @@ class MyChannelsViewController: UIViewController {
                 self.hasChannels(true)
             } else {
                 self.getDiscoverChannels(withHUD: true, completion: {
-                    self.noChannels(true)
+                    self.showEmpty(true)
                 })
             }
         }
@@ -92,7 +93,7 @@ class MyChannelsViewController: UIViewController {
 extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if showEmptyState {
-            return 1
+            return 2
         } else {
             return channelsArray.count
         }
@@ -100,10 +101,16 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if showEmptyState {
-            let cell = tableView.dequeueReusableCellWithIdentifier(emptyCellID, forIndexPath: indexPath) as! EmptyChannelTableViewCell
-            cell.featuredChannels = featuredChannels
-            cell.selectionStyle = .None
-            return cell
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath)
+                cell.selectionStyle = .None
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(emptyCellID, forIndexPath: indexPath) as! EmptyChannelTableViewCell
+                cell.featuredChannels = featuredChannels
+                cell.selectionStyle = .None
+                return cell
+            }
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(channelCellID, forIndexPath: indexPath) as! ChannelTableViewCell
             let channel = channelsArray[indexPath.row]
@@ -114,7 +121,11 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if !showEmptyState {
+        if showEmptyState {
+            if indexPath.row == 0 {
+                delegate?.myChannelsVC(self, didEditChannel: nil)
+            }
+        } else {
             let channel = channelsArray[indexPath.row]
             delegate?.myChannelsVC(self, didPlayChannel: channel)
             
@@ -129,8 +140,26 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
                     debugPrint("error = \(error.debugDescription)")
                 }
             }
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if showEmptyState {
+            if indexPath.row == 0 {
+                return 180
+            } else {
+                return 1000
+            }
         } else {
-            
+            return 67
+        }
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if showEmptyState {
+            return false
+        } else {
+            return true
         }
     }
     
@@ -170,7 +199,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
             alert.view.tintColor = UIColor.whiteColor()
             let alertSubview = alert.view.subviews.first! as UIView
             let alertContentView = alertSubview.subviews.first! as UIView
-            alertContentView.backgroundColor = Theme.Colors.DarkBackgroundColor.color
+            alertContentView.backgroundColor = self.darkBackground
             alertContentView.layer.cornerRadius = 13
             alertContentView.alpha = 0.8
             
@@ -198,7 +227,6 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
         
         return [deleteAction, editAction, playAction]
     }
-    
 }
 
 // MARK: - ChannelEditorDelegate
@@ -256,12 +284,14 @@ extension MyChannelsViewController: ChannelEditorDelegate {
 extension MyChannelsViewController {
     
     func setupTableViewContent() {
+        showEmptyState = false
         tableView.estimatedRowHeight = 67
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = Theme.Colors.SeparatorColor.color
     }
     
     func setupTableViewEmpty() {
+        showEmptyState = true
         tableView.rowHeight = tableView.bounds.height
         tableView.separatorColor = UIColor.clearColor()
     }
@@ -285,18 +315,20 @@ extension MyChannelsViewController {
     }
     
     func hasChannels(reload: Bool) {
-        showEmptyState = false
         setupTableViewContent()
         if reload {
             tableView.reloadData()
         }
     }
     
-    func noChannels(reload: Bool) {
-        showEmptyState = true
+    func showEmpty(reload: Bool) {
         setupTableViewEmpty()
         if reload {
+            tableView.layer.opacity = 0
             tableView.reloadData()
+            UIView.animateWithDuration(2, delay: 0.5, options: .CurveEaseOut, animations: {
+                self.tableView.layer.opacity = 1
+                }, completion: nil)
         }
     }
     
@@ -306,10 +338,10 @@ extension MyChannelsViewController {
         } else {
             if featuredChannels == nil {
                 getDiscoverChannels(withHUD: true, completion: {
-                    self.noChannels(true)
+                    self.showEmpty(true)
                 })
             } else {
-                noChannels(true)
+                showEmpty(true)
             }
         }
     }
@@ -321,6 +353,10 @@ extension MyChannelsViewController {
         channelsArray.insert(newChannel, atIndex: 0)
         let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
         tableView.insertRowsAtIndexPaths([topIndexPath], withRowAnimation: .Fade)
+    }
+    
+    func onEmptyAddChannelTapped() {
+        delegate?.myChannelsVC(self, didEditChannel: nil)
     }
     
     func getChannels(completion: (channels: [Channel]?)->()) {
