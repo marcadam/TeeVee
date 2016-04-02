@@ -123,10 +123,10 @@ extension YoutubePlayerView: SmartuPlayer {
         debugPrint("[YOUTUBEPLAYER] playItem(); vid = \(currItem!.native_id!)")
         debugPrint("[YOUTUBEPLAYER] player State = \(youtubePlayerView.playerState().rawValue); fraction = \(youtubePlayerView.videoLoadedFraction()); playback quality = \(youtubePlayerView.playbackQuality().rawValue); vid = \(currItem!.native_id!)")
    
-        if !healthCheck() {
-            onPlaybackError()
-            return
-        }
+//        if !healthCheck() {
+//            onPlaybackError()
+//            return
+//        }
         
         self.youtubePlayerView.playVideo()
     }
