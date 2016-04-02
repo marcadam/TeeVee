@@ -24,13 +24,14 @@ enum PlaybackStatus: Int {
 }
 
 protocol SmartuPlayer {
-    func prepareToStart(item: ChannelItem!)
+    func bufferItem(item: ChannelItem!)
     func startItem(item: ChannelItem!)
     func playItem()
     func pauseItem()
     func stopItem()
     func nextItem()
     func resetBounds(bounds: CGRect)
+    func getItem() -> ChannelItem?
 }
 
 protocol SmartuPlayerDelegate: class {
