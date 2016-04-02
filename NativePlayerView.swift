@@ -21,7 +21,7 @@ class NativePlayerView: NSObject {
     private var nativePlayerOverlay: UIView!
     
     private let myContext: UnsafeMutablePointer<Void> = nil
-    private var nativePlayer: AVQueuePlayer!
+    private var nativePlayer: AVPlayer!
     private var timeObserver: AnyObject?
     private var currBounds: CGRect
     
@@ -123,12 +123,10 @@ extension NativePlayerView: SmartuPlayer {
         
         self.currItem = (item.copy() as! ChannelItem)
         
-        self.nativePlayer.removeAllItems()
-        
         let asset = AVURLAsset(URL: NSURL(string: item.url!)!, options: nil)
         asset.loadValuesAsynchronouslyForKeys(["playable"], completionHandler: { () -> Void in
             dispatch_async(dispatch_get_main_queue(),{
-                self.nativePlayer.insertItem(AVPlayerItem(asset: asset), afterItem: nil)
+                self.nativePlayer.replaceCurrentItemWithPlayerItem(AVPlayerItem(asset: asset))
                 
                 if !item.seekToSeconds.isNaN {
                     self.nativePlayer.seekToTime(CMTimeMakeWithSeconds(Float64(item.seekToSeconds), 1))
