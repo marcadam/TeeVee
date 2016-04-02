@@ -86,22 +86,7 @@ class MyChannelsViewController: UIViewController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .Portrait
     }
-    
-    @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
-        delegate?.myChannelsVC(self, didEditChannel: nil)
-    }
-    
-    @IBAction func onShowChannelsTapped(sender: UIButton) {
-        if headerViewHeightIsFullScreen {
-            headerViewHeight = 200
-        } else {
-            headerViewHeight = tableView.bounds.height
-        }
-        headerViewHeightIsFullScreen = !headerViewHeightIsFullScreen
-        let range = NSMakeRange(0, tableView.numberOfSections)
-        let sections = NSIndexSet(indexesInRange: range)
-        tableView.reloadSections(sections, withRowAnimation: .Middle)
-    }
+
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -122,9 +107,14 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if showEmptyState {
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath)
+                let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath) as! HeaderCell
                 cell.selectionStyle = .None
-                cell.backgroundColor = darkBackground
+                cell.delegate = self
+                if headerViewHeightIsFullScreen {
+                    cell.checkChannelButton.setTitle("Recommended Channels", forState: .Normal)
+                } else {
+                    cell.checkChannelButton.setTitle("Close Recommended", forState: .Normal)
+                }
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier(emptyCellID, forIndexPath: indexPath) as! EmptyChannelTableViewCell
@@ -142,15 +132,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if showEmptyState {
-//            
-//            if indexPath.row == 0 {
-//                
-//                    self.delegate?.myChannelsVC(self, didEditChannel: nil)
-//                
-//            }
-            
-        } else {
+        if !showEmptyState {
             let channel = channelsArray[indexPath.row]
             delegate?.myChannelsVC(self, didPlayChannel: channel)
             
@@ -304,6 +286,26 @@ extension MyChannelsViewController: ChannelEditorDelegate {
     }
 }
 
+// Mark: - HeaderCellDelegate
+
+extension MyChannelsViewController: HeaderCellDelegate {
+    func headerCell(sender: HeaderCell, didTapAddChannel tapped: Bool) {
+        delegate?.myChannelsVC(self, didEditChannel: nil)
+    }
+    
+    func headerCell(sender: HeaderCell, didTapCheckChannel tapped: Bool) {
+        if headerViewHeightIsFullScreen {
+            headerViewHeight = 200
+        } else {
+            headerViewHeight = tableView.bounds.height
+        }
+        headerViewHeightIsFullScreen = !headerViewHeightIsFullScreen
+        let range = NSMakeRange(0, tableView.numberOfSections)
+        let sections = NSIndexSet(indexesInRange: range)
+        tableView.reloadSections(sections, withRowAnimation: .Middle)
+    }
+}
+
 // MARK: - General Functions
 
 extension MyChannelsViewController {
@@ -352,7 +354,7 @@ extension MyChannelsViewController {
         if reload {
             tableView.layer.opacity = 0
             tableView.reloadData()
-            UIView.animateWithDuration(2, delay: 0.5, options: .CurveEaseOut, animations: {
+            UIView.animateWithDuration(1, delay: 0.5, options: .CurveEaseOut, animations: {
                 self.tableView.layer.opacity = 1
                 }, completion: nil)
         }

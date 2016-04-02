@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCell" rowHeight="200" id="TRO-hv-OcE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCell" rowHeight="200" id="TRO-hv-OcE" customClass="HeaderCell" customModule="TeeVee" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TRO-hv-OcE" id="KlG-yP-TN1">
@@ -29,14 +29,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbD-ax-kgm">
-                                                    <rect key="frame" x="212" y="161" width="177" height="30"/>
-                                                    <state key="normal" title="Check out some channels"/>
+                                                    <rect key="frame" x="215" y="161" width="171" height="30"/>
+                                                    <state key="normal" title="Recommended Channels"/>
                                                     <connections>
-                                                        <action selector="onShowChannelsTapped:" destination="XVg-Ae-aKh" eventType="touchUpInside" id="mf7-lw-cNh"/>
+                                                        <action selector="onCheckChannelTapped:" destination="TRO-hv-OcE" eventType="touchUpInside" id="Gmc-dz-Gx9"/>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-gH-ReY">
-                                                    <rect key="frame" x="200" y="40" width="200" height="120"/>
+                                                    <rect key="frame" x="200" y="25" width="200" height="150"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no channels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSq-qf-uYY">
                                                             <rect key="frame" x="11" y="0.0" width="179" height="22"/>
@@ -50,8 +50,9 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_add_channel" translatesAutoresizingMaskIntoConstraints="NO" id="3cY-I3-ANE">
+                                                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_add_channel" translatesAutoresizingMaskIntoConstraints="NO" id="3cY-I3-ANE">
                                                             <rect key="frame" x="65" y="58" width="70" height="70"/>
+                                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="70" id="ECI-UR-U4Y"/>
                                                                 <constraint firstAttribute="width" constant="70" id="o4n-0Y-V2L"/>
@@ -61,7 +62,7 @@
                                                     <constraints>
                                                         <constraint firstItem="3cY-I3-ANE" firstAttribute="top" secondItem="L8H-Et-b6S" secondAttribute="bottom" constant="20" id="11b-jA-pOM"/>
                                                         <constraint firstItem="OSq-qf-uYY" firstAttribute="centerX" secondItem="v8C-gH-ReY" secondAttribute="centerX" id="1c5-Ik-rta"/>
-                                                        <constraint firstAttribute="height" constant="120" id="JPH-oz-ctB"/>
+                                                        <constraint firstAttribute="height" constant="150" id="JPH-oz-ctB"/>
                                                         <constraint firstItem="L8H-Et-b6S" firstAttribute="top" secondItem="OSq-qf-uYY" secondAttribute="bottom" id="W0E-Sx-We4"/>
                                                         <constraint firstItem="3cY-I3-ANE" firstAttribute="centerX" secondItem="v8C-gH-ReY" secondAttribute="centerX" id="dW2-Rc-6eE"/>
                                                         <constraint firstItem="L8H-Et-b6S" firstAttribute="centerX" secondItem="v8C-gH-ReY" secondAttribute="centerX" id="gho-t7-PsG"/>
@@ -83,6 +84,10 @@
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addChannelImageView" destination="3cY-I3-ANE" id="9HZ-Io-1xs"/>
+                                            <outlet property="checkChannelButton" destination="kbD-ax-kgm" id="US2-uX-wk6"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
