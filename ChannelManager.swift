@@ -397,13 +397,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func next() {
+        showSpinner(0)
+        
         isPlaying = false
         currPlayer?.pauseItem()
         currPlayer = nil
         
         tweetPlayerView?.nextItem()
-        
-        showSpinner(0)
         playNextItem()
     }
     
@@ -434,7 +434,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             [weak self] in
             
             if let strongSelf = self {
-                if strongSelf.isPlaying {return}
+                //if strongSelf.isPlaying {return}
                 
                 debugPrint("[MANAGER] showSpinner()")
                 MBProgressHUD.showHUDAddedTo(strongSelf.spinnerContainerView, animated: true)
