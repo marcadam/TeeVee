@@ -101,20 +101,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         didSet {
             if playerContainerView == nil {return}
             playerContainerView!.backgroundColor = Theme.Colors.DarkBackgroundColor.color
-            
-            if nativePlayerView == nil {
-                nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView)
-                let nativePlayer = nativePlayerView as! NativePlayerView
-                nativePlayer.playerDelegate = self
-                players.append(nativePlayerView!)
-            }
-            
-            if youtubePlayerView == nil {
-                youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView)
-                let youtubePlayer = youtubePlayerView as! YoutubePlayerView
-                youtubePlayer.playerDelegate = self
-                players.append(youtubePlayerView!)
-            }
         }
     }
     
@@ -314,9 +300,19 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         
         currItem = item
         if extractor == "youtube" {
+            youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView)
+            let youtubePlayer = youtubePlayerView as! YoutubePlayerView
+            youtubePlayer.playerDelegate = self
+            players.append(youtubePlayerView!)
+            
             currPlayer = youtubePlayerView
             youtubePlayerView?.startItem(item!)
         } else if extractor != nil {
+            nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView)
+            let nativePlayer = nativePlayerView as! NativePlayerView
+            nativePlayer.playerDelegate = self
+            players.append(nativePlayerView!)
+            
             currPlayer = nativePlayerView
             nativePlayerView?.startItem(item!)
         }

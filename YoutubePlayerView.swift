@@ -169,6 +169,8 @@ extension YoutubePlayerView: SmartuPlayer {
             self.youtubePlayerOverlay.alpha = 0.0
             UIView.animateWithDuration(du) { () -> Void in
                 self.youtubePlayerOverlay.alpha = 1.0
+                self.youtubePlayerView.removeFromSuperview()
+                self.youtubePlayerOverlay.removeFromSuperview()
             }
         })
     }
