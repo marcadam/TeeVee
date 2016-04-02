@@ -125,6 +125,7 @@ extension NativePlayerView: SmartuPlayer {
                 if !item.seekToSeconds.isNaN {
                     self.nativePlayer.seekToTime(CMTimeMakeWithSeconds(Float64(item.seekToSeconds), 1))
                 }
+                self.pauseItem()
             })
         })
     }

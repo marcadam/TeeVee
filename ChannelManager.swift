@@ -247,6 +247,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
                 delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
                 
+                reloadQueues()
+                
                 if spinnerShowing {
                     if totalDuration.isNaN {
                         debugPrint("[MANAGER] totalDuration isNaN")
@@ -317,8 +319,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         debugPrint("[MANAGER] playNextItem() -> playItem()")
         currPlayer?.playItem()
         currItem = currPlayer?.getItem()
-        
-        // Reload queues
+    }
+    
+    func reloadQueues() {
         reloadBufferQueue()
         if priorityQueue!.count <= numItemsBeforeFetch {
             fetchMoreItems(false)
@@ -471,7 +474,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         self!.priorityQueue!.push(item)
                     }
                     
-                    self!.reloadBufferQueue()
                     if autoplay {
                         self!.playNextItem()
                     }

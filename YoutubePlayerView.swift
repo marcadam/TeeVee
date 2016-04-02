@@ -263,6 +263,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     func playerView(playerView: YTPlayerView!, didChangeToQuality quality: YTPlaybackQuality) {
         if currItem == nil {return}
         debugPrint("[YOUTUBEPLAYER] didChangeToQuality \(quality.rawValue); vid = \(currItem!.native_id!)")
+        
     }
     
     func playerView(playerView: YTPlayerView!, didPlayTime playTime: Float) {
