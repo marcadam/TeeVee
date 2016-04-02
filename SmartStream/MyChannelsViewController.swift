@@ -100,7 +100,7 @@ class MyChannelsViewController: UIViewController {
         headerViewHeightIsFullScreen = !headerViewHeightIsFullScreen
         let range = NSMakeRange(0, tableView.numberOfSections)
         let sections = NSIndexSet(indexesInRange: range)
-        tableView.reloadSections(sections, withRowAnimation: .Automatic)
+        tableView.reloadSections(sections, withRowAnimation: .Middle)
     }
 }
 

@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--My Channels View Controller-->
@@ -30,14 +29,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbD-ax-kgm">
-                                                    <rect key="frame" x="277" y="161" width="46" height="30"/>
-                                                    <state key="normal" title="Button"/>
+                                                    <rect key="frame" x="212" y="161" width="177" height="30"/>
+                                                    <state key="normal" title="Check out some channels"/>
                                                     <connections>
-                                                        <action selector="onShowChannelsTapped:" destination="XVg-Ae-aKh" eventType="touchUpInside" id="L7e-SZ-kmx"/>
+                                                        <action selector="onShowChannelsTapped:" destination="XVg-Ae-aKh" eventType="touchUpInside" id="mf7-lw-cNh"/>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-gH-ReY">
-                                                    <rect key="frame" x="200" y="28" width="200" height="120"/>
+                                                    <rect key="frame" x="200" y="40" width="200" height="120"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no channels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSq-qf-uYY">
                                                             <rect key="frame" x="11" y="0.0" width="179" height="22"/>
@@ -75,8 +74,8 @@
                                                 <constraint firstItem="v8C-gH-ReY" firstAttribute="centerY" secondItem="KlG-yP-TN1" secondAttribute="centerY" id="0dS-0o-7UK"/>
                                                 <constraint firstItem="v8C-gH-ReY" firstAttribute="centerX" secondItem="KlG-yP-TN1" secondAttribute="centerX" id="7Tg-dG-s65"/>
                                                 <constraint firstAttribute="bottom" secondItem="kbD-ax-kgm" secondAttribute="bottom" constant="8" id="BCz-6p-3Qn"/>
+                                                <constraint firstItem="v8C-gH-ReY" firstAttribute="centerY" secondItem="KlG-yP-TN1" secondAttribute="centerY" id="IS3-UR-8sv"/>
                                                 <constraint firstItem="kbD-ax-kgm" firstAttribute="centerX" secondItem="KlG-yP-TN1" secondAttribute="centerX" id="lss-lv-vIE"/>
-                                                <constraint firstItem="v8C-gH-ReY" firstAttribute="top" secondItem="KlG-yP-TN1" secondAttribute="topMargin" constant="20" id="sJL-os-5Nv"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
