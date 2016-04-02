@@ -11,7 +11,11 @@ import UIKit
 class EmptyChannelTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var featuredChannels: [Channel]?
+    var featuredChannels: [Channel]? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     private let bgColor = Theme.Colors.BackgroundColor.color
     private let cellID = "com.teevee.ChannelCollectionViewCell"
     

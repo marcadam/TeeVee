@@ -33,6 +33,8 @@ class MyChannelsViewController: UIViewController {
     private var showEmptyState = false
     private let highlightColor = Theme.Colors.HighlightColor.color
     private let darkBackground = Theme.Colors.DarkBackgroundColor.color
+    private var headerViewHeight: CGFloat!
+    private var headerViewHeightIsFullScreen = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,12 +64,14 @@ class MyChannelsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        headerViewHeight = tableView.bounds.height
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.tableView.editing = false
+        tableView.editing = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,6 +90,18 @@ class MyChannelsViewController: UIViewController {
     @IBAction func didTapCreateNewChannel(sender: UITapGestureRecognizer) {
         delegate?.myChannelsVC(self, didEditChannel: nil)
     }
+    
+    @IBAction func onShowChannelsTapped(sender: UIButton) {
+        if headerViewHeightIsFullScreen {
+            headerViewHeight = 200
+        } else {
+            headerViewHeight = tableView.bounds.height
+        }
+        headerViewHeightIsFullScreen = !headerViewHeightIsFullScreen
+        let range = NSMakeRange(0, tableView.numberOfSections)
+        let sections = NSIndexSet(indexesInRange: range)
+        tableView.reloadSections(sections, withRowAnimation: .Automatic)
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -93,7 +109,11 @@ class MyChannelsViewController: UIViewController {
 extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if showEmptyState {
-            return 2
+            if headerViewHeightIsFullScreen {
+                return 1
+            } else {
+                return 2
+            }
         } else {
             return channelsArray.count
         }
@@ -104,6 +124,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath)
                 cell.selectionStyle = .None
+                cell.backgroundColor = darkBackground
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier(emptyCellID, forIndexPath: indexPath) as! EmptyChannelTableViewCell
@@ -122,9 +143,13 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if showEmptyState {
-            if indexPath.row == 0 {
-                delegate?.myChannelsVC(self, didEditChannel: nil)
-            }
+//            
+//            if indexPath.row == 0 {
+//                
+//                    self.delegate?.myChannelsVC(self, didEditChannel: nil)
+//                
+//            }
+            
         } else {
             let channel = channelsArray[indexPath.row]
             delegate?.myChannelsVC(self, didPlayChannel: channel)
@@ -146,9 +171,9 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if showEmptyState {
             if indexPath.row == 0 {
-                return 180
+                return headerViewHeight
             } else {
-                return 1000
+                return tableView.bounds.height - headerViewHeight
             }
         } else {
             return 67
@@ -300,6 +325,7 @@ extension MyChannelsViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorColor = Theme.Colors.SeparatorColor.color
+        tableView.alwaysBounceVertical = false
     }
     
     func setupTableVew() {

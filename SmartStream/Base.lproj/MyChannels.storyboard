@@ -22,42 +22,65 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCell" rowHeight="195" id="TRO-hv-OcE">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="195"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCell" rowHeight="200" id="TRO-hv-OcE">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TRO-hv-OcE" id="KlG-yP-TN1">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="194"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no channels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSq-qf-uYY">
-                                                    <rect key="frame" x="217" y="29" width="166" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="why don't you create one?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8H-Et-b6S">
-                                                    <rect key="frame" x="200" y="50" width="201" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_add_channel" translatesAutoresizingMaskIntoConstraints="NO" id="3cY-I3-ANE">
-                                                    <rect key="frame" x="280" y="92" width="40" height="40"/>
-                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbD-ax-kgm">
+                                                    <rect key="frame" x="277" y="161" width="46" height="30"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="onShowChannelsTapped:" destination="XVg-Ae-aKh" eventType="touchUpInside" id="L7e-SZ-kmx"/>
+                                                    </connections>
+                                                </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-gH-ReY">
+                                                    <rect key="frame" x="200" y="28" width="200" height="120"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no channels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSq-qf-uYY">
+                                                            <rect key="frame" x="11" y="0.0" width="179" height="22"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="why don't you create one?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8H-Et-b6S">
+                                                            <rect key="frame" x="21" y="22" width="159" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_add_channel" translatesAutoresizingMaskIntoConstraints="NO" id="3cY-I3-ANE">
+                                                            <rect key="frame" x="65" y="58" width="70" height="70"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="70" id="ECI-UR-U4Y"/>
+                                                                <constraint firstAttribute="width" constant="70" id="o4n-0Y-V2L"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="3cY-I3-ANE" firstAttribute="top" secondItem="L8H-Et-b6S" secondAttribute="bottom" constant="20" id="11b-jA-pOM"/>
+                                                        <constraint firstItem="OSq-qf-uYY" firstAttribute="centerX" secondItem="v8C-gH-ReY" secondAttribute="centerX" id="1c5-Ik-rta"/>
+                                                        <constraint firstAttribute="height" constant="120" id="JPH-oz-ctB"/>
+                                                        <constraint firstItem="L8H-Et-b6S" firstAttribute="top" secondItem="OSq-qf-uYY" secondAttribute="bottom" id="W0E-Sx-We4"/>
+                                                        <constraint firstItem="3cY-I3-ANE" firstAttribute="centerX" secondItem="v8C-gH-ReY" secondAttribute="centerX" id="dW2-Rc-6eE"/>
+                                                        <constraint firstItem="L8H-Et-b6S" firstAttribute="centerX" secondItem="v8C-gH-ReY" secondAttribute="centerX" id="gho-t7-PsG"/>
+                                                        <constraint firstAttribute="width" constant="200" id="j6v-FT-fwi"/>
+                                                        <constraint firstItem="OSq-qf-uYY" firstAttribute="top" secondItem="v8C-gH-ReY" secondAttribute="top" id="yTe-8Y-b0X"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstItem="L8H-Et-b6S" firstAttribute="centerX" secondItem="KlG-yP-TN1" secondAttribute="centerX" id="5vE-XC-YZX"/>
-                                                <constraint firstItem="L8H-Et-b6S" firstAttribute="top" secondItem="OSq-qf-uYY" secondAttribute="bottom" id="7YW-ZD-dww"/>
-                                                <constraint firstItem="3cY-I3-ANE" firstAttribute="top" secondItem="L8H-Et-b6S" secondAttribute="bottom" constant="21" id="Hcc-rc-fwK"/>
-                                                <constraint firstItem="OSq-qf-uYY" firstAttribute="centerX" secondItem="KlG-yP-TN1" secondAttribute="centerX" id="MmJ-OC-Qyh"/>
-                                                <constraint firstItem="L8H-Et-b6S" firstAttribute="top" secondItem="OSq-qf-uYY" secondAttribute="top" id="OGC-Gq-Irv"/>
-                                                <constraint firstItem="OSq-qf-uYY" firstAttribute="top" secondItem="KlG-yP-TN1" secondAttribute="topMargin" constant="21" id="U5y-4g-gDn"/>
-                                                <constraint firstItem="3cY-I3-ANE" firstAttribute="centerX" secondItem="KlG-yP-TN1" secondAttribute="centerX" id="VsE-Dw-fkr"/>
+                                                <constraint firstItem="v8C-gH-ReY" firstAttribute="centerY" secondItem="KlG-yP-TN1" secondAttribute="centerY" id="0dS-0o-7UK"/>
+                                                <constraint firstItem="v8C-gH-ReY" firstAttribute="centerX" secondItem="KlG-yP-TN1" secondAttribute="centerX" id="7Tg-dG-s65"/>
+                                                <constraint firstAttribute="bottom" secondItem="kbD-ax-kgm" secondAttribute="bottom" constant="8" id="BCz-6p-3Qn"/>
+                                                <constraint firstItem="kbD-ax-kgm" firstAttribute="centerX" secondItem="KlG-yP-TN1" secondAttribute="centerX" id="lss-lv-vIE"/>
+                                                <constraint firstItem="v8C-gH-ReY" firstAttribute="top" secondItem="KlG-yP-TN1" secondAttribute="topMargin" constant="20" id="sJL-os-5Nv"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="OGC-Gq-Irv"/>
+                                                    <exclude reference="0dS-0o-7UK"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
