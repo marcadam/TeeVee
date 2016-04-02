@@ -194,6 +194,8 @@ extension NativePlayerView: SmartuPlayer {
             self.nativePlayerOverlay.alpha = 0.0
             UIView.animateWithDuration(du) { () -> Void in
                 self.nativePlayerOverlay.alpha = 1.0
+                self.nativePlayerView.removeFromSuperview()
+                self.nativePlayerOverlay.removeFromSuperview()
             }
         })
     }
