@@ -27,14 +27,12 @@ class YoutubePlayerView: NSObject {
     private var youtubePlayerView: YTPlayerView!
     private var youtubePlayerOverlay: UIView!
     
-    private var youtubeWebviewLoaded = false
-    
     private var currItem: ChannelItem?
-    private var videoAlreadyCued = false
     private var currBounds: CGRect
     private var isPlaying = false
     private var isBuffering = false
     private var bufferingTimer: NSTimer?
+    private var playEnabled = false
     
     init(playerId: Int, containerView: UIView?) {
         debugPrint("[YOUTUBEPLAYER] init()")
@@ -71,45 +69,52 @@ class YoutubePlayerView: NSObject {
 
 extension YoutubePlayerView: SmartuPlayer {
     
-    func prepareYoutubeVideo() {
-        self.playItem()
-    }
     
-    func prepareToStart(item: ChannelItem!) {
-        debugPrint("[YOUTUBEPLAYER] buffering: extractor = \(item.extractor); id = \(item.native_id)")
-        self.youtubePlayerView.cueVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
-        videoAlreadyCued = true
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(prepareYoutubeVideo), userInfo: nil, repeats: false)
+    func bufferItem(item: ChannelItem!) {
+        debugPrint("[YOUTUBEPLAYER] bufferItem(): extractor = \(item.extractor!); id = \(item.native_id!)")
+        //self.youtubePlayerView.cueVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
+        
+        playEnabled = false
+        dispatch_async(dispatch_get_main_queue(),{
+            self.currItem = (item.copy() as! ChannelItem)
+            self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
+        })
     }
     
     func startItem(item: ChannelItem!) {
         debugPrint("[YOUTUBEPLAYER] startItem()")
-        if item == currItem {return}
+        //if item == currItem {return}
         
         dispatch_async(dispatch_get_main_queue(),{
-            if !self.youtubeWebviewLoaded {
-                self.youtubeWebviewLoaded = true
-                self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
-            } else {
-//                if self.videoAlreadyCued {
-//                    debugPrint("[YOUTUBEPLAYER] YoutubeItem already cued - play now")
-//                    self.youtubePlayerView.playVideo()
-//                    self.videoAlreadyCued = false
+//            if !self.youtubeWebviewLoaded {
+//                self.youtubeWebviewLoaded = true
+//                self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
+//            } else {
+////                if self.videoAlreadyCued {
+////                    debugPrint("[YOUTUBEPLAYER] YoutubeItem already cued - play now")
+////                    self.youtubePlayerView.playVideo()
+////                    self.videoAlreadyCued = false
+////                } else {
+//                if item.seekToSeconds.isNaN {
+//                    self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
 //                } else {
-                if item.seekToSeconds.isNaN {
-                    self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: 0.0, suggestedQuality: .Default)
-                } else {
-                    self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: item.seekToSeconds, suggestedQuality: .Default)
-                    //self.youtubePlayerView.seekToSeconds(item.seekToSeconds, allowSeekAhead: true)
-                }
+//                    self.youtubePlayerView.loadVideoById(item.native_id!, startSeconds: item.seekToSeconds, suggestedQuality: .Default)
+//                    //self.youtubePlayerView.seekToSeconds(item.seekToSeconds, allowSeekAhead: true)
 //                }
-            }
+////                }
+//            }
+            
+            self.youtubePlayerView.loadWithVideoId(item.native_id!, playerVars: self.youtubePlayerVars)
             self.currItem = (item.copy() as! ChannelItem)
         })
     }
     
     func playItem() {
-        debugPrint("[YOUTUBEPLAYER] playItem()")
+        playEnabled = true
+        
+        if currItem == nil {return}
+        debugPrint("[YOUTUBEPLAYER] playItem(); vid = \(currItem!.native_id!)")
+        
         self.youtubePlayerView.playVideo()
     }
     
@@ -140,6 +145,10 @@ extension YoutubePlayerView: SmartuPlayer {
         if youtubePlayerView != nil && youtubePlayerView.webView != nil {
             self.youtubePlayerView.webView.frame = bounds
         }
+    }
+    
+    func getItem() -> ChannelItem? {
+        return currItem
     }
     
     func show(duration: NSTimeInterval?) {
@@ -192,7 +201,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     
     func playerViewDidBecomeReady(playerView: YTPlayerView!) {
         if currItem == nil {return}
-        debugPrint("[YOUTUBEPLAYER] playerViewDidBecomeReady")
+        debugPrint("[YOUTUBEPLAYER] playerViewDidBecomeReady; vid = \(currItem!.native_id!)")
         
         if currItem!.seekToSeconds.isNaN {
             self.youtubePlayerView.playVideo()
@@ -213,17 +222,23 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     
     func playerView(playerView: YTPlayerView!, didChangeToState state: YTPlayerState) {
         if currItem == nil {return}
-        debugPrint("[YOUTUBEPLAYER] didChangeToState \(state.rawValue)")
+        debugPrint("[YOUTUBEPLAYER] didChangeToState \(state.rawValue); vid = \(currItem!.native_id!)")
         if state == .Ended {
-            debugPrint("[YOUTUBEPLAYER] video ended")
+            debugPrint("[YOUTUBEPLAYER] video ended; vid = \(currItem!.native_id!)")
             if isPlaying {
                 isPlaying = false
                 playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidEnd, progress: 0.0, totalDuration: 0.0)
             }
         } else if state == .Playing {
-            debugPrint("[YOUTUBEPLAYER] video playing")
+            debugPrint("[YOUTUBEPLAYER] video playing; vid = \(currItem!.native_id!)")
         } else if state == .Buffering {
-            debugPrint("[YOUTUBEPLAYER] video buffering; playback quality = \(youtubePlayerView.playbackQuality().rawValue)")
+            debugPrint("[YOUTUBEPLAYER] video buffering; playback quality = \(youtubePlayerView.playbackQuality().rawValue); vid = \(currItem!.native_id!)")
+            
+            if !playEnabled {
+                pauseItem()
+                return
+            }
+            
             isBuffering = true
             
             self.bufferingTimer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: #selector(checkForAds), userInfo: nil, repeats: false)
@@ -235,18 +250,19 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     }
     
     func checkForAds() {
-        debugPrint("[YOUTUBEPLAYER] player State = \(youtubePlayerView.playerState().rawValue); fraction = \(youtubePlayerView.videoLoadedFraction()); playback quality = \(youtubePlayerView.playbackQuality().rawValue)")
+        if currItem == nil {return}
+        debugPrint("[YOUTUBEPLAYER] player State = \(youtubePlayerView.playerState().rawValue); fraction = \(youtubePlayerView.videoLoadedFraction()); playback quality = \(youtubePlayerView.playbackQuality().rawValue); vid = \(currItem!.native_id!)")
         
         // this is a guess of whether ads is showing, based on the way youtube library currently works
         if youtubePlayerView.playerState() == .Buffering && youtubePlayerView.playbackQuality() != .Unknown {
-            debugPrint("[YOUTUBEPLAYER] Ads is probably playing... show player")
+            debugPrint("[YOUTUBEPLAYER] Ads is probably playing... show player; vid = \(currItem!.native_id!)")
             setPlaying()
         }
     }
     
     func playerView(playerView: YTPlayerView!, didChangeToQuality quality: YTPlaybackQuality) {
         if currItem == nil {return}
-        debugPrint("[YOUTUBEPLAYER] didChangeToQuality \(quality.rawValue)")
+        debugPrint("[YOUTUBEPLAYER] didChangeToQuality \(quality.rawValue); vid = \(currItem!.native_id!)")
     }
     
     func playerView(playerView: YTPlayerView!, didPlayTime playTime: Float) {
@@ -266,7 +282,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
     
     func playerView(playerView: YTPlayerView!, receivedError error: YTPlayerError) {
         if currItem == nil {return}
-        debugPrint("[YOUTUBEPLAYER] receivedError \(error.rawValue)")
+        debugPrint("[YOUTUBEPLAYER] receivedError \(error.rawValue); vid = \(currItem!.native_id!)")
         onPlaybackError()
     }
     

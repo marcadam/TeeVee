@@ -28,12 +28,12 @@ class QueueWrapper: NSObject {
 
 class ChannelManager: NSObject, SmartuPlayerDelegate {
 
+    let maxNumBufferPlayers = 3
     let qualityOfServiceClass = QOS_CLASS_BACKGROUND
     private var spinnerShowing = false
     
-    private var players = [SmartuPlayer]()
-    private var nativePlayerView: SmartuPlayer?
-    private var youtubePlayerView: SmartuPlayer?
+    private var readyPlayers = Queue<SmartuPlayer>()
+    
     private var tweetPlayerView: SmartuPlayer?
     private var currPlayer: SmartuPlayer?
     
@@ -110,10 +110,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             tweetsContainerView!.backgroundColor = UIColor.clearColor()
             
             if tweetPlayerView == nil {
-                tweetPlayerView = TweetPlayerView(playerId: players.count, containerView: tweetsContainerView)
+                tweetPlayerView = TweetPlayerView(playerId: 0, containerView: tweetsContainerView)
                 let tweetPlayer = tweetPlayerView as! TweetPlayerView
                 tweetPlayer.playerDelegate = self
-                players.append(tweetPlayerView!)
             }
             
         }
@@ -174,6 +173,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         
                         debugPrint("[ChannelManager] channel INITIALIZED in \(stopWatch.stop()) seconds")
             
+                        strongSelf.reloadBufferQueue()
                         if autoplay {
                             strongSelf.playNextItem()
                         }
@@ -200,8 +200,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         saveItemInProgress()
         stop()
         
-        youtubePlayerView = nil
-        nativePlayerView = nil
         tweetPlayerView = nil
         
         priorityQueue = nil
@@ -212,6 +210,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         
         spinnerShowing = false
         isPlaying = false
+        currPlayer = nil
+        readyPlayers.clear()
+        
         isTweetPlaying = false
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -230,10 +231,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             }
         } else {
             if status == .WillEnd {
-                prepareNextItem()
+                
             } else if status == .DidEnd {
                 isPlaying = false
-                prevItem = currItem
+                currPlayer = nil
+                
                 showSpinner(Int64(1.0 * Double(NSEC_PER_SEC)))
                 playNextItem()
             } else if status == .Playing {
@@ -258,29 +260,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
-    // Prepare for next item
-    private var currCueId: String! = ""
-    func prepareNextItem() {
-        let item = priorityQueue!.peek()
-        if item == nil || item!.native_id == nil || currCueId == item!.native_id! {return}
-        currCueId = item!.native_id!
-        
-        let extractor = item!.extractor
-        if extractor == "youtube" {
-            if currItem != nil && currItem!.extractor != "youtube" {
-                // cue in youtube player if previous item was not Youtube
-                youtubePlayerView?.prepareToStart(item!)
-            }
-        }
-    }
-    
-    func playNextItem() {
-        if isPlaying || priorityQueue == nil {return}
-        
-        isPlaying = true
+    func getNextItem() -> ChannelItem? {
         var item: ChannelItem? = nil
         while true {
-            if priorityQueue!.count == 0 {break}
+            if priorityQueue == nil || priorityQueue!.count == 0 {break}
             item = priorityQueue!.pop()
             if item != nil && item?.native_id != nil {
                 if prevItem != nil && prevItem?.extractor == item!.extractor && prevItem!.native_id == item!.native_id {
@@ -290,38 +273,56 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 break
             }
         }
-        if item == nil {
-            stop()
-            return
-        }
         
-        let extractor = item?.extractor
-        debugPrint("[MANAGER] extractor = \(item?.extractor); id = \(item?.native_id); url = \(item?.url)")
-        
-        currItem = item
-        if extractor == "youtube" {
-            youtubePlayerView = YoutubePlayerView(playerId: players.count, containerView: playerContainerView)
-            let youtubePlayer = youtubePlayerView as! YoutubePlayerView
-            youtubePlayer.playerDelegate = self
-            players.append(youtubePlayerView!)
+        prevItem = item
+        return item
+    }
+    
+    // Reload the Ready queue to make sure there're enough players
+    func reloadBufferQueue() {
+        while true {
+            if readyPlayers.count >= maxNumBufferPlayers {break}
             
-            currPlayer = youtubePlayerView
-            youtubePlayerView?.startItem(item!)
-        } else if extractor != nil {
-            nativePlayerView = NativePlayerView(playerId: players.count, containerView: playerContainerView)
-            let nativePlayer = nativePlayerView as! NativePlayerView
-            nativePlayer.playerDelegate = self
-            players.append(nativePlayerView!)
+            let item = getNextItem()
+            if item == nil {break}
             
-            currPlayer = nativePlayerView
-            nativePlayerView?.startItem(item!)
+            let extractor = item!.extractor
+            var newPlayer: SmartuPlayer? = nil
+            if extractor == "youtube" {
+                let youtubePlayer = YoutubePlayerView(playerId: 0, containerView: playerContainerView)
+                youtubePlayer.playerDelegate = self
+                newPlayer = youtubePlayer
+            } else if extractor != nil {
+                let nativePlayer = NativePlayerView(playerId: 0, containerView: playerContainerView)
+                nativePlayer.playerDelegate = self
+                newPlayer = nativePlayer
+            }
+            
+            if newPlayer != nil {
+                newPlayer?.bufferItem(item!)
+                readyPlayers.enQueue(newPlayer!)
+            }
+            
         }
+    }
+    
+    func playNextItem() {
+        if isPlaying {return}
         
+        isPlaying = true
+        currPlayer = readyPlayers.deQueue()
+        if playerContainerView != nil {
+            currPlayer?.resetBounds(playerContainerView!.bounds)
+        }
+        debugPrint("[MANAGER] playNextItem() -> playItem()")
+        currPlayer?.playItem()
+        currItem = currPlayer?.getItem()
+        
+        // Reload queues
+        reloadBufferQueue()
         if priorityQueue!.count <= numItemsBeforeFetch {
             fetchMoreItems(false)
         }
-        
-        //print(currItem?.title ?? "Title 1")
     }
     
     func playNextTweet(channelItem: ChannelItem?) {
@@ -345,7 +346,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 }
             }
             if tweetItem == nil {return}
-            debugPrint("[MANAGER] extractor = \(tweetItem!.extractor); id = \(tweetItem!.native_id)")
+            debugPrint("[MANAGER] extractor = \(tweetItem!.extractor!); id = \(tweetItem!.native_id!)")
             
             currTweetItem = tweetItem
             tweetPlayerView?.startItem(tweetItem!)
@@ -359,8 +360,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func updateBounds(playerContainerView: UIView?, tweetsContainerView: UIView?) {
         if playerContainerView != nil {
             self.playerContainerView?.bounds = playerContainerView!.bounds
-            youtubePlayerView?.resetBounds(playerContainerView!.bounds)
-            nativePlayerView?.resetBounds(playerContainerView!.bounds)
         }
         
         if tweetsContainerView != nil {
@@ -399,7 +398,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func next() {
         isPlaying = false
-        currPlayer?.stopItem()
+        currPlayer?.pauseItem()
+        currPlayer = nil
+        
         tweetPlayerView?.nextItem()
         
         showSpinner(0)
@@ -470,6 +471,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         self!.priorityQueue!.push(item)
                     }
                     
+                    self!.reloadBufferQueue()
                     if autoplay {
                         self!.playNextItem()
                     }

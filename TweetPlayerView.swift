@@ -104,7 +104,7 @@ extension TweetPlayerView: SmartuPlayer {
         self.endTimer = NSTimer.scheduledTimerWithTimeInterval(fadeOutTimeConstant, target: self, selector: #selector(endTweet), userInfo: nil, repeats: false)
     }
     
-    func prepareToStart(item: ChannelItem!) {
+    func bufferItem(item: ChannelItem!) {
         
     }
     
@@ -143,6 +143,10 @@ extension TweetPlayerView: SmartuPlayer {
     
     func resetBounds(bounds: CGRect) {
         
+    }
+    
+    func getItem() -> ChannelItem? {
+        return currItem
     }
     
     func endTweet() {
