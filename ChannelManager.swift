@@ -32,7 +32,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     let qualityOfServiceClass = QOS_CLASS_BACKGROUND
     private var spinnerShowing = false
     
-    private var readyPlayers = Queue<SmartuPlayer>()
+    private var readyPlayers = [SmartuPlayer]()
     
     private var tweetPlayerView: SmartuPlayer?
     private var currPlayer: SmartuPlayer?
@@ -110,7 +110,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             tweetsContainerView!.backgroundColor = UIColor.clearColor()
             
             if tweetPlayerView == nil {
-                tweetPlayerView = TweetPlayerView(playerId: 0, containerView: tweetsContainerView)
+                tweetPlayerView = TweetPlayerView(playerId: "tweets", containerView: tweetsContainerView)
                 let tweetPlayer = tweetPlayerView as! TweetPlayerView
                 tweetPlayer.playerDelegate = self
             }
@@ -173,9 +173,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         
                         debugPrint("[ChannelManager] channel INITIALIZED in \(stopWatch.stop()) seconds")
             
-                        strongSelf.reloadBufferQueue()
                         if autoplay {
-                            strongSelf.playNextItem()
+                            strongSelf.next()
                         }
                     } else {
                         strongSelf.fetchMoreItems(autoplay)
@@ -211,14 +210,14 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         spinnerShowing = false
         isPlaying = false
         currPlayer = nil
-        readyPlayers.clear()
+        readyPlayers.removeAll()
         
         isTweetPlaying = false
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
+    func playbackStatus(playerId: String, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
         if playerType == .Tweet {
             if status == .DidEnd {
                 isTweetPlaying = false
@@ -233,11 +232,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if status == .WillEnd {
                 
             } else if status == .DidEnd {
-                isPlaying = false
-                currPlayer = nil
-                
-                showSpinner(Int64(1.0 * Double(NSEC_PER_SEC)))
-                playNextItem()
+                next()
             } else if status == .Playing {
                 currProgress = progress
                 currTotalDuration = totalDuration
@@ -247,8 +242,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
                 delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
                 
-                reloadQueues()
-                
                 if spinnerShowing {
                     if totalDuration.isNaN {
                         debugPrint("[MANAGER] totalDuration isNaN")
@@ -257,6 +250,24 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                     if twitterOn {
                         playNextTweet(currItem)
                     }
+                }
+            } else if status == .Error {
+                let currPlayerId = (currPlayer == nil) ? "nil": currPlayer!.getPlayerId()
+                debugPrint("[MANAGER] Received ERROR from \(playerId); currPlayer = \(currPlayerId)")
+                if currPlayer != nil && currPlayer!.getPlayerId() == playerId {
+                    debugPrint("[MANAGER] Current player \(playerId) error, next()")
+                    next()
+                } else {
+                    
+                    // remove the erroneous player from the Ready queue, and reload the queue
+                    for i in 0 ..< readyPlayers.count {
+                        if playerId == readyPlayers[i].getPlayerId() {
+                            debugPrint("[MANAGER] READY QUEUE: Remove player \(playerId)")
+                            readyPlayers.removeAtIndex(i)
+                            break;
+                        }
+                    }
+                    
                 }
             }
         }
@@ -291,34 +302,37 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             let extractor = item!.extractor
             var newPlayer: SmartuPlayer? = nil
             if extractor == "youtube" {
-                let youtubePlayer = YoutubePlayerView(playerId: 0, containerView: playerContainerView)
+                let youtubePlayer = YoutubePlayerView(playerId: item!.native_id!, containerView: playerContainerView)
                 youtubePlayer.playerDelegate = self
                 newPlayer = youtubePlayer
             } else if extractor != nil {
-                let nativePlayer = NativePlayerView(playerId: 0, containerView: playerContainerView)
+                let nativePlayer = NativePlayerView(playerId: item!.native_id!, containerView: playerContainerView)
                 nativePlayer.playerDelegate = self
                 newPlayer = nativePlayer
             }
             
             if newPlayer != nil {
+                readyPlayers.append(newPlayer!)
                 newPlayer?.bufferItem(item!)
-                readyPlayers.enQueue(newPlayer!)
             }
             
         }
     }
     
     func playNextItem() {
+        reloadQueues()
+        
         if isPlaying {return}
         
         isPlaying = true
-        currPlayer = readyPlayers.deQueue()
+        currPlayer = readyPlayers.removeFirst()
+        
         if playerContainerView != nil {
             currPlayer?.resetBounds(playerContainerView!.bounds)
         }
         debugPrint("[MANAGER] playNextItem() -> playItem()")
+        currItem = (currPlayer == nil) ? nil: currPlayer?.getItem()
         currPlayer?.playItem()
-        currItem = currPlayer?.getItem()
     }
     
     func reloadQueues() {
@@ -475,7 +489,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                     }
                     
                     if autoplay {
-                        self!.playNextItem()
+                        self!.next()
                     }
                 }
             }

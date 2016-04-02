@@ -328,7 +328,7 @@ extension MyChannelsViewController {
         view.backgroundColor = Theme.Colors.BackgroundColor.color
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorColor = Theme.Colors.SeparatorColor.color
-        tableView.alwaysBounceVertical = false
+        //tableView.alwaysBounceVertical = false
     }
     
     func setupTableView() {

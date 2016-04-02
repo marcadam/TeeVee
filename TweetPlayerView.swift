@@ -12,7 +12,7 @@ let maxNumTweets = 10
 
 class TweetPlayerView: NSObject {
     
-    let playerId: Int
+    let playerId: String
     let playerType: PlayerType
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView?
@@ -25,7 +25,7 @@ class TweetPlayerView: NSObject {
     private var aboutToEndTimer: NSTimer?
     private var endTimer: NSTimer?
     
-    init(playerId: Int, containerView: UIView?) {
+    init(playerId: String, containerView: UIView?) {
         debugPrint("[TWEETPLAYER] init()")
         
         self.playerId = playerId
@@ -147,6 +147,10 @@ extension TweetPlayerView: SmartuPlayer {
     
     func getItem() -> ChannelItem? {
         return currItem
+    }
+    
+    func getPlayerId() -> String {
+        return playerId
     }
     
     func endTweet() {

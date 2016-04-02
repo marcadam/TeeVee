@@ -11,7 +11,7 @@ import AVFoundation
 
 class NativePlayerView: NSObject {
     
-    let playerId: Int
+    let playerId: String
     let playerType: PlayerType
     weak var playerDelegate: SmartuPlayerDelegate?
     weak var containerView: UIView?
@@ -29,7 +29,7 @@ class NativePlayerView: NSObject {
     private var isPlaying = false
     private var playEnabled = false
     
-    init(playerId: Int, containerView: UIView?) {
+    init(playerId: String, containerView: UIView?) {
         debugPrint("[NATIVEPLAYER] init()")
         
         self.playerId = playerId
@@ -189,6 +189,10 @@ extension NativePlayerView: SmartuPlayer {
     
     func getItem() -> ChannelItem? {
         return currItem
+    }
+    
+    func getPlayerId() -> String {
+        return playerId
     }
     
     func show(duration: NSTimeInterval?) {

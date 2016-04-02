@@ -20,7 +20,7 @@ enum PlayerType: Int {
 }
 
 enum PlaybackStatus: Int {
-    case Init = 0, Playing, Pause, Stop, WillEnd, DidEnd
+    case Init = 0, Playing, Pause, Stop, WillEnd, DidEnd, Error
 }
 
 protocol SmartuPlayer {
@@ -32,8 +32,9 @@ protocol SmartuPlayer {
     func nextItem()
     func resetBounds(bounds: CGRect)
     func getItem() -> ChannelItem?
+    func getPlayerId() -> String
 }
 
 protocol SmartuPlayerDelegate: class {
-    func playbackStatus(playerId: Int, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double)
+    func playbackStatus(playerId: String, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double)
 }
