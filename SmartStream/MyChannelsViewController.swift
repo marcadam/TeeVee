@@ -50,7 +50,7 @@ class MyChannelsViewController: UIViewController {
         setupUI()
         
         getChannels { (channels) in
-            self.setupTableVew()
+            self.setupTableView()
             if let channels = channels {
                 self.channelsArray = channels
                 self.hasChannels(true)
@@ -321,6 +321,7 @@ extension MyChannelsViewController {
         showEmptyState = true
         tableView.rowHeight = tableView.bounds.height
         tableView.separatorColor = UIColor.clearColor()
+        headerViewHeightIsFullScreen = true
     }
     
     func setupUI() {
@@ -330,7 +331,7 @@ extension MyChannelsViewController {
         tableView.alwaysBounceVertical = false
     }
     
-    func setupTableVew() {
+    func setupTableView() {
         let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
         
