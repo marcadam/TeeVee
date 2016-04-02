@@ -10,7 +10,8 @@ import UIKit
 
 let ItemDidEndNotification = "com.smartu.channelmanager.itemDidEnd"
 let ItemAboutToEndNotification = "com.smartu.channelmanager.itemAboutToEnd"
-let numItemsBeforeFetch = 3
+let maxNumBufferPlayers = 5
+let maxItemsBeforeFetch = 3
 let bufferTimeConstant = 5
 let fadeInTimeConstant = 2.0
 let fadeOutTimeConstant = 3.0

@@ -28,7 +28,6 @@ class QueueWrapper: NSObject {
 
 class ChannelManager: NSObject, SmartuPlayerDelegate {
 
-    let maxNumBufferPlayers = 3
     let qualityOfServiceClass = QOS_CLASS_BACKGROUND
     private var spinnerShowing = false
     
@@ -71,7 +70,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 if tweetsPriorityQueues != nil && currItem != nil && currItem!.topic != nil {
                     if let queueWrapper = tweetsPriorityQueues![currItem!.topic!] {
                         // queue exists for topic
-                        if queueWrapper.queue != nil && queueWrapper.queue!.count > numItemsBeforeFetch {
+                        if queueWrapper.queue != nil && queueWrapper.queue!.count >= maxItemsBeforeFetch {
                             debugPrint("[ChannelManager] Twitter enabled")
                             playNextTweet(currItem)
                             return
@@ -291,11 +290,27 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         return item
     }
     
+    func playNextItem() {
+        reloadQueues()
+        
+        if isPlaying {return}
+        
+        isPlaying = true
+        currPlayer = readyPlayers.removeFirst()
+        
+        if playerContainerView != nil {
+            currPlayer?.resetBounds(playerContainerView!.bounds)
+        }
+        debugPrint("[MANAGER] playNextItem() -> playItem()")
+        currItem = (currPlayer == nil) ? nil: currPlayer?.getItem()
+        currPlayer?.playItem()
+    }
+    
     // Reload the Ready queue to make sure there're enough players
     func reloadBufferQueue() {
+        var counter = 0
         while true {
-            if readyPlayers.count >= maxNumBufferPlayers {break}
-            
+            if readyPlayers.count >= maxNumBufferPlayers || counter >= maxNumBufferPlayers {break}
             let item = getNextItem()
             if item == nil {break}
             
@@ -316,28 +331,15 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 newPlayer?.bufferItem(item!)
             }
             
+            counter += 1
         }
-    }
-    
-    func playNextItem() {
-        reloadQueues()
-        
-        if isPlaying {return}
-        
-        isPlaying = true
-        currPlayer = readyPlayers.removeFirst()
-        
-        if playerContainerView != nil {
-            currPlayer?.resetBounds(playerContainerView!.bounds)
-        }
-        debugPrint("[MANAGER] playNextItem() -> playItem()")
-        currItem = (currPlayer == nil) ? nil: currPlayer?.getItem()
-        currPlayer?.playItem()
     }
     
     func reloadQueues() {
-        reloadBufferQueue()
-        if priorityQueue!.count <= numItemsBeforeFetch {
+        if readyPlayers.count < maxNumBufferPlayers {
+            reloadBufferQueue()
+        }
+        if priorityQueue!.count < maxItemsBeforeFetch {
             fetchMoreItems(false)
         }
     }
@@ -368,7 +370,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             currTweetItem = tweetItem
             tweetPlayerView?.startItem(tweetItem!)
             
-            if queueWrapper.queue!.count <= numItemsBeforeFetch {
+            if queueWrapper.queue!.count < maxItemsBeforeFetch {
                 fetchMoreTweetsItems(nil)
             }
         }
