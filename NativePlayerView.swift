@@ -73,14 +73,19 @@ class NativePlayerView: NSObject {
             
             if let strongSelf = self {
                 if strongSelf.nativePlayer != nil && strongSelf.nativePlayer!.currentItem != nil {
-                    //let currentSecond = strongSelf.nativePlayer!.currentItem!.currentTime().value / Int64(strongSelf.nativePlayer!.currentItem!.currentTime().timescale)
-                    let currentSecond = CMTimeGetSeconds(strongSelf.nativePlayer!.currentItem!.currentTime())
-                    let totalDuration = CMTimeGetSeconds(strongSelf.nativePlayer!.currentItem!.duration)
+                    if !strongSelf.playEnabled {
+                        strongSelf.pauseItem()
+                        strongSelf.nativePlayerOverlay.alpha = 1.0
+                        return
+                    }
                     
                     if !strongSelf.isPlaying {
                         strongSelf.isPlaying = true
                         strongSelf.show(nil)
                     }
+                    
+                    let currentSecond = CMTimeGetSeconds(strongSelf.nativePlayer!.currentItem!.currentTime())
+                    let totalDuration = CMTimeGetSeconds(strongSelf.nativePlayer!.currentItem!.duration)
                     
                     strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
                     
@@ -113,7 +118,7 @@ class NativePlayerView: NSObject {
 
 extension NativePlayerView: SmartuPlayer {
     func bufferItem(item: ChannelItem!) {
-        debugPrint("[NATIVEPLAYER] bufferItem(); vid = \(item.native_id!)")
+        debugPrint("[NATIVEPLAYER] bufferItem(): extractor = \(item.extractor!); vid = \(item.native_id!)")
         
         playEnabled = false
         self.currItem = (item.copy() as! ChannelItem)
@@ -125,7 +130,6 @@ extension NativePlayerView: SmartuPlayer {
                 if !item.seekToSeconds.isNaN {
                     self.nativePlayer.seekToTime(CMTimeMakeWithSeconds(Float64(item.seekToSeconds), 1))
                 }
-                self.pauseItem()
             })
         })
     }
@@ -240,7 +244,7 @@ extension NativePlayerView: SmartuPlayer {
         if keyPath == "status" {
             
             if self.nativePlayer.status == AVPlayerStatus.ReadyToPlay {
-                debugPrint("[NATIVEPLAYER] ready to play; vid = \(currItem!.native_id!)")
+                debugPrint("[NATIVEPLAYER] ready to play; vid = \(currItem!.native_id!); playEnabled = \(self.playEnabled)")
                 
                 if self.playEnabled {
                     dispatch_async(dispatch_get_main_queue(),{
