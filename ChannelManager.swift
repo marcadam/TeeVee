@@ -261,12 +261,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                     next()
                 } else {
                     
-                    // remove the erroneous player from the Ready queue, and reload the queue
+                    // remove the erroneous player from the Ready queue
                     for i in 0 ..< readyPlayers.count {
                         if playerId == readyPlayers[i].getPlayerId() {
                             debugPrint("[MANAGER] READY QUEUE: Remove player \(playerId)")
                             readyPlayers.removeAtIndex(i)
-                            break;
+                            break
                         }
                     }
                     
