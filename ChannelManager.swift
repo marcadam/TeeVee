@@ -282,6 +282,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                     // remove back-to-back duplicate items
                     continue
                 }
+                
                 break
             }
         }
@@ -291,11 +292,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func playNextItem() {
-        reloadQueues()
-        
         if isPlaying {return}
-        
         isPlaying = true
+        
+        reloadQueues()
         currPlayer = readyPlayers.removeFirst()
         
         if playerContainerView != nil {
@@ -419,7 +419,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         showSpinner(0)
         
         isPlaying = false
-        currPlayer?.pauseItem()
+        currPlayer?.stopItem()
         currPlayer = nil
         
         tweetPlayerView?.nextItem()
