@@ -72,6 +72,16 @@ class DataLayer: NSObject {
         }
     }
     
+    class func forkChannels(withChannelIDs channel_ids: [String], completion: (error: NSError?, channels: [Channel]?) -> ()) {
+        ChannelClient.sharedInstance.forkChannels(channel_ids) { (channels, error) in
+            if error != nil {
+                completion(error: error!, channels: nil)
+            } else {
+                completion(error: nil, channels: channels!)
+            }
+        }
+    }
+    
     static func filtersToDictionary(filters: Filters) -> NSDictionary {
         let dictionary = ["max_duration": filters.max_duration!] as NSDictionary
         return dictionary

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol EmptyChannelDelegate: class {
-    func emptyChannel(emptyChannel: EmptyChannelTableViewCell, didUpdateSelectedChannels channel: [Channel])
+    func emptyChannel(emptyChannel: EmptyChannelTableViewCell, didUpdateSelectedChannels channels: [String])
 }
 
 class EmptyChannelTableViewCell: UITableViewCell {
@@ -22,7 +22,7 @@ class EmptyChannelTableViewCell: UITableViewCell {
     }
     private let bgColor = Theme.Colors.BackgroundColor.color
     private let cellID = "com.teevee.ChannelCollectionViewCell"
-    private var selectedChannels = [Channel]()
+    private var selectedChannels = [String]()
     
     weak var delegate: EmptyChannelDelegate?
     
@@ -73,7 +73,7 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let channels = featuredChannels {
             let channel = channels[indexPath.item]
-            selectedChannels.append(channel)
+            selectedChannels.append(channel.channel_id!)
             delegate?.emptyChannel(self, didUpdateSelectedChannels: selectedChannels)
         }
     }
@@ -82,8 +82,8 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
         if selectedChannels.count > 0 {
             if let channels = featuredChannels {
                 let selected = channels[indexPath.item]
-                for (index, channel) in selectedChannels.enumerate() {
-                    if selected.channel_id == channel.channel_id {
+                for (index, channelID) in selectedChannels.enumerate() {
+                    if selected.channel_id == channelID {
                         selectedChannels.removeAtIndex(index)
                         delegate?.emptyChannel(self, didUpdateSelectedChannels: selectedChannels)
                         return

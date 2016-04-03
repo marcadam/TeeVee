@@ -35,7 +35,7 @@ class MyChannelsViewController: UIViewController {
     private let darkBackground = Theme.Colors.DarkBackgroundColor.color
     private var headerViewHeight: CGFloat!
     private var headerViewHeightIsFullScreen = true
-    private var selectedChannels = [Channel]()
+    private var selectedChannels = [String]()
     private let recommendedText = "Recommended Channels"
     private let closeText = "Close Recommended"
     private let saveText = "Save Added Channels"
@@ -306,7 +306,9 @@ extension MyChannelsViewController: HeaderCellDelegate {
             headerViewHeight = tableView.bounds.height
             if title == saveText {
                 if selectedChannels.count > 0 {
-                    print(selectedChannels)
+                    DataLayer.forkChannels(withChannelIDs: selectedChannels, completion: { (error, channels) in
+                        //
+                    })
                 }
             }
         }
@@ -322,8 +324,8 @@ extension MyChannelsViewController: HeaderCellDelegate {
 // Mark: - EmptyChannelDelegate
 
 extension MyChannelsViewController: EmptyChannelDelegate {
-    func emptyChannel(emptyChannel: EmptyChannelTableViewCell, didUpdateSelectedChannels channel: [Channel]) {
-        selectedChannels = channel
+    func emptyChannel(emptyChannel: EmptyChannelTableViewCell, didUpdateSelectedChannels channels: [String]) {
+        selectedChannels = channels
         if selectedChannels.count > 0 {
             closeOrSaveText = saveText
         } else {

@@ -9,7 +9,9 @@
 import UIKit
 import AFNetworking
 
-let channelBaseUrl = "https://tokyo-ceiling-733.appspot.com/"
+// let channelBaseUrl = "https://tokyo-ceiling-733.appspot.com/"
+let channelBaseUrl = "http://smartu.herokuapp.com/"
+
 class ChannelClient {
     var baseURL: String!
     
@@ -245,7 +247,7 @@ class ChannelClient {
         let params = ["channel_ids": NSArray(array: channelIds)]
         
         manager.POST("api/fork", parameters: params, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
-            //debugPrint(response)
+            debugPrint(response)
             if let json = response as? [NSDictionary] {
                 let channels = Channel.channelsWithArray(json)
                 completion(channels: channels, error: nil)
