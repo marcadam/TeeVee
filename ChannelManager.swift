@@ -292,6 +292,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func playNextItem() {
+        debugPrint("[MANAGER] playNextItem()")
+        
         if isPlaying {return}
         isPlaying = true
         
@@ -305,7 +307,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             currPlayer?.resetBounds(playerContainerView!.bounds)
         }
         
-        debugPrint("[MANAGER] playNextItem() -> playItem()")
         currPlayer?.playItem()
     }
     
