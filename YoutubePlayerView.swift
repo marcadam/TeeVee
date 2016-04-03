@@ -285,6 +285,13 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         // this is a guess of whether ads is showing, based on the way youtube library currently works
         if youtubePlayerView.playerState() == .Buffering && youtubePlayerView.playbackQuality() != .Unknown {
             debugPrint("[YOUTUBEPLAYER] Ads is probably playing... show player; vid = \(currItem!.native_id!)")
+            
+            // sometimes it just hangs so force to play
+            if youtubePlayerView.videoLoadedFraction() < 0.0000001 {
+                pauseItem()
+                playItem()
+            }
+            
             setPlaying()
         }
     }
