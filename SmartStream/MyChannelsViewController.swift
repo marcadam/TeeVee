@@ -307,7 +307,12 @@ extension MyChannelsViewController: HeaderCellDelegate {
             if title == saveText {
                 if selectedChannels.count > 0 {
                     DataLayer.forkChannels(withChannelIDs: selectedChannels, completion: { (error, channels) in
-                        //
+                        if error != nil {
+                            print(error)
+                        } else {
+                            self.channelsArray = channels!
+                            self.hasChannels(true)
+                        }
                     })
                 }
             }
@@ -376,7 +381,11 @@ extension MyChannelsViewController {
     func hasChannels(reload: Bool) {
         setupTableViewContent()
         if reload {
+            tableView.layer.opacity = 0
             tableView.reloadData()
+            UIView.animateWithDuration(1, animations: { 
+                self.tableView.layer.opacity = 1
+            })
         }
     }
     
@@ -385,15 +394,15 @@ extension MyChannelsViewController {
         if reload {
             tableView.layer.opacity = 0
             tableView.reloadData()
-            UIView.animateWithDuration(1, delay: 0.5, options: .CurveEaseOut, animations: {
+            UIView.animateWithDuration(1, animations: {
                 self.tableView.layer.opacity = 1
-                }, completion: nil)
+            })
         }
     }
     
     func checkChannelCount() {
         if channelsArray.count > 0 {
-            hasChannels(true)
+            //hasChannels(true)
         } else {
             if featuredChannels == nil {
                 getDiscoverChannels(withHUD: true, completion: {
