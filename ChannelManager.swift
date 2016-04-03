@@ -296,13 +296,16 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         isPlaying = true
         
         reloadQueues()
+        if readyPlayers.isEmpty {return}
+        
         currPlayer = readyPlayers.removeFirst()
+        currItem = (currPlayer == nil) ? nil: currPlayer?.getItem()
         
         if playerContainerView != nil {
             currPlayer?.resetBounds(playerContainerView!.bounds)
         }
+        
         debugPrint("[MANAGER] playNextItem() -> playItem()")
-        currItem = (currPlayer == nil) ? nil: currPlayer?.getItem()
         currPlayer?.playItem()
     }
     
