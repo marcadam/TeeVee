@@ -35,6 +35,7 @@ class YoutubePlayerView: NSObject {
     private var playEnabled = false
     
     private var playerReady = false
+    private var didStart = false
     
     init(playerId: String, containerView: UIView?) {
         debugPrint("[YOUTUBEPLAYER] init(); playerId = \(playerId)")
@@ -244,7 +245,12 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
             isPlaying = true
             self.show(nil)
             
-            playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: 0, totalDuration: Double.NaN)
+            if !didStart {
+                didStart = true
+                playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .DidStart, progress: 0, totalDuration: Double.NaN)
+            } else {
+                playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Playing, progress: 0, totalDuration: Double.NaN)
+            }
         }
     }
     

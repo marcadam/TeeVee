@@ -232,14 +232,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 
             } else if status == .DidEnd {
                 next()
-            } else if status == .Playing {
-                currProgress = progress
-                currTotalDuration = totalDuration
-                
-                let progressStr = String(format: "%.2f", progress)
-                let totalDurationStr = String(format: "%.2f", totalDuration)
-                debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
-                delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
+            } else if status == .DidStart {
                 
                 if spinnerShowing {
                     if totalDuration.isNaN {
@@ -250,6 +243,16 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         playNextTweet(currItem)
                     }
                 }
+                
+            } else if status == .Playing {
+                currProgress = progress
+                currTotalDuration = totalDuration
+                
+                let progressStr = String(format: "%.2f", progress)
+                let totalDurationStr = String(format: "%.2f", totalDuration)
+                debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
+                delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
+                
             } else if status == .Error {
                 let currPlayerId = (currPlayer == nil) ? "nil": currPlayer!.getPlayerId()
                 debugPrint("[MANAGER] Received ERROR from \(playerId); currPlayer = \(currPlayerId)")

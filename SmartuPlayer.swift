@@ -21,7 +21,7 @@ enum PlayerType: Int {
 }
 
 enum PlaybackStatus: Int {
-    case Init = 0, Playing, Pause, Stop, WillEnd, DidEnd, Error
+    case Init = 0, DidStart, Playing, Pause, Stop, WillEnd, DidEnd, Error
 }
 
 protocol SmartuPlayer {

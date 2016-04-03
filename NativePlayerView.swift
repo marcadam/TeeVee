@@ -28,6 +28,7 @@ class NativePlayerView: NSObject {
     private var currItem: ChannelItem?
     private var isPlaying = false
     private var playEnabled = false
+    private var didStart = false
     
     init(playerId: String, containerView: UIView?) {
         debugPrint("[NATIVEPLAYER] init()")
@@ -87,7 +88,12 @@ class NativePlayerView: NSObject {
                     let currentSecond = CMTimeGetSeconds(strongSelf.nativePlayer!.currentItem!.currentTime())
                     let totalDuration = CMTimeGetSeconds(strongSelf.nativePlayer!.currentItem!.duration)
                     
-                    strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
+                    if !strongSelf.didStart {
+                        strongSelf.didStart = true
+                        strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .DidStart, progress: 0, totalDuration: Double.NaN)
+                    } else {
+                        strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .Playing, progress: Double(currentSecond), totalDuration: totalDuration)
+                    }
                     
                     if totalDuration == totalDuration && Int64(totalDuration) - Int64(currentSecond) == bufferTimeConstant {
                         strongSelf.playerDelegate?.playbackStatus(strongSelf.playerId, playerType: strongSelf.playerType, status: .WillEnd, progress: 0.0, totalDuration: 0.0)
