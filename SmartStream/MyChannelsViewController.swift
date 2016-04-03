@@ -35,6 +35,11 @@ class MyChannelsViewController: UIViewController {
     private let darkBackground = Theme.Colors.DarkBackgroundColor.color
     private var headerViewHeight: CGFloat!
     private var headerViewHeightIsFullScreen = true
+    private var selectedChannels = [Channel]()
+    private let recommendedText = "Recommended Channels"
+    private let closeText = "Close Recommended"
+    private let saveText = "Save Added Channels"
+    private var closeOrSaveText = "Close Recommended"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,15 +116,16 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.selectionStyle = .None
                 cell.delegate = self
                 if headerViewHeightIsFullScreen {
-                    cell.checkChannelButton.setTitle("Recommended Channels", forState: .Normal)
+                    cell.checkChannelButton.setTitle(recommendedText, forState: .Normal)
                 } else {
-                    cell.checkChannelButton.setTitle("Close Recommended", forState: .Normal)
+                    cell.checkChannelButton.setTitle(closeOrSaveText, forState: .Normal)
                 }
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier(emptyCellID, forIndexPath: indexPath) as! EmptyChannelTableViewCell
                 cell.featuredChannels = featuredChannels
                 cell.selectionStyle = .None
+                cell.delegate = self
                 return cell
             }
         } else {
@@ -293,16 +299,38 @@ extension MyChannelsViewController: HeaderCellDelegate {
         delegate?.myChannelsVC(self, didEditChannel: nil)
     }
     
-    func headerCell(sender: HeaderCell, didTapCheckChannel tapped: Bool) {
+    func headerCell(sender: HeaderCell, didTapCheckChannel tapped: Bool, withButtonTitle title: String) {
         if headerViewHeightIsFullScreen {
             headerViewHeight = 200
         } else {
             headerViewHeight = tableView.bounds.height
+            if title == saveText {
+                if selectedChannels.count > 0 {
+                    print(selectedChannels)
+                }
+            }
         }
+        selectedChannels = []
+        closeOrSaveText = closeText
         headerViewHeightIsFullScreen = !headerViewHeightIsFullScreen
         let range = NSMakeRange(0, tableView.numberOfSections)
         let sections = NSIndexSet(indexesInRange: range)
         tableView.reloadSections(sections, withRowAnimation: .Middle)
+    }
+}
+
+// Mark: - EmptyChannelDelegate
+
+extension MyChannelsViewController: EmptyChannelDelegate {
+    func emptyChannel(emptyChannel: EmptyChannelTableViewCell, didUpdateSelectedChannels channel: [Channel]) {
+        selectedChannels = channel
+        if selectedChannels.count > 0 {
+            closeOrSaveText = saveText
+        } else {
+            closeOrSaveText = closeText
+        }
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
     }
 }
 

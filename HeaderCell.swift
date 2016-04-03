@@ -10,7 +10,7 @@ import UIKit
 
 protocol HeaderCellDelegate: class {
     func headerCell(sender: HeaderCell, didTapAddChannel tapped: Bool)
-    func headerCell(sender: HeaderCell, didTapCheckChannel tapped: Bool)
+    func headerCell(sender: HeaderCell, didTapCheckChannel tapped: Bool, withButtonTitle title: String)
 }
 
 class HeaderCell: UITableViewCell {
@@ -40,6 +40,6 @@ class HeaderCell: UITableViewCell {
     }
     
     @IBAction func onCheckChannelTapped(sender: UIButton) {
-        delegate?.headerCell(self, didTapCheckChannel: true)
+        delegate?.headerCell(self, didTapCheckChannel: true, withButtonTitle: sender.currentTitle!)
     }
 }

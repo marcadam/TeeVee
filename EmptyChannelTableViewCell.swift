@@ -8,8 +8,12 @@
 
 import UIKit
 
-class EmptyChannelTableViewCell: UITableViewCell {
+protocol EmptyChannelDelegate: class {
+    func emptyChannel(emptyChannel: EmptyChannelTableViewCell, didUpdateSelectedChannels channel: [Channel])
+}
 
+class EmptyChannelTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var collectionView: UICollectionView!
     var featuredChannels: [Channel]? {
         didSet {
@@ -18,6 +22,9 @@ class EmptyChannelTableViewCell: UITableViewCell {
     }
     private let bgColor = Theme.Colors.BackgroundColor.color
     private let cellID = "com.teevee.ChannelCollectionViewCell"
+    private var selectedChannels = [Channel]()
+    
+    weak var delegate: EmptyChannelDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,14 +36,15 @@ class EmptyChannelTableViewCell: UITableViewCell {
         let channelCellNIB = UINib(nibName: "ChannelCollectionViewCell", bundle: NSBundle.mainBundle())
         collectionView.registerNib(channelCellNIB, forCellWithReuseIdentifier: cellID)
         collectionView.backgroundColor = bgColor
+        collectionView.allowsMultipleSelection = true
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }
 
 extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -62,6 +70,29 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
         return cell
     }
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let channels = featuredChannels {
+            let channel = channels[indexPath.item]
+            selectedChannels.append(channel)
+            delegate?.emptyChannel(self, didUpdateSelectedChannels: selectedChannels)
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        if selectedChannels.count > 0 {
+            if let channels = featuredChannels {
+                let selected = channels[indexPath.item]
+                for (index, channel) in selectedChannels.enumerate() {
+                    if selected.channel_id == channel.channel_id {
+                        selectedChannels.removeAtIndex(index)
+                        delegate?.emptyChannel(self, didUpdateSelectedChannels: selectedChannels)
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let size = (bounds.width - imageMargin*2 - ((imageColumns - 1)*imageInnerMargin)) / imageColumns
         return CGSizeMake(size, size+infoViewHeight)
@@ -74,5 +105,5 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return imageInnerMargin
     }
-
+    
 }
