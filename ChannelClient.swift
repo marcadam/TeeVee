@@ -239,4 +239,27 @@ class ChannelClient {
         }
         
     }
+    
+    func forkChannels(channelIds: [String], completion: (channels: [Channel]?, error: NSError?) -> ()) {
+        
+        let params = ["channel_ids": NSArray(array: channelIds)]
+        
+        manager.POST("api/fork", parameters: params, progress: nil, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //debugPrint(response)
+            if let json = response as? [NSDictionary] {
+                let channels = Channel.channelsWithArray(json)
+                completion(channels: channels, error: nil)
+            } else {
+                completion(channels: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
+            }
+            
+        }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+            let response = dataTask?.response as? NSHTTPURLResponse
+            if response != nil {
+                debugPrint("getDiscoverChannels() status code = \(response!.statusCode)")
+            }
+            completion(channels: nil, error: error)
+        }
+        
+    }
 }
