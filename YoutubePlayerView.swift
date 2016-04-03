@@ -16,7 +16,10 @@ class YoutubePlayerView: NSObject {
         "enablejsapi": 1,
         "autohide": 1,
         "autoplay" : 0,
-        "modestbranding" : 1
+        "modestbranding" : 1,
+        "showinfo": 0,
+        "rel": 0,
+        "iv_load_policy": 3
     ]
     
     let playerId: String
