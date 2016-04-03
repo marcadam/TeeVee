@@ -258,7 +258,7 @@ class ChannelClient {
         }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
             let response = dataTask?.response as? NSHTTPURLResponse
             if response != nil {
-                debugPrint("getDiscoverChannels() status code = \(response!.statusCode)")
+                debugPrint("forkChannels() status code = \(response!.statusCode)")
             }
             completion(channels: nil, error: error)
         }
