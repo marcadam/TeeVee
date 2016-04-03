@@ -306,6 +306,23 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         currPlayer?.playItem()
     }
     
+    func createPlayForItem(item: ChannelItem!) -> SmartuPlayer? {
+        if item == nil || item?.extractor == nil {return nil}
+        
+        var newPlayer: SmartuPlayer? = nil
+        if item!.extractor == "youtube" {
+            let youtubePlayer = YoutubePlayerView(playerId: item!.native_id!, containerView: playerContainerView)
+            youtubePlayer.playerDelegate = self
+            newPlayer = youtubePlayer
+        } else {
+            let nativePlayer = NativePlayerView(playerId: item!.native_id!, containerView: playerContainerView)
+            nativePlayer.playerDelegate = self
+            newPlayer = nativePlayer
+        }
+        
+        return newPlayer
+    }
+    
     // Reload the Ready queue to make sure there're enough players
     func reloadBufferQueue() {
         var counter = 0
@@ -315,16 +332,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if item == nil {break}
             
             let extractor = item!.extractor
-            var newPlayer: SmartuPlayer? = nil
-            if extractor == "youtube" {
-                let youtubePlayer = YoutubePlayerView(playerId: item!.native_id!, containerView: playerContainerView)
-                youtubePlayer.playerDelegate = self
-                newPlayer = youtubePlayer
-            } else if extractor != nil {
-                let nativePlayer = NativePlayerView(playerId: item!.native_id!, containerView: playerContainerView)
-                nativePlayer.playerDelegate = self
-                newPlayer = nativePlayer
-            }
+            let newPlayer = createPlayForItem(item!)
             
             if newPlayer != nil {
                 readyPlayers.append(newPlayer!)
