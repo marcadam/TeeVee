@@ -306,7 +306,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         currPlayer?.playItem()
     }
     
-    func createPlayForItem(item: ChannelItem!) -> SmartuPlayer? {
+    func createPlayerForItem(item: ChannelItem!) -> SmartuPlayer? {
         if item == nil || item?.extractor == nil {return nil}
         
         var newPlayer: SmartuPlayer? = nil
@@ -332,7 +332,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if item == nil {break}
             
             let extractor = item!.extractor
-            let newPlayer = createPlayForItem(item!)
+            let newPlayer = createPlayerForItem(item!)
             
             if newPlayer != nil {
                 readyPlayers.append(newPlayer!)
