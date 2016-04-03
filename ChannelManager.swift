@@ -335,9 +335,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             let item = getNextItem()
             if item == nil {break}
             
-            let extractor = item!.extractor
             let newPlayer = createPlayerForItem(item!)
-            
             if newPlayer != nil {
                 readyPlayers.append(newPlayer!)
                 newPlayer?.bufferItem(item!)
