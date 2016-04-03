@@ -14,7 +14,7 @@ class NativePlayerView: NSObject {
     let playerId: String
     let playerType: PlayerType
     weak var playerDelegate: SmartuPlayerDelegate?
-    weak var containerView: UIView?
+    weak var playerContainerView: UIView?
     
     private var nativePlayerView: UIView!
     private var nativePlayerLayer: AVPlayerLayer!
@@ -34,7 +34,7 @@ class NativePlayerView: NSObject {
         
         self.playerId = playerId
         self.playerType = .Native
-        self.containerView = containerView
+        self.playerContainerView = containerView
         
         nativePlayer = AVQueuePlayer()
         nativePlayerView = UIView(frame: containerView!.bounds)
@@ -203,8 +203,8 @@ extension NativePlayerView: SmartuPlayer {
                 du = duration!
             }
             self.nativePlayerOverlay.alpha = 1.0
-            self.containerView?.bringSubviewToFront(self.nativePlayerView)
-            self.containerView?.bringSubviewToFront(self.nativePlayerOverlay)
+            self.playerContainerView?.bringSubviewToFront(self.nativePlayerView)
+            self.playerContainerView?.bringSubviewToFront(self.nativePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in
                 self.nativePlayerOverlay.alpha = 0.0
             }

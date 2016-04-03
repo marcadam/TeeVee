@@ -22,7 +22,7 @@ class YoutubePlayerView: NSObject {
     let playerId: String
     let playerType: PlayerType
     weak var playerDelegate: SmartuPlayerDelegate?
-    weak var containerView: UIView?
+    weak var playerContainerView: UIView?
     
     private var youtubePlayerView: YTPlayerView!
     private var youtubePlayerOverlay: UIView!
@@ -41,7 +41,7 @@ class YoutubePlayerView: NSObject {
         
         self.playerId = playerId
         self.playerType = .Youtube
-        self.containerView = containerView
+        self.playerContainerView = containerView
         
         youtubePlayerView = YTPlayerView(frame: containerView!.bounds)
         youtubePlayerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
@@ -186,8 +186,8 @@ extension YoutubePlayerView: SmartuPlayer {
             }
             
             self.youtubePlayerOverlay.alpha = 1.0
-            self.containerView?.bringSubviewToFront(self.youtubePlayerView)
-            self.containerView?.bringSubviewToFront(self.youtubePlayerOverlay)
+            self.playerContainerView?.bringSubviewToFront(self.youtubePlayerView)
+            self.playerContainerView?.bringSubviewToFront(self.youtubePlayerOverlay)
             UIView.animateWithDuration(du) { () -> Void in
                 self.youtubePlayerOverlay.alpha = 0.0
             }
