@@ -34,11 +34,12 @@ class MyChannelsViewController: UIViewController {
     private let highlightColor = Theme.Colors.HighlightColor.color
     private let darkBackground = Theme.Colors.DarkBackgroundColor.color
     private var headerViewHeight: CGFloat!
+    private let headerViewMinHeight: CGFloat = 200
     private var headerViewHeightIsFullScreen = true
     private var selectedChannels = [String]()
     private let recommendedText = "Recommended Channels"
     private let closeText = "Close Recommended"
-    private let saveText = "Save Added Channels"
+    private let saveText = "Save Channels"
     private var closeOrSaveText = "Close Recommended"
     
     override func viewDidLoad() {
@@ -69,8 +70,11 @@ class MyChannelsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        headerViewHeight = tableView.bounds.height
+        if headerViewHeightIsFullScreen {
+            headerViewHeight = tableView.bounds.height
+        } else {
+            headerViewHeight = headerViewMinHeight
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -302,10 +306,10 @@ extension MyChannelsViewController: HeaderCellDelegate {
     
     func headerCell(sender: HeaderCell, didTapCheckChannel tapped: Bool, withButtonTitle title: String) {
         if headerViewHeightIsFullScreen {
-            headerViewHeight = 200
+            headerViewHeight = headerViewMinHeight
         } else {
             headerViewHeight = tableView.bounds.height
-            if title == saveText {
+            if title == "\(saveText) (\(selectedChannels.count))" {
                 if selectedChannels.count > 0 {
                     DataLayer.forkChannels(withChannelIDs: selectedChannels, completion: { (error, channels) in
                         if error != nil {
@@ -334,7 +338,7 @@ extension MyChannelsViewController: EmptyChannelDelegate {
     func emptyChannel(emptyChannel: EmptyChannelTableViewCell, didUpdateSelectedChannels channels: [String]) {
         selectedChannels = channels
         if selectedChannels.count > 0 {
-            closeOrSaveText = saveText
+            closeOrSaveText = "\(saveText) (\(selectedChannels.count))"
         } else {
             closeOrSaveText = closeText
         }
