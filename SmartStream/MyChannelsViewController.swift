@@ -91,7 +91,7 @@ class MyChannelsViewController: UIViewController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .Portrait
     }
-
+    
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -126,6 +126,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.featuredChannels = featuredChannels
                 cell.selectionStyle = .None
                 cell.delegate = self
+                cell.selectedChannels = []
                 return cell
             }
         } else {
@@ -320,6 +321,7 @@ extension MyChannelsViewController: HeaderCellDelegate {
         selectedChannels = []
         closeOrSaveText = closeText
         headerViewHeightIsFullScreen = !headerViewHeightIsFullScreen
+        
         let range = NSMakeRange(0, tableView.numberOfSections)
         let sections = NSIndexSet(indexesInRange: range)
         tableView.reloadSections(sections, withRowAnimation: .Middle)
@@ -356,6 +358,7 @@ extension MyChannelsViewController {
         showEmptyState = true
         tableView.rowHeight = tableView.bounds.height
         tableView.separatorColor = UIColor.clearColor()
+        tableView.alwaysBounceVertical = false
         headerViewHeightIsFullScreen = true
     }
     
@@ -383,7 +386,7 @@ extension MyChannelsViewController {
         if reload {
             tableView.layer.opacity = 0
             tableView.reloadData()
-            UIView.animateWithDuration(1, animations: { 
+            UIView.animateWithDuration(1, animations: {
                 self.tableView.layer.opacity = 1
             })
         }

@@ -22,7 +22,7 @@ class EmptyChannelTableViewCell: UITableViewCell {
     }
     private let bgColor = Theme.Colors.BackgroundColor.color
     private let cellID = "com.teevee.ChannelCollectionViewCell"
-    private var selectedChannels = [String]()
+    var selectedChannels = [String]()
     
     weak var delegate: EmptyChannelDelegate?
     
