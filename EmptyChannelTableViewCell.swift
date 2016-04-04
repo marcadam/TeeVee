@@ -23,6 +23,7 @@ class EmptyChannelTableViewCell: UITableViewCell {
     private let bgColor = Theme.Colors.BackgroundColor.color
     private let cellID = "com.teevee.ChannelEmptyCell"
     var selectedChannels = [String]()
+    var selectedChannelIndex = [Int: Int]()
     
     weak var delegate: EmptyChannelDelegate?
     
@@ -64,8 +65,14 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: indexPath) as! ChannelEmptyCell
+        
         if let channels = featuredChannels {
             cell.channel = channels[indexPath.item]
+            if indexPath.item == selectedChannelIndex[indexPath.item] {
+                cell.isSelected = 0
+            } else {
+                cell.isSelected = 2
+            }
         }
         
         return cell
@@ -75,10 +82,11 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
         if let channels = featuredChannels {
             let channel = channels[indexPath.item]
             selectedChannels.append(channel.channel_id!)
+            selectedChannelIndex[indexPath.item] = indexPath.item
             delegate?.emptyChannel(self, didUpdateSelectedChannels: selectedChannels)
             
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ChannelEmptyCell
-            cell.isSelected = true
+            cell.isSelected = 0
         }
     }
     
@@ -92,7 +100,9 @@ extension EmptyChannelTableViewCell: UICollectionViewDelegate, UICollectionViewD
                         delegate?.emptyChannel(self, didUpdateSelectedChannels: selectedChannels)
                         
                         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ChannelEmptyCell
-                        cell.isSelected = false
+                        cell.isSelected = 1
+                        
+                        selectedChannelIndex[indexPath.item] = nil
                         return
                     }
                 }

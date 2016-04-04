@@ -16,19 +16,22 @@ class ChannelEmptyCell: UICollectionViewCell {
     @IBOutlet weak var checkView: UIView!
     @IBOutlet weak var CheckImageView: UIImageView!
 
-    var isSelected: Bool? {
+    var isSelected: Int? {
         didSet {
             if let selected = isSelected {
-                if selected {
+                if selected == 0 {
                     UIView.animateWithDuration(0.3, animations: {
                         self.checkView.layer.opacity = 0.8
                         self.CheckImageView.layer.opacity = 1
                     })
-                } else {
+                } else if selected == 1 {
                     UIView.animateWithDuration(0.3, animations: {
                         self.checkView.layer.opacity = 0
                         self.CheckImageView.layer.opacity = 0
                     })
+                } else {
+                    self.checkView.layer.opacity = 0
+                    self.CheckImageView.layer.opacity = 0
                 }
             }
         }
