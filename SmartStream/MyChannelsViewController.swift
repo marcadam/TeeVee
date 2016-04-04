@@ -409,6 +409,10 @@ extension MyChannelsViewController {
         }
     }
     
+    func delayShowEmpty() {
+        showEmpty(true)
+    }
+    
     func checkChannelCount() {
         if channelsArray.count > 0 {
             //hasChannels(true)
@@ -418,7 +422,7 @@ extension MyChannelsViewController {
                     self.showEmpty(true)
                 })
             } else {
-                showEmpty(true)
+                NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(delayShowEmpty), userInfo: nil, repeats: false)
             }
         }
     }
