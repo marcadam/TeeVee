@@ -25,13 +25,18 @@ class LoginViewController: UIViewController {
         loginLabel.font = Theme.Fonts.BoldNormalTypeFace.font
         loginLabel.textColor = Theme.Colors.HighlightColor.color
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         if User.currentUser == nil {
+            loginLabel.text = "Login"
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onLoginTapped(_:)))
             loginBackgroundView.addGestureRecognizer(tapGesture)
         } else {
             loginLabel.text = "Logging in"
         }
-        
     }
     
     override func viewDidAppear(animated: Bool) {
