@@ -225,11 +225,12 @@ extension NativePlayerView: SmartuPlayer {
                 du = duration!
             }
             
-            NSTimer.scheduledTimerWithTimeInterval(du, target: self, selector: #selector(self.removeViews), userInfo: nil, repeats: false)
             self.nativePlayerOverlay.alpha = 0.0
             UIView.animateWithDuration(du) { () -> Void in
                 self.nativePlayerOverlay.alpha = 1.0
             }
+            
+            NSTimer.scheduledTimerWithTimeInterval(du, target: self, selector: #selector(self.removeViews), userInfo: nil, repeats: false)
         })
     }
     

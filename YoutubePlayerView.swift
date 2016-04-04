@@ -206,11 +206,12 @@ extension YoutubePlayerView: SmartuPlayer {
                 du = duration!
             }
             
-            NSTimer.scheduledTimerWithTimeInterval(du, target: self, selector: #selector(self.removeViews), userInfo: nil, repeats: false)
             self.youtubePlayerOverlay.alpha = 0.0
             UIView.animateWithDuration(du) { () -> Void in
                 self.youtubePlayerOverlay.alpha = 1.0
             }
+            
+            NSTimer.scheduledTimerWithTimeInterval(du, target: self, selector: #selector(self.removeViews), userInfo: nil, repeats: false)
         })
     }
     
