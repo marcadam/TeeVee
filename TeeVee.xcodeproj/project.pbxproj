@@ -48,6 +48,8 @@
 		A202E8DF1CAA772A005E7DED /* EmptyChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A202E8DE1CAA772A005E7DED /* EmptyChannelTableViewCell.swift */; };
 		A202E8E91CAFA604005E7DED /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A202E8E81CAFA604005E7DED /* HeaderCell.swift */; };
 		A2047F801CB2F80C0087C2F7 /* TopAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2047F7F1CB2F80C0087C2F7 /* TopAlignedLabel.swift */; };
+		A2047F821CB3003E0087C2F7 /* ChannelEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2047F811CB3003E0087C2F7 /* ChannelEmptyCell.xib */; };
+		A2047F841CB300880087C2F7 /* ChannelEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2047F831CB300880087C2F7 /* ChannelEmptyCell.swift */; };
 		A22F63A11CA5280000AAA126 /* FacebookLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22F63A01CA5280000AAA126 /* FacebookLoginClient.swift */; };
 		A23EC38F1C968BB800398BF2 /* MyChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */; };
 		A23EC3911C968BC700398BF2 /* MyChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */; };
@@ -131,6 +133,8 @@
 		A202E8DE1CAA772A005E7DED /* EmptyChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyChannelTableViewCell.swift; sourceTree = "<group>"; };
 		A202E8E81CAFA604005E7DED /* HeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		A2047F7F1CB2F80C0087C2F7 /* TopAlignedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopAlignedLabel.swift; sourceTree = "<group>"; };
+		A2047F811CB3003E0087C2F7 /* ChannelEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelEmptyCell.xib; sourceTree = "<group>"; };
+		A2047F831CB300880087C2F7 /* ChannelEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelEmptyCell.swift; sourceTree = "<group>"; };
 		A22F63A01CA5280000AAA126 /* FacebookLoginClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLoginClient.swift; sourceTree = "<group>"; };
 		A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChannelTableViewCell.swift; sourceTree = "<group>"; };
 		A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyChannelTableViewCell.xib; sourceTree = "<group>"; };
@@ -424,6 +428,8 @@
 			children = (
 				A202E8DC1CAA7665005E7DED /* EmptyChannelTableViewCell.xib */,
 				A202E8DE1CAA772A005E7DED /* EmptyChannelTableViewCell.swift */,
+				A2047F811CB3003E0087C2F7 /* ChannelEmptyCell.xib */,
+				A2047F831CB300880087C2F7 /* ChannelEmptyCell.swift */,
 				A202E8E81CAFA604005E7DED /* HeaderCell.swift */,
 			);
 			name = EmptyState;
@@ -623,6 +629,7 @@
 				A2F231F51C8D7A670053956D /* FilterSelectCell.xib in Resources */,
 				A2A3A3DD1C8AE1C200D1173C /* Home.storyboard in Resources */,
 				0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */,
+				A2047F821CB3003E0087C2F7 /* ChannelEmptyCell.xib in Resources */,
 				A2A3A3DB1C8AD9E500D1173C /* Filters.storyboard in Resources */,
 				A2B9E1581C9A1540009FD91B /* TweetCell.xib in Resources */,
 				A23EC3911C968BC700398BF2 /* MyChannelTableViewCell.xib in Resources */,
@@ -737,6 +744,7 @@
 				492D02A71C8D188F000AAF17 /* ChannelsViewController.swift in Sources */,
 				492D029D1C8BE119000AAF17 /* SettingsViewController.swift in Sources */,
 				0B597B531C844AD900D4AC57 /* PlayerViewController.swift in Sources */,
+				A2047F841CB300880087C2F7 /* ChannelEmptyCell.swift in Sources */,
 				A202E8E91CAFA604005E7DED /* HeaderCell.swift in Sources */,
 				A23EC38F1C968BB800398BF2 /* MyChannelTableViewCell.swift in Sources */,
 				0B2CD8AF1C8846650055BD50 /* ChannelItem.swift in Sources */,
