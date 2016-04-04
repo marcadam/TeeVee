@@ -185,7 +185,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func saveItemInProgress() {
-        if currItem != nil && currTotalDuration != Double.NaN && currProgress != Double.NaN && currProgress < currTotalDuration {
+        if channel != nil && currItem != nil && currTotalDuration != Double.NaN && currProgress != Double.NaN && currProgress < currTotalDuration {
             debugPrint("[ChannelManager] save item-in-progress")
             debugPrint("[ChannelManager] saving \(currItem!.extractor!) in-progress item: \(currItem!.native_id!); progress = \(currProgress)")
             self.channel.setItemInProgress(ItemInProgress(item: currItem, seconds: Float(currProgress)))
