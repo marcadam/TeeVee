@@ -24,6 +24,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var mediaTitleLabel: UILabel!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var landscapeHeaderView: UIView!
+    @IBOutlet weak var mediaDescriptionLabel: UILabel!
     
     var channelTitle: String!
     var channelId: String! = "0"
@@ -91,6 +92,7 @@ class PlayerViewController: UIViewController {
         descriptionView.layer.opacity = 0
         mediaTitleLabel.textColor = highlightColor
         mediaTitleLabel.font = normalBoldFont
+        mediaDescriptionLabel.textColor = highlightColor
         
         setTimerToFadeOut()
         setupChannel()
@@ -274,6 +276,11 @@ extension PlayerViewController: ChannelManagerDelegate {
     func channelManager(channelManager: ChannelManager, progress: Double, totalDuration: Double) {
         let newProgress:Float = totalDuration.isNaN ? 0.0 : Float(progress/totalDuration)
         progressView.setProgress(newProgress, animated: true)
+    }
+    
+    func channelManager(channelManager: ChannelManager, didStartChannelItem item: ChannelItem) {
+        mediaTitleLabel.text = item.title ?? ""
+        mediaDescriptionLabel.text = item.desc ?? ""
     }
 }
 

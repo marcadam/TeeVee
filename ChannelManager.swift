@@ -15,6 +15,7 @@ let TwitterEnabledKey = "kTwitterEnabled"
 
 protocol ChannelManagerDelegate: class {
     func channelManager(channelManager: ChannelManager, progress: Double, totalDuration: Double)
+    func channelManager(channelManager: ChannelManager, didStartChannelItem item: ChannelItem)
 }
 
 class QueueWrapper: NSObject {
@@ -243,6 +244,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         playNextTweet(currItem)
                     }
                 }
+                
+                delegate?.channelManager(self, didStartChannelItem: currItem!)
                 
             } else if status == .Playing {
                 currProgress = progress

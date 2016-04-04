@@ -47,6 +47,7 @@
 		A202E8DD1CAA7665005E7DED /* EmptyChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A202E8DC1CAA7665005E7DED /* EmptyChannelTableViewCell.xib */; };
 		A202E8DF1CAA772A005E7DED /* EmptyChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A202E8DE1CAA772A005E7DED /* EmptyChannelTableViewCell.swift */; };
 		A202E8E91CAFA604005E7DED /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A202E8E81CAFA604005E7DED /* HeaderCell.swift */; };
+		A2047F801CB2F80C0087C2F7 /* TopAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2047F7F1CB2F80C0087C2F7 /* TopAlignedLabel.swift */; };
 		A22F63A11CA5280000AAA126 /* FacebookLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22F63A01CA5280000AAA126 /* FacebookLoginClient.swift */; };
 		A23EC38F1C968BB800398BF2 /* MyChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */; };
 		A23EC3911C968BC700398BF2 /* MyChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */; };
@@ -129,6 +130,7 @@
 		A202E8DC1CAA7665005E7DED /* EmptyChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyChannelTableViewCell.xib; sourceTree = "<group>"; };
 		A202E8DE1CAA772A005E7DED /* EmptyChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyChannelTableViewCell.swift; sourceTree = "<group>"; };
 		A202E8E81CAFA604005E7DED /* HeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
+		A2047F7F1CB2F80C0087C2F7 /* TopAlignedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopAlignedLabel.swift; sourceTree = "<group>"; };
 		A22F63A01CA5280000AAA126 /* FacebookLoginClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLoginClient.swift; sourceTree = "<group>"; };
 		A23EC38E1C968BB800398BF2 /* MyChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChannelTableViewCell.swift; sourceTree = "<group>"; };
 		A23EC3901C968BC700398BF2 /* MyChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyChannelTableViewCell.xib; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 			children = (
 				A2B9E15E1C9AC09D009FD91B /* GradientView.swift */,
 				A2AD4ECC1CA1D80B00810E96 /* HighlightedStateView.swift */,
+				A2047F7F1CB2F80C0087C2F7 /* TopAlignedLabel.swift */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				A2A3A3CE1C8AD90400D1173C /* ExploreViewController.swift in Sources */,
 				0B951B261C9927EE0068C6AF /* Tweet.swift in Sources */,
 				492D02A21C8BE997000AAF17 /* ProfileViewController.swift in Sources */,
+				A2047F801CB2F80C0087C2F7 /* TopAlignedLabel.swift in Sources */,
 				A29BA4951C900D8200ED13A5 /* DataLayer.swift in Sources */,
 				495B34551C937AC4002A4ADD /* SegmentedControl.swift in Sources */,
 				0B9744C71CAD1DE5006C829E /* StopTimer.swift in Sources */,
