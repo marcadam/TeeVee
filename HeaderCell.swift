@@ -27,6 +27,8 @@ class HeaderCell: UITableViewCell {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         addChannelImageView.addGestureRecognizer(tapGesture)
+        
+        checkChannelButton.titleLabel?.textColor = Theme.Colors.HighlightColor.color
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

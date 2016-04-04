@@ -37,10 +37,10 @@ class MyChannelsViewController: UIViewController {
     private let headerViewMinHeight: CGFloat = 200
     private var headerViewHeightIsFullScreen = true
     private var selectedChannels = [String]()
-    private let recommendedText = "Recommended Channels"
-    private let closeText = "Close Recommended"
+    private let recommendedText = "Add Some Channels"
+    private let closeText = "Hide Channels"
     private let saveText = "Save Channels"
-    private var closeOrSaveText = "Close Recommended"
+    private var closeOrSaveText = "Hide Channels"
     
     override func viewDidLoad() {
         super.viewDidLoad()

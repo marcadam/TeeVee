@@ -17,6 +17,7 @@ protocol MenuViewControllerDelegate: class {
 class MenuViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var logoutButton: UIButton!
     
     var containerViewController: HomeViewController!
     var user: User?
@@ -46,6 +47,10 @@ class MenuViewController: UIViewController {
         let midPointY = view.frame.height / 2.5
         let topPadding = UIEdgeInsets(top: midPointY - 60, left: 0, bottom: 0, right: 0)
         tableView.contentInset = topPadding
+        
+        logoutButton.titleLabel?.font = Theme.Fonts.BoldNormalTypeFace.font
+        logoutButton.tintColor = UIColor.whiteColor()
+        logoutButton.titleLabel?.textColor = Theme.Colors.HighlightColor.color
     }
     
     override func didReceiveMemoryWarning() {

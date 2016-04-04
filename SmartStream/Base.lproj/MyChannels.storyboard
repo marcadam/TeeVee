@@ -29,8 +29,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbD-ax-kgm">
-                                                    <rect key="frame" x="215" y="161" width="171" height="30"/>
-                                                    <state key="normal" title="Recommended Channels"/>
+                                                    <rect key="frame" x="209" y="161" width="182" height="30"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" title="Recommended Channels">
+                                                        <color key="titleColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="onCheckChannelTapped:" destination="TRO-hv-OcE" eventType="touchUpInside" id="Gmc-dz-Gx9"/>
                                                     </connections>
