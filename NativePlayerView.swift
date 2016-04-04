@@ -224,13 +224,18 @@ extension NativePlayerView: SmartuPlayer {
             if duration != nil {
                 du = duration!
             }
+            
+            NSTimer.scheduledTimerWithTimeInterval(du, target: self, selector: #selector(self.removeViews), userInfo: nil, repeats: false)
             self.nativePlayerOverlay.alpha = 0.0
             UIView.animateWithDuration(du) { () -> Void in
                 self.nativePlayerOverlay.alpha = 1.0
-                self.nativePlayerView.removeFromSuperview()
-                self.nativePlayerOverlay.removeFromSuperview()
             }
         })
+    }
+    
+    func removeViews() {
+        self.nativePlayerView.removeFromSuperview()
+        self.nativePlayerOverlay.removeFromSuperview()
     }
     
     func endItem() {

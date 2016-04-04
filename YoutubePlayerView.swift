@@ -205,13 +205,18 @@ extension YoutubePlayerView: SmartuPlayer {
             if duration != nil {
                 du = duration!
             }
+            
+            NSTimer.scheduledTimerWithTimeInterval(du, target: self, selector: #selector(self.removeViews), userInfo: nil, repeats: false)
             self.youtubePlayerOverlay.alpha = 0.0
             UIView.animateWithDuration(du) { () -> Void in
                 self.youtubePlayerOverlay.alpha = 1.0
-                self.youtubePlayerView.removeFromSuperview()
-                self.youtubePlayerOverlay.removeFromSuperview()
             }
         })
+    }
+    
+    func removeViews() {
+        self.youtubePlayerView.removeFromSuperview()
+        self.youtubePlayerOverlay.removeFromSuperview()
     }
     
     func endItem() {

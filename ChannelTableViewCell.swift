@@ -46,6 +46,8 @@ class ChannelTableViewCell: UITableViewCell {
         channelNameLabel.textColor = Theme.Colors.HighlightColor.color
         channelTopicsLabel.textColor = Theme.Colors.HighlightLightColor.color
         channelImageView.layer.cornerRadius = 6.0
+        
+        self.layoutMargins = UIEdgeInsetsZero
     }
     
     override func setHighlighted(highlighted: Bool, animated: Bool) {
