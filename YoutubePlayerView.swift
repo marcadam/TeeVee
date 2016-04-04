@@ -19,6 +19,7 @@ class YoutubePlayerView: NSObject {
         "modestbranding" : 1,
         "showinfo": 0,
         "rel": 0,
+        "fs": 0,
         "iv_load_policy": 3
     ]
     
