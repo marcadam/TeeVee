@@ -132,6 +132,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.selectionStyle = .None
                 cell.delegate = self
                 cell.selectedChannels = []
+                cell.selectedChannelIndex = [:]
                 return cell
             }
         } else {
