@@ -167,6 +167,17 @@ class PlayerViewController: UIViewController {
             progressView.setProgress(0, animated: false)
             self.channelManager?.next()
             setTimerToFadeOut()
+            
+            if descriptionView.hidden == false {
+                UIView.animateWithDuration(0.3, animations: {
+                    self.landscapeHeaderView.layer.opacity = 0
+                    self.descriptionView.layer.opacity = 0
+                    }, completion: { (finished) in
+                        self.descriptionView.hidden = true
+                        self.landscapeHeaderView.hidden = true
+                        self.isPlay = !self.isPlay
+                })
+            }
         }
     }
     
