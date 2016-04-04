@@ -38,7 +38,6 @@ class EmptyChannelTableViewCell: UITableViewCell {
         collectionView.registerNib(channelCellNIB, forCellWithReuseIdentifier: cellID)
         collectionView.backgroundColor = bgColor
         collectionView.allowsMultipleSelection = true
-        collectionView.tintColor = UIColor.whiteColor()
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

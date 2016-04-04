@@ -39,7 +39,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="146" height="179"/>
                     <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="e0c-hD-nQb">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="e0c-hD-nQb">
                     <rect key="frame" x="48" y="65" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="L3h-0r-Hyp"/>
@@ -78,6 +78,6 @@
         </view>
     </objects>
     <resources>
-        <image name="check" width="120" height="120"/>
+        <image name="icon_checkmark" width="180" height="180"/>
     </resources>
 </document>
