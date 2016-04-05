@@ -21,7 +21,7 @@ class ExploreViewController: UIViewController {
     
     let channelPagingCellID = "com.teevee.ChannelCollectionPagingViewCell"
     let channelCellID = "com.teevee.ChannelCollectionViewCell"
-    let sectionTitleArray = ["blank_title", "Suggested Channels"]
+    let sectionTitleArray = ["blank_title", "Popular Channels"]
     
     var channels: [Channel]? {
         didSet {

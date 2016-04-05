@@ -48,7 +48,7 @@ class MyChannelsViewController: UIViewController {
         // Do any additional setup after loading the view.
         let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
-        tableView.estimatedRowHeight = 67
+        tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorInset = UIEdgeInsetsZero
         
@@ -171,7 +171,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
                 return tableView.bounds.height - headerViewHeight
             }
         } else {
-            return 67
+            return UITableViewAutomaticDimension
         }
     }
     
@@ -355,7 +355,7 @@ extension MyChannelsViewController {
     
     func setupTableViewContent() {
         showEmptyState = false
-        tableView.estimatedRowHeight = 67
+        tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = Theme.Colors.SeparatorColor.color
     }
