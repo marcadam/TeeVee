@@ -15,20 +15,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5h5-mp-Pfr">
-                        <rect key="frame" x="8" y="12" width="72" height="72"/>
+                        <rect key="frame" x="8" y="12" width="60" height="60"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="72" id="6ri-a0-rW0"/>
-                            <constraint firstAttribute="height" constant="72" id="W7s-3J-PUN"/>
+                            <constraint firstAttribute="width" constant="60" id="6ri-a0-rW0"/>
+                            <constraint firstAttribute="height" constant="60" id="W7s-3J-PUN"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFk-84-jzy">
-                        <rect key="frame" x="92" y="10" width="220" height="19.5"/>
+                        <rect key="frame" x="80" y="10" width="232" height="19.5"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJe-VF-s5G">
-                        <rect key="frame" x="92" y="31.5" width="220" height="15"/>
+                        <rect key="frame" x="80" y="31.5" width="232" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
