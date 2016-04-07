@@ -39,6 +39,8 @@ class PlayerViewController: UIViewController {
     private var isPlay = false
     private var isTweetPlay = false
     
+    private var startGesturePoint: CGPoint?
+    
     private let normalBoldFont = Theme.Fonts.BoldNormalTypeFace.font
     private let backgroundColor = Theme.Colors.BackgroundColor.color
     private let highlightColor = Theme.Colors.HighlightColor.color
@@ -71,9 +73,8 @@ class PlayerViewController: UIViewController {
         
         dismissButton.tintColor = highlightColor
         
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(onSwipe))
-        swipeGestureRecognizer.direction = .Left
-        view.addGestureRecognizer(swipeGestureRecognizer)
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onSwipe))
+        view.addGestureRecognizer(panGestureRecognizer)
         
         let mediaTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onMediaTap))
         mediaOverlayView.addGestureRecognizer(mediaTapGestureRecognizer)
@@ -162,20 +163,40 @@ class PlayerViewController: UIViewController {
         }
     }
     
-    func onSwipe(sender: UISwipeGestureRecognizer) {
-        if sender.direction.rawValue == 2 {
-            progressView.setProgress(0, animated: false)
-            self.channelManager?.next()
-            setTimerToFadeOut()
-            
-            if descriptionView.hidden == false {
-                UIView.animateWithDuration(0.3, animations: {
-                    self.landscapeHeaderView.layer.opacity = 0
-                    self.descriptionView.layer.opacity = 0
-                    }, completion: { (finished) in
-                        self.descriptionView.hidden = true
-                        self.landscapeHeaderView.hidden = true
-                        self.isPlay = !self.isPlay
+    func onSwipe(sender: UIPanGestureRecognizer) {
+        let viewCenterX = view.center.x
+        let translation = sender.translationInView(view)
+        let velocity = sender.velocityInView(view)
+        print(velocity.x)
+        let swipeAway = velocity.x > 1000 ? true : false
+        if sender.state == .Began {
+            startGesturePoint = translation
+            //playerView.transform = CGAffineTransformMakeTranslation(sender, <#T##ty: CGFloat##CGFloat#>)
+            //            progressView.setProgress(0, animated: false)
+            //            self.channelManager?.next()
+            //            setTimerToFadeOut()
+            //
+            //            if descriptionView.hidden == false {
+            //                UIView.animateWithDuration(0.3, animations: {
+            //                    self.landscapeHeaderView.layer.opacity = 0
+            //                    self.descriptionView.layer.opacity = 0
+            //                    }, completion: { (finished) in
+            //                        self.descriptionView.hidden = true
+            //                        self.landscapeHeaderView.hidden = true
+            //                        self.isPlay = !self.isPlay
+            //                })
+            //            }
+        } else if sender.state == .Changed {
+            let deltaX = translation.x - startGesturePoint!.x
+            playerView.center.x = viewCenterX + deltaX
+        } else if sender.state == .Ended {
+            if swipeAway || playerView.center.x <= 0 {
+                UIView.animateWithDuration(0.1, animations: {
+                    self.playerView.center.x = -(viewCenterX)
+                })
+            } else {
+                UIView.animateWithDuration(0.1, animations: {
+                    self.playerView.center.x = viewCenterX
                 })
             }
         }
