@@ -79,9 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        if notificationSettings.types != .None {
-            application.registerForRemoteNotifications()
-        }
+//        if notificationSettings.types != .None {
+//            application.registerForRemoteNotifications()
+//        }
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -100,9 +100,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func registerForPushNotifications(application: UIApplication) {
-        let notificationSettings = UIUserNotificationSettings(
-            forTypes: [.Badge, .Sound, .Alert], categories: nil)
-        application.registerUserNotificationSettings(notificationSettings)
+        // Register for remote notifications
+        if #available(iOS 8.0, *) {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+            application.registerForRemoteNotifications()
+        } else {
+            // Fallback
+            let types: UIRemoteNotificationType = [.Alert, .Badge, .Sound]
+            application.registerForRemoteNotificationTypes(types)
+        }
     }
 }
 
