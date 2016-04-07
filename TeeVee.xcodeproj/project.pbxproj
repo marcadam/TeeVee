@@ -11,6 +11,7 @@
 		0B2CD8AD1C8846270055BD50 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AC1C8846270055BD50 /* Channel.swift */; };
 		0B2CD8AF1C8846650055BD50 /* ChannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CD8AE1C8846650055BD50 /* ChannelItem.swift */; };
 		0B40EE751C8BC05C00E6B65E /* ChannelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40EE741C8BC05C00E6B65E /* ChannelManager.swift */; };
+		0B4B4F891CB65B2A00DAEE96 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B4B4F881CB65B2A00DAEE96 /* GoogleService-Info.plist */; };
 		0B597B511C844AD900D4AC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B501C844AD900D4AC57 /* AppDelegate.swift */; };
 		0B597B531C844AD900D4AC57 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B597B521C844AD900D4AC57 /* PlayerViewController.swift */; };
 		0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B541C844AD900D4AC57 /* Login.storyboard */; };
@@ -92,6 +93,7 @@
 		0B2CD8AE1C8846650055BD50 /* ChannelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelItem.swift; sourceTree = "<group>"; };
 		0B2CD8BB1C8AFC500055BD50 /* SmartChannel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartChannel-Bridging-Header.h"; sourceTree = "<group>"; };
 		0B40EE741C8BC05C00E6B65E /* ChannelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManager.swift; sourceTree = "<group>"; };
+		0B4B4F881CB65B2A00DAEE96 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0B597B4D1C844AD900D4AC57 /* TeeVee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeeVee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B597B501C844AD900D4AC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B597B521C844AD900D4AC57 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = SmartStream/PlayerViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				0B597B501C844AD900D4AC57 /* AppDelegate.swift */,
 				0B597B571C844AD900D4AC57 /* Assets.xcassets */,
 				0B597B5C1C844AD900D4AC57 /* Info.plist */,
+				0B4B4F881CB65B2A00DAEE96 /* GoogleService-Info.plist */,
 				0B2CD8BB1C8AFC500055BD50 /* SmartChannel-Bridging-Header.h */,
 			);
 			name = SmartChannel;
@@ -635,6 +638,7 @@
 				A2F231F51C8D7A670053956D /* FilterSelectCell.xib in Resources */,
 				A2A3A3DD1C8AE1C200D1173C /* Home.storyboard in Resources */,
 				0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */,
+				0B4B4F891CB65B2A00DAEE96 /* GoogleService-Info.plist in Resources */,
 				A2047F821CB3003E0087C2F7 /* ChannelEmptyCell.xib in Resources */,
 				A2A3A3DB1C8AD9E500D1173C /* Filters.storyboard in Resources */,
 				A2B9E1581C9A1540009FD91B /* TweetCell.xib in Resources */,

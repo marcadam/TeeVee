@@ -16,5 +16,6 @@ target 'TeeVee' do
     pod 'FBSDKCoreKit'
     pod 'FBSDKShareKit'
     pod 'FBSDKLoginKit'
+    pod 'Google/CloudMessaging'
 end
 
