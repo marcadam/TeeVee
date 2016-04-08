@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     
     var connectedToGCM = false
     var subscribedToTopic = false
-    var gcmSenderID = "991218053543"
+    var gcmSenderID: String?
     var registrationToken: String?
     var registrationOptions = [String: AnyObject]()
     
@@ -31,6 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
+        var configureError:NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        
+        gcmSenderID = GGLContext.sharedInstance().configuration.gcmSenderID
+        
         registerForPushNotifications(application)
         startGCMService()
         
@@ -73,20 +79,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     }
     
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-//        if notificationSettings.types != .None {
-//            application.registerForRemoteNotifications()
-//        }
+
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
-        var tokenString = ""
-        
-        for i in 0..<deviceToken.length {
-            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
-        }
-        
-        debugPrint("Device Token:", tokenString)
+//        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+//        var tokenString = ""
+//        
+//        for i in 0..<deviceToken.length {
+//            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+//        }
+//        
+//        debugPrint("Device Token:", tokenString)
         
         // Create a config and set a delegate that implements the GGLInstaceIDDelegate protocol.
         let instanceIDConfig = GGLInstanceIDConfig.defaultConfig()

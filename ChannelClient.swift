@@ -10,7 +10,7 @@ import UIKit
 import AFNetworking
 
 let channelBaseUrl = "https://tokyo-ceiling-733.appspot.com/"
-// let channelBaseUrl = "http://smartu.herokuapp.com/"
+//let channelBaseUrl = "http://smartu.herokuapp.com/"
 
 class ChannelClient {
     var baseURL: String!
@@ -261,6 +261,23 @@ class ChannelClient {
                 debugPrint("forkChannels() status code = \(response!.statusCode)")
             }
             completion(channels: nil, error: error)
+        }
+        
+    }
+    
+    func updatePushRegistrationToken(registrationToken: String, completion: (error: NSError?) -> ()) {
+        let params = ["push_registration_token": registrationToken]
+        
+        manager.PUT("api/users", parameters: params, success: { (dataTask: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            //debugPrint(response)
+            completion(error: nil)
+            
+        }) { (dataTask: NSURLSessionDataTask?, error: NSError) -> Void in
+            let response = dataTask?.response as? NSHTTPURLResponse
+            if response != nil {
+                debugPrint("updatePushRegistrationToken() status code = \(response!.statusCode)")
+            }
+            completion(error: error)
         }
         
     }
