@@ -85,6 +85,19 @@ class LoginViewController: UIViewController {
         User.login(self) { (error) in
             if error == nil && User.currentUser != nil {
                 self.performSegueWithIdentifier("segueHome", sender: User.currentUser!)
+                
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let pushRegistrationToken = appDelegate.registrationToken
+                
+                if !(pushRegistrationToken ?? "").isEmpty && User.currentUser!.pushRegistrationToken != pushRegistrationToken {
+                    ChannelClient.sharedInstance.updatePushRegistrationToken(pushRegistrationToken!, completion: { (error) in
+                        if error != nil {
+                            debugPrint(error!.localizedDescription)
+                        } else {
+                            debugPrint("Sent registration token to server")
+                        }
+                    })
+                }
             } else {
                 debugPrint("TODO : Display login error")
                 debugPrint(error.debugDescription)

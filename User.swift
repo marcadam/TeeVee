@@ -34,6 +34,7 @@ class User: NSObject {
         
         self.name = name
         self.imageUrl = imageUrl
+        self.pushRegistrationToken = dictionary["push_registration_token"] as? String
     }
     
     class func login(fromViewController: UIViewController?, completion: (error: NSError?) -> ()) {
