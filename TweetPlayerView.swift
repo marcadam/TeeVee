@@ -153,6 +153,10 @@ extension TweetPlayerView: SmartuPlayer {
         return playerId
     }
     
+    func getPlayerViews() -> [UIView] {
+        return [containerView!]
+    }
+    
     func endTweet() {
         if currItem == nil {return}
         

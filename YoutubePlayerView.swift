@@ -182,6 +182,10 @@ extension YoutubePlayerView: SmartuPlayer {
         return playerId
     }
     
+    func getPlayerViews() -> [UIView] {
+        return [youtubePlayerView, youtubePlayerOverlay]
+    }
+    
     func show(duration: NSTimeInterval?) {
         dispatch_async(dispatch_get_main_queue(),{
             debugPrint("[YOUTUBEPLAYER] fades in youtube player")
@@ -233,6 +237,7 @@ extension YoutubePlayerView: SmartuPlayer {
         isPlaying = false
         playerDelegate?.playbackStatus(self.playerId, playerType: self.playerType, status: .Error, progress: 0.0, totalDuration: 0.0)
     }
+
 }
 
 extension YoutubePlayerView: YTPlayerViewDelegate {

@@ -40,6 +40,7 @@ class PlayerViewController: UIViewController {
     private var isTweetPlay = false
     
     private var startGesturePoint: CGPoint?
+    private var showingViews: [UIView]?
     
     private let normalBoldFont = Theme.Fonts.BoldNormalTypeFace.font
     private let backgroundColor = Theme.Colors.BackgroundColor.color
@@ -74,7 +75,7 @@ class PlayerViewController: UIViewController {
         dismissButton.tintColor = highlightColor
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onSwipe))
-        view.addGestureRecognizer(panGestureRecognizer)
+        mediaOverlayView.addGestureRecognizer(panGestureRecognizer)
         
         let mediaTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onMediaTap))
         mediaOverlayView.addGestureRecognizer(mediaTapGestureRecognizer)
@@ -164,39 +165,48 @@ class PlayerViewController: UIViewController {
     }
     
     func onSwipe(sender: UIPanGestureRecognizer) {
+        let playView = showingViews![0]
+        let playViewOverlay = showingViews![1]
         let viewCenterX = view.center.x
         let translation = sender.translationInView(view)
+        
         let velocity = sender.velocityInView(view)
-        print(velocity.x)
-        let swipeAway = velocity.x > 1000 ? true : false
+        let swipeAwayLeft = velocity.x <= -1000 ? true : false
+        
         if sender.state == .Began {
             startGesturePoint = translation
-            //playerView.transform = CGAffineTransformMakeTranslation(sender, <#T##ty: CGFloat##CGFloat#>)
-            //            progressView.setProgress(0, animated: false)
-            //            self.channelManager?.next()
-            //            setTimerToFadeOut()
-            //
-            //            if descriptionView.hidden == false {
-            //                UIView.animateWithDuration(0.3, animations: {
-            //                    self.landscapeHeaderView.layer.opacity = 0
-            //                    self.descriptionView.layer.opacity = 0
-            //                    }, completion: { (finished) in
-            //                        self.descriptionView.hidden = true
-            //                        self.landscapeHeaderView.hidden = true
-            //                        self.isPlay = !self.isPlay
-            //                })
-            //            }
         } else if sender.state == .Changed {
             let deltaX = translation.x - startGesturePoint!.x
-            playerView.center.x = viewCenterX + deltaX
+            if deltaX < 0 {
+                playViewOverlay.center.x = viewCenterX + deltaX
+                playView.center.x = viewCenterX + deltaX
+            }
         } else if sender.state == .Ended {
-            if swipeAway || playerView.center.x <= 0 {
-                UIView.animateWithDuration(0.1, animations: {
-                    self.playerView.center.x = -(viewCenterX)
+            if swipeAwayLeft || playView.center.x <= 0 {
+                UIView.animateWithDuration(0.1, animations: { 
+                    playViewOverlay.center.x = -(viewCenterX)
+                    playView.center.x = -(viewCenterX)
+                    }, completion: { (finished) in
+                        self.progressView.setProgress(0, animated: false)
+                        self.channelManager?.next()
+                        self.setTimerToFadeOut()
+                        
+                        if self.descriptionView.hidden == false {
+                            UIView.animateWithDuration(0.3, animations: {
+                                self.landscapeHeaderView.layer.opacity = 0
+                                self.descriptionView.layer.opacity = 0
+                                }, completion: { (finished) in
+                                    self.descriptionView.hidden = true
+                                    self.landscapeHeaderView.hidden = true
+                                    self.isPlay = !self.isPlay
+                            })
+                        }
+
                 })
             } else {
                 UIView.animateWithDuration(0.1, animations: {
-                    self.playerView.center.x = viewCenterX
+                    playViewOverlay.center.x = viewCenterX
+                    playView.center.x = viewCenterX
                 })
             }
         }
@@ -310,9 +320,10 @@ extension PlayerViewController: ChannelManagerDelegate {
         progressView.setProgress(newProgress, animated: true)
     }
     
-    func channelManager(channelManager: ChannelManager, didStartChannelItem item: ChannelItem) {
+    func channelManager(channelManager: ChannelManager, didStartChannelItem item: ChannelItem, withViews views: [UIView]) {
         mediaTitleLabel.text = item.title ?? ""
         mediaDescriptionLabel.text = item.desc ?? ""
+        showingViews = views
     }
 }
 
