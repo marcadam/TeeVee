@@ -41,6 +41,17 @@ class ChannelClient {
             if let json = response as? NSDictionary {
                 let user = User(dictionary: json)
                 completion(user: user, error: nil)
+                
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let pushRegistrationToken = appDelegate.registrationToken
+                
+                if !(pushRegistrationToken ?? "").isEmpty && user.pushRegistrationToken != pushRegistrationToken {
+                    ChannelClient.sharedInstance.updatePushRegistrationToken(pushRegistrationToken!, completion: { (error) in
+                        if error == nil {
+                            debugPrint("ChannelClient: Sent registration token to server")
+                        }
+                    })
+                }
             } else {
                 completion(user: nil, error: NSError(domain: "response error", code: 1, userInfo: nil))
             }

@@ -174,16 +174,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
             let userInfo = ["registrationToken": registrationToken]
             NSNotificationCenter.defaultCenter().postNotificationName(
                 self.registrationKey, object: nil, userInfo: userInfo)
-            
-            if User.currentUser != nil {
-                ChannelClient.sharedInstance.updatePushRegistrationToken(registrationToken, completion: { (error) in
-                    if error != nil {
-                        debugPrint(error!.localizedDescription)
-                    } else {
-                        debugPrint("Sent registration token to server")
-                    }
-                })
-            }
         } else {
             debugPrint("Registration to GCM failed with error: \(error.localizedDescription)")
             let userInfo = ["error": error.localizedDescription]
