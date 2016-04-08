@@ -8,4 +8,8 @@
 
 import UIKit
 
+let AppWillTerminateNotificationKey = "kAppWillTerminateNotificaton"
+let PushMessageReceivedKey = "PushMessageReceived"
+
 let addBtnFadeDuration = 0.5
+

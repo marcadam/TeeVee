@@ -8,9 +8,6 @@
 
 import UIKit
 import FBSDKCoreKit
-//import GGLInstanceID
-
-let AppWillTerminateNotificationKey = "kAppWillTerminateNotificaton"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GCMReceiverDelegate {
@@ -24,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     var registrationOptions = [String: AnyObject]()
     
     let registrationKey = "onRegistrationCompleted"
-    let messageKey = "onMessageReceived"
+    
     let subscriptionTopic = "/topics/global"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -133,10 +130,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
         // This works only if the app started the GCM service
         GCMService.sharedInstance().appDidReceiveMessage(userInfo);
         // Handle the received message
-        // [START_EXCLUDE]
-        NSNotificationCenter.defaultCenter().postNotificationName(messageKey, object: nil,
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(PushMessageReceivedKey, object: nil,
                                                                   userInfo: userInfo)
-        // [END_EXCLUDE]
     }
     
     func application( application: UIApplication,
@@ -144,14 +140,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
                                                    fetchCompletionHandler handler: (UIBackgroundFetchResult) -> Void) {
         print("Notification received: \(userInfo)")
         // This works only if the app started the GCM service
-        GCMService.sharedInstance().appDidReceiveMessage(userInfo);
+        GCMService.sharedInstance().appDidReceiveMessage(userInfo)
         // Handle the received message
         // Invoke the completion handler passing the appropriate UIBackgroundFetchResult value
-        // [START_EXCLUDE]
-        NSNotificationCenter.defaultCenter().postNotificationName(messageKey, object: nil,
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(PushMessageReceivedKey, object: nil,
                                                                   userInfo: userInfo)
-        handler(UIBackgroundFetchResult.NoData);
-        // [END_EXCLUDE]
+        handler(UIBackgroundFetchResult.NoData)
     }
     // [END ack_message_reception]
     
