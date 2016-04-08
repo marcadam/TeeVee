@@ -27,29 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     let messageKey = "onMessageReceived"
     let subscriptionTopic = "/topics/global"
     
-
-//    let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
-//    let menuStoryboard = UIStoryboard(name: "Menu", bundle: nil)
-//    let myChannelsStoryboard = UIStoryboard(name: "MyChannels", bundle: nil)
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-
-//        let homeVC = homeStoryboard.instantiateViewControllerWithIdentifier("HomeViewController") as! HomeViewController
-//
-//        let menuNC = menuStoryboard.instantiateViewControllerWithIdentifier("MenuNavigationController") as! UINavigationController
-//        let menuVC = menuNC.topViewController as! MenuTableViewController
-//
-//        let myChannelsNC = myChannelsStoryboard.instantiateViewControllerWithIdentifier("MyChannelsNavigationController") as! UINavigationController
-//        let myChannelsVC = myChannelsNC.topViewController as! MyChannelsViewController
-//
-//        menuVC.containerViewController = homeVC
-//        myChannelsVC.containerViewController = homeVC
-//        homeVC.menuViewController = menuNC
-//        homeVC.contentViewController = myChannelsVC
-//
-//        window?.rootViewController = homeVC
-//        window?.makeKeyAndVisible()
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 

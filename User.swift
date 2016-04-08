@@ -19,6 +19,7 @@ class User: NSObject {
     let dictionary: NSDictionary
     let name: String?
     let imageUrl: String?
+    var pushRegistrationToken: String?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
