@@ -34,6 +34,7 @@ protocol SmartuPlayer {
     func resetBounds(bounds: CGRect)
     func getItem() -> ChannelItem?
     func getPlayerId() -> String
+    func getPlayerViews() -> [UIView]
 }
 
 protocol SmartuPlayerDelegate: class {

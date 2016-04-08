@@ -201,6 +201,10 @@ extension NativePlayerView: SmartuPlayer {
         return playerId
     }
     
+    func getPlayerViews() -> [UIView] {
+        return [nativePlayerView, nativePlayerOverlay]
+    }
+    
     func show(duration: NSTimeInterval?) {
         dispatch_async(dispatch_get_main_queue(),{
             debugPrint("[NATIVEPLAYER] fades in native player")
