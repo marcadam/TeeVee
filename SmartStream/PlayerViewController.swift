@@ -165,49 +165,53 @@ class PlayerViewController: UIViewController {
     }
     
     func onSwipe(sender: UIPanGestureRecognizer) {
-        let playView = showingViews![0]
-        let playViewOverlay = showingViews![1]
-        let viewCenterX = view.center.x
-        let translation = sender.translationInView(view)
-        
-        let velocity = sender.velocityInView(view)
-        let swipeAwayLeft = velocity.x <= -1000 ? true : false
-        
-        if sender.state == .Began {
-            startGesturePoint = translation
-        } else if sender.state == .Changed {
-            let deltaX = translation.x - startGesturePoint!.x
-            if deltaX < 0 {
-                playViewOverlay.center.x = viewCenterX + deltaX
-                playView.center.x = viewCenterX + deltaX
-            }
-        } else if sender.state == .Ended {
-            if swipeAwayLeft || playView.center.x <= 0 {
-                UIView.animateWithDuration(0.1, animations: { 
-                    playViewOverlay.center.x = -(viewCenterX)
-                    playView.center.x = -(viewCenterX)
-                    }, completion: { (finished) in
-                        self.progressView.setProgress(0, animated: false)
-                        self.channelManager?.next()
-                        self.setTimerToFadeOut()
-                        
-                        if self.descriptionView.hidden == false {
-                            UIView.animateWithDuration(0.3, animations: {
-                                self.landscapeHeaderView.layer.opacity = 0
-                                self.descriptionView.layer.opacity = 0
-                                }, completion: { (finished) in
-                                    self.descriptionView.hidden = true
-                                    self.landscapeHeaderView.hidden = true
-                                    self.isPlay = !self.isPlay
-                            })
-                        }
-
-                })
-            } else {
-                UIView.animateWithDuration(0.1, animations: {
-                    playViewOverlay.center.x = viewCenterX
-                    playView.center.x = viewCenterX
-                })
+        if let topViews = showingViews {
+            // overlay
+            let playView = topViews[0]
+            // smartu player
+            let playViewOverlay = topViews[1]
+            let viewCenterX = view.center.x
+            let translation = sender.translationInView(view)
+            
+            let velocity = sender.velocityInView(view)
+            let swipeAwayLeft = velocity.x <= -1000 ? true : false
+            
+            if sender.state == .Began {
+                startGesturePoint = translation
+            } else if sender.state == .Changed {
+                let deltaX = translation.x - startGesturePoint!.x
+                if deltaX < 0 {
+                    playViewOverlay.center.x = viewCenterX + deltaX
+                    playView.center.x = viewCenterX + deltaX
+                }
+            } else if sender.state == .Ended {
+                if swipeAwayLeft || playView.center.x <= 0 {
+                    UIView.animateWithDuration(0.1, animations: {
+                        playViewOverlay.center.x = -(viewCenterX)
+                        playView.center.x = -(viewCenterX)
+                        }, completion: { (finished) in
+                            self.progressView.setProgress(0, animated: false)
+                            self.channelManager?.next()
+                            self.setTimerToFadeOut()
+                            
+                            if self.descriptionView.hidden == false {
+                                UIView.animateWithDuration(0.3, animations: {
+                                    self.landscapeHeaderView.layer.opacity = 0
+                                    self.descriptionView.layer.opacity = 0
+                                    }, completion: { (finished) in
+                                        self.descriptionView.hidden = true
+                                        self.landscapeHeaderView.hidden = true
+                                        self.isPlay = !self.isPlay
+                                })
+                            }
+                            
+                    })
+                } else {
+                    UIView.animateWithDuration(0.1, animations: {
+                        playViewOverlay.center.x = viewCenterX
+                        playView.center.x = viewCenterX
+                    })
+                }
             }
         }
     }
