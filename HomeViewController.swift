@@ -55,6 +55,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         overlayLayer = UIView(frame: CGRectMake(0, 0, 50, view.frame.height))
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showReceivedMessage:",
+                                                         name: PushMessageReceivedKey, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,6 +84,34 @@ class HomeViewController: UIViewController {
 //                }
 //            })
 //        }
+    }
+    
+    
+    func showReceivedMessage(notification: NSNotification) {
+        if let info = notification.userInfo as? Dictionary<String,AnyObject> {
+            if let aps = info["aps"] as? Dictionary<String, AnyObject> {
+                if let alert = aps["alert"] as? Dictionary<String, String> {
+                    showAlert(alert["title"]!, message: alert["body"]!)
+                }
+            }
+        } else {
+            print("Software failure. Guru meditation.")
+        }
+    }
+    
+    func showAlert(title:String, message:String) {
+        if #available(iOS 8.0, *) {
+            let alert = UIAlertController(title: title,
+                                          message: message, preferredStyle: .Alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .Destructive, handler: nil)
+            alert.addAction(dismissAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            // Fallback on earlier versions
+            let alert = UIAlertView.init(title: title, message: message, delegate: nil,
+                                         cancelButtonTitle: "Dismiss")
+            alert.show()
+        }
     }
 }
 
