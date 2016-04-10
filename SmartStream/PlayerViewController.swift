@@ -15,7 +15,6 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var spinnerView: UIView!
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var channelTitleLabel: UILabel!
-    @IBOutlet weak var playerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var topHeaderView: UIView!
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var gradientView: GradientView!
@@ -25,14 +24,15 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var landscapeHeaderView: UIView!
     @IBOutlet weak var mediaDescriptionLabel: UILabel!
+    @IBOutlet weak var playerViewTopConstraint: NSLayoutConstraint!
+    
+    private var playerViewTopConstantPortrait: CGFloat!
+    private var playerViewTopConstantLandscape: CGFloat!
     
     var channelTitle: String!
     var channelId: String! = "0"
     private var channelManager: ChannelManager?
     
-    private var playerViewTopConstantPortraitTwitterOn: CGFloat!
-    private var playerViewTopConstantPortraitTwitterOff: CGFloat!
-    private var playerViewTopConstantLandscape: CGFloat!
     private var controlsHidden = false
     private var latestTimer: NSTimer?
     private var isPortrait = true
@@ -56,9 +56,6 @@ class PlayerViewController: UIViewController {
         playerView.clipsToBounds = true
         tweetsView.clipsToBounds = true
         spinnerView.backgroundColor = UIColor.clearColor()
-        
-        playerViewTopConstantLandscape = 0
-        playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
         
         progressView.trackTintColor = Theme.Colors.LightBackgroundColor.color
         progressView.progressTintColor = highlightColor
@@ -84,6 +81,9 @@ class PlayerViewController: UIViewController {
         gradientView.addGestureRecognizer(tweetTapGestureRecognizer)
         
         isPortrait = application.statusBarOrientation.isPortrait
+        
+        playerViewTopConstantLandscape = 0
+        playerViewTopConstantPortrait = topHeaderView.bounds.height
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
@@ -158,7 +158,7 @@ class PlayerViewController: UIViewController {
     
     func getPlayerTopConstant() -> CGFloat! {
         if application.statusBarOrientation.isPortrait {
-            return playerViewTopConstantPortraitTwitterOn
+            return playerViewTopConstantPortrait
         } else {
             return playerViewTopConstantLandscape
         }

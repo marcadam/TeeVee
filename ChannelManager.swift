@@ -235,16 +235,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 next()
             } else if status == .DidStart {
                 
-                if spinnerShowing {
-                    if totalDuration.isNaN {
-                        debugPrint("[MANAGER] totalDuration isNaN")
-                    }
-                    removeSpinner()
-                    if twitterOn {
-                        playNextTweet(currItem)
-                    }
-                }
-                
                 delegate?.channelManager(self, didStartChannelItem: currItem!, withViews: currPlayer!.getPlayerViews())
                 print("[MANAGER] CURRENT VIEWS::::::::: \(currPlayer?.getPlayerViews())")
                 
@@ -257,6 +247,15 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
                 delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
                 
+                if spinnerShowing {
+                    if totalDuration.isNaN {
+                        debugPrint("[MANAGER] totalDuration isNaN")
+                    }
+                    removeSpinner()
+                    if twitterOn {
+                        playNextTweet(currItem)
+                    }
+                }
             } else if status == .Error {
                 let currPlayerId = (currPlayer == nil) ? "nil": currPlayer!.getPlayerId()
                 debugPrint("[MANAGER] Received ERROR from \(playerId); currPlayer = \(currPlayerId)")
@@ -307,11 +306,17 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         reloadQueues()
         if readyPlayers.isEmpty {return}
         
+        currPlayer?.pauseItem()
         currPlayer = readyPlayers.removeFirst()
         currItem = (currPlayer == nil) ? nil: currPlayer?.getItem()
         
         if playerContainerView != nil {
             currPlayer?.resetBounds(playerContainerView!.bounds)
+        }
+        
+        // guard against concurrent playback
+        for player in readyPlayers {
+            player.pauseItem()
         }
         
         currPlayer?.playItem()
@@ -394,8 +399,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func updateBounds(playerContainerView: UIView?, tweetsContainerView: UIView?) {
+        debugPrint("[MANAGER] updateBounds()")
         if playerContainerView != nil {
             self.playerContainerView?.bounds = playerContainerView!.bounds
+            self.currPlayer?.resetBounds(playerContainerView!.bounds)
         }
         
         if tweetsContainerView != nil {
@@ -405,7 +412,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func play() {
-        if currItem == nil {return}
+        if currPlayer == nil {return}
         currPlayer?.playItem()
     }
     
@@ -414,7 +421,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func pause() {
-        if currItem == nil {return}
+        if currPlayer == nil {return}
         currPlayer?.pauseItem()
     }
     
@@ -423,7 +430,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func stop() {
-        if currItem == nil {return}
+        if currPlayer == nil {return}
         
         currPlayer?.stopItem()
         tweetPlayerView?.stopItem()
@@ -447,6 +454,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func onRotation(isPortrait: Bool) {
         if self.isPortrait == isPortrait {return}
         self.isPortrait = isPortrait
+        
+        debugPrint("[MANAGER] onRotation()")
         
         if twitterOn {
             if !isPortrait {

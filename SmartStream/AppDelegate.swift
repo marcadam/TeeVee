@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
         
         registerForPushNotifications(application)
         startGCMService()
+        checkIfLaunchedFromPush(application, launchOptions: launchOptions)
         
         Theme.applyTheme()
 
@@ -127,6 +128,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     func application( application: UIApplication,
                       didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         print("Notification received: \(userInfo)")
+        
+        if application.applicationState == UIApplicationState.Inactive || application.applicationState == UIApplicationState.Background {
+            //opened from a push notification when the app was on background
+            debugPrint("Notification received when app was in BACKGROUND")
+        }
+        
         // This works only if the app started the GCM service
         GCMService.sharedInstance().appDidReceiveMessage(userInfo);
         // Handle the received message
@@ -139,6 +146,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
                       didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                                                    fetchCompletionHandler handler: (UIBackgroundFetchResult) -> Void) {
         print("Notification received: \(userInfo)")
+        
+        if application.applicationState == UIApplicationState.Inactive || application.applicationState == UIApplicationState.Background {
+            //opened from a push notification when the app was on background
+            debugPrint("Notification received when app was in BACKGROUND")
+        }
+        
         // This works only if the app started the GCM service
         GCMService.sharedInstance().appDidReceiveMessage(userInfo)
         // Handle the received message
@@ -234,6 +247,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
         // Some messages sent to this device were deleted on the GCM server before reception, likely
         // because the TTL expired. The client should notify the app server of this, so that the app
         // server can resend those messages.
+    }
+    
+    func checkIfLaunchedFromPush(application: UIApplication, launchOptions: [NSObject: AnyObject]?) {
+        let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
+        if (notification != nil) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
+                self.application(application, didReceiveRemoteNotification: notification! as [NSObject : AnyObject])
+            }
+        }
     }
 }
 
