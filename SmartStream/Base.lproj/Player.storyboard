@@ -151,7 +151,6 @@
                             <constraint firstItem="WeQ-Ok-9nI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QfX-Hc-Y6O"/>
                             <constraint firstItem="Fne-8W-XJa" firstAttribute="leading" secondItem="c6s-au-H2R" secondAttribute="leading" id="RHb-Tj-aMC"/>
                             <constraint firstItem="c6s-au-H2R" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Snn-Gz-emH"/>
-                            <constraint firstItem="4Y1-of-0OC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UGW-Pp-gbd"/>
                             <constraint firstAttribute="bottom" secondItem="c6s-au-H2R" secondAttribute="bottom" id="VVA-Qr-Lec"/>
                             <constraint firstItem="Fne-8W-XJa" firstAttribute="width" secondItem="c6s-au-H2R" secondAttribute="width" id="a39-zO-xgA"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aC8-yf-BVQ"/>
@@ -161,19 +160,14 @@
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ec6-Sz-YQe"/>
                             <constraint firstItem="iNa-21-m5T" firstAttribute="baseline" secondItem="WeQ-Ok-9nI" secondAttribute="baseline" id="haF-ju-5Lx"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="height" secondItem="WeQ-Ok-9nI" secondAttribute="height" id="jwx-Au-2Sz"/>
-                            <constraint firstAttribute="trailing" secondItem="4Y1-of-0OC" secondAttribute="trailing" id="kFA-D3-0go"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="baseline" secondItem="WeQ-Ok-9nI" secondAttribute="baseline" id="nYQ-vx-M5I"/>
                             <constraint firstItem="4Y1-of-0OC" firstAttribute="width" secondItem="WeQ-Ok-9nI" secondAttribute="width" id="qoh-yp-jWQ"/>
                             <constraint firstItem="c6s-au-H2R" firstAttribute="top" secondItem="WeQ-Ok-9nI" secondAttribute="bottom" id="rcW-h1-JEg"/>
                             <constraint firstAttribute="trailing" secondItem="c6s-au-H2R" secondAttribute="trailing" id="sqO-lN-rfM"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="4Y1-of-0OC" secondAttribute="bottom" id="yte-TW-pKz"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="UGW-Pp-gbd"/>
                                 <exclude reference="aC8-yf-BVQ"/>
-                                <exclude reference="kFA-D3-0go"/>
-                                <exclude reference="yte-TW-pKz"/>
                             </mask>
                         </variation>
                     </view>
@@ -188,6 +182,7 @@
                         <outlet property="mediaTitleLabel" destination="Slm-SV-02s" id="wA3-ap-PbX"/>
                         <outlet property="overlayView" destination="2nR-wN-DLw" id="ZOU-fb-99J"/>
                         <outlet property="playerView" destination="WeQ-Ok-9nI" id="8fE-Wq-d2O"/>
+                        <outlet property="playerViewTopConstraint" destination="IWR-q4-Vkf" id="98a-b6-I7O"/>
                         <outlet property="progressView" destination="iNa-21-m5T" id="l6c-z0-Lcu"/>
                         <outlet property="spinnerView" destination="4Y1-of-0OC" id="ahv-UM-ith"/>
                         <outlet property="topHeaderView" destination="Qsl-U8-Nzk" id="SE1-gS-O5c"/>

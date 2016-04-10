@@ -24,6 +24,10 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var landscapeHeaderView: UIView!
     @IBOutlet weak var mediaDescriptionLabel: UILabel!
+    @IBOutlet weak var playerViewTopConstraint: NSLayoutConstraint!
+    
+    private var playerViewTopConstantPortrait: CGFloat!
+    private var playerViewTopConstantLandscape: CGFloat!
     
     var channelTitle: String!
     var channelId: String! = "0"
@@ -78,6 +82,9 @@ class PlayerViewController: UIViewController {
         
         isPortrait = application.statusBarOrientation.isPortrait
         
+        playerViewTopConstantLandscape = 0
+        playerViewTopConstantPortrait = topHeaderView.bounds.height
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         landscapeHeaderView.backgroundColor = backgroundColor
@@ -100,6 +107,7 @@ class PlayerViewController: UIViewController {
         channelManager!.tweetsContainerView = tweetsView
         channelManager!.spinnerContainerView = spinnerView
         channelManager!.twitterOn = true
+        playerViewTopConstraint.constant = getPlayerTopConstant()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -144,7 +152,16 @@ class PlayerViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
+        playerViewTopConstraint.constant = getPlayerTopConstant()
         channelManager?.updateBounds(playerView, tweetsContainerView: tweetsView)
+    }
+    
+    func getPlayerTopConstant() -> CGFloat! {
+        if application.statusBarOrientation.isPortrait {
+            return playerViewTopConstantPortrait
+        } else {
+            return playerViewTopConstantLandscape
+        }
     }
     
     func onSwipe(sender: UIPanGestureRecognizer) {
