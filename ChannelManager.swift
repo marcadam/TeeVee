@@ -400,8 +400,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func updateBounds(playerContainerView: UIView?, tweetsContainerView: UIView?) {
+        debugPrint("[MANAGER] updateBounds()")
         if playerContainerView != nil {
             self.playerContainerView?.bounds = playerContainerView!.bounds
+            self.currPlayer?.resetBounds(playerContainerView!.bounds)
         }
         
         if tweetsContainerView != nil {
@@ -453,6 +455,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     func onRotation(isPortrait: Bool) {
         if self.isPortrait == isPortrait {return}
         self.isPortrait = isPortrait
+        
+        debugPrint("[MANAGER] onRotation()")
         
         if twitterOn {
             if !isPortrait {

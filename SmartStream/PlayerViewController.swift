@@ -15,7 +15,6 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var spinnerView: UIView!
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var channelTitleLabel: UILabel!
-    @IBOutlet weak var playerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var topHeaderView: UIView!
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var gradientView: GradientView!
@@ -30,9 +29,6 @@ class PlayerViewController: UIViewController {
     var channelId: String! = "0"
     private var channelManager: ChannelManager?
     
-    private var playerViewTopConstantPortraitTwitterOn: CGFloat!
-    private var playerViewTopConstantPortraitTwitterOff: CGFloat!
-    private var playerViewTopConstantLandscape: CGFloat!
     private var controlsHidden = false
     private var latestTimer: NSTimer?
     private var isPortrait = true
@@ -56,9 +52,6 @@ class PlayerViewController: UIViewController {
         playerView.clipsToBounds = true
         tweetsView.clipsToBounds = true
         spinnerView.backgroundColor = UIColor.clearColor()
-        
-        playerViewTopConstantLandscape = 0
-        playerViewTopConstantPortraitTwitterOn = topHeaderView.bounds.height
         
         progressView.trackTintColor = Theme.Colors.LightBackgroundColor.color
         progressView.progressTintColor = highlightColor
@@ -107,7 +100,6 @@ class PlayerViewController: UIViewController {
         channelManager!.tweetsContainerView = tweetsView
         channelManager!.spinnerContainerView = spinnerView
         channelManager!.twitterOn = true
-        playerViewTopConstraint.constant = getPlayerTopConstant()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -152,16 +144,7 @@ class PlayerViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        playerViewTopConstraint.constant = getPlayerTopConstant()
         channelManager?.updateBounds(playerView, tweetsContainerView: tweetsView)
-    }
-    
-    func getPlayerTopConstant() -> CGFloat! {
-        if application.statusBarOrientation.isPortrait {
-            return playerViewTopConstantPortraitTwitterOn
-        } else {
-            return playerViewTopConstantLandscape
-        }
     }
     
     func onSwipe(sender: UIPanGestureRecognizer) {
