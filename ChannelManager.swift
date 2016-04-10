@@ -307,11 +307,17 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         reloadQueues()
         if readyPlayers.isEmpty {return}
         
+        currPlayer?.pauseItem()
         currPlayer = readyPlayers.removeFirst()
         currItem = (currPlayer == nil) ? nil: currPlayer?.getItem()
         
         if playerContainerView != nil {
             currPlayer?.resetBounds(playerContainerView!.bounds)
+        }
+        
+        // guard against concurrent playback
+        for player in readyPlayers {
+            player.pauseItem()
         }
         
         currPlayer?.playItem()
@@ -405,7 +411,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func play() {
-        if currItem == nil {return}
+        if currPlayer == nil {return}
         currPlayer?.playItem()
     }
     
@@ -414,7 +420,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func pause() {
-        if currItem == nil {return}
+        if currPlayer == nil {return}
         currPlayer?.pauseItem()
     }
     
@@ -423,7 +429,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func stop() {
-        if currItem == nil {return}
+        if currPlayer == nil {return}
         
         currPlayer?.stopItem()
         tweetPlayerView?.stopItem()
