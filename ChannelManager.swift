@@ -235,16 +235,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 next()
             } else if status == .DidStart {
                 
-                if spinnerShowing {
-                    if totalDuration.isNaN {
-                        debugPrint("[MANAGER] totalDuration isNaN")
-                    }
-                    removeSpinner()
-                    if twitterOn {
-                        playNextTweet(currItem)
-                    }
-                }
-                
                 delegate?.channelManager(self, didStartChannelItem: currItem!, withViews: currPlayer!.getPlayerViews())
                 print("[MANAGER] CURRENT VIEWS::::::::: \(currPlayer?.getPlayerViews())")
                 
@@ -257,6 +247,15 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 debugPrint("[MANAGER] progress: \(progressStr) / \(totalDurationStr)")
                 delegate?.channelManager(self, progress: progress, totalDuration: totalDuration)
                 
+                if spinnerShowing {
+                    if totalDuration.isNaN {
+                        debugPrint("[MANAGER] totalDuration isNaN")
+                    }
+                    removeSpinner()
+                    if twitterOn {
+                        playNextTweet(currItem)
+                    }
+                }
             } else if status == .Error {
                 let currPlayerId = (currPlayer == nil) ? "nil": currPlayer!.getPlayerId()
                 debugPrint("[MANAGER] Received ERROR from \(playerId); currPlayer = \(currPlayerId)")
