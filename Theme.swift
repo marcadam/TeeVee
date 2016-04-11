@@ -32,7 +32,7 @@ struct Theme {
             case .PlayColor: return UIColor(red: 164/255, green: 179/255, blue: 112/255, alpha: 1)
             case .EditColor: return UIColor(red: 113/255, green: 154/255, blue: 175/255, alpha: 1)
             case .DeleteColor: return UIColor(red: 225/255, green: 79/255, blue: 79/255, alpha: 1)
-            case .SeparatorColor: return UIColor(red: 67/255, green: 71/255, blue: 86/255, alpha: 1)
+            case .SeparatorColor: return UIColor(red: 67/255, green: 71/255, blue: 86/255, alpha: 0.5)
             }
         }
     }

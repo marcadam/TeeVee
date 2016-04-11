@@ -50,7 +50,7 @@ class MyChannelsViewController: UIViewController {
         tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorInset = UIEdgeInsetsZero
+        // tableView.separatorInset = UIEdgeInsetsZero
         
         // Hide empty tableView rows
         tableView.tableFooterView = UIView(frame: CGRectZero)

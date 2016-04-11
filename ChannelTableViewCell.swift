@@ -45,7 +45,9 @@ class ChannelTableViewCell: UITableViewCell {
         backgroundColor = UIColor.clearColor()
         channelNameLabel.textColor = Theme.Colors.HighlightColor.color
         channelTopicsLabel.textColor = Theme.Colors.HighlightLightColor.color
-        channelImageView.layer.cornerRadius = 6.0
+        channelImageView.layer.cornerRadius = channelImageView.bounds.height/2
+        channelImageView.layer.borderColor = Theme.Colors.SeparatorColor.color.CGColor
+        channelImageView.layer.borderWidth = 1
         
         self.layoutMargins = UIEdgeInsetsZero
     }
