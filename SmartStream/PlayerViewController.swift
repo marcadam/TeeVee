@@ -25,6 +25,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var landscapeHeaderView: UIView!
     @IBOutlet weak var mediaDescriptionLabel: UILabel!
     @IBOutlet weak var playerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tweetFeedIndicator: UIView!
     
     private var playerViewTopConstantPortrait: CGFloat!
     private var playerViewTopConstantLandscape: CGFloat!
@@ -56,6 +57,8 @@ class PlayerViewController: UIViewController {
         playerView.clipsToBounds = true
         tweetsView.clipsToBounds = true
         spinnerView.backgroundColor = UIColor.clearColor()
+        tweetFeedIndicator.layer.cornerRadius = tweetFeedIndicator.bounds.height/2
+        tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
         
         progressView.trackTintColor = Theme.Colors.LightBackgroundColor.color
         progressView.progressTintColor = highlightColor
@@ -244,8 +247,26 @@ class PlayerViewController: UIViewController {
         guard let manager = channelManager else { return }
         if isTweetPlay {
             manager.playTweet()
+            self.tweetFeedIndicator.layer.removeAllAnimations()
+            UIView.animateWithDuration(0.3, animations: {
+                self.tweetFeedIndicator.layer.opacity = 0
+                }, completion: { (finished) in
+                    self.tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
+                    UIView.animateWithDuration(0.3, animations: {
+                        self.tweetFeedIndicator.layer.opacity = 1
+                    })
+            })
         } else {
             manager.pauseTweet()
+            self.tweetFeedIndicator.layer.removeAllAnimations()
+            UIView.animateWithDuration(0.3, animations: {
+                self.tweetFeedIndicator.layer.opacity = 0
+                }, completion: { (finished) in
+                    self.tweetFeedIndicator.backgroundColor = Theme.Colors.DeleteColor.color
+                    UIView.animateWithDuration(0.3, animations: {
+                        self.tweetFeedIndicator.layer.opacity = 1
+                    })
+            })
         }
         animateFadeIn()
         isTweetPlay = !isTweetPlay

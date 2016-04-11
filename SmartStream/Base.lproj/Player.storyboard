@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -116,6 +116,31 @@
                                         <rect key="frame" x="0.0" y="338" width="600" height="262"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhq-55-ylq">
+                                        <rect key="frame" x="288" y="555" width="25" height="25"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_twitter" translatesAutoresizingMaskIntoConstraints="NO" id="gjs-aF-Zwh">
+                                                <rect key="frame" x="6" y="6" width="13" height="13"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="gjs-aF-Zwh" firstAttribute="leading" secondItem="fhq-55-ylq" secondAttribute="leading" constant="6" id="DxV-yt-pMC"/>
+                                            <constraint firstItem="gjs-aF-Zwh" firstAttribute="centerY" secondItem="fhq-55-ylq" secondAttribute="centerY" id="H52-lg-FQy"/>
+                                            <constraint firstAttribute="trailing" secondItem="gjs-aF-Zwh" secondAttribute="trailing" constant="6" id="Qiq-oo-hMQ"/>
+                                            <constraint firstItem="gjs-aF-Zwh" firstAttribute="top" secondItem="fhq-55-ylq" secondAttribute="top" constant="6" id="RRV-wT-DHV"/>
+                                            <constraint firstItem="gjs-aF-Zwh" firstAttribute="centerX" secondItem="fhq-55-ylq" secondAttribute="centerX" id="Snm-k7-TJ6"/>
+                                            <constraint firstAttribute="bottom" secondItem="gjs-aF-Zwh" secondAttribute="bottom" constant="6" id="mas-Lg-iWn"/>
+                                            <constraint firstAttribute="width" constant="25" id="nlb-8J-ktz"/>
+                                            <constraint firstAttribute="height" constant="25" id="onz-ob-c6i"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="H52-lg-FQy"/>
+                                                <exclude reference="Snm-k7-TJ6"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
                                 </subviews>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -130,8 +155,10 @@
                                     <constraint firstItem="Fne-8W-XJa" firstAttribute="top" secondItem="Wa0-ox-4Kl" secondAttribute="bottom" id="bd5-Nc-9xo"/>
                                     <constraint firstItem="UQT-H6-cBz" firstAttribute="leading" secondItem="2nR-wN-DLw" secondAttribute="leading" id="i4C-ja-B8K"/>
                                     <constraint firstItem="RGB-gN-0Wn" firstAttribute="top" secondItem="2nR-wN-DLw" secondAttribute="top" id="kBS-cF-3rT"/>
+                                    <constraint firstItem="fhq-55-ylq" firstAttribute="centerX" secondItem="2nR-wN-DLw" secondAttribute="centerX" id="kUI-Iw-k4F"/>
                                     <constraint firstItem="Wa0-ox-4Kl" firstAttribute="top" secondItem="Qsl-U8-Nzk" secondAttribute="bottom" id="l6Z-lr-9cc"/>
                                     <constraint firstItem="Fne-8W-XJa" firstAttribute="top" secondItem="UQT-H6-cBz" secondAttribute="bottom" id="okd-R9-q1q"/>
+                                    <constraint firstAttribute="bottom" secondItem="fhq-55-ylq" secondAttribute="bottom" constant="20" id="pDc-sQ-Pb5"/>
                                     <constraint firstItem="Wa0-ox-4Kl" firstAttribute="leading" secondItem="2nR-wN-DLw" secondAttribute="leading" id="vco-TY-usX"/>
                                 </constraints>
                                 <connections>
@@ -186,6 +213,7 @@
                         <outlet property="progressView" destination="iNa-21-m5T" id="l6c-z0-Lcu"/>
                         <outlet property="spinnerView" destination="4Y1-of-0OC" id="ahv-UM-ith"/>
                         <outlet property="topHeaderView" destination="Qsl-U8-Nzk" id="SE1-gS-O5c"/>
+                        <outlet property="tweetFeedIndicator" destination="fhq-55-ylq" id="5OU-LO-qXf"/>
                         <outlet property="tweetsView" destination="c6s-au-H2R" id="ghH-rj-FaC"/>
                     </connections>
                 </viewController>
@@ -201,5 +229,6 @@
     </scenes>
     <resources>
         <image name="icon_dismiss" width="44" height="44"/>
+        <image name="icon_twitter" width="60" height="60"/>
     </resources>
 </document>
