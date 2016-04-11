@@ -33,7 +33,7 @@ class MyChannelsViewController: UIViewController {
     private var showEmptyState = false
     private let highlightColor = Theme.Colors.HighlightColor.color
     private let darkBackground = Theme.Colors.DarkBackgroundColor.color
-    private var headerViewHeight: CGFloat!
+    private var headerViewHeight: CGFloat?
     private let headerViewMinHeight: CGFloat = 200
     private var headerViewHeightIsFullScreen = true
     private var selectedChannels = [String]()
@@ -166,9 +166,9 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if showEmptyState {
             if indexPath.row == 0 {
-                return headerViewHeight
+                return headerViewHeight ?? tableView.bounds.height
             } else {
-                return tableView.bounds.height - headerViewHeight
+                return tableView.bounds.height - (headerViewHeight ?? headerViewMinHeight)
             }
         } else {
             return UITableViewAutomaticDimension
