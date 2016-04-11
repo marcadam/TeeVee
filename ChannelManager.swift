@@ -58,45 +58,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     weak var delegate: ChannelManagerDelegate?
     
-    var twitterOn = false {
-        didSet {
-            
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            userDefaults.setBool(twitterOn, forKey: TwitterEnabledKey)
-            userDefaults.synchronize()
-            debugPrint("[ChannelManager] save twitterEnabled to = \(self.twitterOn)")
-            
-            if twitterOn {
-                
-                if tweetsPriorityQueues != nil && currItem != nil && currItem!.topic != nil {
-                    if let queueWrapper = tweetsPriorityQueues![currItem!.topic!] {
-                        // queue exists for topic
-                        if queueWrapper.queue != nil && queueWrapper.queue!.count >= maxItemsBeforeFetch {
-                            debugPrint("[ChannelManager] Twitter enabled")
-                            playNextTweet(currItem)
-                            return
-                        }
-                    }
-                }
-                
-                fetchMoreTweetsItems({[weak self] (error) -> () in
-                    if let strongSelf = self {
-                        if error != nil {return}
-                        
-                        debugPrint("[ChannelManager] Twitter enabled")
-                        strongSelf.playNextTweet(strongSelf.currItem)
-                    }
-                })
-                
-            } else {
-                debugPrint("[ChannelManager] Twitter disabled")
-                isTweetPlaying = false
-                tweetPlayerView?.stopItem()
-            }
-            
-        }
-    }
-    
     weak var playerContainerView: UIView? {
         didSet {
             if playerContainerView == nil {return}
@@ -126,40 +87,30 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     init(channelId: String, autoplay: Bool) {
-        debugPrint("[ChannelManager] init()")
-        self.twitterOn = false
+        debugPrint("[MANAGER] init()")
 
         super.init()
         self.channelId = channelId
         self.priorityQueue = PriorityQueue(ascending: true, startingValues: [])
         
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let keyExists = userDefaults.objectForKey(TwitterEnabledKey) {
-            self.twitterOn = userDefaults.boolForKey(TwitterEnabledKey)
-            debugPrint("[ChannelManager] restore twitterEnabled to = \(self.twitterOn)")
-        }
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveItemInProgress), name: AppWillTerminateNotificationKey, object: nil)
         
         let stopWatch = StopWatch()
         let tweetsStopWatch = StopWatch()
+        
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
-            
-            self.fetchMoreTweetsItems({ (error) in
-                debugPrint("[ChannelManager] tweets stream INITIALIZED in \(tweetsStopWatch.stop()) seconds")
-            })
             
             ChannelClient.sharedInstance.getChannel(channelId) {[weak self] (channel, error) -> () in
                 if let strongSelf = self {
                     if channel != nil && channel!.items!.count > 0 {
-                        debugPrint("[ChannelManager] loading initial channel items...")
+                        debugPrint("[MANAGER] loading initial channel items...")
                         strongSelf.channel = channel!
                         
                         let itemInProgress = strongSelf.channel.getItemInProgress()
                         if itemInProgress.item != nil {
-                            debugPrint("[ChannelManager] restore item-in-progress")
-                            //debugPrint("[ChannelManager] inserting \(itemInProgress.item!.extractor!) in-progress item: \(itemInProgress.item!.native_id!); progress = \(itemInProgress.seconds)")
+                            debugPrint("[MANAGER] restore item-in-progress")
+                            //debugPrint("[MANAGER] inserting \(itemInProgress.item!.extractor!) in-progress item: \(itemInProgress.item!.native_id!); progress = \(itemInProgress.seconds)")
                             itemInProgress.item!.priority = 99
                             itemInProgress.item!.seekToSeconds = itemInProgress.seconds
                             self!.priorityQueue!.push(itemInProgress.item!)
@@ -167,11 +118,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         }
                         
                         for item in channel!.items! {
-                            //debugPrint("[ChannelManager] inserting \(item.extractor!) item: \(item.native_id!)")
+                            //debugPrint("[MANAGER] inserting \(item.extractor!) item: \(item.native_id!)")
                             self!.priorityQueue!.push(item)
                         }
                         
-                        debugPrint("[ChannelManager] channel INITIALIZED in \(stopWatch.stop()) seconds")
+                        debugPrint("[MANAGER] channel INITIALIZED in \(stopWatch.stop()) seconds")
             
                         if autoplay {
                             strongSelf.next()
@@ -183,18 +134,23 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             }
             
         })
+        
+        self.fetchMoreTweetsItems({ (error) in
+            debugPrint("[MANAGER] tweets stream INITIALIZED in \(tweetsStopWatch.stop()) seconds")
+            self.playNextTweet(self.currItem)
+        })
     }
     
     func saveItemInProgress() {
         if channel != nil && currItem != nil && currTotalDuration != Double.NaN && currProgress != Double.NaN && currProgress < currTotalDuration {
-            debugPrint("[ChannelManager] save item-in-progress")
-            debugPrint("[ChannelManager] saving \(currItem!.extractor!) in-progress item: \(currItem!.native_id!); progress = \(currProgress)")
+            debugPrint("[MANAGER] save item-in-progress")
+            debugPrint("[MANAGER] saving \(currItem!.extractor!) in-progress item: \(currItem!.native_id!); progress = \(currProgress)")
             self.channel.setItemInProgress(ItemInProgress(item: currItem, seconds: Float(currProgress)))
         }
     }
     
     deinit {
-        debugPrint("[ChannelManager] deinit()")
+        debugPrint("[MANAGER] deinit()")
         
         saveItemInProgress()
         stop()
@@ -222,9 +178,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if status == .DidEnd {
                 isTweetPlaying = false
                 prevTweetItem = currTweetItem
-                if twitterOn {
-                    playNextTweet(currItem)
-                }
+                playNextTweet(currItem)
             } else if status == .Playing {
                 // Tweet
             }
@@ -252,9 +206,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         debugPrint("[MANAGER] totalDuration isNaN")
                     }
                     removeSpinner()
-                    if twitterOn {
-                        playNextTweet(currItem)
-                    }
+                    playNextTweet(currItem)
                 }
             } else if status == .Error {
                 let currPlayerId = (currPlayer == nil) ? "nil": currPlayer!.getPlayerId()
@@ -411,22 +363,49 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         }
     }
     
+    
+    func playTweet() {
+        tweetPlayerView?.playItem()
+        
+        if tweetsPriorityQueues != nil {
+            if currItem != nil && currItem!.topic != nil {
+                if let queueWrapper = tweetsPriorityQueues![currItem!.topic!] {
+                    // queue exists for topic
+                    if queueWrapper.queue != nil && queueWrapper.queue!.count >= maxItemsBeforeFetch {
+                        debugPrint("[MANAGER] Twitter enabled")
+                        playNextTweet(currItem)
+                    }
+                }
+            }
+        } else {
+            
+            fetchMoreTweetsItems({[weak self] (error) -> () in
+                if let strongSelf = self {
+                    if error != nil {
+                        debugPrint("[MANAGER] Twitter fetch error: \(error!.localizedDescription)")
+                        return
+                    }
+                    
+                    debugPrint("[MANAGER] Twitter enabled")
+                    strongSelf.playNextTweet(strongSelf.currItem)
+                }
+                })
+        }
+    }
+    
+    func pauseTweet() {
+        debugPrint("[MANAGER] Twitter disabled")
+        tweetPlayerView?.pauseItem()
+    }
+    
     func play() {
         if currPlayer == nil {return}
         currPlayer?.playItem()
     }
     
-    func playTweet() {
-        tweetPlayerView?.playItem()
-    }
-    
     func pause() {
         if currPlayer == nil {return}
         currPlayer?.pauseItem()
-    }
-    
-    func pauseTweet() {
-        tweetPlayerView?.pauseItem()
     }
     
     func stop() {
@@ -457,17 +436,15 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         
         debugPrint("[MANAGER] onRotation()")
         
-        if twitterOn {
-            if !isPortrait {
-                debugPrint("[MANAGER] pause Tweet due to rotation")
-                twitterPausedDueToRotation = true
-                tweetPlayerView?.pauseItem()
-            } else {
-                if twitterPausedDueToRotation {
-                    debugPrint("[MANAGER] resume Tweet due to rotation")
-                    twitterPausedDueToRotation = false
-                    tweetPlayerView?.playItem()
-                }
+        if !isPortrait {
+            debugPrint("[MANAGER] pause Tweet due to rotation")
+            twitterPausedDueToRotation = true
+            tweetPlayerView?.pauseItem()
+        } else {
+            if twitterPausedDueToRotation {
+                debugPrint("[MANAGER] resume Tweet due to rotation")
+                twitterPausedDueToRotation = false
+                tweetPlayerView?.playItem()
             }
         }
     }
@@ -547,9 +524,12 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if self == nil {return}
             
             ChannelClient.sharedInstance.getTweetsForChannel(self!.channelId) { (channel, error) -> () in
+                debugPrint("[MANAGER] fetchMoreTweetItems() received response")
                 if self == nil {return}
                 
                 if channel != nil && channel!.items!.count > 0 {
+                    debugPrint("[MANAGER] fetchMoreTweetItems() process response")
+                    
                     for item in channel!.items! {
                         if item.topic == nil || item.topic == "" {continue}
                         
@@ -557,7 +537,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         if let queueWrapper = self!.tweetsPriorityQueues![item.topic!] {
                             // queue exists for topic
                             queueWrapper.queue?.push(item)
-                            //debugPrint("[ChannelManager] TWEET inserting \(item.extractor!) item: \(item.native_id!)")
+                            debugPrint("[MANAGER] TWEET inserting \(item.extractor!) item: \(item.native_id!)")
                         } else {
                             queue = PriorityQueue<ChannelItem>(ascending: true, startingValues: [])
                             queue!.push(item)

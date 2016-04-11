@@ -113,7 +113,6 @@ class PlayerViewController: UIViewController {
         channelManager!.playerContainerView = playerView
         channelManager!.tweetsContainerView = tweetsView
         channelManager!.spinnerContainerView = spinnerView
-        channelManager!.twitterOn = true
         playerViewTopConstraint.constant = getPlayerTopConstant()
     }
     
