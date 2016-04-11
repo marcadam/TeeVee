@@ -280,6 +280,10 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
             }
         } else if state == .Playing {
             debugPrint("[YOUTUBEPLAYER] video playing; vid = \(currItem!.native_id!)")
+            if !playEnabled {
+                pauseItem()
+                return
+            }
         } else if state == .Buffering {
             debugPrint("[YOUTUBEPLAYER] video buffering; playback quality = \(youtubePlayerView.playbackQuality().rawValue); vid = \(currItem!.native_id!)")
             
