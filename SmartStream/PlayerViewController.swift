@@ -248,7 +248,7 @@ class PlayerViewController: UIViewController {
             })
         }
         animateFadeIn()
-        controlsHidden = !controlsHidden
+        controlsHidden = false
         isPlay = !isPlay
     }
     
@@ -282,7 +282,7 @@ class PlayerViewController: UIViewController {
             })
         }
         animateFadeIn()
-        controlsHidden = !controlsHidden
+        controlsHidden = false
         isTweetPlay = !isTweetPlay
     }
     
