@@ -57,12 +57,16 @@ class PlayerViewController: UIViewController {
         playerView.clipsToBounds = true
         tweetsView.clipsToBounds = true
         spinnerView.backgroundColor = UIColor.clearColor()
-        tweetFeedIndicator.layer.cornerRadius = tweetFeedIndicator.bounds.height/2
-        tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
         
         progressView.trackTintColor = Theme.Colors.LightBackgroundColor.color
         progressView.progressTintColor = highlightColor
         progressView.setProgress(0, animated: false)
+        
+        tweetFeedIndicator.layer.cornerRadius = tweetFeedIndicator.bounds.height/2
+        tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
+        
+        let buttonTweetTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTweetTap))
+        tweetFeedIndicator.addGestureRecognizer(buttonTweetTapGestureRecognizer)
         
         view.backgroundColor = backgroundColor
         channelTitleLabel.text = channelTitle
@@ -133,9 +137,11 @@ class PlayerViewController: UIViewController {
             debugPrint("Portrait")
             application.statusBarHidden = true
             gradientView.hidden = false
+            tweetFeedIndicator.hidden = false
         } else {
             debugPrint("Landscape")
             gradientView.hidden = true
+            tweetFeedIndicator.hidden = true
         }
         
         viewWillLayoutSubviews()
