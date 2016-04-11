@@ -524,7 +524,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             if self == nil {return}
             
             ChannelClient.sharedInstance.getTweetsForChannel(self!.channelId) { (channel, error) -> () in
-                debugPrint("[MANAGER] fetchMoreTweetItems() received response")
+                let channelStr = (channel == nil) ? "nil": "\(channel!.items!.count)"
+                debugPrint("[MANAGER] fetchMoreTweetItems() received response \(channelStr)")
                 if self == nil {return}
                 
                 if channel != nil && channel!.items!.count > 0 {
