@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
     var originalContentViewLeftMargin: CGFloat!
     var menuOpen = false
     var overlayLayer: UIView!
+    private let application = UIApplication.sharedApplication()
 
     var menuViewController: MenuViewController! {
         didSet {
@@ -54,7 +55,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(togglePeak))
         overlayLayer = UIView(frame: CGRectMake(0, 0, 50, view.frame.height))
+        overlayLayer.addGestureRecognizer(tapGestureRecognizer)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "showReceivedMessage:",
                                                          name: PushMessageReceivedKey, object: nil)
@@ -118,17 +121,24 @@ class HomeViewController: UIViewController {
 // MARK: - ChannelsViewControllerDelegate
 
 extension HomeViewController: ChannelsViewControllerDelegate {
+    func togglePeak() {
+        toggleMenu { 
+            //
+        }
+    }
     private func toggleMenu(completion: () -> ()) {
         originalContentViewLeftMargin = contentViewLeadingConstraint.constant
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             if self.menuOpen {
                 self.contentViewLeadingConstraint.constant = 0
                 self.menuOpen = false
+                
             } else {
                 self.contentViewLeadingConstraint.constant = self.view.frame.size.width - self.contentViewPeakOffset
                 self.menuOpen = true
             }
             self.view.layoutIfNeeded()
+            self.application.statusBarHidden = self.menuOpen
             completion()
         })
     }

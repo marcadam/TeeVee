@@ -138,6 +138,9 @@ class PlayerViewController: UIViewController {
             application.statusBarHidden = true
             gradientView.hidden = false
             tweetFeedIndicator.hidden = false
+            if controlsHidden {
+                channelTitleLabel.layer.opacity = 0.3
+            }
         } else {
             debugPrint("Landscape")
             gradientView.hidden = true
@@ -254,24 +257,28 @@ class PlayerViewController: UIViewController {
         guard let manager = channelManager else { return }
         if isTweetPlay {
             manager.playTweet()
-            self.tweetFeedIndicator.layer.removeAllAnimations()
+            // self.tweetFeedIndicator.layer.removeAllAnimations()
             UIView.animateWithDuration(0.3, animations: {
-                self.tweetFeedIndicator.layer.opacity = 0
+                // self.tweetFeedIndicator.layer.opacity = 0
+                self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.1, 1)
                 }, completion: { (finished) in
                     self.tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
                     UIView.animateWithDuration(0.3, animations: {
-                        self.tweetFeedIndicator.layer.opacity = 1
+                        // self.tweetFeedIndicator.layer.opacity = 1
+                        self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(1, 1)
                     })
             })
         } else {
             manager.pauseTweet()
-            self.tweetFeedIndicator.layer.removeAllAnimations()
+            // self.tweetFeedIndicator.layer.removeAllAnimations()
             UIView.animateWithDuration(0.3, animations: {
-                self.tweetFeedIndicator.layer.opacity = 0
+                // self.tweetFeedIndicator.layer.opacity = 0
+                self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.1, 1)
                 }, completion: { (finished) in
                     self.tweetFeedIndicator.backgroundColor = Theme.Colors.DeleteColor.color
                     UIView.animateWithDuration(0.3, animations: {
-                        self.tweetFeedIndicator.layer.opacity = 1
+                        // self.tweetFeedIndicator.layer.opacity = 1
+                        self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(1, 1)
                     })
             })
         }
