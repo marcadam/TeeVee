@@ -34,7 +34,7 @@ class PlayerViewController: UIViewController {
     var channelId: String! = "0"
     private var channelManager: ChannelManager?
     
-    private var controlsHidden = false
+    private var controlsHidden = true
     private var latestTimer: NSTimer?
     private var isPortrait = true
     private var isPlay = false
@@ -246,6 +246,7 @@ class PlayerViewController: UIViewController {
             })
         }
         animateFadeIn()
+        controlsHidden = !controlsHidden
         isPlay = !isPlay
     }
     
@@ -275,6 +276,7 @@ class PlayerViewController: UIViewController {
             })
         }
         animateFadeIn()
+        controlsHidden = !controlsHidden
         isTweetPlay = !isTweetPlay
     }
     
