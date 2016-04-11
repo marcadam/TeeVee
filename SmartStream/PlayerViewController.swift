@@ -254,29 +254,30 @@ class PlayerViewController: UIViewController {
     
     func onTweetTap(sender: UITapGestureRecognizer) {
         guard let manager = channelManager else { return }
+        
+        tweetFeedIndicator.layer.removeAllAnimations()
+        
         if isTweetPlay {
+            tweetFeedIndicator.backgroundColor = Theme.Colors.DeleteColor.color
             manager.playTweet()
-            // self.tweetFeedIndicator.layer.removeAllAnimations()
-            UIView.animateWithDuration(0.3, animations: {
+            UIView.animateWithDuration(0.1, animations: {
                 // self.tweetFeedIndicator.layer.opacity = 0
                 self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.01, 1)
                 }, completion: { (finished) in
                     self.tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
-                    UIView.animateWithDuration(0.3, animations: {
+                    UIView.animateWithDuration(0.1, animations: {
                         // self.tweetFeedIndicator.layer.opacity = 1
                         self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(1, 1)
                     })
             })
         } else {
+            tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
             manager.pauseTweet()
-            // self.tweetFeedIndicator.layer.removeAllAnimations()
-            UIView.animateWithDuration(0.3, animations: {
-                // self.tweetFeedIndicator.layer.opacity = 0
+            UIView.animateWithDuration(0.1, animations: {
                 self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.01, 1)
                 }, completion: { (finished) in
                     self.tweetFeedIndicator.backgroundColor = Theme.Colors.DeleteColor.color
-                    UIView.animateWithDuration(0.3, animations: {
-                        // self.tweetFeedIndicator.layer.opacity = 1
+                    UIView.animateWithDuration(0.1, animations: {
                         self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(1, 1)
                     })
             })
