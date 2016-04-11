@@ -132,13 +132,16 @@ extension HomeViewController: ChannelsViewControllerDelegate {
             if self.menuOpen {
                 self.contentViewLeadingConstraint.constant = 0
                 self.menuOpen = false
+                self.overlayLayer.hidden = true
                 
             } else {
                 self.contentViewLeadingConstraint.constant = self.view.frame.size.width - self.contentViewPeakOffset
                 self.menuOpen = true
+                self.overlayLayer.hidden = false
             }
             self.view.layoutIfNeeded()
             self.application.statusBarHidden = self.menuOpen
+            
             completion()
         })
     }
