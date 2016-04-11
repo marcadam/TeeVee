@@ -259,7 +259,7 @@ class PlayerViewController: UIViewController {
             // self.tweetFeedIndicator.layer.removeAllAnimations()
             UIView.animateWithDuration(0.3, animations: {
                 // self.tweetFeedIndicator.layer.opacity = 0
-                self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.1, 1)
+                self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.01, 1)
                 }, completion: { (finished) in
                     self.tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
                     UIView.animateWithDuration(0.3, animations: {
@@ -272,7 +272,7 @@ class PlayerViewController: UIViewController {
             // self.tweetFeedIndicator.layer.removeAllAnimations()
             UIView.animateWithDuration(0.3, animations: {
                 // self.tweetFeedIndicator.layer.opacity = 0
-                self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.1, 1)
+                self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.01, 1)
                 }, completion: { (finished) in
                     self.tweetFeedIndicator.backgroundColor = Theme.Colors.DeleteColor.color
                     UIView.animateWithDuration(0.3, animations: {
