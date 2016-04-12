@@ -68,10 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
         
         GCMService.sharedInstance().connectWithHandler({(error:NSError?) -> Void in
             if let error = error {
-                print("Could not connect to GCM: \(error.localizedDescription)")
+                debugPrint("Could not connect to GCM: \(error.localizedDescription)")
             } else {
                 self.connectedToGCM = true
-                print("Connected to GCM")
+                debugPrint("Connected to GCM")
                 
                 self.subscribeToTopic()
             }
@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     
     func application( application: UIApplication, didFailToRegisterForRemoteNotificationsWithError
         error: NSError ) {
-        print("Registration for remote notification failed with error: \(error.localizedDescription)")
+        debugPrint("Registration for remote notification failed with error: \(error.localizedDescription)")
         
         let userInfo = ["error": error.localizedDescription]
         NSNotificationCenter.defaultCenter().postNotificationName(
@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     // [START ack_message_reception]
     func application( application: UIApplication,
                       didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        print("Notification received: \(userInfo)")
+        debugPrint("Notification received: \(userInfo)")
         
         if application.applicationState == UIApplicationState.Inactive || application.applicationState == UIApplicationState.Background {
             //opened from a push notification when the app was on background
@@ -145,7 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     func application( application: UIApplication,
                       didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                                                    fetchCompletionHandler handler: (UIBackgroundFetchResult) -> Void) {
-        print("Notification received: \(userInfo)")
+        debugPrint("Notification received: \(userInfo)")
         
         if application.applicationState == UIApplicationState.Inactive || application.applicationState == UIApplicationState.Background {
             //opened from a push notification when the app was on background
@@ -173,9 +173,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
                                                             if let error = error {
                                                                 // Treat the "already subscribed" error more gently
                                                                 if error.code == 3001 {
-                                                                    print("Already subscribed to \(self.subscriptionTopic)")
+                                                                    debugPrint("Already subscribed to \(self.subscriptionTopic)")
                                                                 } else {
-                                                                    print("Subscription failed: \(error.localizedDescription)");
+                                                                    debugPrint("Subscription failed: \(error.localizedDescription)");
                                                                 }
                                                             } else {
                                                                 self.subscribedToTopic = true;
@@ -188,7 +188,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     func registrationHandler(registrationToken: String!, error: NSError!) {
         if (registrationToken != nil) {
             self.registrationToken = registrationToken
-            print("Registration Token: \(registrationToken)")
+            debugPrint("Registration Token: \(registrationToken)")
             self.subscribeToTopic()
             let userInfo = ["registrationToken": registrationToken]
             NSNotificationCenter.defaultCenter().postNotificationName(
@@ -224,7 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
     
     func onTokenRefresh() {
         // A rotation of the registration tokens is happening, so the app needs to request a new token.
-        print("The GCM registration token needs to be changed.")
+        debugPrint("The GCM registration token needs to be changed.")
         GGLInstanceID.sharedInstance().tokenWithAuthorizedEntity(gcmSenderID,
                                                                  scope: kGGLInstanceIDScopeGCM, options: registrationOptions, handler: registrationHandler)
     }

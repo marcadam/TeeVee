@@ -199,7 +199,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             } else if status == .DidStart {
                 
                 delegate?.channelManager(self, didStartChannelItem: currItem!, withViews: currPlayer!.getPlayerViews())
-                print("[MANAGER] CURRENT VIEWS::::::::: \(currPlayer?.getPlayerViews())")
+                debugPrint("[MANAGER] CURRENT VIEWS::::::::: \(currPlayer?.getPlayerViews())")
                 
             } else if status == .Playing {
                 currProgress = progress

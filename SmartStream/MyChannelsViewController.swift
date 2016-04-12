@@ -316,7 +316,7 @@ extension MyChannelsViewController: HeaderCellDelegate {
                 if selectedChannels.count > 0 {
                     DataLayer.forkChannels(withChannelIDs: selectedChannels, completion: { (error, channels) in
                         if error != nil {
-                            print(error)
+                            debugPrint(error)
                         } else {
                             self.channelsArray = channels!
                             self.hasChannels(true)
