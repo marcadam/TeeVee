@@ -185,13 +185,13 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         // Play
-        let playAction = UITableViewRowAction(style: .Normal, title: " Play    ") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-            let channel = self.channelsArray[indexPath.row]
-            self.delegate?.myChannelsVC(self, didPlayChannel: channel)
-            self.reorderToTop(channel, toRemove: indexPath)
-        }
-        playAction.backgroundColor = Theme.Colors.PlayColor.color
-        
+//        let playAction = UITableViewRowAction(style: .Normal, title: " Play    ") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+//            let channel = self.channelsArray[indexPath.row]
+//            self.delegate?.myChannelsVC(self, didPlayChannel: channel)
+//            self.reorderToTop(channel, toRemove: indexPath)
+//        }
+//        playAction.backgroundColor = Theme.Colors.PlayColor.color
+//        
         // Edit
         let editAction = UITableViewRowAction(style: .Normal, title: " Edit    ") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             self.delegate?.myChannelsVC(self, didEditChannel: self.channelsArray[indexPath.row])
@@ -224,6 +224,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
             alertContentView.alpha = 0.8
             
             let alertDeleteAction = UIAlertAction(title: "Delete", style: .Default, handler: { (action) -> Void in
+                self.tableView.editing = false
                 DataLayer.deleteChannel(withChannelId: channel.channel_id!, completion: { (error, channelId) -> () in
                     self.channelsArray.removeAtIndex(indexPath.row)
                     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
@@ -245,7 +246,7 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         deleteAction.backgroundColor = Theme.Colors.DeleteColor.color
         
-        return [deleteAction, editAction, playAction]
+        return [deleteAction, editAction]
     }
 }
 

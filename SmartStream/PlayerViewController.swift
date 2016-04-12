@@ -282,8 +282,8 @@ class PlayerViewController: UIViewController {
                     })
             })
         }
-        animateFadeIn()
-        controlsHidden = false
+//        animateFadeIn()
+//        controlsHidden = false
         isTweetPlay = !isTweetPlay
     }
     
