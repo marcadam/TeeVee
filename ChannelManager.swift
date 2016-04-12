@@ -410,15 +410,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func play() {
-        playbackPaused = false
-        if currPlayer == nil {return}
         currPlayer?.playItem()
+        playbackPaused = false
     }
     
     func pause() {
-        playbackPaused = true
-        if currPlayer == nil {return}
         currPlayer?.pauseItem()
+        playbackPaused = true
     }
     
     func stop() {
