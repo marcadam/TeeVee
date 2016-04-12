@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -55,10 +55,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbd-lh-AnI">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <rect key="frame" x="0.0" y="3" width="44" height="44"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="50" id="3sf-QF-gBw"/>
-                                                    <constraint firstAttribute="height" constant="50" id="ceC-ZG-hEl"/>
+                                                    <constraint firstAttribute="width" constant="44" id="3sf-QF-gBw"/>
+                                                    <constraint firstAttribute="height" constant="44" id="ceC-ZG-hEl"/>
                                                 </constraints>
                                                 <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
                                                 <state key="normal" image="icon_dismiss"/>
@@ -230,7 +230,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_dismiss" width="44" height="44"/>
+        <image name="icon_dismiss" width="180" height="180"/>
         <image name="icon_twitter" width="60" height="60"/>
     </resources>
 </document>

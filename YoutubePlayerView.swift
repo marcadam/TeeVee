@@ -170,7 +170,7 @@ extension YoutubePlayerView: SmartuPlayer {
         
         debugPrint("[YOUTUBEPLAYER] resetBounds()")
         if youtubePlayerView != nil && youtubePlayerView.webView != nil {
-            self.youtubePlayerView.webView.frame = bounds
+            self.youtubePlayerView.webView!.frame = bounds
         }
     }
     
@@ -242,7 +242,7 @@ extension YoutubePlayerView: SmartuPlayer {
 
 extension YoutubePlayerView: YTPlayerViewDelegate {
     
-    func playerViewDidBecomeReady(playerView: YTPlayerView!) {
+    func playerViewDidBecomeReady(playerView: YTPlayerView) {
         if currItem == nil {return}
         debugPrint("[YOUTUBEPLAYER] playerViewDidBecomeReady; vid = \(currItem!.native_id!)")
         playerReady = true
@@ -269,7 +269,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         }
     }
     
-    func playerView(playerView: YTPlayerView!, didChangeToState state: YTPlayerState) {
+    func playerView(playerView: YTPlayerView, didChangeToState state: YTPlayerState) {
         if currItem == nil {return}
         debugPrint("[YOUTUBEPLAYER] didChangeToState \(state.rawValue); vid = \(currItem!.native_id!)")
         if state == .Ended {
@@ -321,13 +321,13 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         }
     }
     
-    func playerView(playerView: YTPlayerView!, didChangeToQuality quality: YTPlaybackQuality) {
+    func playerView(playerView: YTPlayerView, didChangeToQuality quality: YTPlaybackQuality) {
         if currItem == nil {return}
         debugPrint("[YOUTUBEPLAYER] didChangeToQuality \(quality.rawValue); vid = \(currItem!.native_id!)")
         
     }
     
-    func playerView(playerView: YTPlayerView!, didPlayTime playTime: Float) {
+    func playerView(playerView: YTPlayerView, didPlayTime playTime: Float) {
         if currItem == nil {return}
         let totalDuration = playerView.duration()
         
@@ -342,13 +342,13 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
         }
     }
     
-    func playerView(playerView: YTPlayerView!, receivedError error: YTPlayerError) {
+    func playerView(playerView: YTPlayerView, receivedError error: YTPlayerError) {
         if currItem == nil {return}
         debugPrint("[YOUTUBEPLAYER] receivedError \(error.rawValue); vid = \(currItem!.native_id!)")
         onPlaybackError()
     }
     
-    func playerViewPreferredWebViewBackgroundColor(playerView: YTPlayerView!) -> UIColor! {
+    func playerViewPreferredWebViewBackgroundColor(playerView: YTPlayerView) -> UIColor {
         return UIColor.clearColor()
     }
 }
