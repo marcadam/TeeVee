@@ -34,7 +34,7 @@ class PlayerViewController: UIViewController {
     var channelId: String! = "0"
     private var channelManager: ChannelManager?
     
-    private var controlsHidden = true
+    private var controlsHidden = false
     private var latestTimer: NSTimer?
     private var isPortrait = true
     private var isPlay = false
@@ -144,6 +144,9 @@ class PlayerViewController: UIViewController {
             debugPrint("Landscape")
             gradientView.hidden = true
             tweetFeedIndicator.hidden = true
+            if controlsHidden {
+                channelTitleLabel.layer.opacity = 0
+            }
         }
         
         viewWillLayoutSubviews()
@@ -248,7 +251,6 @@ class PlayerViewController: UIViewController {
             })
         }
         animateFadeIn()
-        controlsHidden = false
         isPlay = !isPlay
     }
     
@@ -282,8 +284,6 @@ class PlayerViewController: UIViewController {
                     })
             })
         }
-//        animateFadeIn()
-//        controlsHidden = false
         isTweetPlay = !isTweetPlay
     }
     
@@ -298,7 +298,6 @@ class PlayerViewController: UIViewController {
         } else {
             animateFadeOut()
         }
-        controlsHidden = !controlsHidden
     }
     
     func setTimerToFadeOut() {
@@ -309,6 +308,7 @@ class PlayerViewController: UIViewController {
     }
     
     func animateFadeIn() {
+        controlsHidden = false
         dismissButton.layer.removeAllAnimations()
         channelTitleLabel.layer.removeAllAnimations()
         progressView.layer.removeAllAnimations()
@@ -342,6 +342,7 @@ class PlayerViewController: UIViewController {
             // hide everything
             self.dismissButton.hidden = true
             self.progressView.hidden = true
+            self.controlsHidden = true
         }
     }
     
