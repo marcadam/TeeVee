@@ -119,7 +119,6 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func playItem() {
-        if currItem == nil || playerDelegate == nil || !playerDelegate!.isPlaying(currItem) {return}
         
         if !playEnabled {
             playEnabled = true
@@ -281,7 +280,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
             }
         } else if state == .Playing {
             debugPrint("[YOUTUBEPLAYER] video playing; vid = \(currItem!.native_id!)")
-            if playerDelegate == nil || !playerDelegate!.isPlaying(currItem) {
+            if !playEnabled || !playerDelegate!.isPlaying(currItem) {
                 pauseItem()
                 return
             }
@@ -291,7 +290,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
             isBuffering = true
             
             // playback not yet enabled, pause video
-            if playerDelegate == nil || !playerDelegate!.isPlaying(currItem) {
+            if !playEnabled {
                 pauseItem()
                 return
             } else {

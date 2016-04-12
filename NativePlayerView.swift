@@ -74,7 +74,7 @@ class NativePlayerView: NSObject {
             
             if let strongSelf = self {
                 if strongSelf.nativePlayer != nil && strongSelf.nativePlayer!.currentItem != nil {
-                    if strongSelf.playerDelegate == nil || !strongSelf.playerDelegate!.isPlaying(strongSelf.currItem) {
+                    if !strongSelf.playEnabled || !strongSelf.playerDelegate!.isPlaying(strongSelf.currItem) {
                         strongSelf.pauseItem()
                         strongSelf.nativePlayerOverlay.alpha = 1.0
                         return
@@ -158,7 +158,6 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func playItem() {
-        if currItem == nil || playerDelegate == nil || !playerDelegate!.isPlaying(currItem) {return}
         
         playEnabled = true
         debugPrint("[NATIVEPLAYER] playItem(); vid = \(currItem!.native_id!)")
