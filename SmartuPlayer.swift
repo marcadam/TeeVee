@@ -39,4 +39,5 @@ protocol SmartuPlayer {
 
 protocol SmartuPlayerDelegate: class {
     func playbackStatus(playerId: String, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double)
+    func isPlaying(item: ChannelItem!) -> Bool
 }

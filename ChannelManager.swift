@@ -52,6 +52,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     private var prevTweetItem: ChannelItem?
     private var isPlaying = false
     private var isTweetPlaying = false
+    private var playbackPaused = false
     
     private var currProgress: Double = Double.NaN
     private var currTotalDuration: Double = Double.NaN
@@ -171,6 +172,14 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         isTweetPlaying = false
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func isPlaying(item: ChannelItem!) -> Bool {
+        if !playbackPaused && currItem != nil && item != nil && currItem!.extractor == item!.extractor && currItem!.native_id == item!.native_id {
+            return true
+        }
+        
+        return false
     }
     
     func playbackStatus(playerId: String, playerType: PlayerType, status: PlaybackStatus, progress: Double, totalDuration: Double) {
@@ -399,11 +408,13 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func play() {
+        playbackPaused = false
         if currPlayer == nil {return}
         currPlayer?.playItem()
     }
     
     func pause() {
+        playbackPaused = true
         if currPlayer == nil {return}
         currPlayer?.pauseItem()
     }

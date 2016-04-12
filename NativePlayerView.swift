@@ -74,7 +74,7 @@ class NativePlayerView: NSObject {
             
             if let strongSelf = self {
                 if strongSelf.nativePlayer != nil && strongSelf.nativePlayer!.currentItem != nil {
-                    if !strongSelf.playEnabled {
+                    if strongSelf.playerDelegate == nil || !strongSelf.playerDelegate!.isPlaying(strongSelf.currItem) {
                         strongSelf.pauseItem()
                         strongSelf.nativePlayerOverlay.alpha = 1.0
                         return

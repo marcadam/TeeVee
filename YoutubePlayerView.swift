@@ -280,7 +280,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
             }
         } else if state == .Playing {
             debugPrint("[YOUTUBEPLAYER] video playing; vid = \(currItem!.native_id!)")
-            if !playEnabled {
+            if playerDelegate == nil || !playerDelegate!.isPlaying(currItem) {
                 pauseItem()
                 return
             }
@@ -290,7 +290,7 @@ extension YoutubePlayerView: YTPlayerViewDelegate {
             isBuffering = true
             
             // playback not yet enabled, pause video
-            if !playEnabled {
+            if playerDelegate == nil || !playerDelegate!.isPlaying(currItem) {
                 pauseItem()
                 return
             } else {
