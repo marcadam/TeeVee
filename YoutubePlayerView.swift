@@ -119,12 +119,13 @@ extension YoutubePlayerView: SmartuPlayer {
     }
     
     func playItem() {
+        if currItem == nil || playerDelegate == nil || !playerDelegate!.isPlaying(currItem) {return}
+        
         if !playEnabled {
             playEnabled = true
             bufferingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(checkForAds), userInfo: nil, repeats: false)
         }
         
-        if currItem == nil {return}
         debugPrint("[YOUTUBEPLAYER] playItem(); vid = \(currItem!.native_id!)")
         debugPrint("[YOUTUBEPLAYER] player State = \(youtubePlayerView.playerState().rawValue); fraction = \(youtubePlayerView.videoLoadedFraction()); playback quality = \(youtubePlayerView.playbackQuality().rawValue); vid = \(currItem!.native_id!)")
    

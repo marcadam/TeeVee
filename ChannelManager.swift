@@ -384,21 +384,23 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         debugPrint("[MANAGER] Twitter enabled")
                         playNextTweet(currItem)
                     }
+                } else {
+                    fetchMoreTweetsItems({[weak self] (error) -> () in
+                        if let strongSelf = self {
+                            debugPrint("[MANAGER] Twitter enabled")
+                            strongSelf.playNextTweet(strongSelf.currItem)
+                        }
+                    })
                 }
             }
         } else {
             
             fetchMoreTweetsItems({[weak self] (error) -> () in
                 if let strongSelf = self {
-                    if error != nil {
-                        debugPrint("[MANAGER] Twitter fetch error: \(error!.localizedDescription)")
-                        return
-                    }
-                    
                     debugPrint("[MANAGER] Twitter enabled")
                     strongSelf.playNextTweet(strongSelf.currItem)
                 }
-                })
+            })
         }
     }
     
@@ -549,7 +551,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                         if let queueWrapper = self!.tweetsPriorityQueues![item.topic!] {
                             // queue exists for topic
                             queueWrapper.queue?.push(item)
-                            debugPrint("[MANAGER] TWEET inserting \(item.extractor!) item: \(item.native_id!)")
+                            //debugPrint("[MANAGER] TWEET inserting \(item.extractor!) item: \(item.native_id!)")
                         } else {
                             queue = PriorityQueue<ChannelItem>(ascending: true, startingValues: [])
                             queue!.push(item)

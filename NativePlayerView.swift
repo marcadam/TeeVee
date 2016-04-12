@@ -158,9 +158,9 @@ extension NativePlayerView: SmartuPlayer {
     }
     
     func playItem() {
-        playEnabled = true
+        if currItem == nil || playerDelegate == nil || !playerDelegate!.isPlaying(currItem) {return}
         
-        if currItem == nil {return}
+        playEnabled = true
         debugPrint("[NATIVEPLAYER] playItem(); vid = \(currItem!.native_id!)")
         
         self.nativePlayer.play()
