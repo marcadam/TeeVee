@@ -24,6 +24,7 @@ class Channel: NSObject {
     let filters: Filters?
     let topics: [String]?
     let curated: CuratedInfo?
+    let isSuggested: Bool
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -31,6 +32,7 @@ class Channel: NSObject {
         var items = [ChannelItem]()
         var curated: CuratedInfo? = nil
         var setFilters: Filters? = nil
+        var isSuggested = false
         
         channel_id = dictionary["_id"] as? String
         title = dictionary["title"] as? String
@@ -48,9 +50,14 @@ class Channel: NSObject {
             setFilters = Filters(dictionary: filters)
         }
         
+        if let isSuggestedInfo = dictionary["suggested"] {
+            isSuggested = isSuggestedInfo.boolValue
+        }
+        
         self.items = items
         self.curated = curated
         self.filters = setFilters
+        self.isSuggested = isSuggested
         
         topics = dictionary["topics"] as? [String]
         owner = dictionary["owner"] as? User

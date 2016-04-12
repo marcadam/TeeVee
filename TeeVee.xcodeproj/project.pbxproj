@@ -589,7 +589,7 @@
 				TargetAttributes = {
 					0B597B4C1C844AD900D4AC57 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 9F59S7VZE2;
+						DevelopmentTeam = 866334M537;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -922,7 +922,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SmartStream/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.teevee.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.teevee;
 				PRODUCT_NAME = TeeVee;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream/SmartChannel-Bridging-Header.h";
@@ -937,12 +937,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hieu Nguyen (866334M537)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SmartStream/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.teevee.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.teevee;
 				PRODUCT_NAME = TeeVee;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmartStream/SmartChannel-Bridging-Header.h";

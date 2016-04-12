@@ -38,7 +38,7 @@ class MyChannelsViewController: UIViewController {
     private var headerViewHeightIsFullScreen = true
     private var selectedChannels = [String]()
     private let recommendedText = "No idea? See suggestions"
-    private let closeText = "Close suggestions"
+    private let closeText = "Hide suggestions"
     private let saveText = "Save Channels"
     private var closeOrSaveText = "Hide Channels"
     
@@ -460,7 +460,13 @@ extension MyChannelsViewController {
     func getDiscoverChannels(withHUD showHUD: Bool, completion: ()->()) {
         ChannelClient.sharedInstance.getDiscoverChannels { (channels, error) -> () in
             if let channels = channels {
-                self.featuredChannels = channels
+                var suggestedChannels = [Channel]()
+                for channel in channels {
+                    if channel.isSuggested {
+                        suggestedChannels.append(channel)
+                    }
+                }
+                self.featuredChannels = suggestedChannels
                 self.delegate?.myChannelsVC(self, didLoadChannels: channels)
                 if showHUD {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
