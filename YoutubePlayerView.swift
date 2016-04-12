@@ -121,7 +121,7 @@ extension YoutubePlayerView: SmartuPlayer {
     func playItem() {
         if !playEnabled {
             playEnabled = true
-            bufferingTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(checkForAds), userInfo: nil, repeats: false)
+            bufferingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(checkForAds), userInfo: nil, repeats: false)
         }
         
         if currItem == nil {return}
