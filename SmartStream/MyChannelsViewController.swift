@@ -120,10 +120,15 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
                 let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath) as! HeaderCell
                 cell.selectionStyle = .None
                 cell.delegate = self
+                
+                cell.checkChannelButton.setTitleColor(Theme.Colors.HighlightColor.color, forState: UIControlState.Normal)
                 if headerViewHeightIsFullScreen {
                     cell.checkChannelButton.setTitle(recommendedText, forState: .Normal)
                 } else {
                     cell.checkChannelButton.setTitle(closeOrSaveText, forState: .Normal)
+                    if closeOrSaveText != closeText {
+                        cell.checkChannelButton.setTitleColor(Theme.Colors.PlayColor.color, forState: UIControlState.Normal)
+                    }
                 }
                 return cell
             } else {
