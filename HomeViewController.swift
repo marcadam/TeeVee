@@ -98,7 +98,7 @@ class HomeViewController: UIViewController {
                 }
             }
         } else {
-            print("Software failure. Guru meditation.")
+            debugPrint("Software failure. Guru meditation.")
         }
     }
     
