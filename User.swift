@@ -9,6 +9,8 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import Crashlytics
+import Mixpanel
 
 var _currentUser: User?
 let currentUserKey = "kCurrentUserKey"
@@ -17,6 +19,7 @@ let userDidLogoutNotification = "userDidLogoutNotification"
 
 class User: NSObject {
     let dictionary: NSDictionary
+    let user_id: String?
     let name: String?
     let imageUrl: String?
     var pushRegistrationToken: String?
@@ -32,6 +35,7 @@ class User: NSObject {
             imageUrl = profileDict["picture"] as? String
         }
         
+        self.user_id = dictionary["_id"] as? String
         self.name = name
         self.imageUrl = imageUrl
         self.pushRegistrationToken = dictionary["push_registration_token"] as? String
@@ -91,6 +95,7 @@ class User: NSObject {
         }
         set(user) {
             _currentUser = user
+            logUser(user)
             
             if _currentUser != nil {
                 do {
@@ -106,4 +111,18 @@ class User: NSObject {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
+    
+    class func logUser(user: User!) {
+        if user == nil {return}
+        
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+        Crashlytics.sharedInstance().setUserIdentifier(user.user_id!)
+        Crashlytics.sharedInstance().setUserName(user.name!)
+        
+        Mixpanel.sharedInstance().identify(user.user_id!)
+        
+        debugPrint("logUser()")
+    }
+
 }

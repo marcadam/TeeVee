@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mixpanel
 
 class PlayerViewController: UIViewController {
     
@@ -50,6 +51,8 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Mixpanel.sharedInstance().track("PlayerViewController.viewDidLoad()", properties: ["channelId": channelId, "channelTitle": channelTitle])
         
         // Do any additional setup after loading the view, typically from a nib.
         playerView.autoresizesSubviews = true
@@ -128,9 +131,19 @@ class PlayerViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        Mixpanel.sharedInstance().timeEvent("PlayerViewController")
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        Mixpanel.sharedInstance().track("PlayerViewController")
+    }
+    
     func rotated() {
         if isPortrait == application.statusBarOrientation.isPortrait {return}
         isPortrait = application.statusBarOrientation.isPortrait
+        
+        Mixpanel.sharedInstance().track("rotated", properties: ["rotated": (isPortrait ? "portrait": "landscape")])
         
         if (application.statusBarOrientation.isPortrait) {
             debugPrint("Portrait")
@@ -199,6 +212,8 @@ class PlayerViewController: UIViewController {
                     playView.center.x = viewCenterX + deltaX
                 }
             } else if sender.state == .Ended {
+                Mixpanel.sharedInstance().track("PlayerViewController.onSwipe()")
+                
                 if swipeAwayLeft || playView.center.x <= 0 {
                     UIView.animateWithDuration(0.1, animations: {
                         playViewOverlay.center.x = -(viewCenterX)
@@ -232,6 +247,9 @@ class PlayerViewController: UIViewController {
     
     func onMediaTap(sender: UITapGestureRecognizer) {
         guard let manager = channelManager else { return }
+        
+        Mixpanel.sharedInstance().track("PlayerViewController.onMediaTap()")
+        
         if isPlay {
             manager.play()
             UIView.animateWithDuration(0.3, animations: {
@@ -256,6 +274,8 @@ class PlayerViewController: UIViewController {
     
     func onTweetTap(sender: UITapGestureRecognizer) {
         guard let manager = channelManager else { return }
+        
+        Mixpanel.sharedInstance().track("PlayerViewController.onTweetTap()")
         
         tweetFeedIndicator.layer.removeAllAnimations()
         
@@ -288,6 +308,8 @@ class PlayerViewController: UIViewController {
     }
     
     @IBAction func onDismiss(sender: AnyObject) {
+        Mixpanel.sharedInstance().track("PlayerViewController.onDismiss()")
+        
         channelManager?.stop()
         dismissViewControllerAnimated(true, completion: nil)
     }

@@ -9,6 +9,7 @@
 import UIKit
 import AFNetworking
 import MBProgressHUD
+import Mixpanel
 
 protocol MyChannelsViewControllerDelegate: class {
     func myChannelsVC(sender: MyChannelsViewController, didEditChannel channel: Channel?)
@@ -45,6 +46,8 @@ class MyChannelsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Mixpanel.sharedInstance().track("MyChannelsViewController.viewDidLoad()")
+        
         // Do any additional setup after loading the view.
         let channelCellNib = UINib(nibName: "ChannelTableViewCell", bundle: NSBundle.mainBundle())
         tableView.registerNib(channelCellNib, forCellReuseIdentifier: channelCellID)
@@ -71,6 +74,9 @@ class MyChannelsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        Mixpanel.sharedInstance().timeEvent("MyChannelsViewController")
+        
         if headerViewHeightIsFullScreen {
             headerViewHeight = tableView.bounds.height
         } else {
@@ -82,6 +88,10 @@ class MyChannelsViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         tableView.editing = false
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        Mixpanel.sharedInstance().track("MyChannelsViewController")
     }
     
     override func didReceiveMemoryWarning() {
@@ -189,6 +199,9 @@ extension MyChannelsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        Mixpanel.sharedInstance().track("MyChannelsViewController.editActionsForRowAtIndexPath()")
+        
         // Play
 //        let playAction = UITableViewRowAction(style: .Normal, title: " Play    ") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
 //            let channel = self.channelsArray[indexPath.row]

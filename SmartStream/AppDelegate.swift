@@ -8,6 +8,9 @@
 
 import UIKit
 import FBSDKCoreKit
+import Fabric
+import Crashlytics
+import Mixpanel
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GCMReceiverDelegate {
@@ -41,7 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
         Theme.applyTheme()
 
         //Fabric.with([Twitter.self])
-
+        Fabric.with([Crashlytics.self])
+        
+        let mixpanel = Mixpanel.sharedInstanceWithToken("f168b59e20299bb584c4149dee9944ed")
+        
         return true
     }
 

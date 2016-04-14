@@ -17,6 +17,7 @@
 		0B597B561C844AD900D4AC57 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B541C844AD900D4AC57 /* Login.storyboard */; };
 		0B597B581C844AD900D4AC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B571C844AD900D4AC57 /* Assets.xcassets */; };
 		0B597B5B1C844AD900D4AC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B597B591C844AD900D4AC57 /* LaunchScreen.storyboard */; };
+		0B82AC991CC0491E0054CDA2 /* LogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82AC981CC0491E0054CDA2 /* LogUtil.swift */; };
 		0B951B1E1C94ED520068C6AF /* CuratedInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B1D1C94ED520068C6AF /* CuratedInfo.swift */; };
 		0B951B201C94ED950068C6AF /* CarouselItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B1F1C94ED950068C6AF /* CarouselItem.swift */; };
 		0B951B221C96ACD10068C6AF /* YoutubePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B951B211C96ACD10068C6AF /* YoutubePlayerView.swift */; };
@@ -101,6 +102,7 @@
 		0B597B571C844AD900D4AC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B597B5A1C844AD900D4AC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B597B5C1C844AD900D4AC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B82AC981CC0491E0054CDA2 /* LogUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogUtil.swift; sourceTree = "<group>"; };
 		0B951B1D1C94ED520068C6AF /* CuratedInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuratedInfo.swift; sourceTree = "<group>"; };
 		0B951B1F1C94ED950068C6AF /* CarouselItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselItem.swift; sourceTree = "<group>"; };
 		0B951B211C96ACD10068C6AF /* YoutubePlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubePlayerView.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				9A68103E1CA0E15A003B0E38 /* Constants.swift */,
 				0B9744C61CAD1DE5006C829E /* StopTimer.swift */,
 				0B9744C81CAFAF2A006C829E /* Queue.swift */,
+				0B82AC981CC0491E0054CDA2 /* LogUtil.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				A2A3A3D01C8AD94A00D1173C /* MyChannelsViewController.swift in Sources */,
 				0B951B201C94ED950068C6AF /* CarouselItem.swift in Sources */,
 				A29BA4991C91235400ED13A5 /* Filters.swift in Sources */,
+				0B82AC991CC0491E0054CDA2 /* LogUtil.swift in Sources */,
 				A2A3A3C61C8ACCAF00D1173C /* LoginViewController.swift in Sources */,
 				492D02741C8B5E37000AAF17 /* ChannelTableViewCell.swift in Sources */,
 				0B40EE751C8BC05C00E6B65E /* ChannelManager.swift in Sources */,

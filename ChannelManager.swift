@@ -9,7 +9,7 @@
 import UIKit
 import SwiftPriorityQueue
 import MBProgressHUD
-
+import Mixpanel
 
 let TwitterEnabledKey = "kTwitterEnabled"
 
@@ -280,6 +280,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             player.pauseItem()
         }
         
+        Mixpanel.sharedInstance().track("ChannelManager.playNextItem()", properties: ["item": (currItem == nil ? "nil": currItem!.native_id!), "source": (currItem == nil ? "NA": currItem!.extractor!)])
         currPlayer?.playItem()
     }
     
@@ -302,6 +303,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     // Reload the Ready queue to make sure there're enough players
     func reloadBufferQueue() {
+        Mixpanel.sharedInstance().track("ChannelManager.reloadBufferQueue()")
+        
         var counter = 0
         while true {
             if readyPlayers.count >= maxNumBufferPlayers || counter >= maxNumBufferPlayers {break}
@@ -353,6 +356,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
             currTweetItem = tweetItem
             tweetPlayerView?.startItem(tweetItem!)
             
+            Mixpanel.sharedInstance().track("ChannelManager.playNextTweet()", properties: ["item": (currTweetItem == nil ? "nil": currTweetItem!.native_id!)])
+            
             if queueWrapper.queue!.count < maxItemsBeforeFetch {
                 fetchMoreTweetsItems(nil)
             }
@@ -374,6 +379,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     
     func playTweet() {
+        Mixpanel.sharedInstance().track("ChannelManager.playTweet()")
+        
         tweetPlayerView?.playItem()
         
         if tweetsPriorityQueues != nil {
@@ -405,22 +412,25 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func pauseTweet() {
+        Mixpanel.sharedInstance().track("ChannelManager.pauseTweet()")
         debugPrint("[MANAGER] Twitter disabled")
         tweetPlayerView?.pauseItem()
     }
     
     func play() {
+        Mixpanel.sharedInstance().track("ChannelManager.play()", properties: ["currItem": (currItem == nil ? "nil": currItem!.native_id!), "source": (currItem == nil ? "NA": currItem!.extractor!)])
         currPlayer?.playItem()
         playbackPaused = false
     }
     
     func pause() {
+        Mixpanel.sharedInstance().track("ChannelManager.pause()", properties: ["currItem": (currItem == nil ? "nil": currItem!.native_id!), "source": (currItem == nil ? "NA": currItem!.extractor!)])
         currPlayer?.pauseItem()
         playbackPaused = true
     }
     
     func stop() {
-        if currPlayer == nil {return}
+        Mixpanel.sharedInstance().track("ChannelManager.stop()", properties: ["currItem": (currItem == nil ? "nil": currItem!.native_id!), "source": (currItem == nil ? "NA": currItem!.extractor!)])
         
         currPlayer?.stopItem()
         tweetPlayerView?.stopItem()
@@ -430,6 +440,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func next() {
+        Mixpanel.sharedInstance().track("ChannelManager.next()", properties: ["currItem": (currItem == nil ? "nil": currItem!.native_id!), "source": (currItem == nil ? "NA": currItem!.extractor!)])
+        
         showSpinner(0)
         
         isPlaying = false
@@ -491,6 +503,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     func fetchMoreItems(autoplay: Bool) {
         debugPrint("[MANAGER] fetchMoreItems()")
+        Mixpanel.sharedInstance().track("ChannelManager.fetchMoreItems()")
+        
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             [weak self] in
@@ -513,6 +527,8 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     }
     
     func fetchMoreTweetsItems(completion: ((error: NSError?) -> ())?) {
+        Mixpanel.sharedInstance().track("ChannelManager.fetchMoreTweetsItems()")
+        
         if completion != nil {
             pendingRequests.append(completion!)
         }

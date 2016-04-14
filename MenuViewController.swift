@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import Mixpanel
 
 protocol MenuViewControllerDelegate: class {
     func menuView(menuView: MenuViewController, didTapLogout isTapped: Bool)
@@ -25,6 +26,8 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Mixpanel.sharedInstance().track("MenuViewController.viewDidLoad()")
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -51,6 +54,14 @@ class MenuViewController: UIViewController {
         logoutButton.titleLabel?.font = Theme.Fonts.BoldNormalTypeFace.font
         logoutButton.tintColor = UIColor.whiteColor()
         logoutButton.titleLabel?.textColor = Theme.Colors.HighlightColor.color
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        Mixpanel.sharedInstance().timeEvent("MenuViewController")
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        Mixpanel.sharedInstance().track("MenuViewController")
     }
     
     override func didReceiveMemoryWarning() {
@@ -84,6 +95,8 @@ extension MenuViewController: UITableViewDataSource {
         }
     }
     @IBAction func onLogoutTapped(sender: UIButton) {
+        Mixpanel.sharedInstance().track("MenuViewController.onLogoutTapped()")
+        
         delegate?.menuView(self, didTapLogout: true)
     }
 }

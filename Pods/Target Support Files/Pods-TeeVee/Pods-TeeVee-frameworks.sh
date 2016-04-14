@@ -92,6 +92,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$CONFIGURATION_BUILD_DIR/FBSDKShareKit/FBSDKShareKit.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/FXBlurView/FXBlurView.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/MBProgressHUD/MBProgressHUD.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/Mixpanel/Mixpanel.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/SwiftPriorityQueue/SwiftPriorityQueue.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/youtube-ios-player-helper/youtube_ios_player_helper.framework"
 fi
@@ -104,6 +105,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$CONFIGURATION_BUILD_DIR/FBSDKShareKit/FBSDKShareKit.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/FXBlurView/FXBlurView.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/MBProgressHUD/MBProgressHUD.framework"
+  install_framework "$CONFIGURATION_BUILD_DIR/Mixpanel/Mixpanel.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/SwiftPriorityQueue/SwiftPriorityQueue.framework"
   install_framework "$CONFIGURATION_BUILD_DIR/youtube-ios-player-helper/youtube_ios_player_helper.framework"
 fi

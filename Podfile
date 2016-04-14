@@ -10,6 +10,7 @@ target 'TeeVee' do
     pod 'FXBlurView'
     pod 'SwiftPriorityQueue'
     pod 'Fabric'
+    pod 'Crashlytics'
     pod 'youtube-ios-player-helper', :git=>'https://github.com/youtube/youtube-ios-player-helper', :commit=>'head'
     pod 'MBProgressHUD'
     pod 'Bolts'
@@ -17,5 +18,6 @@ target 'TeeVee' do
     pod 'FBSDKShareKit'
     pod 'FBSDKLoginKit'
     pod 'Google/CloudMessaging'
+    pod 'Mixpanel'
 end
 

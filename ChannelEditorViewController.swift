@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import Mixpanel
 
 protocol ChannelEditorDelegate: class {
     func channelEditor(channelEditor: ChannelEditorViewController, didSetChannel channel: Channel, completion: () -> ())
@@ -61,12 +62,14 @@ class ChannelEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Mixpanel.sharedInstance().track("ChannelEditorViewController.viewDidLoad()")
+        
         // Do any additional setup after loading the view.
         uiSetup()
         setDefaults()
         setupNavigationBar()
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         keyboardTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: #selector(showFirstResponder), userInfo: nil, repeats: false)
     }
@@ -80,6 +83,14 @@ class ChannelEditorViewController: UIViewController {
         if let kTimer = keyboardTimer {
             kTimer.invalidate()
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        Mixpanel.sharedInstance().timeEvent("ChannelEditorViewController")
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        Mixpanel.sharedInstance().track("ChannelEditorViewController")
     }
     
     func uiSetup() {
@@ -212,11 +223,13 @@ class ChannelEditorViewController: UIViewController {
     }
     
     func onSaveTapped(sender: UIButton) {
+        Mixpanel.sharedInstance().track("ChannelEditorViewController.onSaveTapped()")
         onSave()
         buttonAction(false)
     }
     
     func onSaveAndPlayTapped(sender: AnyObject) {
+        Mixpanel.sharedInstance().track("ChannelEditorViewController.onSaveAndPlayTapped()")
         onSave()
         buttonAction(true)
     }
@@ -413,6 +426,8 @@ extension ChannelEditorViewController {
     }
     
     func cancelTapped() {
+        Mixpanel.sharedInstance().track("ChannelEditorViewController.cancelTapped()")
+        
         dismissViewControllerAnimated(true) { () -> Void in
             //
         }

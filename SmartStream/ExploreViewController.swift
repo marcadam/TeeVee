@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import Mixpanel
 
 let RotateFeaturedChannelNotificatonKey = "com.teevee.RotateFeaturedChannelNotificaton"
 
@@ -37,6 +38,8 @@ class ExploreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Mixpanel.sharedInstance().track("ExploreViewController.viewDidLoad()")
         
         // Do any additional setup after loading the view.
         refreshControl = UIRefreshControl()
@@ -70,6 +73,8 @@ class ExploreViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
+        Mixpanel.sharedInstance().timeEvent("ExploreViewController")
+        
         if isFirst && channels == nil {
             self.isFirst = !self.isFirst
             MBProgressHUD.showHUDAddedTo(view, animated: true)
@@ -82,6 +87,10 @@ class ExploreViewController: UIViewController {
         if let featuredChannelTimer = featuredChannelTimer {
             featuredChannelTimer.invalidate()
         }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        Mixpanel.sharedInstance().track("ExploreViewController")
     }
 
     func rotateFeaturedChannelView() {
