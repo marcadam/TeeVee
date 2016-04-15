@@ -56,7 +56,6 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     private var currProgress: Double = Double.NaN
     private var currTotalDuration: Double = Double.NaN
-    private var trackingVideo = ""
     
     weak var delegate: ChannelManagerDelegate?
     
@@ -219,8 +218,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                     playNextTweet(currItem)
                     
                     if currItem != nil {
-                        trackingVideo = currItem!.extractor! + "_" + currItem!.native_id!
-                        Mixpanel.sharedInstance().timeEvent(trackingVideo)
+                        Mixpanel.sharedInstance().timeEvent("ChannelManager.percentageWatched")
                     }
                 }
             } else if status == .Error {
@@ -273,8 +271,14 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         reloadQueues()
         if readyPlayers.isEmpty {return}
         
-        if !trackingVideo.isEmpty {
-            Mixpanel.sharedInstance().track(trackingVideo)
+        if currItem != nil {
+            var percentage: Double = Double.NaN
+            if currProgress != Double.NaN && currTotalDuration != Double.NaN && currTotalDuration != 0.0 {
+                percentage = currProgress / currTotalDuration
+            }
+            let percentageStr = (percentage == Double.NaN ? "NA" : String(format: "%.2f", percentage))
+            
+            Mixpanel.sharedInstance().track("ChannelManager.percentageWatched", properties: ["item": currItem!.native_id!, "source": currItem!.extractor!, "percentageWatched": percentageStr])
         }
         currPlayer?.pauseItem()
         currPlayer = readyPlayers.removeFirst()
