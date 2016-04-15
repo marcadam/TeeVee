@@ -39,7 +39,7 @@ class PlayerViewController: UIViewController {
     private var latestTimer: NSTimer?
     private var isPortrait = true
     private var isPlay = false
-    private var isTweetPlay = false
+    private var isTweetPlay = true
     
     private var startGesturePoint: CGPoint?
     private var showingViews: [UIView]?
@@ -68,8 +68,26 @@ class PlayerViewController: UIViewController {
         tweetFeedIndicator.layer.cornerRadius = tweetFeedIndicator.bounds.height/2
         tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
         
-        let buttonTweetTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTweetTap))
-        tweetFeedIndicator.addGestureRecognizer(buttonTweetTapGestureRecognizer)
+        let buttonTweetSingleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTweetTap))
+        let tweetTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTweetTap))
+        
+        let buttonTweetDoubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTweetDoubleTap))
+        let tweetDoubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTweetDoubleTap))
+        
+        buttonTweetSingleTapGestureRecognizer.requireGestureRecognizerToFail(buttonTweetDoubleTapGestureRecognizer)
+        tweetTapGestureRecognizer.requireGestureRecognizerToFail(tweetDoubleTapGestureRecognizer)
+        
+        buttonTweetSingleTapGestureRecognizer.numberOfTapsRequired = 1
+        tweetTapGestureRecognizer.numberOfTapsRequired = 1
+        
+        buttonTweetDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+        tweetDoubleTapGestureRecognizer.numberOfTapsRequired = 2
+        
+        tweetFeedIndicator.addGestureRecognizer(buttonTweetSingleTapGestureRecognizer)
+        gradientView.addGestureRecognizer(tweetTapGestureRecognizer)
+        
+        tweetFeedIndicator.addGestureRecognizer(buttonTweetDoubleTapGestureRecognizer)
+        gradientView.addGestureRecognizer(tweetDoubleTapGestureRecognizer)
         
         view.backgroundColor = backgroundColor
         channelTitleLabel.text = channelTitle
@@ -86,9 +104,6 @@ class PlayerViewController: UIViewController {
         
         let mediaTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onMediaTap))
         mediaOverlayView.addGestureRecognizer(mediaTapGestureRecognizer)
-        
-        let tweetTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTweetTap))
-        gradientView.addGestureRecognizer(tweetTapGestureRecognizer)
         
         isPortrait = application.statusBarOrientation.isPortrait
         
@@ -278,8 +293,18 @@ class PlayerViewController: UIViewController {
         Mixpanel.sharedInstance().track("PlayerViewController.onTweetTap()")
         
         tweetFeedIndicator.layer.removeAllAnimations()
-        
         if isTweetPlay {
+            tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
+            manager.pauseTweet()
+            UIView.animateWithDuration(0.1, animations: {
+                self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.01, 1)
+                }, completion: { (finished) in
+                    self.tweetFeedIndicator.backgroundColor = Theme.Colors.DeleteColor.color
+                    UIView.animateWithDuration(0.1, animations: {
+                        self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(1, 1)
+                    })
+            })
+        } else {
             tweetFeedIndicator.backgroundColor = Theme.Colors.DeleteColor.color
             manager.playTweet()
             UIView.animateWithDuration(0.1, animations: {
@@ -292,19 +317,22 @@ class PlayerViewController: UIViewController {
                         self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(1, 1)
                     })
             })
-        } else {
-            tweetFeedIndicator.backgroundColor = Theme.Colors.PlayColor.color
-            manager.pauseTweet()
-            UIView.animateWithDuration(0.1, animations: {
-                self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(0.01, 1)
-                }, completion: { (finished) in
-                    self.tweetFeedIndicator.backgroundColor = Theme.Colors.DeleteColor.color
-                    UIView.animateWithDuration(0.1, animations: {
-                        self.tweetFeedIndicator.transform = CGAffineTransformMakeScale(1, 1)
-                    })
-            })
         }
         isTweetPlay = !isTweetPlay
+    }
+    
+    func onTweetDoubleTap(sender: UITapGestureRecognizer) {
+        guard let manager = channelManager else { return }
+        
+        Mixpanel.sharedInstance().track("PlayerViewController.onTweetDoubleTap()")
+        
+        if isTweetPlay {
+            manager.pauseTweet()
+            manager.playTweet()
+        } else {
+            manager.playTweet()
+            manager.pauseTweet()
+        }
     }
     
     @IBAction func onDismiss(sender: AnyObject) {
