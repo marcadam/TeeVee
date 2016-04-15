@@ -31,9 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
+        let mixpanel = Mixpanel.sharedInstanceWithToken("f168b59e20299bb584c4149dee9944ed")
+        
         var configureError:NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        if configureError != nil {
+            Mixpanel.sharedInstance().track("GCMConfigureError", properties: ["configureError": configureError!.localizedDescription])
+        }
         
         gcmSenderID = GGLContext.sharedInstance().configuration.gcmSenderID
         
@@ -45,8 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GGLInstanceIDDelegate, GC
 
         //Fabric.with([Twitter.self])
         Fabric.with([Crashlytics.self])
-        
-        let mixpanel = Mixpanel.sharedInstanceWithToken("f168b59e20299bb584c4149dee9944ed")
         
         return true
     }
