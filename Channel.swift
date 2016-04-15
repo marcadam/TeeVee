@@ -71,7 +71,7 @@ class Channel: NSObject {
         var item = ItemInProgress(item: nil, seconds: Float.NaN)
         
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let keyExists = userDefaults.objectForKey("\(self.channel_id!)_inprogress_seconds") {
+        if userDefaults.objectForKey("\(self.channel_id!)_inprogress_seconds") != nil {
             item.seconds = userDefaults.floatForKey("\(self.channel_id!)_inprogress_seconds")
         }
         

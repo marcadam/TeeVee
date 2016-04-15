@@ -59,8 +59,7 @@ class HomeViewController: UIViewController {
         overlayLayer = UIView(frame: CGRectMake(0, 0, 50, view.frame.height))
         overlayLayer.addGestureRecognizer(tapGestureRecognizer)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showReceivedMessage:",
-                                                         name: PushMessageReceivedKey, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.showReceivedMessage(_:)), name: PushMessageReceivedKey, object: nil)
     }
 
     override func didReceiveMemoryWarning() {

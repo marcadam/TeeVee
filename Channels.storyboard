@@ -26,7 +26,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="jGk-nV-vlz" firstAttribute="top" secondItem="cQT-jQ-C6W" secondAttribute="bottom" id="JUr-ee-Nu6"/>
                             <constraint firstItem="BO9-YE-Xao" firstAttribute="leading" secondItem="nvm-Re-IEP" secondAttribute="leading" id="QAv-KH-2h8"/>
