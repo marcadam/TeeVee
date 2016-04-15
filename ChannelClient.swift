@@ -45,6 +45,7 @@ class ChannelClient {
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 let pushRegistrationToken = appDelegate.registrationToken
                 
+                debugPrint("push token: \(pushRegistrationToken)")
                 if !(pushRegistrationToken ?? "").isEmpty && user.pushRegistrationToken != pushRegistrationToken {
                     ChannelClient.sharedInstance.updatePushRegistrationToken(pushRegistrationToken!, completion: { (error) in
                         if error == nil {

@@ -56,6 +56,7 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
     
     private var currProgress: Double = Double.NaN
     private var currTotalDuration: Double = Double.NaN
+    private var trackingVideo = ""
     
     weak var delegate: ChannelManagerDelegate?
     
@@ -216,6 +217,11 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                     }
                     removeSpinner()
                     playNextTweet(currItem)
+                    
+                    if currItem != nil {
+                        trackingVideo = currItem!.extractor! + "_" + currItem!.native_id!
+                        Mixpanel.sharedInstance().timeEvent(trackingVideo)
+                    }
                 }
             } else if status == .Error {
                 let currPlayerId = (currPlayer == nil) ? "nil": currPlayer!.getPlayerId()
@@ -267,6 +273,9 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
         reloadQueues()
         if readyPlayers.isEmpty {return}
         
+        if !trackingVideo.isEmpty {
+            Mixpanel.sharedInstance().track(trackingVideo)
+        }
         currPlayer?.pauseItem()
         currPlayer = readyPlayers.removeFirst()
         currItem = (currPlayer == nil) ? nil: currPlayer?.getItem()
