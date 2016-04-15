@@ -277,8 +277,10 @@ class ChannelManager: NSObject, SmartuPlayerDelegate {
                 percentage = currProgress / currTotalDuration
             }
             let percentageStr = (percentage == Double.NaN ? "NA" : String(format: "%.2f", percentage))
+            let progressStr = (currProgress == Double.NaN ? "NA" : String(format: "%.2f", currProgress))
+            let totalDurationStr = (currTotalDuration == Double.NaN ? "NA" : String(format: "%.2f", currTotalDuration))
             
-            Mixpanel.sharedInstance().track("ChannelManager.percentageWatched", properties: ["item": currItem!.native_id!, "source": currItem!.extractor!, "percentageWatched": percentageStr])
+            Mixpanel.sharedInstance().track("ChannelManager.percentageWatched", properties: ["item": currItem!.native_id!, "source": currItem!.extractor!, "percentageWatched": percentageStr, "watched": progressStr, "duration": totalDurationStr])
         }
         currPlayer?.pauseItem()
         currPlayer = readyPlayers.removeFirst()
